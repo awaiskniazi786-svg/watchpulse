@@ -2,7 +2,7 @@
 
 > Discover where to stream any movie legally across Netflix, Amazon Prime Video, Disney+, Apple TV+, and Max. Watch official 4K trailers, check IMDb ratings, and track your personal watchlist without subscription paywalls.
 
-[![Live Demo](https://img.shields.io/badge/Live%20Website-watchpulse--movies.netlify.app-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)](https://watchpulse-movies.netlify.app/)
+[![Live Demo](https://img.shields.io/badge/Live%20Website-watchpulse.online-00C7B7?style=for-the-badge&logo=googlechrome&logoColor=white)](https://watchpulse.online/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 [![Powered by TMDB](https://img.shields.io/badge/API-TMDB%20v3-01b4e4?style=for-the-badge&logo=themoviedatabase&logoColor=white)](https://www.themoviedb.org/)
 
@@ -10,7 +10,7 @@
 
 ## 🌐 Official Live Platform
 Visit the live web application:  
-👉 **[https://watchpulse-movies.netlify.app](https://watchpulse-movies.netlify.app/)**
+👉 **[https://watchpulse.online](https://watchpulse.online/)**
 
 ---
 
@@ -71,5 +71,5 @@ Visit the live web application:
 
 Designed and developed with passion by **Awais K** (Muhammad Awais).
 - Email: [awaiskniazi786@gmail.com](mailto:awaiskniazi786@gmail.com)
-- Live App: [WatchPulse](https://watchpulse-movies.netlify.app/)
+- Live App: [WatchPulse](https://watchpulse.online/)
 

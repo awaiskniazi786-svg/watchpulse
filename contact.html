@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Google Consent Mode v2 Defaults (Runs before Google tags load) -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    (function () {
+      var saved = null;
+      try { saved = localStorage.getItem('wp_cookie_consent'); } catch (_) {}
+      var state = saved === 'accepted' ? 'granted' : 'denied';
+      gtag('consent', 'default', {
+        ad_storage: state,
+        ad_user_data: state,
+        ad_personalization: state,
+        analytics_storage: state,
+        functionality_storage: 'granted',
+        security_storage: 'granted',
+        wait_for_update: 500
+      });
+    })();
+    gtag('js', new Date());
+  </script>
+  <!-- Google Tag Manager / Analytics -->
+  <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-PTPLM5VB"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us &amp; Report Data Issues â€” WatchPulse</title>
+  <meta name="description"
+    content="Contact WatchPulse creator Awais K for feedback, incorrect streaming availability reports, or partnership inquiries.">
+  <link rel="canonical" href="https://watchpulse.online/contact.html">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png">
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5022914500809430"
+    crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <!-- Header / Nav -->
+  <header class="app-header">
+    <div class="header-container">
+      <a href="/" class="logo">
+        <span class="logo-icon">âš¡</span>
+        <span class="logo-text">Watch<span class="highlight">Pulse</span></span>
+      </a>
+      <div class="nav-actions">
+        <a href="/guides.html" class="btn secondary-btn">ðŸ“š Editorial Guides</a>
+        <a href="/" class="btn secondary-btn">â† Back to Discovery</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Contact Content Container -->
+  <main class="page-container">
+    <article class="content-card legal-card">
+      <span class="pill-badge">Support &amp; Data Verification</span>
+      <h1>Contact WatchPulse</h1>
+      <p class="last-updated">We review all inquiries and data reports within 24â€“48 hours</p>
+
+      <section class="legal-section">
+        <h2>We Would Love to Hear From You</h2>
+        <p>Whether you want to report an outdated streaming availability listing for your country, suggest a new editorial guide, or inquire about partnerships, reach out to creator <strong>Awais K</strong> below.</p>
+
+        <div class="contact-cards-grid">
+          <div class="contact-box">
+            <h3>ðŸ“§ Direct Email</h3>
+            <p>For general support, availability reports, and correspondence:</p>
+            <p><a href="mailto:awaiskniazi786@gmail.com" class="highlight-link">awaiskniazi786@gmail.com</a></p>
+          </div>
+          <div class="contact-box">
+            <h3>âš¡ Creator & Lead Developer</h3>
+            <p><strong>Awais K</strong></p>
+            <p>Independent Web Application Engineer & Designer</p>
+          </div>
+          <div class="contact-box">
+            <h3>âš–ï¸ DMCA & Content Requests</h3>
+            <p>If you represent a copyright holder or content partner, please include full details in your email for rapid resolution.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="legal-section">
+        <h2>Quick Message Form</h2>
+        <form id="contactForm" class="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="contact">
+          <p class="hidden">
+            <label>Don't fill this out: <input name="bot-field"></label>
+          </p>
+          <div class="form-group">
+            <label for="contactName">Your Name</label>
+            <input type="text" id="contactName" name="name" required placeholder="Enter your name">
+          </div>
+          <div class="form-group">
+            <label for="contactEmail">Email Address</label>
+            <input type="email" id="contactEmail" name="email" required placeholder="name@example.com">
+          </div>
+          <div class="form-group">
+            <label for="contactSubject">Subject</label>
+            <select id="contactSubject" name="subject">
+              <option value="feedback">General Feedback</option>
+              <option value="advertising">Advertising & Partnerships</option>
+              <option value="feature">Feature Suggestion</option>
+              <option value="bug">Report an Issue</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="contactMessage">Message</label>
+            <textarea id="contactMessage" name="message" rows="5" required placeholder="Type your message here..."></textarea>
+          </div>
+          <button type="submit" id="contactSubmitBtn" class="btn primary-btn" style="width: 100%;">Send Message</button>
+          <div id="formSuccess" class="notification-banner success-banner hidden" style="margin-top: 1rem;">
+            Thank you! Your message has been received. We will respond to your email shortly.
+          </div>
+          <div id="formError" class="notification-banner hidden" style="margin-top: 1rem; border-color: rgba(248, 113, 113, 0.4); color: #fca5a5;">
+            Unable to send message right now. Please email us directly at awaiskniazi786@gmail.com.
+          </div>
+        </form>
+        <script>
+          (function () {
+            const form = document.getElementById('contactForm');
+            const submitBtn = document.getElementById('contactSubmitBtn');
+            const successEl = document.getElementById('formSuccess');
+            const errorEl = document.getElementById('formError');
+            const subjectEl = document.getElementById('contactSubject');
+            const messageEl = document.getElementById('contactMessage');
+
+            // Pre-fill support for "Report Incorrect Availability" links (?subject=bug&title=...&region=...)
+            const params = new URLSearchParams(window.location.search);
+            const paramSubject = params.get('subject');
+            const paramTitle = params.get('title');
+            const paramRegion = params.get('region');
+            if (paramSubject && subjectEl) {
+              subjectEl.value = paramSubject;
+            }
+            if (paramTitle && messageEl) {
+              const regionNote = paramRegion ? ` in region ${paramRegion}` : '';
+              messageEl.value = `Availability Report for "${paramTitle}"${regionNote}:\n- Listed provider that is outdated or missing:\n- Correct streaming service (if known): `;
+            }
+
+            form.addEventListener('submit', async (e) => {
+              e.preventDefault();
+              successEl.classList.add('hidden');
+              errorEl.classList.add('hidden');
+              submitBtn.disabled = true;
+              submitBtn.textContent = 'Sending...';
+
+              try {
+                const body = new URLSearchParams(new FormData(form)).toString();
+                const res = await fetch('/contact.html', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                  body
+                });
+                if (!res.ok) throw new Error('Submission failed');
+                successEl.classList.remove('hidden');
+                form.reset();
+              } catch (err) {
+                errorEl.classList.remove('hidden');
+              } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Send Message';
+              }
+            });
+          })();
+        </script>
+      </section>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <span class="brand-name">âš¡ Watch<span class="highlight">Pulse</span></span>
+        <p class="owner-credit">Proudly Designed &amp; Created by <strong>Awais K</strong> &copy; 2026 WatchPulse. All rights reserved.</p>
+      </div>
+      <div class="footer-links">
+        <a href="/guides.html" class="footer-link">Editorial Guides</a>
+        <span class="footer-dot">â€¢</span>
+        <a href="/privacy.html" class="footer-link">Privacy Policy</a>
+        <span class="footer-dot">â€¢</span>
+        <a href="/terms.html" class="footer-link">Terms of Service</a>
+        <span class="footer-dot">â€¢</span>
+        <a href="/about.html" class="footer-link">About Us</a>
+        <span class="footer-dot">â€¢</span>
+        <a href="/contact.html" class="footer-link">Contact</a>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>
+

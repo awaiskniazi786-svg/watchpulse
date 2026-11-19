@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Google Consent Mode v2 Defaults (Runs before Google tags load) -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    (function () {
+      var saved = null;
+      try { saved = localStorage.getItem('wp_cookie_consent'); } catch (_) {}
+      var state = saved === 'accepted' ? 'granted' : 'denied';
+      gtag('consent', 'default', {
+        ad_storage: state,
+        ad_user_data: state,
+        ad_personalization: state,
+        analytics_storage: state,
+        functionality_storage: 'granted',
+        security_storage: 'granted',
+        wait_for_update: 500
+      });
+    })();
+    gtag('js', new Date());
+  </script>
+  <!-- Google Tag Manager / Analytics -->
+  <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-PTPLM5VB"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WatchPulse â€” Where to Stream Any Movie &amp; TV Series Legally</title>
+  <meta name="description"
+    content="Discover where to stream movies and TV series legally across Netflix, Prime Video, Disney+, Apple TV+, Max, and free services by country. Read original editorial guides and watch official trailers on WatchPulse.online.">
+  <meta name="author" content="Awais K">
+  <link rel="canonical" id="canonicalLink" href="https://watchpulse.online/">
+
+  <!-- Official Favicons for Google Search & Browsers -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+
+  <!-- Open Graph / Facebook / WhatsApp -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://watchpulse.online/">
+  <meta property="og:title" content="WatchPulse â€” Discover Where to Stream Any Movie &amp; Show">
+  <meta property="og:description"
+    content="Find where any movie or TV series is streaming legally in your country, watch official trailers, read curated guides, and track your watchlist.">
+  <meta property="og:image" content="https://watchpulse.online/preview.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:type" content="image/jpeg">
+
+  <!-- Twitter / X -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://watchpulse.online/">
+  <meta property="twitter:title" content="WatchPulse.online â€” Independent Streaming Guide">
+  <meta property="twitter:description"
+    content="Check legal regional streaming providers, read editorial reviews, and watch official trailers on WatchPulse.online.">
+  <meta property="twitter:image" content="https://watchpulse.online/preview.jpg">
+
+  <!-- Google Structured Data (JSON-LD Schema) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://watchpulse.online/#organization",
+        "name": "WatchPulse",
+        "alternateName": ["WatchPulse.online", "WatchPulse Online"],
+        "url": "https://watchpulse.online/",
+        "logo": "https://watchpulse.online/favicon.png",
+        "founder": {
+          "@type": "Person",
+          "name": "Awais K",
+          "url": "https://www.linkedin.com/in/awais-khan-niazi"
+        },
+        "sameAs": [
+          "https://github.com/awaiskniazi786-svg/watchpulse",
+          "https://www.linkedin.com/in/awais-khan-niazi"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://watchpulse.online/#website",
+        "name": "WatchPulse",
+        "alternateName": "WatchPulse.online",
+        "url": "https://watchpulse.online/",
+        "publisher": { "@id": "https://watchpulse.online/#organization" },
+        "description": "Independent legal movie and TV streaming discovery guide and editorial resource.",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://watchpulse.online/?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5022914500809430"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+  <!-- Header / Navigation -->
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="brand" id="brandLogo">
+        <img src="/favicon.svg" alt="WatchPulse Logo" class="brand-logo-img">
+        <span class="brand-name">Watch<span class="highlight">Pulse</span></span>
+      </div>
+
+      <div class="search-bar-wrap">
+        <span class="search-icon">ðŸ”</span>
+        <input type="text" id="searchInput" aria-label="Search movies and TV series" placeholder="Search movies, TV series, genres..." autocomplete="off">
+        <button id="voiceSearchBtn" class="voice-btn" title="Search with your voice (Microphone)">ðŸŽ™ï¸</button>
+        <button id="clearSearchBtn" class="clear-btn hidden" aria-label="Clear search">&times;</button>
+
+        <!-- Live Autocomplete & Trending Quick-Picks Dropdown -->
+        <div id="searchDropdown" class="search-dropdown hidden"></div>
+      </div>
+
+      <div class="nav-actions">
+        <a href="/guides.html" class="nav-btn secondary-btn" title="Read original streaming guides and reviews">
+          <span class="icon">ðŸ“š</span>
+          <span class="btn-text">Guides</span>
+        </a>
+        <button id="quizNavBtn" class="nav-btn secondary-btn" title="Take the 30-second mood &amp; runtime finder quiz">
+          <span class="icon">ðŸŽ¯</span>
+          <span class="btn-text">Finder Quiz</span>
+        </button>
+        <button id="surpriseNavBtn" class="nav-btn secondary-btn" title="Pick a random trending title">
+          <span class="icon">ðŸŽ²</span>
+          <span class="btn-text">Surprise Me</span>
+        </button>
+        <button id="watchlistNavBtn" class="nav-btn">
+          <span class="icon">ðŸ”–</span>
+          <span>Watchlist</span>
+          <span id="watchlistCount" class="badge">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main App Content -->
+  <main class="main-content">
+    <!-- Hero Spotlight Section -->
+    <section id="heroSection" class="hero-section">
+      <div class="hero-backdrop" id="heroBackdrop" style="background-image: url('https://image.tmdb.org/t/p/w1280/xOMo8BRK7PfcJv9JCnx7s520DRq.jpg');"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="hero-badge">â­ #1 TRENDING SPOTLIGHT</div>
+        <h1 id="heroTitle" class="hero-title">Dune: Part Two</h1>
+        <div class="hero-meta">
+          <span id="heroRating" class="rating-pill">â­ 8.3</span>
+          <span id="heroYear">2024</span>
+          <span id="heroGenre" class="genre-pill">Sci-Fi / Adventure</span>
+          <span id="heroDuration">2h 46m</span>
+        </div>
+        <p id="heroOverview" class="hero-overview">Follow the mythic journey of Paul Atreides as he unites with Chani and the Fremen while on a path of revenge against the conspirators who destroyed his family.</p>
+        <div class="hero-actions">
+          <button id="heroTrailerBtn" class="btn primary-btn">
+            <span class="btn-icon">â–¶</span> Watch Trailer
+          </button>
+          <button id="heroDetailsBtn" class="btn secondary-btn">
+            â„¹ï¸ Full Details
+          </button>
+          <button id="heroWatchlistBtn" class="btn ghost-btn">
+            ðŸ”– Add to Watchlist
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Global Discovery Toolbar: Movies/TV Toggle, Country Selector & Original Language Filter -->
+    <section class="discovery-toolbar" aria-label="Catalog Region, Format and Language Controls">
+      <div class="media-type-toggle" id="mediaTypeToggle" role="tablist" aria-label="Content format">
+        <button type="button" class="media-type-btn active" data-type="movie">ðŸŽ¬ Movies</button>
+        <button type="button" class="media-type-btn" data-type="tv">ðŸ“º TV Series</button>
+      </div>
+
+      <div class="region-language-controls">
+        <label class="control-select-group" for="regionSelect" title="Streaming availability varies by country">
+          <span>ðŸŒ Region:</span>
+          <select id="regionSelect" aria-label="Select Streaming Country">
+            <option value="US">ðŸ‡ºðŸ‡¸ United States (US)</option>
+            <option value="GB">ðŸ‡¬ðŸ‡§ United Kingdom (GB)</option>
+            <option value="PK">ðŸ‡µðŸ‡° Pakistan (PK)</option>
+            <option value="CA">ðŸ‡¨ðŸ‡¦ Canada (CA)</option>
+            <option value="DE">ðŸ‡©ðŸ‡ª Germany (DE)</option>
+            <option value="IN">ðŸ‡®ðŸ‡³ India (IN)</option>
+            <option value="AU">ðŸ‡¦ðŸ‡º Australia (AU)</option>
+            <option value="AE">ðŸ‡¦ðŸ‡ª UAE (AE)</option>
+            <option value="FR">ðŸ‡«ðŸ‡· France (FR)</option>
+            <option value="ES">ðŸ‡ªðŸ‡¸ Spain (ES)</option>
+            <option value="JP">ðŸ‡¯ðŸ‡µ Japan (JP)</option>
+            <option value="KR">ðŸ‡°ðŸ‡· South Korea (KR)</option>
+            <option value="BR">ðŸ‡§ðŸ‡· Brazil (BR)</option>
+          </select>
+        </label>
+
+        <label class="control-select-group" for="languageSelect" title="Filter by original production language">
+          <span>ðŸ—£ï¸ Language:</span>
+          <select id="languageSelect" aria-label="Filter by Original Language">
+            <option value="all">All Languages</option>
+            <option value="en">English</option>
+            <option value="ko">Korean (K-Drama &amp; Film)</option>
+            <option value="hi">Hindi (Bollywood)</option>
+            <option value="ja">Japanese (Anime &amp; Film)</option>
+            <option value="es">Spanish</option>
+            <option value="fr">French</option>
+            <option value="ur">Urdu (Pakistani)</option>
+            <option value="tr">Turkish</option>
+            <option value="ar">Arabic</option>
+          </select>
+        </label>
+      </div>
+    </section>
+
+    <!-- Streaming Providers Filter Bar -->
+    <section class="providers-filter-section">
+      <div class="providers-filter-container" id="providerChips">
+        <span class="providers-filter-label">Stream On:</span>
+        <button class="provider-chip active" data-provider="all">âœ¨ All Services</button>
+        <button class="provider-chip p-netflix" data-provider="8">
+          <span class="p-dot netflix-dot"></span> Netflix
+        </button>
+        <button class="provider-chip p-prime" data-provider="9">
+          <span class="p-dot prime-dot"></span> Prime Video
+        </button>
+        <button class="provider-chip p-disney" data-provider="337">
+          <span class="p-dot disney-dot"></span> Disney+
+        </button>
+        <button class="provider-chip p-apple" data-provider="350">
+          <span class="p-dot apple-dot"></span> Apple TV+
+        </button>
+        <button class="provider-chip p-max" data-provider="1899">
+          <span class="p-dot max-dot"></span> Max
+        </button>
+      </div>
+    </section>
+
+    <!-- Genre & Filter Chips -->
+    <section class="filters-section">
+      <div class="chips-container" id="genreChips">
+        <button class="chip active" data-genre="all">ðŸ”¥ All Trending</button>
+        <button class="chip" data-genre="28">ðŸ’¥ Action</button>
+        <button class="chip" data-genre="878">ðŸš€ Sci-Fi</button>
+        <button class="chip" data-genre="18">ðŸŽ­ Drama</button>
+        <button class="chip" data-genre="35">ðŸ˜‚ Comedy</button>
+        <button class="chip" data-genre="27">ðŸ‘» Horror</button>
+        <button class="chip" data-genre="53">âš¡ Thriller</button>
+        <button class="chip" data-genre="16">ðŸŽ¨ Animation</button>
+      </div>
+    </section>
+
+    <!-- Movies Grid Section -->
+    <section class="movies-grid-section">
+      <div class="section-header">
+        <h2 id="gridTitle" class="section-title">Trending This Week</h2>
+        <div class="view-switches">
+          <span id="moviesCount" class="count-tag">Showing 20 titles</span>
+        </div>
+      </div>
+
+      <div id="watchlistNoticeBanner" class="watchlist-notice-banner hidden">
+        <span>ðŸ”’ <strong>Private Local Watchlist:</strong> Your saved titles and "âœ“ Watched" statuses are stored locally in your browser (<code>localStorage</code>) â€” no sign-in required.</span>
+      </div>
+
+      <div id="moviesGrid" class="movies-grid">
+        <!-- Movie Cards rendered via JS -->
+      </div>
+
+      <div class="load-more-wrap">
+        <button id="loadMoreBtn" class="btn secondary-btn hidden" type="button">â¬‡ Load More Titles</button>
+      </div>
+    </section>
+
+    <!-- Editorial Streaming Guides & Reviews Showcase -->
+    <section class="seo-content-section" style="padding-bottom: 0;">
+      <div class="seo-container">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.75rem;">
+          <h2>ðŸ“š Original Editorial Guides, Comparisons &amp; Reviews</h2>
+          <a href="/guides.html" class="highlight-link" style="font-weight: 700;">View All 6 Editorial Guides â†’</a>
+        </div>
+        <p style="color: var(--text-muted); margin-bottom: 1rem;">Go beyond raw ratings with our hand-crafted streaming guidesâ€”featuring verified runtimes, side-by-side platform audits, and honest recommendations.</p>
+
+        <div class="editorial-guides-grid">
+          <article class="guide-preview-card">
+            <span class="guide-category-tag">â±ï¸ Runtime &amp; Pacing</span>
+            <h3><a href="/guide-short-thrillers-under-100-minutes.html">10 Tight, High-Tension Thrillers Under 100 Minutes</a></h3>
+            <p>Zero-bloat, single-location and real-time suspense films evaluated for weeknight viewing when you don't want a 3-hour slow burn.</p>
+            <div class="guide-card-footer">
+              <span>Verified Runtimes</span>
+              <a href="/guide-short-thrillers-under-100-minutes.html" class="highlight-link">Read Guide â†’</a>
+            </div>
+          </article>
+
+          <article class="guide-preview-card">
+            <span class="guide-category-tag">ðŸš€ Smart Sci-Fi Comparison</span>
+            <h3><a href="/guide-movies-like-interstellar-and-arrival.html">What to Watch If You Loved Interstellar &amp; Arrival</a></h3>
+            <p>8 thoughtful sci-fi films separated into first-contact mysteries and deep-space survival epics, with audience-fit verdicts.</p>
+            <div class="guide-card-footer">
+              <span>Side-by-Side Matrix</span>
+              <a href="/guide-movies-like-interstellar-and-arrival.html" class="highlight-link">Read Guide â†’</a>
+            </div>
+          </article>
+
+          <article class="guide-preview-card">
+            <span class="guide-category-tag">ðŸ“¡ Platform Value Audit</span>
+            <h3><a href="/guide-netflix-vs-prime-video-vs-apple-tv-2026.html">Netflix vs. Prime Video vs. Apple TV+ vs. Max (2026)</a></h3>
+            <p>Where each subscription excels, how regional catalogs differ, and how to avoid hidden rental upsells inside streaming apps.</p>
+            <div class="guide-card-footer">
+              <span>2026 Catalog Audit</span>
+              <a href="/guide-netflix-vs-prime-video-vs-apple-tv-2026.html" class="highlight-link">Read Guide â†’</a>
+            </div>
+          </article>
+
+          <article class="guide-preview-card">
+            <span class="guide-category-tag">ðŸŒ International Cinema</span>
+            <h3><a href="/guide-hidden-gem-korean-and-international-thrillers.html">Beyond Parasite: 7 Essential Korean &amp; International Thrillers</a></h3>
+            <p>Gripping Korean, Spanish, Hindi, and French crime mysteries that subvert predictable studio formulas with unforgettable twists.</p>
+            <div class="guide-card-footer">
+              <span>Global Picks</span>
+              <a href="/guide-hidden-gem-korean-and-international-thrillers.html" class="highlight-link">Read Guide â†’</a>
+            </div>
+          </article>
+
+          <article class="guide-preview-card">
+            <span class="guide-category-tag">ðŸ‘¨â€ðŸ‘©â€ðŸ‘§â€ðŸ‘¦ Family &amp; Animation</span>
+            <h3><a href="/guide-family-and-animated-movies-everyone-enjoys.html">Zero-Filler Family Movie Night Guide: 8 All-Ages Picks</a></h3>
+            <p>Eight animated and adventure films with genuine visual craft, humor, and emotional stakes that adults enjoy just as much as kids.</p>
+            <div class="guide-card-footer">
+              <span>All-Ages Verdict</span>
+              <a href="/guide-family-and-animated-movies-everyone-enjoys.html" class="highlight-link">Read Guide â†’</a>
+            </div>
+          </article>
+
+          <article class="guide-preview-card">
+            <span class="guide-category-tag">ðŸŽ¬ Critical Review &amp; Setup</span>
+            <h3><a href="/review-dune-part-two-and-modern-sci-fi-epics.html">Dune: Part Two &amp; Modern Sci-Fi Epics at Home: Review &amp; Tips</a></h3>
+            <p>Does Denis Villeneuve's desert epic hold up on a home TV? Our review covers pacing trade-offs, audio settings, and display calibration.</p>
+            <div class="guide-card-footer">
+              <span>Home Viewing Verdict</span>
+              <a href="/review-dune-part-two-and-modern-sci-fi-epics.html" class="highlight-link">Read Review â†’</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Comprehensive SEO Content Hub & FAQ Guide for Google Ranking -->
+    <section class="seo-content-section">
+      <div class="seo-container">
+        <h2>WatchPulse: Your Ultimate Where to Watch Movies &amp; Streaming Guide (2026)</h2>
+        <p>Looking for <strong>where to watch top movies</strong> without bouncing across dozens of different apps? <strong>WatchPulse</strong> is an independent entertainment discovery hub tracking movies and TV series across major streaming services. We show you which legal streaming service carries your favorite title by country.</p>
+        
+        <div class="seo-keywords-grid">
+          <div class="seo-keyword-box">
+            <h3>ðŸŽ¬ Top Trending Movies Right Now</h3>
+            <p>Discover acclaimed and talked-about films streaming now, including <em>The Wild Robot</em>, <em>Dune: Part Two</em>, <em>Oppenheimer</em>, <em>Alien: Romulus</em>, and <em>Deadpool &amp; Wolverine</em>. Watch official YouTube trailers, explore cast details, and read synopses before streaming.</p>
+          </div>
+          <div class="seo-keyword-box">
+            <h3>ðŸ“¡ Where to Stream on Netflix, Prime &amp; Apple TV</h3>
+            <p>Never guess whether a movie is on <strong>Netflix</strong>, <strong>Amazon Prime Video</strong>, <strong>Disney+</strong>, <strong>Max (HBO)</strong>, or <strong>Apple TV</strong>. WatchPulse checks live regional availability so you can separate subscription streams, free-with-ads options, and digital rent/buy listings with one click.</p>
+          </div>
+          <div class="seo-keyword-box">
+            <h3>â­ High-Rating Cinema by Genre</h3>
+            <p>Filter by genre to find the best <strong>Sci-Fi movies of all time</strong>, pulse-pounding <strong>Action blockbusters</strong>, terrifying <strong>Horror films</strong>, laugh-out-loud <strong>Comedies</strong>, and award-winning <strong>Dramas</strong>. Every title displays verified TMDB community ratings and regional availability.</p>
+          </div>
+        </div>
+
+        <!-- Frequently Asked Questions for Google Snippets -->
+        <div class="seo-faq">
+          <h3>Frequently Asked Questions About Movie Streaming</h3>
+          <details open>
+            <summary>How do I find out where a movie is streaming legally?</summary>
+            <p>Type any movie or TV series title into the WatchPulse search bar above. Click the title card to see which platforms have it available in your selected country for subscription streaming (Netflix, Prime Video, Disney+, Apple TV+, Max), free streaming, or rent/buy.</p>
+          </details>
+          <details open>
+            <summary>Can I watch official trailers on WatchPulse?</summary>
+            <p>Yes! Every title modal includes instant access to official YouTube trailers and teasers with a direct YouTube link if the embedded player is unavailable.</p>
+          </details>
+          <details open>
+            <summary>How can I save movies to watch later?</summary>
+            <p>Click the ðŸ”– Bookmark icon on any card or inside the details modal to add it to your personal Watchlist. Your watchlist and watched status are saved locally in your browser via <code>localStorage</code> with no account required.</p>
+          </details>
+        </div>
+
+        <!-- Official Legal & DMCA Compliance Disclosure for Google AdSense Reviewers -->
+        <div class="legal-compliance-card" style="margin-top: 2rem; padding: 1.5rem; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px;">
+          <h3 style="color: #00c7b7; font-size: 1.15rem; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
+            <span>âš–ï¸</span> 100% Legal Streaming &amp; DMCA Compliance
+          </h3>
+          <p style="font-size: 0.9rem; line-height: 1.6; color: #a1a1aa; margin-bottom: 0.75rem;">
+            <strong>WatchPulse is strictly an informational search engine, discovery guide, and metadata catalog.</strong>
+          </p>
+          <ul style="font-size: 0.85rem; line-height: 1.6; color: #71717a; padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.35rem;">
+            <li>WatchPulse <strong>does not host, stream, upload, or store</strong> any movie, television, or media files on its servers.</li>
+            <li>All streaming availability data directs users exclusively to official, legally authorized platforms (such as Netflix, Amazon Prime Video, Disney+, Apple TV, and Max).</li>
+            <li>All trailers are embedded via official public YouTube player APIs in full compliance with YouTube API Terms of Service.</li>
+            <li>Movie metadata, ratings, and posters are licensed from <a href="https://www.themoviedb.org" target="_blank" rel="noopener noreferrer" style="color: #00c7b7;">The Movie Database (TMDB)</a>.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Movie Details Modal -->
+  <div id="movieModal" class="modal-backdrop hidden">
+    <div class="modal-card">
+      <button id="modalCloseBtn" class="modal-close">&times;</button>
+      <div class="modal-backdrop-img" id="modalBackdrop"></div>
+
+      <div class="modal-body">
+        <div class="modal-poster-col">
+          <img id="modalPoster" src="" alt="Movie Poster" class="modal-poster-img">
+        </div>
+        <div class="modal-info-col">
+          <h2 id="modalTitle" class="modal-title"></h2>
+          <div class="modal-meta">
+            <span id="modalRating" class="rating-pill"></span>
+            <span id="modalYear"></span>
+            <span id="modalRuntime"></span>
+            <span id="modalGenres" class="genre-list"></span>
+          </div>
+
+          <p id="modalOverview" class="modal-overview"></p>
+
+          <!-- Where to Watch Legally -->
+          <div class="where-to-watch">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.45rem;">
+              <h4 style="margin: 0;">ðŸ“¡ Where to Stream Legally:</h4>
+              <span id="modalRegionNote" style="font-size: 0.76rem; color: var(--text-muted);"></span>
+            </div>
+            <div id="watchProvidersList" class="providers-list"></div>
+            <div class="modal-availability-footer">
+              <span id="modalFreshnessNote">Checked live via TMDB / JustWatch data</span>
+              <div class="modal-availability-links">
+                <a id="officialWatchLink" href="https://www.themoviedb.org" target="_blank" rel="noopener noreferrer">Official Provider Links â†—</a>
+                <a id="reportDataIssueLink" href="/contact.html?subject=bug">âš‘ Report Incorrect Data</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Top Cast Section -->
+          <div class="modal-cast-section">
+            <h4>ðŸŽ­ Top Cast:</h4>
+            <div id="modalCastList" class="cast-list">
+              <!-- Cast pills or avatars dynamically rendered -->
+            </div>
+          </div>
+
+          <!-- Similar / Recommended Titles Section -->
+          <div id="modalSimilarSection" class="modal-similar-section hidden">
+            <h4 style="font-size: 0.92rem; margin-bottom: 0.25rem;">ðŸŽ¬ Similar Titles You Might Like:</h4>
+            <div id="modalSimilarList" class="similar-grid"></div>
+          </div>
+
+          <!-- Modal Actions -->
+          <div class="modal-actions">
+            <button id="modalTrailerBtn" class="btn primary-btn">
+              â–¶ Play Official Trailer
+            </button>
+            <button id="modalWatchlistBtn" class="btn ghost-btn">
+              ðŸ”– Bookmark to Watchlist
+            </button>
+            <button id="modalShareBtn" class="btn secondary-btn" title="Share direct link to this title">
+              ðŸ”— Share Link
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tonight's Pick Movie & Show Finder Quiz Modal -->
+  <div id="quizModal" class="modal-backdrop hidden" role="dialog" aria-labelledby="quizModalTitle">
+    <div class="quiz-card">
+      <button id="quizCloseBtn" class="modal-close" aria-label="Close Finder Quiz">&times;</button>
+      <span class="pill-badge">30-Second Recommendation Quiz</span>
+      <h2 id="quizModalTitle" style="font-size: 1.45rem; margin: 0.35rem 0 0.25rem;">ðŸŽ¯ Tonight's Pick Finder</h2>
+      <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1rem;">Answer 3 quick questions and we'll match 3 top-rated titles with clear reasons why they fit tonight.</p>
+
+      <div>
+        <strong style="font-size: 0.85rem;">1. What mood or vibe are you looking for?</strong>
+        <div class="quiz-options-grid" id="quizMoodOptions">
+          <button type="button" class="quiz-opt-btn selected" data-genre="53" data-label="High-Tension Suspense">âš¡ High-Tension Thriller</button>
+          <button type="button" class="quiz-opt-btn" data-genre="878" data-label="Mind-Bending Sci-Fi">ðŸš€ Smart Sci-Fi &amp; Mystery</button>
+          <button type="button" class="quiz-opt-btn" data-genre="28" data-label="Adrenaline Action">ðŸ’¥ Big Action &amp; Pace</button>
+          <button type="button" class="quiz-opt-btn" data-genre="35" data-label="Feel-Good Comedy">ðŸ˜‚ Feel-Good Comedy</button>
+          <button type="button" class="quiz-opt-btn" data-genre="16" data-label="Family &amp; Animation">ðŸŽ¨ Family &amp; Animation</button>
+          <button type="button" class="quiz-opt-btn" data-genre="18" data-label="Acclaimed Drama">ðŸŽ­ Gripping Drama</button>
+        </div>
+
+        <strong style="font-size: 0.85rem;">2. How much time do you have tonight?</strong>
+        <div class="quiz-options-grid" id="quizRuntimeOptions">
+          <button type="button" class="quiz-opt-btn selected" data-runtime="short" data-label="Under 100 min">â±ï¸ Quick Watch (&le; 100m)</button>
+          <button type="button" class="quiz-opt-btn" data-runtime="standard" data-label="100â€“130 min">ðŸ¿ Standard Feature (100â€“130m)</button>
+          <button type="button" class="quiz-opt-btn" data-runtime="epic" data-label="130+ min Epic">ðŸŒŒ Full Epic (130m+ / Binge)</button>
+        </div>
+
+        <strong style="font-size: 0.85rem;">3. Preferred Format?</strong>
+        <div class="quiz-options-grid" id="quizFormatOptions">
+          <button type="button" class="quiz-opt-btn selected" data-format="movie">ðŸŽ¬ Feature Movies</button>
+          <button type="button" class="quiz-opt-btn" data-format="tv">ðŸ“º TV Series</button>
+        </div>
+
+        <button id="runQuizBtn" type="button" class="btn primary-btn" style="width: 100%; margin-top: 0.25rem;">âœ¨ Find My 3 Matches</button>
+      </div>
+
+      <div id="quizResultsContainer" style="margin-top: 1.15rem;"></div>
+    </div>
+  </div>
+
+  <!-- Trailer Player Modal -->
+  <div id="trailerModal" class="trailer-modal-backdrop hidden">
+    <div class="trailer-container">
+      <button id="trailerCloseBtn" class="trailer-close">&times;</button>
+      <div class="video-responsive">
+        <iframe id="trailerIframe" src="" frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      </div>
+      <div class="trailer-fallback-bar">
+        <span>Having trouble with the embedded player?</span>
+        <a id="externalTrailerLink" href="#" target="_blank" rel="noopener noreferrer" class="btn secondary-btn"
+          style="padding: 0.35rem 0.8rem; font-size: 0.85rem;">
+          â†— Open Trailer on YouTube
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <span class="brand-name">âš¡ Watch<span class="highlight">Pulse</span></span>
+        <p>Your real-time legal streaming guide and movie discovery platform.</p>
+        <p class="owner-credit">Proudly Designed & Created by <strong>Awais K</strong> &copy; 2026 WatchPulse. All
+          rights reserved.</p>
+      </div>
+      <div class="footer-links">
+        <a href="/guides.html" class="footer-link">Editorial Guides</a>
+        <span class="footer-dot">â€¢</span>
+        <a href="/privacy.html" class="footer-link">Privacy Policy</a>
+        <span class="footer-dot">â€¢</span>
+        <a href="/terms.html" class="footer-link">Terms of Service</a>
+        <span class="footer-dot">â€¢</span>
+        <a href="/about.html" class="footer-link">About Us</a>
+        <span class="footer-dot">â€¢</span>
+        <a href="/contact.html" class="footer-link">Contact</a>
+      </div>
+      <div class="footer-attribution">
+        <p>WatchPulse is an independent discovery guide and is not affiliated with Netflix, Prime Video, Disney+, Apple TV+, or Max. Movie and TV metadata, posters, and regional provider data (via JustWatch) are powered by <a href="https://www.themoviedb.org" target="_blank"
+            rel="noopener">TMDB</a>. This product uses the TMDB API but is not endorsed or certified by TMDB.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Cookie & AdSense Consent Banner -->
+  <aside id="cookieBanner" class="cookie-banner hidden" aria-label="Cookie Consent">
+    <div class="cookie-banner-content">
+      <span class="cookie-icon">ðŸª</span>
+      <p>WatchPulse uses local storage, analytics, and third-party advertising cookies (Google AdSense) to remember your region/watchlist, measure traffic, and support our free streaming guide. Read our <a href="/privacy.html">Privacy Policy</a>.</p>
+    </div>
+    <div class="cookie-banner-actions">
+      <button id="cookieAcceptBtn" class="btn primary-btn" style="padding: 0.45rem 1.1rem; font-size: 0.85rem;">Accept All</button>
+      <button id="cookieDeclineBtn" class="btn secondary-btn" style="padding: 0.45rem 0.9rem; font-size: 0.85rem;">Necessary Only</button>
+    </div>
+  </aside>
+
+  <!-- Native Mobile Bottom Navigation Dock -->
+  <nav class="mobile-bottom-nav">
+    <button id="mobileNavHome" class="mobile-nav-item active">
+      <span class="mobile-nav-icon">ðŸŽ¬</span>
+      <span class="mobile-nav-label">Explore</span>
+    </button>
+    <button id="mobileNavSurprise" class="mobile-nav-item">
+      <span class="mobile-nav-icon">ðŸŽ¯</span>
+      <span class="mobile-nav-label">Quiz</span>
+    </button>
+    <button id="mobileNavWatchlist" class="mobile-nav-item">
+      <span class="mobile-nav-icon">ðŸ”–</span>
+      <span class="mobile-nav-label">Watchlist</span>
+      <span id="mobileWatchlistBadge" class="mobile-badge hidden">0</span>
+    </button>
+    <button id="mobileNavTop" class="mobile-nav-item">
+      <span class="mobile-nav-icon">ðŸ”</span>
+      <span class="mobile-nav-label">Top</span>
+    </button>
+  </nav>
+
+  <script src="/app.js"></script>
+</body>
+
+</html>

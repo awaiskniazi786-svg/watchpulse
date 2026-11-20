@@ -3,17 +3,17 @@
 > WatchPulse is an independent movie and TV series streaming discovery guide and editorial publication created by Awais K. WatchPulse helps viewers check where titles are legally available across subscription, free-with-ads, rental, and purchase platforms by country, watch official YouTube trailers, filter by original language, and read curated watching guides.
 
 ## Editorial Guides & Reviews
-- [Editorial Guides Hub](https://watchpulse.online/guides.html): Index of original streaming comparisons, curated runtime collections, and film reviews.
-- [10 Tight, High-Tension Thrillers Under 100 Minutes](https://watchpulse.online/guide-short-thrillers-under-100-minutes.html): Curated runtime and pacing guide with verified facts and editorial verdicts.
-- [What to Watch If You Loved Interstellar & Arrival](https://watchpulse.online/guide-movies-like-interstellar-and-arrival.html): Side-by-side comparison of 8 thoughtful sci-fi films.
-- [Netflix vs. Prime Video vs. Apple TV+ vs. Max in 2026](https://watchpulse.online/guide-netflix-vs-prime-video-vs-apple-tv-2026.html): Independent comparison of subscription catalogs, 4K tiers, and rental vs. subscription distinctions.
-- [Beyond Parasite: 7 Essential Korean & International Thrillers](https://watchpulse.online/guide-hidden-gem-korean-and-international-thrillers.html): Global crime and mystery recommendations across Korean, Spanish, Hindi, and French cinema.
-- [The Zero-Filler Family Movie Night Guide](https://watchpulse.online/guide-family-and-animated-movies-everyone-enjoys.html): 8 animated and family adventure films evaluated for both children and adults.
-- [Dune: Part Two & Modern Sci-Fi Epics at Home Review](https://watchpulse.online/review-dune-part-two-and-modern-sci-fi-epics.html): Critical review, home audio/display calibration advice, and viewing verdict.
+- [Editorial Guides Hub](https://watchpulse.online/guides): Index of original streaming comparisons, curated runtime collections, and film reviews.
+- [10 Tight, High-Tension Thrillers Under 100 Minutes](https://watchpulse.online/guide-short-thrillers-under-100-minutes): Curated runtime and pacing guide with verified facts and editorial verdicts.
+- [What to Watch If You Loved Interstellar & Arrival](https://watchpulse.online/guide-movies-like-interstellar-and-arrival): Side-by-side comparison of 8 thoughtful sci-fi films.
+- [Netflix vs. Prime Video vs. Apple TV+ vs. Max in 2026](https://watchpulse.online/guide-netflix-vs-prime-video-vs-apple-tv-2026): Independent comparison of subscription catalogs, 4K tiers, and rental vs. subscription distinctions.
+- [Beyond Parasite: 7 Essential Korean & International Thrillers](https://watchpulse.online/guide-hidden-gem-korean-and-international-thrillers): Global crime and mystery recommendations across Korean, Spanish, Hindi, and French cinema.
+- [The Zero-Filler Family Movie Night Guide](https://watchpulse.online/guide-family-and-animated-movies-everyone-enjoys): 8 animated and family adventure films evaluated for both children and adults.
+- [Dune: Part Two & Modern Sci-Fi Epics at Home Review](https://watchpulse.online/review-dune-part-two-and-modern-sci-fi-epics): Critical review, home audio/display calibration advice, and viewing verdict.
 
 ## Core Pages & Transparency
 - [Live Discovery Catalog](https://watchpulse.online/): Search movies and TV series, switch streaming country (`US`, `GB`, `PK`, `CA`, `DE`, `IN`, `AU`, `AE`, `FR`, `ES`, `JP`, `KR`, `BR`), filter by original language, or take the Tonight's Pick Quiz.
-- [About WatchPulse](https://watchpulse.online/about.html): Mission, creator information, and independent non-affiliation disclosure.
-- [Contact & Report Incorrect Data](https://watchpulse.online/contact.html): Direct contact form and availability error reporting (`awaiskniazi786@gmail.com`).
-- [Privacy Policy](https://watchpulse.online/privacy.html): Transparent disclosure of `localStorage`, Google Analytics (`GTM-PTPLM5VB`), Google AdSense cookies, and TMDB/YouTube API usage.
-- [Terms of Service](https://watchpulse.online/terms.html): Legal discovery scope, trademark attribution, and DMCA compliance.
+- [About WatchPulse](https://watchpulse.online/about): Mission, creator information, and independent non-affiliation disclosure.
+- [Contact & Report Incorrect Data](https://watchpulse.online/contact): Direct contact form and availability error reporting (`awaiskniazi786@gmail.com`).
+- [Privacy Policy](https://watchpulse.online/privacy): Transparent disclosure of `localStorage`, Google Analytics (`GTM-PTPLM5VB`), Google AdSense cookies, and TMDB/YouTube API usage.
+- [Terms of Service](https://watchpulse.online/terms): Legal discovery scope, trademark attribution, and DMCA compliance.

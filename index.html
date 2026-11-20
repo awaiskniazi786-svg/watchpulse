@@ -31,6 +31,18 @@
     content="Discover where to stream movies and TV series legally across Netflix, Prime Video, Disney+, Apple TV+, Max, and free services by country. Read original editorial guides and watch official trailers on WatchPulse.online.">
   <meta name="author" content="Awais K">
   <link rel="canonical" id="canonicalLink" href="https://watchpulse.online/">
+  <script>
+    (function () {
+      var p = new URLSearchParams(window.location.search);
+      if (p.has('q') || p.has('genre') || p.has('lang') || p.has('region') || p.has('type')) {
+        var m = document.createElement('meta');
+        m.id = 'dynamicRobotsMeta';
+        m.name = 'robots';
+        m.content = 'noindex, follow';
+        document.head.appendChild(m);
+      }
+    })();
+  </script>
 
   <!-- Official Favicons for Google Search & Browsers -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -154,7 +166,7 @@
       <div class="hero-backdrop" id="heroBackdrop" style="background-image: url('https://image.tmdb.org/t/p/w1280/xOMo8BRK7PfcJv9JCnx7s520DRq.jpg');"></div>
       <div class="hero-overlay"></div>
       <div class="hero-content">
-        <div class="hero-badge">⭐ #1 TRENDING SPOTLIGHT</div>
+        <div class="hero-badge">⭐ FEATURED STREAMING SPOTLIGHT</div>
         <h1 id="heroTitle" class="hero-title">Dune: Part Two</h1>
         <div class="hero-meta">
           <span id="heroRating" class="rating-pill">⭐ 8.3</span>
@@ -362,8 +374,8 @@
         
         <div class="seo-keywords-grid">
           <div class="seo-keyword-box">
-            <h3>🎬 Top Trending Movies Right Now</h3>
-            <p>Discover acclaimed and talked-about films streaming now, including <em>The Wild Robot</em>, <em>Dune: Part Two</em>, <em>Oppenheimer</em>, <em>Alien: Romulus</em>, and <em>Deadpool &amp; Wolverine</em>. Watch official YouTube trailers, explore cast details, and read synopses before streaming.</p>
+            <h3>🎬 Acclaimed Modern Films &amp; Live Weekly Charts</h3>
+            <p>Browse live weekly trending movie and TV charts updated from TMDB alongside acclaimed modern favorites like <em>The Wild Robot</em>, <em>Dune: Part Two</em>, <em>Oppenheimer</em>, <em>Arrival</em>, and <em>Interstellar</em>. Watch official YouTube trailers, inspect cast lists, and check regional streaming options before pressing play.</p>
           </div>
           <div class="seo-keyword-box">
             <h3>📡 Where to Stream on Netflix, Prime &amp; Apple TV</h3>

@@ -1667,6 +1667,9 @@ function resetHomeMeta() {
   const canonicalEl = document.querySelector('link[rel="canonical"]');
   if (canonicalEl) canonicalEl.setAttribute('href', 'https://watchpulse.online/');
 
+  const robotsMeta = document.getElementById('dynamicRobotsMeta');
+  if (robotsMeta) robotsMeta.remove();
+
   const descMeta = document.querySelector('meta[name="description"]');
   if (descMeta) descMeta.setAttribute('content', homeDesc);
 

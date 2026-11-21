@@ -1,4 +1,3 @@
-# Serverless Commercial-Safe Catalog Proxy (TVmaze + Wikipedia) & Clean URL Rewrites
-/api/catalog  /.netlify/functions/catalog  200
-/movie/*      /index.html                  200
-/tv/*         /index.html                  200
+# Clean Movie/TV SPA Rewrites (Cloudflare Pages automatically routes /api/catalog to functions/api/catalog.js)
+/movie/*  /index.html  200
+/tv/*     /index.html  200

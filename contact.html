@@ -85,10 +85,11 @@
 
       <section class="legal-section">
         <h2>Quick Message Form</h2>
-        <form id="contactForm" class="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-          <input type="hidden" name="form-name" value="contact">
+        <form id="contactForm" class="contact-form" action="https://formsubmit.co/awaiskniazi786@gmail.com" method="POST">
+          <input type="hidden" name="_subject" value="New WatchPulse Contact Message">
+          <input type="hidden" name="_template" value="table">
           <p class="hidden">
-            <label>Don't fill this out: <input name="bot-field"></label>
+            <label>Don't fill this out: <input name="_honey"></label>
           </p>
           <div class="form-group">
             <label for="contactName">Your Name</label>
@@ -149,11 +150,15 @@
               submitBtn.textContent = 'Sending...';
 
               try {
-                const body = new URLSearchParams(new FormData(form)).toString();
-                const res = await fetch('/contact.html', {
+                const formData = new FormData(form);
+                const payload = Object.fromEntries(formData.entries());
+                const res = await fetch('https://formsubmit.co/ajax/awaiskniazi786@gmail.com', {
                   method: 'POST',
-                  headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                  body
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                  },
+                  body: JSON.stringify(payload)
                 });
                 if (!res.ok) throw new Error('Submission failed');
                 successEl.classList.remove('hidden');

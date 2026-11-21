@@ -1,16 +1,16 @@
 # WatchPulse (https://watchpulse.online)
 
-> WatchPulse is an independent movie and TV series streaming discovery guide and editorial publication created by Awais K. WatchPulse helps viewers check where titles are legally available across subscription, free-with-ads, rental, and purchase platforms by country, watch official YouTube trailers, filter by original language, and read 20 curated watching guides and critical reviews.
+> WatchPulse is an independent movie and TV series discovery guide and editorial publication created by Awais K and hosted on Cloudflare Pages. WatchPulse pairs TVmaze series metadata (CC BY-SA), Wikipedia (CC BY-SA) & Wikidata (CC0) film profiles, official YouTube trailers, and 20 original long-form editorial guides and reviews. WatchPulse is not a streaming provider and does not supply live per-country streaming availability feeds.
 
 ## Editorial Guides & Reviews (20 Original Articles)
-- [Editorial Guides Hub](https://watchpulse.online/guides): Complete index of 20 original streaming comparisons, curated runtime collections, regional guides, and film/TV reviews.
+- [Editorial Guides Hub](https://watchpulse.online/guides): Complete index of 20 original editorial comparisons, curated runtime collections, and film/TV reviews.
 - [10 Tight, High-Tension Thrillers Under 100 Minutes](https://watchpulse.online/guide-short-thrillers-under-100-minutes): Curated runtime and pacing guide with key details and editorial verdicts.
 - [What to Watch If You Loved Interstellar & Arrival](https://watchpulse.online/guide-movies-like-interstellar-and-arrival): Side-by-side comparison of 8 thoughtful sci-fi films.
-- [Netflix vs. Prime Video vs. Apple TV+ vs. HBO Max in 2026](https://watchpulse.online/guide-netflix-vs-prime-video-vs-apple-tv-2026): Independent comparison of subscription catalogs, 4K tiers, and rental vs. subscription distinctions.
+- [Netflix vs. Prime Video vs. Apple TV+ vs. HBO Max in 2026](https://watchpulse.online/guide-netflix-vs-prime-video-vs-apple-tv-2026): Independent editorial comparison of subscription catalogs, video tiers, and rental vs. subscription distinctions.
 - [Beyond Parasite: 7 Essential Korean & International Thrillers](https://watchpulse.online/guide-hidden-gem-korean-and-international-thrillers): Global crime and mystery recommendations across Korean, Spanish, Hindi, and French cinema.
 - [The Zero-Filler Family Movie Night Guide](https://watchpulse.online/guide-family-and-animated-movies-everyone-enjoys): 8 animated and family adventure films evaluated for both children and adults.
 - [Dune: Part Two & Modern Sci-Fi Epics at Home Review](https://watchpulse.online/review-dune-part-two-and-modern-sci-fi-epics): Critical review, home audio/display calibration advice, and viewing verdict.
-- [Best 100% Free Legal Movie Streaming Apps in 2026](https://watchpulse.online/guide-best-free-legal-movie-streaming-apps-2026): Comparison of Tubi, Pluto TV, Plex, and YouTube Free ad loads, catalog depth, and regional availability.
+- [Best Free Legal Movie Streaming Apps in 2026](https://watchpulse.online/guide-best-free-legal-movie-streaming-apps-2026): Editorial overview of free ad-supported services (Tubi, Pluto TV, Plex, YouTube Free) and ad-load trade-offs.
 - [8 Acclaimed Limited Series You Can Finish in One Weekend](https://watchpulse.online/guide-best-mini-series-to-binge-in-one-weekend): Self-contained miniseries under 10 episodes with listed runtimes and zero cliffhangers.
 - [The Golden Age of Prestige Sci-Fi TV: 8 Essential Series](https://watchpulse.online/guide-best-sci-fi-tv-shows-streaming-right-now): Modern sci-fi TV series compared by concept, pacing, and completion status.
 - [What to Watch If You Loved Knives Out: 8 Clever Whodunits](https://watchpulse.online/guide-movies-like-knives-out-and-glass-onion): Ensemble murder mysteries and crime comedies compared by clue playfulness and wit.
@@ -21,13 +21,13 @@
 - [8 Smart Comfort Comedies for Stressful Weeknights](https://watchpulse.online/guide-comfort-comedies-for-stressful-weeknights): Warm, witty low-stress comedies evaluated for stressful weeknights.
 - [7 Gripping Courtroom & Legal Thrillers](https://watchpulse.online/guide-best-courtroom-and-legal-dramas): Dialogue-driven courtroom dramas and corporate legal thrillers that shine on any screen.
 - [8 Practical Action Movies Like John Wick](https://watchpulse.online/guide-movies-like-john-wick-practical-action): Stunt-driven martial arts and espionage action films featuring clean spatial choreography.
-- [Streaming Availability in Pakistan, India & South Asia (2026)](https://watchpulse.online/guide-streaming-guide-for-pakistan-india-and-south-asia): Regional platform rights breakdown across Netflix, Prime Video, Apple TV+, JioHotstar, and digital rentals.
+- [Streaming Platforms Overview for Pakistan, India & South Asia (2026)](https://watchpulse.online/guide-streaming-guide-for-pakistan-india-and-south-asia): Editorial overview of major platforms in South Asia and how regional rights typically split.
 - [Oppenheimer at Home: Editorial Review & Audio Clarity Fixes](https://watchpulse.online/review-oppenheimer-and-historical-biopics-at-home): Critical review of Christopher Nolan's 3-hour thriller with living-room dialogue calibration tips.
 - [Severance Series Review: Apple TV+'s Workplace Sci-Fi Mystery](https://watchpulse.online/review-severance-and-workplace-mystery-tv): Spoiler-free review of Lumon Industries' corporate satire, pacing reality, and companion watchlist.
 
 ## Core Pages & Transparency
-- [Live Discovery Catalog](https://watchpulse.online/): Search movies and TV series, filter by original language, or take the Tonight's Pick Quiz.
-- [About WatchPulse](https://watchpulse.online/about): Mission, creator information, and independent non-affiliation disclosure.
-- [Contact & Report Incorrect Data](https://watchpulse.online/contact): Direct contact form and availability error reporting (`awaiskniazi786@gmail.com`).
-- [Privacy Policy](https://watchpulse.online/privacy): Transparent disclosure of `localStorage`, Google Analytics (`GTM-PTPLM5VB`), Google AdSense cookies, and TVmaze/YouTube API usage.
-- [Terms of Service](https://watchpulse.online/terms): Legal discovery scope, trademark attribution, and DMCA compliance.
+- [Discovery Catalog](https://watchpulse.online/): Search movies and TV series, view cast/directors/runtimes, watch official trailers, or take the Tonight's Pick Quiz.
+- [About WatchPulse](https://watchpulse.online/about): Mission, creator information, open data stack, and non-affiliation disclosure.
+- [Contact & Editorial Corrections](https://watchpulse.online/contact): Direct contact form and metadata correction reporting (`awaiskniazi786@gmail.com`).
+- [Privacy Policy](https://watchpulse.online/privacy): Transparent disclosure of `localStorage`, Google Analytics (`GTM-PTPLM5VB`), Google AdSense cookies, Consent Mode v2, Cloudflare Pages, FormSubmit, and TVmaze/Wikipedia/Wikidata/YouTube usage.
+- [Terms of Service](https://watchpulse.online/terms): Editorial discovery scope, open data attribution, trademark disclaimers, and DMCA contact.

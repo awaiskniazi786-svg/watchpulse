@@ -252,6 +252,9 @@ async function handleWikiDetails(qid, wikiTitle) {
   }, { 'X-WatchPulse-Edge': 'Cloudflare-Pages' });
 }
 
+const OFFICIAL_TRAILER_CHANNEL_RE = /(warner\s*bros|sony\s*pictures|universal\s*pictures|paramount|marvel|netflix|prime\s*video|amazon|hbo|apple\s*tv|disney|pixar|a24|lionsgate|20th\s*century|focus\s*features|searchlight|neon|mubi|bbc|amc|fx\s*networks|showtime|hulu|peacock|starz|cbs|nbc|abc|fox|the\s*cw|syfy|crunchyroll|toho|gkids|all\s*the\s*anime|yrf|yash\s*raj|dharma|red\s*chillies|t-series|excel\s*entertainment|junglee|rotten\s*tomatoes\s*trailers|ign|imdb|fandango|kinocheck|official|pictures|studios|entertainment|television|network)/i;
+const UNOFFICIAL_TRAILER_RE = /\b(fan[\s-]*made|concept|fake|parody|reaction|breakdown|ending\s+explained|review|recap|pitch\s+meeting|honest\s+trailer|lego|minecraft|ai\s+trailer|tribute|amv|teaser\s+concept|fan\s+trailer)\b/i;
+
 async function handleTrailerSearch(q) {
   const ytUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(q)}&sp=EgIQAQ%253D%253D`;
   const res = await fetch(ytUrl, {
@@ -261,34 +264,46 @@ async function handleTrailerSearch(q) {
     },
     cf: { cacheTtl: 86400, cacheEverything: true }
   });
-  if (!res.ok) return jsonResponse(502, { error: 'Trailer lookup temporarily unavailable', ids: [] });
+  if (!res.ok) return jsonResponse(502, { error: 'Trailer lookup temporarily unavailable', ids: [], verified: false });
   const html = await res.text();
   const seen = new Set();
   const rawIds = [];
   const re = /"videoId":"([A-Za-z0-9_-]{11})"/g;
   let m;
-  while ((m = re.exec(html)) !== null && rawIds.length < 6) {
+  while ((m = re.exec(html)) !== null && rawIds.length < 8) {
     if (!seen.has(m[1])) {
       seen.add(m[1]);
       rawIds.push(m[1]);
     }
   }
 
-  // Verify top 4 candidates via YouTube oEmbed in parallel so we return playable embeds
-  const checks = await Promise.all(rawIds.slice(0, 4).map(async (vid) => {
+  // Verify candidates via YouTube oEmbed and ONLY allow official studio / network / licensed trailer channels
+  const checks = await Promise.all(rawIds.slice(0, 6).map(async (vid) => {
     try {
       const oe = await fetch(`https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${vid}&format=json`, {
         cf: { cacheTtl: 86400, cacheEverything: true }
       });
-      return oe.ok ? vid : null;
+      if (!oe.ok) return null;
+      const info = await oe.json();
+      const author = String(info.author_name || '').trim();
+      const title = String(info.title || '').trim();
+      if (!author || UNOFFICIAL_TRAILER_RE.test(author) || UNOFFICIAL_TRAILER_RE.test(title)) return null;
+      if (!OFFICIAL_TRAILER_CHANNEL_RE.test(author)) return null;
+      return { id: vid, channel: author, title };
     } catch (_) {
       return null;
     }
   }));
-  const verified = checks.filter(Boolean);
-  const finalIds = verified.length ? verified : rawIds.slice(0, 3);
 
-  return jsonResponse(200, { ids: finalIds, primary: finalIds[0] || '' }, {
+  const verified = checks.filter(Boolean).slice(0, 4);
+  const finalIds = verified.map(v => v.id);
+
+  return jsonResponse(200, {
+    ids: finalIds,
+    primary: finalIds[0] || '',
+    channels: verified.map(v => v.channel),
+    verified: finalIds.length > 0
+  }, {
     'Cache-Control': 'public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800',
     'X-WatchPulse-Edge': 'Cloudflare-Pages'
   });

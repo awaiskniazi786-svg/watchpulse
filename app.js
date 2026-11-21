@@ -7,7 +7,7 @@
  */
 
 const CATALOG_PROXY_URL = '/api/catalog';
-const CURATED_CATALOG_URL = '/data/curated-catalog.json?v=20261121d';
+const CURATED_CATALOG_URL = '/data/curated-catalog.json?v=20261121f';
 
 const GENRE_MAP = {
   28: 'Action',
@@ -367,7 +367,7 @@ function normalizeCuratedMovie(m) {
     platforms: m.platforms || [],
     overview: m.overview,
     editorial_note: m.editorial_note || '',
-    guide_url: m.guide_url || '/guides.html',
+    guide_url: (m.guide_url || '/guides').replace(/\.html$/i, ''),
     guide_title: m.guide_title || 'WatchPulse Editorial Guides',
     accent: m.accent || 'teal',
     trailer_id: tid,
@@ -871,10 +871,10 @@ function populateMovieModalContent(detailed, isLoadingDetails = false) {
 
   if (els.modalRegionNote) {
     els.modalRegionNote.textContent = detailed.media_type === 'tv'
-      ? 'Primary Network / Streaming Home (TVmaze — varies by country)'
+      ? 'Original Network Tag (TVmaze — regional rights vary)'
       : detailed.source === 'Wikipedia & Wikidata'
-        ? 'Distributors & Reference Info (Wikipedia & Wikidata — check local streaming apps)'
-        : 'Curated Platform Note (checked Nov 21, 2026 — verify locally)';
+        ? 'Distributors & Reference Links (Wikipedia & Wikidata)'
+        : 'WatchPulse Editorial Tag (check your local streaming app)';
   }
 
   if (els.watchProvidersList) {
@@ -883,30 +883,30 @@ function populateMovieModalContent(detailed, isLoadingDetails = false) {
       ? `<a href="https://www.imdb.com/title/${encodeURIComponent(detailed.imdb_id)}/" target="_blank" rel="noopener noreferrer" class="provider-pill" style="border-color: #f5c518; color: #f5c518; text-decoration: none;">IMDb Profile ↗</a>`
       : '';
     const guideBtn = detailed.guide_url
-      ? `<a href="${escapeHtml(detailed.guide_url)}" class="provider-pill" style="border-color: var(--accent-cyan); color: var(--accent-cyan); text-decoration: none;">📚 Read: ${escapeHtml(detailed.guide_title)} →</a>`
+      ? `<a href="${escapeHtml(detailed.guide_url.replace(/\.html$/i, ''))}" class="provider-pill" style="border-color: var(--accent-cyan); color: var(--accent-cyan); text-decoration: none;">📚 Read: ${escapeHtml(detailed.guide_title)} →</a>`
       : '';
     els.watchProvidersList.innerHTML = `<div class="provider-tier-group"><div class="provider-tier-pills">${pills}${imdbBtn}${guideBtn}</div></div>`;
   }
 
   if (els.modalFreshnessNote) {
     els.modalFreshnessNote.textContent = detailed.source === 'TVmaze'
-      ? 'Live TV data provided by TVmaze (CC BY-SA — Commercial Allowed)'
+      ? 'TV metadata & artwork via TVmaze (CC BY-SA)'
       : detailed.source === 'Wikipedia & Wikidata'
-        ? 'Live film profile powered by Wikipedia (CC BY-SA) & Wikidata (CC0 Public Domain)'
-        : 'Curated by WatchPulse Editorial — verify current local availability inside your app';
+        ? 'Film profile via Wikipedia (CC BY-SA) & Wikidata (CC0 Public Domain)'
+        : 'Curated by WatchPulse Editorial — verify playback inside your streaming app';
   }
 
   if (els.officialWatchLink) {
-    els.officialWatchLink.href = detailed.officialUrl || detailed.guide_url || '/guides.html';
+    els.officialWatchLink.href = (detailed.officialUrl || detailed.guide_url || '/guides').replace(/\.html$/i, '');
     els.officialWatchLink.textContent = detailed.source === 'TVmaze'
-      ? 'View Full Episode Guide on TVmaze ↗'
+      ? 'View Episode Guide on TVmaze ↗'
       : detailed.source === 'Wikipedia & Wikidata'
         ? 'Read Full Film Article on Wikipedia ↗'
         : 'Open Matching WatchPulse Guide →';
   }
 
   if (els.reportDataIssueLink) {
-    els.reportDataIssueLink.href = `/contact.html?subject=bug&title=${encodeURIComponent(detailed.title)}`;
+    els.reportDataIssueLink.href = `/contact?subject=bug&title=${encodeURIComponent(detailed.title)}`;
   }
 
   if (els.modalCastList) {
@@ -1144,13 +1144,13 @@ async function openTrailerForItem(item) {
     }
   } catch (_) {}
 
-  // Last-resort fallback only if YouTube search itself is unreachable
-  if (els.trailerStatusLabel) els.trailerStatusLabel.textContent = `Could not auto-load embed for "${item.title}"`;
+  // Official-channel verification fallback: if no verified studio/network trailer was found, link cleanly to YouTube
+  if (els.trailerStatusLabel) els.trailerStatusLabel.textContent = `No verified official studio channel embed found for "${item.title}"`;
   showTrailerOverlayBox(`
     <span style="font-size:2rem;">🎬</span>
     <h3 style="margin:0;font-size:1.15rem;">Official Trailer: ${escapeHtml(item.title)}</h3>
-    <p style="margin:0;max-width:420px;font-size:0.86rem;color:#cbd5e1;">Auto-embed wasn't returned for this title right now. You can watch it directly on YouTube:</p>
-    <a href="${escapeHtml(ytSearchUrl)}" target="_blank" rel="noopener noreferrer" class="btn primary-btn" style="text-decoration:none;">▶ Watch on YouTube ↗</a>
+    <p style="margin:0;max-width:420px;font-size:0.86rem;color:#cbd5e1;">WatchPulse only embeds trailers from verified studio and network channels. Open YouTube to view official uploads:</p>
+    <a href="${escapeHtml(ytSearchUrl)}" target="_blank" rel="noopener noreferrer" class="btn primary-btn" style="text-decoration:none;">▶ Search Official Trailer on YouTube ↗</a>
   `);
   trackEvent('watchpulse_trailer_click', { title: item.title, embedded: false });
 }
@@ -1284,33 +1284,7 @@ function runFinderQuiz() {
 }
 
 function initCookieConsent() {
-  if (!els.cookieBanner) return;
-  let saved = null;
-  try { saved = localStorage.getItem('wp_cookie_consent'); } catch (_) {}
-
-  const hasGoogleCmp = () => typeof window.__tcfapi === 'function' || Boolean(window.googlefc && window.googlefc.ccpa);
-  if (!saved) {
-    setTimeout(() => {
-      if (!hasGoogleCmp()) els.cookieBanner.classList.remove('hidden');
-    }, 900);
-  }
-
-  const handleChoice = (accepted) => {
-    try { localStorage.setItem('wp_cookie_consent', accepted ? 'accepted' : 'declined'); } catch (_) {}
-    const stateVal = accepted ? 'granted' : 'denied';
-    if (typeof window.gtag === 'function') {
-      window.gtag('consent', 'update', {
-        ad_storage: stateVal,
-        ad_user_data: stateVal,
-        ad_personalization: stateVal,
-        analytics_storage: stateVal
-      });
-    }
-    els.cookieBanner.classList.add('hidden');
-  };
-
-  if (els.acceptCookiesBtn) els.acceptCookiesBtn.addEventListener('click', () => handleChoice(true));
-  if (els.declineCookiesBtn) els.declineCookiesBtn.addEventListener('click', () => handleChoice(false));
+  // Delegated to shared /consent-ui.js so every page shares identical single-banner + Privacy Settings behavior
 }
 
 function setupEventListeners() {

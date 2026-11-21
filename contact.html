@@ -28,11 +28,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact Us &amp; Report Data Issues — WatchPulse</title>
   <meta name="description"
-    content="Contact WatchPulse creator Awais K for feedback, incorrect streaming availability reports, or partnership inquiries.">
+    content="Contact WatchPulse creator Awais K for editorial feedback, title metadata corrections, or partnership inquiries.">
   <link rel="canonical" href="https://watchpulse.online/contact">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png">
-  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/style.css?v=20261121f">
 
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5022914500809430"
@@ -48,7 +48,7 @@
         <span class="logo-text">Watch<span class="highlight">Pulse</span></span>
       </a>
       <div class="nav-actions">
-        <a href="/guides.html" class="btn secondary-btn">📚 Editorial Guides</a>
+        <a href="/guides" class="btn secondary-btn">📚 Editorial Guides</a>
         <a href="/" class="btn secondary-btn">← Back to Discovery</a>
       </div>
     </div>
@@ -57,27 +57,27 @@
   <!-- Contact Content Container -->
   <main class="page-container">
     <article class="content-card legal-card">
-      <span class="pill-badge">Support &amp; Data Verification</span>
+      <span class="pill-badge">Support &amp; Editorial Corrections</span>
       <h1>Contact WatchPulse</h1>
-      <p class="last-updated">We review all inquiries and data reports within 24–48 hours</p>
+      <p class="last-updated">We review all inquiries and metadata reports within 24–48 hours</p>
 
       <section class="legal-section">
         <h2>We Would Love to Hear From You</h2>
-        <p>Whether you want to report an outdated streaming availability listing for your country, suggest a new editorial guide, or inquire about partnerships, reach out to creator <strong>Awais K</strong> below.</p>
+        <p>Whether you want to report a title metadata correction, suggest a new editorial guide, or inquire about partnerships, reach out to creator <strong>Awais K</strong> below.</p>
 
         <div class="contact-cards-grid">
           <div class="contact-box">
             <h3>📧 Direct Email</h3>
-            <p>For general support, availability reports, and correspondence:</p>
+            <p>For general support, metadata corrections, and correspondence:</p>
             <p><a href="mailto:awaiskniazi786@gmail.com" class="highlight-link">awaiskniazi786@gmail.com</a></p>
           </div>
           <div class="contact-box">
-            <h3>⚡ Creator & Lead Developer</h3>
+            <h3>⚡ Creator &amp; Lead Developer</h3>
             <p><strong>Awais K</strong></p>
-            <p>Independent Web Application Engineer & Designer</p>
+            <p>Independent Web Application Engineer &amp; Editor</p>
           </div>
           <div class="contact-box">
-            <h3>⚖️ DMCA & Content Requests</h3>
+            <h3>⚖️ DMCA &amp; Content Requests</h3>
             <p>If you represent a copyright holder or content partner, please include full details in your email for rapid resolution.</p>
           </div>
         </div>
@@ -88,9 +88,10 @@
         <form id="contactForm" class="contact-form" action="https://formsubmit.co/awaiskniazi786@gmail.com" method="POST">
           <input type="hidden" name="_subject" value="New WatchPulse Contact Message">
           <input type="hidden" name="_template" value="table">
-          <p class="hidden">
-            <label>Don't fill this out: <input name="_honey"></label>
-          </p>
+          <div class="hidden" style="display:none !important;" aria-hidden="true">
+            <label for="wpHoney">Leave blank</label>
+            <input id="wpHoney" name="_honey" tabindex="-1" autocomplete="off">
+          </div>
           <div class="form-group">
             <label for="contactName">Your Name</label>
             <input type="text" id="contactName" name="name" required placeholder="Enter your name">
@@ -103,9 +104,9 @@
             <label for="contactSubject">Subject</label>
             <select id="contactSubject" name="subject">
               <option value="feedback">General Feedback</option>
-              <option value="advertising">Advertising & Partnerships</option>
+              <option value="advertising">Advertising &amp; Partnerships</option>
               <option value="feature">Feature Suggestion</option>
-              <option value="bug">Report an Issue</option>
+              <option value="bug">Report a Metadata or Site Issue</option>
             </select>
           </div>
           <div class="form-group">
@@ -129,17 +130,12 @@
             const subjectEl = document.getElementById('contactSubject');
             const messageEl = document.getElementById('contactMessage');
 
-            // Pre-fill support for "Report Incorrect Availability" links (?subject=bug&title=...&region=...)
             const params = new URLSearchParams(window.location.search);
             const paramSubject = params.get('subject');
             const paramTitle = params.get('title');
-            const paramRegion = params.get('region');
-            if (paramSubject && subjectEl) {
-              subjectEl.value = paramSubject;
-            }
+            if (paramSubject && subjectEl) subjectEl.value = paramSubject;
             if (paramTitle && messageEl) {
-              const regionNote = paramRegion ? ` in region ${paramRegion}` : '';
-              messageEl.value = `Availability Report for "${paramTitle}"${regionNote}:\n- Listed provider that is outdated or missing:\n- Correct streaming service (if known): `;
+              messageEl.value = `Metadata / Correction Report for "${paramTitle}":\n- What needs updating (cast, runtime, year, trailer, or description):\n- Official reference URL (if known): `;
             }
 
             form.addEventListener('submit', async (e) => {
@@ -160,7 +156,10 @@
                   },
                   body: JSON.stringify(payload)
                 });
-                if (!res.ok) throw new Error('Submission failed');
+                const data = await res.json().catch(() => ({}));
+                if (!res.ok || data.success === 'false' || data.success === false) {
+                  throw new Error(data.message || 'Submission failed');
+                }
                 successEl.classList.remove('hidden');
                 form.reset();
               } catch (err) {
@@ -184,19 +183,21 @@
         <p class="owner-credit">Proudly Designed &amp; Created by <strong>Awais K</strong> &copy; 2026 WatchPulse. All rights reserved.</p>
       </div>
       <div class="footer-links">
-        <a href="/guides.html" class="footer-link">Editorial Guides</a>
+        <a href="/guides" class="footer-link">Editorial Guides</a>
         <span class="footer-dot">•</span>
-        <a href="/privacy.html" class="footer-link">Privacy Policy</a>
+        <a href="/privacy" class="footer-link">Privacy Policy</a>
         <span class="footer-dot">•</span>
-        <a href="/terms.html" class="footer-link">Terms of Service</a>
+        <a href="/terms" class="footer-link">Terms of Service</a>
         <span class="footer-dot">•</span>
-        <a href="/about.html" class="footer-link">About Us</a>
+        <a href="/about" class="footer-link">About Us</a>
         <span class="footer-dot">•</span>
-        <a href="/contact.html" class="footer-link">Contact</a>
+        <a href="/contact" class="footer-link">Contact</a>
+        <span class="footer-dot">•</span>
+        <a href="#" class="footer-link" data-privacy-settings="true">Privacy Settings</a>
       </div>
     </div>
   </footer>
+  <script src="/consent-ui.js?v=20261121f" defer></script>
 </body>
 
 </html>
-

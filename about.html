@@ -28,11 +28,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About Us — WatchPulse</title>
   <meta name="description"
-    content="About WatchPulse.online: Independent movie and TV streaming discovery guide and editorial resource founded by Awais K.">
+    content="About WatchPulse.online: Independent movie and TV discovery guide, official trailers, cast and title metadata, and original editorial guides founded by Awais K.">
   <link rel="canonical" href="https://watchpulse.online/about">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png">
-  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/style.css?v=20261121f">
 
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5022914500809430"
@@ -48,7 +48,7 @@
         <span class="logo-text">Watch<span class="highlight">Pulse</span></span>
       </a>
       <div class="nav-actions">
-        <a href="/guides.html" class="btn secondary-btn">📚 Editorial Guides</a>
+        <a href="/guides" class="btn secondary-btn">📚 Editorial Guides</a>
         <a href="/" class="btn secondary-btn">← Back to Discovery</a>
       </div>
     </div>
@@ -63,14 +63,20 @@
 
       <section class="legal-section">
         <h2>What is WatchPulse?</h2>
-        <p><strong>WatchPulse</strong> (<a href="https://watchpulse.online/">watchpulse.online</a>) was created to solve a common streaming frustration: scrolling through endless algorithm rows without knowing which movies and series are actually worth your evening—or which subscription catalogs fit your taste.</p>
-        <p>WatchPulse pairs a live TV series directory (powered by TVmaze) and a curated film catalog with 20+ original <a href="/guides.html">Editorial Streaming Guides &amp; Reviews</a>. You can browse live TV series with cast and primary network details, explore hand-curated film picks, watch official YouTube trailers, filter by genre and language, and save titles to a private browser watchlist.</p>
+        <p><strong>WatchPulse</strong> (<a href="https://watchpulse.online/">watchpulse.online</a>) is an independent movie and TV discovery guide and editorial publication created to help viewers pick something genuinely worth watching without scrolling endlessly.</p>
+        <p>WatchPulse combines a TV series catalog (via TVmaze), open film details (via Wikipedia &amp; Wikidata), official studio trailers (via YouTube), a curated film showcase, and 20 original <a href="/guides">Editorial Guides &amp; Reviews</a>. You can look up cast, directors, runtimes, genres, and official reference links, watch official trailers, and save titles to a private local browser watchlist.</p>
       </section>
 
       <section class="legal-section">
         <h2>Independent Guide &amp; Data Attribution</h2>
-        <p><strong>WatchPulse is an independent discovery guide and editorial publication.</strong> We are not a streaming provider, do not host or stream video files, and are not affiliated with, endorsed by, or sponsored by Netflix, Amazon Prime Video, Disney+, Apple TV+, HBO Max, or any other streaming platform listed on our site. All trademarks belong to their respective owners.</p>
-        <p>Live TV series metadata, schedules, cast lists, and artwork are provided by <a href="https://www.tvmaze.com" target="_blank" rel="noopener">TVmaze API</a> under the Creative Commons Attribution-ShareAlike (CC BY-SA) license. Movie collections, runtime guides, and reviews are original WatchPulse editorial content supplemented with open film facts from Wikipedia (CC BY-SA).</p>
+        <p><strong>WatchPulse is an independent discovery guide and editorial publication.</strong> We are not a streaming provider, do not host or stream video files, and are not affiliated with, endorsed by, or sponsored by Netflix, Amazon Prime Video, Disney+, Apple TV+, HBO Max, or any other streaming platform mentioned in our guides. All trademarks belong to their respective owners.</p>
+        <p>We do not provide per-country streaming availability feeds—because licensing windows change frequently by region, always confirm current playback directly inside your local streaming app. Our open data stack consists of:</p>
+        <ul>
+          <li><strong>TVmaze API (CC BY-SA):</strong> TV series listings, primary broadcast/streaming network tags, cast lists, runtimes, and show artwork.</li>
+          <li><strong>Wikipedia (CC BY-SA) &amp; Wikidata (CC0 Public Domain):</strong> Film summaries, directors, cast, genres, runtimes, release dates, IMDb reference links, and artwork.</li>
+          <li><strong>YouTube:</strong> Official studio and network trailers played via YouTube's privacy-enhanced player (<code>youtube-nocookie.com</code>) or linked directly on YouTube.</li>
+          <li><strong>WatchPulse Original Editorial:</strong> Hand-curated film notes, runtime comparisons, and 20 long-form guides &amp; reviews written specifically for WatchPulse readers.</li>
+        </ul>
       </section>
 
       <section class="legal-section">
@@ -78,14 +84,14 @@
         <div class="features-grid">
           <div class="feature-box">
             <h3>🎙️ Unified Search &amp; Voice Search</h3>
-            <p>Search live TV shows, WatchPulse curated films, and open Wikipedia film references from one bar, with browser voice-search support.</p>
+            <p>Search TV series, curated films, and open Wikipedia/Wikidata film profiles from one bar, with typo tolerance and browser voice search.</p>
           </div>
           <div class="feature-box">
             <h3>🎬 Official YouTube Trailers</h3>
-            <p>In-page privacy-enhanced YouTube trailer modal for featured titles, plus direct YouTube links for any movie or series.</p>
+            <p>In-page privacy-enhanced YouTube trailer player verified against official studio, network, and licensed trailer channels, with direct YouTube links.</p>
           </div>
           <div class="feature-box">
-            <h3>📚 20+ Original Editorial Guides</h3>
+            <h3>📚 20 Original Editorial Guides</h3>
             <p>Long-form curated lists, platform comparisons, runtime picks, and home-viewing reviews written specifically for WatchPulse readers.</p>
           </div>
           <div class="feature-box">
@@ -97,13 +103,13 @@
 
       <section class="legal-section">
         <h2>Meet the Creator</h2>
-        <p>WatchPulse is designed, engineered, and edited by <strong>Awais K (Awais Khan Niazi)</strong>, an independent web developer and film enthusiast based in Pakistan. Built with lightweight vanilla HTML, CSS, JavaScript, and Netlify serverless caching, WatchPulse integrates the <strong>TVmaze API (CC BY-SA)</strong>, open <strong>Wikipedia</strong> film references, and an original curated film &amp; review library.</p>
+        <p>WatchPulse is designed, engineered, and edited by <strong>Awais K (Awais Khan Niazi)</strong>, an independent web developer and film enthusiast based in Pakistan. Built with lightweight vanilla HTML, CSS, JavaScript, and <strong>Cloudflare Pages &amp; Edge Functions</strong>, WatchPulse integrates the <strong>TVmaze API (CC BY-SA)</strong>, <strong>Wikipedia (CC BY-SA)</strong>, <strong>Wikidata (CC0 Public Domain)</strong>, official <strong>YouTube</strong> trailers, and an original curated editorial library.</p>
         <p>Connect with Awais on <a href="https://www.linkedin.com/in/awais-khan-niazi" target="_blank" rel="noopener noreferrer" class="highlight-link">LinkedIn</a> or view the public site codebase on <a href="https://github.com/awaiskniazi786-svg/watchpulse" target="_blank" rel="noopener noreferrer" class="highlight-link">GitHub</a>.</p>
       </section>
 
       <section class="legal-section">
         <h2>Get in Touch</h2>
-        <p>Have an idea, data correction report, or partnership inquiry? Visit our <a href="/contact.html">Contact Page</a> or email <a href="mailto:awaiskniazi786@gmail.com">awaiskniazi786@gmail.com</a>.</p>
+        <p>Have an idea, metadata correction, or partnership inquiry? Visit our <a href="/contact">Contact Page</a> or email <a href="mailto:awaiskniazi786@gmail.com">awaiskniazi786@gmail.com</a>.</p>
       </section>
     </article>
   </main>
@@ -116,19 +122,21 @@
         <p class="owner-credit">Proudly Designed &amp; Created by <strong>Awais K</strong> &copy; 2026 WatchPulse. All rights reserved.</p>
       </div>
       <div class="footer-links">
-        <a href="/guides.html" class="footer-link">Editorial Guides</a>
+        <a href="/guides" class="footer-link">Editorial Guides</a>
         <span class="footer-dot">•</span>
-        <a href="/privacy.html" class="footer-link">Privacy Policy</a>
+        <a href="/privacy" class="footer-link">Privacy Policy</a>
         <span class="footer-dot">•</span>
-        <a href="/terms.html" class="footer-link">Terms of Service</a>
+        <a href="/terms" class="footer-link">Terms of Service</a>
         <span class="footer-dot">•</span>
-        <a href="/about.html" class="footer-link">About Us</a>
+        <a href="/about" class="footer-link">About Us</a>
         <span class="footer-dot">•</span>
-        <a href="/contact.html" class="footer-link">Contact</a>
+        <a href="/contact" class="footer-link">Contact</a>
+        <span class="footer-dot">•</span>
+        <a href="#" class="footer-link" data-privacy-settings="true">Privacy Settings</a>
       </div>
     </div>
   </footer>
+  <script src="/consent-ui.js?v=20261121f" defer></script>
 </body>
 
 </html>
-

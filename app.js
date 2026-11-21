@@ -36,7 +36,7 @@ const PROVIDER_NAMES = {
   '9': 'Prime Video',
   '337': 'Disney+',
   '350': 'Apple TV+',
-  '1899': 'Max'
+  '1899': 'HBO Max'
 };
 
 const REGION_NAMES = {
@@ -695,11 +695,10 @@ async function openMovieModal(item) {
       : detailed.overview;
   }
 
-  const regionLabel = REGION_NAMES[state.region] || state.region;
   if (els.modalRegionNote) {
     els.modalRegionNote.textContent = detailed.media_type === 'tv'
-      ? `Primary Network / Streaming Home (TVmaze)`
-      : `Selected Country: ${regionLabel} (${state.region})`;
+      ? 'Primary Network / Streaming Home (TVmaze — varies by country)'
+      : 'Curated Platform Note (checked Nov 21, 2026 — verify locally)';
   }
 
   // Render honest commercial-safe provider & guide chips
@@ -971,7 +970,16 @@ function initCookieConsent() {
   if (!els.cookieBanner) return;
   let saved = null;
   try { saved = localStorage.getItem('wp_cookie_consent'); } catch (_) {}
-  if (!saved) els.cookieBanner.classList.remove('hidden');
+
+  // Avoid double cookie banners when Google's certified AdSense CMP (EEA/UK/CH) is active
+  const hasGoogleCmp = () => typeof window.__tcfapi === 'function' || Boolean(window.googlefc && window.googlefc.ccpa);
+  if (!saved) {
+    setTimeout(() => {
+      if (!hasGoogleCmp()) {
+        els.cookieBanner.classList.remove('hidden');
+      }
+    }, 900);
+  }
 
   const handleChoice = (accepted) => {
     try { localStorage.setItem('wp_cookie_consent', accepted ? 'accepted' : 'declined'); } catch (_) {}

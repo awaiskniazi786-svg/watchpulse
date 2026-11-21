@@ -7,7 +7,7 @@
  */
 
 const CATALOG_PROXY_URL = '/api/catalog';
-const CURATED_CATALOG_URL = '/data/curated-catalog.json';
+const CURATED_CATALOG_URL = '/data/curated-catalog.json?v=20261121d';
 
 const GENRE_MAP = {
   28: 'Action',
@@ -285,9 +285,12 @@ async function fetchCatalogApi(action, params = {}) {
     return await res.json();
   }
   if (action === 'wiki-search') {
-    const res = await fetch(`https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent((params.q || '') + ' film')}&srlimit=6&format=json&origin=*`);
+    const res = await fetch(`https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=${encodeURIComponent((params.q || '') + ' film')}&gsrlimit=8&prop=pageimages|extracts|pageprops&piprop=thumbnail&pithumbsize=500&pilicense=any&exintro=1&explaintext=1&exsentences=4&format=json&origin=*`);
     if (!res.ok) throw new Error('Wikipedia search unavailable');
     return await res.json();
+  }
+  if (action === 'wiki-details') {
+    throw new Error('Wiki details requires Cloudflare edge proxy');
   }
   throw new Error('Unknown catalog action');
 }
@@ -372,15 +375,15 @@ function normalizeCuratedMovie(m) {
 }
 
 function renderPosterArtHtml(item) {
-  // 1. Live TVmaze full vertical poster
-  if (item.media_type === 'tv' && item.poster) {
-    return `<img src="${escapeHtml(item.poster)}" alt="${escapeHtml(item.title)} poster" class="movie-poster" loading="lazy">`;
+  const isYtThumb = Boolean(item.poster && item.poster.includes('i.ytimg.com'));
+  // 1. Real vertical poster (TVmaze shows OR Wikipedia/Wikidata movie posters)
+  if (item.poster && !isYtThumb) {
+    return `<img src="${escapeHtml(item.poster)}" alt="${escapeHtml(item.title)} poster" class="card-poster" loading="lazy" referrerpolicy="no-referrer">`;
   }
-  // 2. Curated Movie with verified real HD YouTube trailer thumbnail
+  // 2. Curated or searched movie with verified HD YouTube trailer thumbnail
   const thumb = getThumbUrlForItem(item);
   if (thumb) {
-    const rt = item.runtime ? `⏱️ ${item.runtime}m` : '🎬 Film';
-    const genre = (item.genres && item.genres[0]) ? item.genres[0] : 'Cinema';
+    const rt = item.runtime ? `⏱️ ${item.runtime}m` : '▶ Trailer';
     return `
       <div class="curated-thumb-card">
         <img src="${escapeHtml(thumb)}" alt="${escapeHtml(item.title)} official trailer preview" class="curated-thumb-img" loading="lazy">
@@ -388,14 +391,13 @@ function renderPosterArtHtml(item) {
         <div class="curated-thumb-play" aria-hidden="true">▶</div>
         <div class="curated-thumb-footer">
           <span>${escapeHtml(rt)}</span>
-          <span>${escapeHtml(genre)}</span>
         </div>
       </div>
     `;
   }
-  // 3. Clean typographic fallback for open Wikipedia / non-trailer films
+  // 3. Clean typographic fallback when no poster or trailer exists
   const accent = escapeHtml(item.accent || 'teal');
-  const tag = item.source === 'Wikipedia Open Data' ? 'OPEN FILM DATA' : 'WATCHPULSE PICK';
+  const tag = item.source === 'Wikipedia & Wikidata' ? 'OPEN FILM DATA' : 'WATCHPULSE PICK';
   const sub = item.director ? `Dir. ${escapeHtml(item.director)}` : escapeHtml((item.genres || []).slice(0, 2).join(' • '));
   return `
     <div class="editorial-poster-art accent-${accent}">
@@ -508,21 +510,21 @@ function renderMoviesGrid(items) {
     const savedObj = state.watchlist.find(w => w.id === item.id);
     const isSaved = Boolean(savedObj);
     const isWatched = Boolean(savedObj && savedObj.watched);
-    const primaryPlatform = (item.platforms && item.platforms[0]) ? item.platforms[0] : (item.media_type === 'tv' ? 'TV Series' : 'Curated');
+    const ratingText = typeof item.rating === 'number' ? `⭐ ${item.rating}` : (item.runtime ? `⏱️ ${item.runtime}m` : '🎬 Film');
+    const primaryPlatform = (item.platforms && item.platforms[0]) ? item.platforms[0] : (item.media_type === 'tv' ? 'TV Series' : (item.director ? `Dir. ${item.director}` : 'Curated'));
     return `
       <article class="movie-card" data-id="${escapeHtml(item.id)}" tabindex="0" role="button" aria-label="Open details for ${escapeHtml(item.title)}">
-        <div class="poster-wrap">
+        <div class="card-poster-wrap">
           ${renderPosterArtHtml(item)}
-          <span class="card-rating-badge">⭐ ${escapeHtml(item.rating)}</span>
-          <span class="card-type-badge">${item.media_type === 'tv' ? '📺 TV' : '🎬 Film'}</span>
-          <button type="button" class="card-watchlist-btn ${isSaved ? 'saved' : ''}" data-wl-id="${escapeHtml(item.id)}" title="${isSaved ? 'Remove from Watchlist' : 'Save to Watchlist'}" aria-label="Toggle Watchlist">${isSaved ? '✓' : '🔖'}</button>
+          <span class="card-rating">${escapeHtml(ratingText)}</span>
+          <span class="card-type-pill">${item.media_type === 'tv' ? '📺 TV' : '🎬 Film'}</span>
+          <button type="button" class="card-bookmark-btn ${isSaved ? 'active' : ''}" data-wl-id="${escapeHtml(item.id)}" title="${isSaved ? 'Remove from Watchlist' : 'Save to Watchlist'}" aria-label="Toggle Watchlist">${isSaved ? '✓' : '🔖'}</button>
         </div>
-        <div class="movie-info">
-          <h3 class="movie-title">${escapeHtml(item.title)}</h3>
-          <div class="movie-meta">
+        <div class="card-body">
+          <h3 class="card-title" title="${escapeHtml(item.title)}">${escapeHtml(item.title)}</h3>
+          <div class="card-meta">
             <span>${escapeHtml(item.year)}</span>
-            <span>•</span>
-            <span>${escapeHtml(primaryPlatform)}</span>
+            <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:65%;">${escapeHtml(primaryPlatform)}</span>
           </div>
           ${state.showingWatchlist ? `
             <button type="button" class="watched-toggle-btn ${isWatched ? 'is-watched' : ''}" data-watched-id="${escapeHtml(item.id)}" style="margin-top:0.5rem;width:100%;padding:0.35rem;border-radius:6px;border:1px solid var(--border-color);background:rgba(255,255,255,0.04);color:var(--text-main);font-size:0.78rem;cursor:pointer;">
@@ -557,9 +559,9 @@ function renderMoviesGrid(items) {
 
 function showLoadingGrid() {
   els.moviesGrid.innerHTML = Array.from({ length: 8 }).map(() => `
-    <div class="movie-card skeleton-card" style="min-height: 310px; opacity: 0.5;">
-      <div class="poster-wrap" style="background: rgba(255,255,255,0.05); height: 240px;"></div>
-      <div class="movie-info" style="padding: 0.75rem;"><div style="height: 14px; background: rgba(255,255,255,0.08); border-radius: 4px;"></div></div>
+    <div class="movie-card skeleton-card" style="opacity: 0.5;">
+      <div class="card-poster-wrap" style="background: rgba(255,255,255,0.05);"></div>
+      <div class="card-body"><div style="height: 14px; background: rgba(255,255,255,0.08); border-radius: 4px;"></div></div>
     </div>
   `).join('');
 }
@@ -723,48 +725,75 @@ async function searchTitlesLive(query, scrollToGrid = false) {
   ]);
 
   let wikiHits = [];
-  if (wikiRes.status === 'fulfilled' && wikiRes.value && wikiRes.value.query) {
-    let wikiList = Array.isArray(wikiRes.value.query.search) ? wikiRes.value.query.search : [];
-    // If typo gave 0 hits but Wikipedia suggested a spelling correction, retry cleanly!
-    const suggestion = wikiRes.value.query.searchinfo && wikiRes.value.query.searchinfo.suggestion;
-    if (!wikiList.length && suggestion) {
-      try {
-        const retry = await fetchCatalogApi('wiki-search', { q: suggestion.replace(/\s+film$/i, '') });
-        if (retry && retry.query && Array.isArray(retry.query.search)) wikiList = retry.query.search;
-      } catch (_) {}
-    }
-    const existingTitles = new Set(curatedHits.map(x => normalizeForFuzzy(x.title)));
-    wikiHits = wikiList
-      .filter(w => {
-        const cleanTitle = w.title.replace(/\s*\([^)]*film[^)]*\)/i, '').trim();
-        return cleanTitle && !existingTitles.has(normalizeForFuzzy(cleanTitle));
-      })
-      .slice(0, 6)
-      .map(w => {
-        const cleanTitle = w.title.replace(/\s*\([^)]*film[^)]*\)/i, '').trim();
-        const yearMatch = (w.title + ' ' + w.snippet).match(/\b(19|20)\d{2}\b/);
-        return {
-          id: `wiki-${w.pageid}`,
+  const existingTitles = new Set(curatedHits.map(x => normalizeForFuzzy(x.title)));
+  if (wikiRes.status === 'fulfilled' && wikiRes.value) {
+    // 1. Upgraded Cloudflare Edge Wikipedia + Wikidata enriched results
+    if (Array.isArray(wikiRes.value.results)) {
+      wikiHits = wikiRes.value.results
+        .filter(w => w && w.title && !existingTitles.has(normalizeForFuzzy(w.title)))
+        .map(w => ({
+          id: `wiki-${w.pageid || w.qid || normalizeForFuzzy(w.title)}`,
+          qid: w.qid || '',
+          wikiTitle: w.wikiTitle || w.title,
           media_type: 'movie',
-          source: 'Wikipedia Open Data',
-          title: cleanTitle,
-          year: yearMatch ? yearMatch[0] : 'Film',
+          source: 'Wikipedia & Wikidata',
+          title: w.title,
+          year: w.year || 'Film',
           rating: 'Film',
-          runtime: 0,
-          genres: ['Film'],
+          runtime: w.runtime || 0,
+          genres: ['Feature Film'],
           language: 'en',
           languageLabel: 'Global',
-          director: '',
+          director: w.director || '',
           cast: [],
-          platforms: ['Verify Locally'],
-          overview: stripHtmlTags(w.snippet) + '...',
-          officialUrl: `https://en.wikipedia.org/wiki/${encodeURIComponent(w.title.replace(/ /g, '_'))}`,
+          platforms: w.director ? [`Dir. ${w.director}`] : ['Check Local Apps'],
+          overview: w.overview || w.description || 'Click to load full cast, director, runtime, and trailer details.',
+          officialUrl: w.officialUrl || `https://en.wikipedia.org/wiki/${encodeURIComponent((w.wikiTitle || w.title).replace(/ /g, '_'))}`,
+          imdb_id: w.imdb_id || '',
           accent: 'indigo',
-          trailer_id: VERIFIED_TRAILER_IDS[cleanTitle.toLowerCase()] || '',
-          poster: '',
-          backdrop: ''
-        };
-      });
+          trailer_id: w.trailer_id || VERIFIED_TRAILER_IDS[(w.title || '').toLowerCase()] || '',
+          poster: w.poster || '',
+          backdrop: w.backdrop || w.poster || '',
+          _detailsLoaded: false
+        }));
+    } else if (wikiRes.value.query && wikiRes.value.query.pages) {
+      // 2. Direct browser fallback (generator=search)
+      const pages = Object.values(wikiRes.value.query.pages)
+        .sort((a, b) => (a.index || 99) - (b.index || 99));
+      wikiHits = pages
+        .filter(p => p && p.title && !/\b(in film|filmography|list of|disambiguation)\b/i.test(p.title))
+        .map(p => {
+          const cleanTitle = p.title.replace(/\s*\([^)]*film[^)]*\)/i, '').trim();
+          const yearMatch = (p.title + ' ' + (p.extract || '')).match(/\b(19|20)\d{2}\b/);
+          const poster = (p.thumbnail && p.thumbnail.source) ? p.thumbnail.source.split('?')[0] : '';
+          return {
+            id: `wiki-${p.pageid}`,
+            qid: (p.pageprops && p.pageprops.wikibase_item) || '',
+            wikiTitle: p.title,
+            media_type: 'movie',
+            source: 'Wikipedia & Wikidata',
+            title: cleanTitle,
+            year: yearMatch ? yearMatch[0] : 'Film',
+            rating: 'Film',
+            runtime: 0,
+            genres: ['Feature Film'],
+            language: 'en',
+            languageLabel: 'Global',
+            director: '',
+            cast: [],
+            platforms: ['Check Local Apps'],
+            overview: (p.extract || '').trim() || 'Open film summary via Wikipedia.',
+            officialUrl: `https://en.wikipedia.org/wiki/${encodeURIComponent(p.title.replace(/ /g, '_'))}`,
+            accent: 'indigo',
+            trailer_id: VERIFIED_TRAILER_IDS[cleanTitle.toLowerCase()] || '',
+            poster,
+            backdrop: poster,
+            _detailsLoaded: false
+          };
+        })
+        .filter(w => w.title && !existingTitles.has(normalizeForFuzzy(w.title)))
+        .slice(0, 6);
+    }
   }
 
   let tvHits = [];
@@ -798,42 +827,40 @@ async function searchTitlesLive(query, scrollToGrid = false) {
   trackEvent('watchpulse_search', { query: state.searchQuery, results: combined.length });
 }
 
-async function openMovieModal(item) {
-  state.currentModalItem = item;
-  let detailed = item;
-
-  if (item.media_type === 'tv' && item.tvmazeId && (!item.cast || !item.cast.length)) {
-    try {
-      const fullShow = await fetchCatalogApi('tv-details', { id: item.tvmazeId });
-      detailed = normalizeTvMazeShow(fullShow) || item;
-      state.currentModalItem = detailed;
-    } catch (_) {}
-  }
-
+function populateMovieModalContent(detailed, isLoadingDetails = false) {
   const thumb = getThumbUrlForItem(detailed);
   if (els.modalBackdrop) {
-    els.modalBackdrop.style.backgroundImage = detailed.backdrop || thumb
-      ? `url('${detailed.backdrop || thumb}')`
+    const bg = detailed.backdrop || thumb;
+    els.modalBackdrop.style.backgroundImage = bg
+      ? `url('${bg}')`
       : 'linear-gradient(135deg, #0b132b 0%, #1c2541 60%, #0f766e 100%)';
   }
   if (els.modalPoster) {
     if (thumb) {
+      els.modalPoster.referrerPolicy = 'no-referrer';
       els.modalPoster.src = thumb;
       els.modalPoster.style.display = 'block';
-      els.modalPoster.alt = `${detailed.title} preview`;
+      els.modalPoster.alt = `${detailed.title} poster`;
     } else {
       els.modalPoster.style.display = 'none';
     }
   }
   if (els.modalTitle) els.modalTitle.textContent = detailed.title;
-  if (els.modalRating) els.modalRating.textContent = `⭐ ${detailed.rating}`;
-  if (els.modalYear) els.modalYear.textContent = detailed.year;
+  if (els.modalRating) {
+    els.modalRating.textContent = typeof detailed.rating === 'number'
+      ? `⭐ ${detailed.rating}`
+      : (detailed.country ? `🌍 ${detailed.country}` : '🎬 Feature Film');
+  }
+  if (els.modalYear) els.modalYear.textContent = detailed.year || 'Film';
   if (els.modalRuntime) {
     els.modalRuntime.textContent = detailed.runtime
       ? (detailed.media_type === 'tv' ? `~${detailed.runtime}m / ep` : `${detailed.runtime} min`)
-      : 'Feature Film';
+      : (detailed.languageLabel || 'Feature Film');
   }
-  if (els.modalGenres) els.modalGenres.textContent = (detailed.genres || []).join(', ');
+  if (els.modalGenres) {
+    const gList = (detailed.genres || []).join(', ');
+    els.modalGenres.textContent = detailed.director ? `${gList} • Dir. ${detailed.director}` : gList;
+  }
   if (els.modalOverview) {
     els.modalOverview.textContent = detailed.editorial_note
       ? `${detailed.overview} — WatchPulse Note: ${detailed.editorial_note}`
@@ -843,22 +870,27 @@ async function openMovieModal(item) {
   if (els.modalRegionNote) {
     els.modalRegionNote.textContent = detailed.media_type === 'tv'
       ? 'Primary Network / Streaming Home (TVmaze — varies by country)'
-      : 'Curated Platform Note (checked Nov 21, 2026 — verify locally)';
+      : detailed.source === 'Wikipedia & Wikidata'
+        ? 'Distributors & Reference Info (Wikipedia & Wikidata — check local streaming apps)'
+        : 'Curated Platform Note (checked Nov 21, 2026 — verify locally)';
   }
 
   if (els.watchProvidersList) {
     const pills = (detailed.platforms || []).map(p => `<span class="provider-pill">${escapeHtml(p)}</span>`).join('');
+    const imdbBtn = detailed.imdb_id
+      ? `<a href="https://www.imdb.com/title/${encodeURIComponent(detailed.imdb_id)}/" target="_blank" rel="noopener noreferrer" class="provider-pill" style="border-color: #f5c518; color: #f5c518; text-decoration: none;">IMDb Profile ↗</a>`
+      : '';
     const guideBtn = detailed.guide_url
       ? `<a href="${escapeHtml(detailed.guide_url)}" class="provider-pill" style="border-color: var(--accent-cyan); color: var(--accent-cyan); text-decoration: none;">📚 Read: ${escapeHtml(detailed.guide_title)} →</a>`
       : '';
-    els.watchProvidersList.innerHTML = `<div class="provider-tier-group"><div class="provider-tier-pills">${pills}${guideBtn}</div></div>`;
+    els.watchProvidersList.innerHTML = `<div class="provider-tier-group"><div class="provider-tier-pills">${pills}${imdbBtn}${guideBtn}</div></div>`;
   }
 
   if (els.modalFreshnessNote) {
     els.modalFreshnessNote.textContent = detailed.source === 'TVmaze'
       ? 'Live TV data provided by TVmaze (CC BY-SA — Commercial Allowed)'
-      : detailed.source === 'Wikipedia Open Data'
-        ? 'Open film summary via Wikipedia (CC BY-SA)'
+      : detailed.source === 'Wikipedia & Wikidata'
+        ? 'Live film profile powered by Wikipedia (CC BY-SA) & Wikidata (CC0 Public Domain)'
         : 'Curated by WatchPulse Editorial — verify current local availability inside your app';
   }
 
@@ -866,8 +898,8 @@ async function openMovieModal(item) {
     els.officialWatchLink.href = detailed.officialUrl || detailed.guide_url || '/guides.html';
     els.officialWatchLink.textContent = detailed.source === 'TVmaze'
       ? 'View Full Episode Guide on TVmaze ↗'
-      : detailed.source === 'Wikipedia Open Data'
-        ? 'Read Full Article on Wikipedia ↗'
+      : detailed.source === 'Wikipedia & Wikidata'
+        ? 'Read Full Film Article on Wikipedia ↗'
         : 'Open Matching WatchPulse Guide →';
   }
 
@@ -876,19 +908,25 @@ async function openMovieModal(item) {
   }
 
   if (els.modalCastList) {
-    if (detailed.cast && detailed.cast.length) {
-      els.modalCastList.innerHTML = detailed.cast.map(name => `<span class="cast-pill">${escapeHtml(name)}</span>`).join('');
-    } else if (detailed.director) {
-      els.modalCastList.innerHTML = `<span class="cast-pill">Director: ${escapeHtml(detailed.director)}</span>`;
+    if (isLoadingDetails && (!detailed.cast || !detailed.cast.length)) {
+      els.modalCastList.innerHTML = `<span class="cast-pill" style="opacity:0.75;">⏳ Loading full cast, director &amp; details...</span>`;
     } else {
-      els.modalCastList.innerHTML = `<span class="cast-pill">See official reference link above</span>`;
+      const chips = [];
+      if (detailed.director) chips.push(`<span class="cast-pill" style="border-color:var(--accent-cyan);color:var(--accent-cyan);">🎬 Dir. ${escapeHtml(detailed.director)}</span>`);
+      if (detailed.cast && detailed.cast.length) {
+        detailed.cast.forEach(name => chips.push(`<span class="cast-pill">${escapeHtml(name)}</span>`));
+      }
+      els.modalCastList.innerHTML = chips.length
+        ? chips.join('')
+        : `<span class="cast-pill">See official reference link above</span>`;
     }
   }
 
   if (els.modalSimilarSection && els.modalSimilarList) {
     const pool = detailed.media_type === 'tv' ? state.tvShowsCache : state.curatedMovies;
     const primaryGenre = (detailed.genres && detailed.genres[0]) || '';
-    const similar = pool.filter(x => x.id !== detailed.id && (x.genres || []).includes(primaryGenre)).slice(0, 4);
+    let similar = pool.filter(x => x.id !== detailed.id && (x.genres || []).some(g => g.toLowerCase().includes(primaryGenre.toLowerCase()))).slice(0, 4);
+    if (!similar.length) similar = pool.filter(x => x.id !== detailed.id).slice(0, 4);
     if (similar.length) {
       els.modalSimilarSection.classList.remove('hidden');
       els.modalSimilarList.innerHTML = similar.map(s => `
@@ -908,8 +946,57 @@ async function openMovieModal(item) {
   }
 
   updateModalWatchlistBtn();
+}
+
+async function openMovieModal(item) {
+  state.currentModalItem = item;
+  const needsTvDetails = Boolean(item.media_type === 'tv' && item.tvmazeId && (!item.cast || !item.cast.length));
+  const needsWikiDetails = Boolean(item.media_type === 'movie' && item.qid && !item._detailsLoaded);
+
+  // Open immediately so the UI feels instant, then hydrate full live cast/director/runtime/genres/trailer
+  populateMovieModalContent(item, needsTvDetails || needsWikiDetails);
   els.movieModal.classList.remove('hidden');
   document.body.style.overflow = 'hidden';
+
+  if (needsTvDetails) {
+    try {
+      const fullShow = await fetchCatalogApi('tv-details', { id: item.tvmazeId });
+      const hydrated = normalizeTvMazeShow(fullShow);
+      if (hydrated && state.currentModalItem && state.currentModalItem.id === item.id) {
+        Object.assign(item, hydrated, { _detailsLoaded: true });
+        state.currentModalItem = item;
+        populateMovieModalContent(item, false);
+      }
+    } catch (_) {
+      if (state.currentModalItem && state.currentModalItem.id === item.id) populateMovieModalContent(item, false);
+    }
+  } else if (needsWikiDetails) {
+    try {
+      const wd = await fetchCatalogApi('wiki-details', { id: item.qid, title: item.wikiTitle || item.title });
+      if (wd && state.currentModalItem && state.currentModalItem.id === item.id) {
+        Object.assign(item, {
+          overview: wd.overview || item.overview,
+          year: wd.year || item.year,
+          runtime: wd.runtime || item.runtime,
+          director: wd.director || item.director,
+          cast: (Array.isArray(wd.cast) && wd.cast.length) ? wd.cast : item.cast,
+          genres: (Array.isArray(wd.genres) && wd.genres.length) ? wd.genres : item.genres,
+          platforms: (Array.isArray(wd.platforms) && wd.platforms.length) ? wd.platforms : item.platforms,
+          languageLabel: wd.languageLabel || item.languageLabel,
+          country: wd.country || item.country || '',
+          trailer_id: wd.trailer_id || item.trailer_id,
+          imdb_id: wd.imdb_id || item.imdb_id || '',
+          poster: wd.poster || item.poster,
+          backdrop: wd.backdrop || item.backdrop,
+          _detailsLoaded: true
+        });
+        state.currentModalItem = item;
+        populateMovieModalContent(item, false);
+      }
+    } catch (_) {
+      if (state.currentModalItem && state.currentModalItem.id === item.id) populateMovieModalContent(item, false);
+    }
+  }
 }
 
 function closeMovieModal() {

@@ -2276,12 +2276,43 @@ a:hover {
   padding-right: 1rem;
 }
 
+/* Clean bottom-left media type badge inside .card-poster-wrap */
+.card-type-pill {
+  position: absolute;
+  bottom: 0.6rem;
+  left: 0.6rem;
+  z-index: 3;
+  background: rgba(9, 12, 16, 0.82);
+  backdrop-filter: blur(6px);
+  color: #f8fafc;
+  font-weight: 700;
+  font-size: 0.68rem;
+  padding: 0.22rem 0.52rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  letter-spacing: 0.02em;
+  pointer-events: none;
+}
+
+.card-poster-wrap .card-rating,
+.card-poster-wrap .card-bookmark-btn {
+  z-index: 3;
+}
+
+/* Give typographic fallback posters clean breathing room below top overlay badges */
+.editorial-poster-art {
+  width: 100%;
+  height: 100%;
+  padding: 3.1rem 0.9rem 2.6rem;
+  display: flex;
+  flex-direction: column;
+}
+
 /* Cinematic YouTube HD Trailer Thumbnail Cards for Curated Movies */
 .curated-thumb-card {
   position: relative;
   width: 100%;
   height: 100%;
-  min-height: 290px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -2303,7 +2334,7 @@ a:hover {
 .curated-thumb-scrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(6, 8, 12, 0.25) 0%, rgba(6, 8, 12, 0.15) 40%, rgba(6, 8, 12, 0.92) 100%);
+  background: linear-gradient(180deg, rgba(6, 8, 12, 0.35) 0%, rgba(6, 8, 12, 0.12) 45%, rgba(6, 8, 12, 0.88) 100%);
   pointer-events: none;
 }
 .curated-thumb-play {
@@ -2324,6 +2355,7 @@ a:hover {
   opacity: 0;
   transition: opacity 0.22s ease, transform 0.22s ease;
   pointer-events: none;
+  z-index: 2;
 }
 .movie-card:hover .curated-thumb-play {
   opacity: 1;
@@ -2332,9 +2364,9 @@ a:hover {
 .curated-thumb-footer {
   position: relative;
   z-index: 2;
-  padding: 0.75rem 0.8rem 0.65rem;
+  padding: 0.55rem 0.65rem 0.62rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   font-size: 0.72rem;
   color: #e2e8f0;

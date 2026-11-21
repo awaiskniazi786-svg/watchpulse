@@ -2264,3 +2264,156 @@ a:hover {
   font-size: 0.78rem;
   color: rgba(241, 245, 249, 0.85);
 }
+
+
+/* Global .hidden utility fix (fixes Watchlist banner, empty clear button, empty similar section) */
+.hidden {
+  display: none !important;
+}
+
+/* Smooth right-edge spacing on genre filter chips */
+.chips-container {
+  padding-right: 1rem;
+}
+
+/* Cinematic YouTube HD Trailer Thumbnail Cards for Curated Movies */
+.curated-thumb-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 290px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background: #0b0f17;
+}
+.curated-thumb-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.35s ease;
+}
+.movie-card:hover .curated-thumb-img {
+  transform: scale(1.06);
+}
+.curated-thumb-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(6, 8, 12, 0.25) 0%, rgba(6, 8, 12, 0.15) 40%, rgba(6, 8, 12, 0.92) 100%);
+  pointer-events: none;
+}
+.curated-thumb-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.92);
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: rgba(229, 9, 20, 0.88);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.05rem;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  transition: opacity 0.22s ease, transform 0.22s ease;
+  pointer-events: none;
+}
+.movie-card:hover .curated-thumb-play {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+.curated-thumb-footer {
+  position: relative;
+  z-index: 2;
+  padding: 0.75rem 0.8rem 0.65rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.72rem;
+  color: #e2e8f0;
+  font-weight: 600;
+}
+
+/* Search Result Filter Tabs (All / Movies / TV Shows) */
+.search-result-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.search-tab-btn {
+  padding: 0.45rem 0.95rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-color);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.search-tab-btn.active,
+.search-tab-btn:hover {
+  background: rgba(0, 199, 183, 0.14);
+  border-color: var(--accent-cyan);
+  color: #ffffff;
+}
+
+/* Rich Live Search Autocomplete Dropdown Rows */
+.ac-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.55rem 0.8rem;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  color: var(--text-main);
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+.ac-row:hover {
+  background: rgba(255, 255, 255, 0.07);
+}
+.ac-thumb {
+  width: 44px;
+  height: 32px;
+  border-radius: 5px;
+  object-fit: cover;
+  flex-shrink: 0;
+  background: #1e293b;
+}
+.ac-meta {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+.ac-title {
+  font-size: 0.86rem;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ac-sub {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+}
+.ac-type-pill {
+  font-size: 0.7rem;
+  padding: 0.15rem 0.45rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #e2e8f0;
+  flex-shrink: 0;
+}

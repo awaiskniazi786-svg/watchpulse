@@ -1,14 +1,13 @@
 /**
- * WatchPulse.online — Plan B Commercial-Safe Discovery Engine ($0/Month, Zero TMDB)
+ * WatchPulse.online — Commercial-Safe Discovery Engine ($0/Month, Cloudflare Pages)
  * - TV Series: Live TVmaze API (CC BY-SA — Commercial AdSense Allowed, Zero API Key)
- * - Movies: WatchPulse Curated Editorial Library (data/curated-catalog.json) + Wikipedia Open Facts Fallback
- * - Trailers: Official YouTube Search / Embed
- * - Local Watchlist + Watched Status: Browser localStorage
+ * - Movies: WatchPulse Curated Editorial Library (data/curated-catalog.json) + Wikipedia Open Film Search
+ * - Thumbnails & Trailers: Official YouTube HD Thumbnails & Privacy-Enhanced Embeds (youtube-nocookie.com)
+ * - Watchlist + Watched Status: Private Browser localStorage
  */
 
 const CATALOG_PROXY_URL = '/api/catalog';
 const CURATED_CATALOG_URL = '/data/curated-catalog.json';
-const FALLBACK_POSTER = '/preview.jpg';
 
 const GENRE_MAP = {
   28: 'Action',
@@ -39,22 +38,6 @@ const PROVIDER_NAMES = {
   '1899': 'HBO Max'
 };
 
-const REGION_NAMES = {
-  US: 'United States',
-  GB: 'United Kingdom',
-  PK: 'Pakistan',
-  CA: 'Canada',
-  DE: 'Germany',
-  IN: 'India',
-  AU: 'Australia',
-  AE: 'United Arab Emirates',
-  FR: 'France',
-  ES: 'Spain',
-  JP: 'Japan',
-  KR: 'South Korea',
-  BR: 'Brazil'
-};
-
 const LANGUAGE_NAMES = {
   en: 'English',
   ko: 'Korean',
@@ -68,17 +51,17 @@ const LANGUAGE_NAMES = {
 };
 
 const TRENDING_KEYWORDS = [
-  'Severance',
-  'Silo',
   'Dune: Part Two',
-  'Chernobyl',
+  'Severance',
   'Oppenheimer',
+  'Silo',
+  'Interstellar',
+  'Chernobyl',
   'Maharaja',
-  'Dark',
   'Stranger Things'
 ];
 
-// Verified Official Embeddable YouTube Trailer IDs (100% public YouTube embed player)
+// Verified Official Embeddable YouTube Trailer IDs for TV Series & Curated Movies
 const VERIFIED_TRAILER_IDS = {
   'dune: part two': 'Way9Dexny3w',
   'oppenheimer': 'uYPbbksJxIg',
@@ -107,14 +90,14 @@ const VERIFIED_TRAILER_IDS = {
   'squid game': 'oqxAJKy0ii4'
 };
 
-// App State
 const state = {
-  mediaType: 'tv', // Default to Live TVmaze TV Series (full real posters & live search!) or switch to Curated Movies
-  region: 'US',
+  mediaType: 'tv',
   language: 'all',
   provider: 'all',
   genre: 'all',
   searchQuery: '',
+  searchFilterTab: 'all', // 'all' | 'movie' | 'tv'
+  lastSearchResults: [],
   tvPage: 0,
   curatedMovies: [],
   tvShowsCache: [],
@@ -125,7 +108,6 @@ const state = {
   showingWatchlist: false
 };
 
-// DOM Elements
 const els = {
   brandLogo: document.getElementById('brandLogo'),
   searchInput: document.getElementById('searchInput'),
@@ -147,13 +129,13 @@ const els = {
   heroDetailsBtn: document.getElementById('heroDetailsBtn'),
   heroWatchlistBtn: document.getElementById('heroWatchlistBtn'),
   mediaTypeToggle: document.getElementById('mediaTypeToggle'),
-  regionSelect: document.getElementById('regionSelect'),
   languageSelect: document.getElementById('languageSelect'),
   providerChips: document.getElementById('providerChips'),
   genreChips: document.getElementById('genreChips'),
   gridTitle: document.getElementById('gridTitle'),
   moviesCount: document.getElementById('moviesCount'),
   watchlistNoticeBanner: document.getElementById('watchlistNoticeBanner'),
+  searchResultTabs: document.getElementById('searchResultTabs'),
   moviesGrid: document.getElementById('moviesGrid'),
   loadMoreBtn: document.getElementById('loadMoreBtn'),
   movieModal: document.getElementById('movieModal'),
@@ -211,22 +193,44 @@ function stripHtmlTags(html) {
   return String(html || '').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
 }
 
+function normalizeForFuzzy(str) {
+  return String(str || '').toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ').trim();
+}
+
+// Fast Levenshtein distance for typo-tolerant local search (e.g. "sipderman" -> "spiderman")
+function editDistance(a, b) {
+  if (a === b) return 0;
+  if (!a.length) return b.length;
+  if (!b.length) return a.length;
+  const dp = Array.from({ length: a.length + 1 }, (_, i) => i);
+  for (let j = 1; j <= b.length; j++) {
+    let prev = dp[0];
+    dp[0] = j;
+    for (let i = 1; i <= a.length; i++) {
+      const tmp = dp[i];
+      dp[i] = Math.min(dp[i] + 1, dp[i - 1] + 1, prev + (a[i - 1] === b[j - 1] ? 0 : 1));
+      prev = tmp;
+    }
+  }
+  return dp[a.length];
+}
+
+function fuzzyMatches(query, text) {
+  const q = normalizeForFuzzy(query);
+  const t = normalizeForFuzzy(text);
+  if (!q) return false;
+  if (t.includes(q)) return true;
+  const qWords = q.split(' ').filter(w => w.length >= 3);
+  const tWords = t.split(' ');
+  if (!qWords.length) return false;
+  return qWords.every(qw => tWords.some(tw => tw.includes(qw) || editDistance(qw, tw.slice(0, qw.length + 1)) <= (qw.length >= 6 ? 2 : 1)));
+}
+
 function trackEvent(eventName, params = {}) {
   try {
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({ event: eventName, ...params });
   } catch (_) {}
-}
-
-function detectDefaultRegion() {
-  try {
-    const saved = localStorage.getItem('wp_region');
-    if (saved && REGION_NAMES[saved]) return saved;
-    const lang = (navigator.language || 'en-US').toUpperCase();
-    const parts = lang.split('-');
-    if (parts[1] && REGION_NAMES[parts[1]]) return parts[1];
-  } catch (_) {}
-  return 'US';
 }
 
 function loadSavedWatchlist() {
@@ -254,11 +258,6 @@ function updateWatchlistBadge() {
   }
 }
 
-/**
- * Smart Fetch Helper:
- * Uses /api/catalog on Netlify production; seamlessly falls back to direct CORS-enabled
- * TVmaze / Wikipedia public APIs when previewing locally without Netlify Functions.
- */
 async function fetchCatalogApi(action, params = {}) {
   const qs = new URLSearchParams({ action, ...params });
   try {
@@ -269,7 +268,6 @@ async function fetchCatalogApi(action, params = {}) {
     }
   } catch (_) {}
 
-  // Direct CORS-enabled fallback for local preview (zero API keys needed!)
   if (action === 'tv-popular') {
     const page = params.page || 0;
     const res = await fetch(`https://api.tvmaze.com/shows?page=${page}`);
@@ -294,6 +292,20 @@ async function fetchCatalogApi(action, params = {}) {
   throw new Error('Unknown catalog action');
 }
 
+function getTrailerIdForItem(item) {
+  if (!item) return '';
+  if (item.trailer_id) return item.trailer_id;
+  return VERIFIED_TRAILER_IDS[(item.title || '').toLowerCase().trim()] || '';
+}
+
+function getThumbUrlForItem(item) {
+  if (!item) return '';
+  if (item.poster) return item.poster;
+  const tid = getTrailerIdForItem(item);
+  if (tid) return `https://i.ytimg.com/vi/${tid}/hqdefault.jpg`;
+  return '';
+}
+
 function normalizeTvMazeShow(show) {
   if (!show) return null;
   const networkName = (show.webChannel && show.webChannel.name) || (show.network && show.network.name) || 'TV / Streaming';
@@ -305,6 +317,7 @@ function normalizeTvMazeShow(show) {
   const cast = show._embedded && Array.isArray(show._embedded.cast)
     ? show._embedded.cast.slice(0, 8).map(c => c.person && c.person.name).filter(Boolean)
     : [];
+  const tid = VERIFIED_TRAILER_IDS[(show.name || '').toLowerCase().trim()] || '';
 
   return {
     id: `tvmaze-${show.id}`,
@@ -319,8 +332,9 @@ function normalizeTvMazeShow(show) {
     language: langCode,
     languageLabel: show.language || 'English',
     poster: show.image ? (show.image.medium || show.image.original) : '',
-    backdrop: show.image ? (show.image.original || show.image.medium) : '',
-    overview: stripHtmlTags(show.summary) || 'Explore episode schedule, streaming network details, and official trailers on WatchPulse.',
+    backdrop: show.image ? (show.image.original || show.image.medium) : (tid ? `https://i.ytimg.com/vi/${tid}/hqdefault.jpg` : ''),
+    trailer_id: tid,
+    overview: stripHtmlTags(show.summary) || 'Explore episode schedule, primary streaming network details, and official trailers on WatchPulse.',
     platforms: [networkName],
     officialUrl: show.url || 'https://www.tvmaze.com',
     status: show.status || '',
@@ -329,6 +343,8 @@ function normalizeTvMazeShow(show) {
 }
 
 function normalizeCuratedMovie(m) {
+  const tid = m.trailer_id || VERIFIED_TRAILER_IDS[(m.title || '').toLowerCase().trim()] || '';
+  const thumb = tid ? `https://i.ytimg.com/vi/${tid}/hqdefault.jpg` : '';
   return {
     id: m.id,
     media_type: 'movie',
@@ -349,15 +365,35 @@ function normalizeCuratedMovie(m) {
     guide_url: m.guide_url || '/guides.html',
     guide_title: m.guide_title || 'WatchPulse Editorial Guides',
     accent: m.accent || 'teal',
-    poster: '',
-    backdrop: '/preview.jpg'
+    trailer_id: tid,
+    poster: thumb,
+    backdrop: thumb
   };
 }
 
 function renderPosterArtHtml(item) {
-  if (item.poster) {
+  // 1. Live TVmaze full vertical poster
+  if (item.media_type === 'tv' && item.poster) {
     return `<img src="${escapeHtml(item.poster)}" alt="${escapeHtml(item.title)} poster" class="movie-poster" loading="lazy">`;
   }
+  // 2. Curated Movie with verified real HD YouTube trailer thumbnail
+  const thumb = getThumbUrlForItem(item);
+  if (thumb) {
+    const rt = item.runtime ? `⏱️ ${item.runtime}m` : '🎬 Film';
+    const genre = (item.genres && item.genres[0]) ? item.genres[0] : 'Cinema';
+    return `
+      <div class="curated-thumb-card">
+        <img src="${escapeHtml(thumb)}" alt="${escapeHtml(item.title)} official trailer preview" class="curated-thumb-img" loading="lazy">
+        <div class="curated-thumb-scrim"></div>
+        <div class="curated-thumb-play" aria-hidden="true">▶</div>
+        <div class="curated-thumb-footer">
+          <span>${escapeHtml(rt)}</span>
+          <span>${escapeHtml(genre)}</span>
+        </div>
+      </div>
+    `;
+  }
+  // 3. Clean typographic fallback for open Wikipedia / non-trailer films
   const accent = escapeHtml(item.accent || 'teal');
   const tag = item.source === 'Wikipedia Open Data' ? 'OPEN FILM DATA' : 'WATCHPULSE PICK';
   const sub = item.director ? `Dir. ${escapeHtml(item.director)}` : escapeHtml((item.genres || []).slice(0, 2).join(' • '));
@@ -383,8 +419,12 @@ function renderHero(item) {
   if (!item) return;
   state.currentHero = item;
   if (els.heroBackdrop) {
-    const bg = item.backdrop || '/preview.jpg';
-    els.heroBackdrop.style.backgroundImage = `url('${bg}')`;
+    const bg = item.backdrop || getThumbUrlForItem(item);
+    if (bg) {
+      els.heroBackdrop.style.backgroundImage = `url('${bg}')`;
+    } else {
+      els.heroBackdrop.style.backgroundImage = 'linear-gradient(135deg, #0b132b 0%, #1c2541 55%, #0f766e 100%)';
+    }
   }
   if (els.heroTitle) els.heroTitle.textContent = item.title;
   if (els.heroRating) els.heroRating.textContent = `⭐ ${item.rating}`;
@@ -393,7 +433,7 @@ function renderHero(item) {
   if (els.heroDuration) {
     els.heroDuration.textContent = item.media_type === 'tv'
       ? `📺 ${item.platforms[0] || 'TV Series'}`
-      : `⏱️ ${item.runtime} min`;
+      : (item.runtime ? `⏱️ ${item.runtime} min` : '🎬 Feature Film');
   }
   if (els.heroOverview) els.heroOverview.textContent = item.editorial_note || item.overview;
   updateHeroWatchlistBtn();
@@ -407,15 +447,43 @@ function updateHeroWatchlistBtn() {
 
 function buildCatalogHeading() {
   if (state.showingWatchlist) return '🔖 Your Private Watchlist';
-  if (state.searchQuery) {
-    return `Search Results for "${state.searchQuery}" (${state.mediaType === 'tv' ? 'TVmaze Live TV' : 'Curated Movies + Open Facts'})`;
-  }
+  if (state.searchQuery) return `Search Results for "${state.searchQuery}"`;
   const typeLabel = state.mediaType === 'tv' ? 'Popular TV Series (Live via TVmaze)' : 'Curated Editorial Movies';
   const parts = [];
   if (state.genre !== 'all' && GENRE_MAP[state.genre]) parts.push(GENRE_MAP[state.genre]);
   if (state.provider !== 'all' && PROVIDER_NAMES[state.provider]) parts.push(`on ${PROVIDER_NAMES[state.provider]}`);
   if (state.language !== 'all' && LANGUAGE_NAMES[state.language]) parts.push(LANGUAGE_NAMES[state.language]);
   return parts.length ? `${parts.join(' • ')} — ${typeLabel}` : typeLabel;
+}
+
+function renderSearchResultTabs() {
+  if (!els.searchResultTabs) return;
+  if (!state.searchQuery || !state.lastSearchResults.length) {
+    els.searchResultTabs.classList.add('hidden');
+    els.searchResultTabs.innerHTML = '';
+    return;
+  }
+  const allCount = state.lastSearchResults.length;
+  const movieCount = state.lastSearchResults.filter(x => x.media_type === 'movie').length;
+  const tvCount = state.lastSearchResults.filter(x => x.media_type === 'tv').length;
+
+  els.searchResultTabs.classList.remove('hidden');
+  els.searchResultTabs.innerHTML = `
+    <button type="button" class="search-tab-btn ${state.searchFilterTab === 'all' ? 'active' : ''}" data-stab="all">✨ All (${allCount})</button>
+    <button type="button" class="search-tab-btn ${state.searchFilterTab === 'movie' ? 'active' : ''}" data-stab="movie">🎬 Movies (${movieCount})</button>
+    <button type="button" class="search-tab-btn ${state.searchFilterTab === 'tv' ? 'active' : ''}" data-stab="tv">📺 TV Series (${tvCount})</button>
+  `;
+  els.searchResultTabs.querySelectorAll('[data-stab]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      state.searchFilterTab = btn.dataset.stab;
+      renderSearchResultTabs();
+      const filtered = state.searchFilterTab === 'all'
+        ? state.lastSearchResults
+        : state.lastSearchResults.filter(x => x.media_type === state.searchFilterTab);
+      renderMoviesGrid(filtered);
+      if (filtered.length) renderHero(filtered[0]);
+    });
+  });
 }
 
 function renderMoviesGrid(items) {
@@ -427,7 +495,7 @@ function renderMoviesGrid(items) {
     els.moviesGrid.innerHTML = `
       <div class="empty-state" style="grid-column: 1 / -1; text-align: center; padding: 2.5rem 1rem;">
         <h3 style="margin-bottom: 0.5rem;">No matching titles found</h3>
-        <p style="color: var(--text-muted); margin-bottom: 1rem;">Try switching between Movies &amp; TV Series, clearing a filter, or searching another title.</p>
+        <p style="color: var(--text-muted); margin-bottom: 1rem;">Try switching between Curated Movies &amp; Live TV Series, clearing a filter, or searching another title.</p>
         <button type="button" class="btn primary-btn" id="resetFiltersBtn">Reset Filters</button>
       </div>
     `;
@@ -522,10 +590,11 @@ async function loadTvCatalog(append = false) {
       state.tvShowsCache = normalized;
     }
 
-    applyLocalFiltersAndRender();
-    if (els.loadMoreBtn) els.loadMoreBtn.classList.remove('hidden');
+    if (!state.searchQuery) applyLocalFiltersAndRender();
   } catch (err) {
-    els.moviesGrid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:2rem;color:var(--text-muted);">Could not reach TVmaze API right now. Try switching to Curated Movies or retrying.</div>`;
+    if (state.mediaType === 'tv') {
+      els.moviesGrid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:2rem;color:var(--text-muted);">Could not reach TVmaze API right now. Try switching to Curated Movies or retrying.</div>`;
+    }
   }
 }
 
@@ -534,7 +603,7 @@ function matchesProvider(item, providerId) {
   const target = (PROVIDER_NAMES[providerId] || '').toLowerCase();
   return (item.platforms || []).some(p => {
     const lp = p.toLowerCase();
-    if (target === 'max') return lp.includes('max') || lp.includes('hbo');
+    if (target.includes('hbo')) return lp.includes('max') || lp.includes('hbo');
     if (target === 'apple tv+') return lp.includes('apple');
     if (target === 'prime video') return lp.includes('prime') || lp.includes('amazon');
     return lp.includes(target);
@@ -555,6 +624,7 @@ function matchesGenre(item, genreId) {
 function applyLocalFiltersAndRender() {
   state.showingWatchlist = false;
   if (els.watchlistNoticeBanner) els.watchlistNoticeBanner.classList.add('hidden');
+  if (els.searchResultTabs) els.searchResultTabs.classList.add('hidden');
 
   const pool = state.mediaType === 'tv' ? state.tvShowsCache : state.curatedMovies;
   const filtered = pool.filter(item => {
@@ -573,12 +643,65 @@ function applyLocalFiltersAndRender() {
   }
 }
 
-async function searchTitlesLive(query) {
+function renderAutocompleteSuggestions(query, items) {
+  if (!els.searchDropdown) return;
+  if (!query) {
+    els.searchDropdown.innerHTML = `<div class="dropdown-section-title" style="padding:0.5rem 0.8rem;">Popular Quick Searches</div>` +
+      TRENDING_KEYWORDS.map(k => `<button type="button" class="ac-row" data-kw="${escapeHtml(k)}"><span>🔍</span><span class="ac-title">${escapeHtml(k)}</span></button>`).join('');
+    els.searchDropdown.classList.remove('hidden');
+    els.searchDropdown.querySelectorAll('[data-kw]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        els.searchInput.value = btn.dataset.kw;
+        els.searchDropdown.classList.add('hidden');
+        if (els.clearSearchBtn) els.clearSearchBtn.classList.remove('hidden');
+        searchTitlesLive(btn.dataset.kw, true);
+      });
+    });
+    return;
+  }
+
+  if (!items.length) {
+    els.searchDropdown.classList.add('hidden');
+    return;
+  }
+
+  els.searchDropdown.innerHTML = `<div class="dropdown-section-title" style="padding:0.45rem 0.8rem;">Instant Matches — Click to Open</div>` +
+    items.slice(0, 6).map(item => {
+      const thumb = getThumbUrlForItem(item);
+      const thumbHtml = thumb
+        ? `<img src="${escapeHtml(thumb)}" alt="" class="ac-thumb" loading="lazy">`
+        : `<div class="ac-thumb" style="display:flex;align-items:center;justify-content:center;font-size:0.85rem;">${item.media_type === 'tv' ? '📺' : '🎬'}</div>`;
+      return `
+        <button type="button" class="ac-row" data-ac-id="${escapeHtml(item.id)}">
+          ${thumbHtml}
+          <div class="ac-meta">
+            <span class="ac-title">${escapeHtml(item.title)}</span>
+            <span class="ac-sub">${escapeHtml(item.year)} • ⭐ ${escapeHtml(item.rating)} • ${escapeHtml((item.platforms && item.platforms[0]) || item.source)}</span>
+          </div>
+          <span class="ac-type-pill">${item.media_type === 'tv' ? 'TV' : 'Film'}</span>
+        </button>
+      `;
+    }).join('');
+
+  els.searchDropdown.classList.remove('hidden');
+  els.searchDropdown.querySelectorAll('[data-ac-id]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const picked = items.find(x => x.id === btn.dataset.acId);
+      els.searchDropdown.classList.add('hidden');
+      if (picked) openMovieModal(picked);
+    });
+  });
+}
+
+async function searchTitlesLive(query, scrollToGrid = false) {
   state.searchQuery = query.trim();
+  state.searchFilterTab = 'all';
   state.showingWatchlist = false;
   if (els.watchlistNoticeBanner) els.watchlistNoticeBanner.classList.add('hidden');
 
   if (!state.searchQuery) {
+    state.lastSearchResults = [];
+    if (els.searchResultTabs) els.searchResultTabs.classList.add('hidden');
     applyLocalFiltersAndRender();
     return;
   }
@@ -586,28 +709,35 @@ async function searchTitlesLive(query) {
   showLoadingGrid();
   if (els.loadMoreBtn) els.loadMoreBtn.classList.add('hidden');
 
-  const qLower = state.searchQuery.toLowerCase();
+  const qLower = normalizeForFuzzy(state.searchQuery);
 
-  // Unified Search: always search Curated Movies + Wikipedia Open Film Search + TVmaze TV Shows together!
+  // 1. Typo-tolerant match against WatchPulse's 44 curated movies + cached TV shows
   const curatedHits = state.curatedMovies.filter(m =>
-    m.title.toLowerCase().includes(qLower) ||
-    m.overview.toLowerCase().includes(qLower) ||
-    (m.director || '').toLowerCase().includes(qLower) ||
-    (m.genres || []).some(g => g.toLowerCase().includes(qLower))
+    fuzzyMatches(state.searchQuery, `${m.title} ${m.director} ${(m.genres || []).join(' ')}`)
   );
 
+  // 2. Parallel Wikipedia Open Film Search + TVmaze Live TV Search
   const [wikiRes, tvRes] = await Promise.allSettled([
     fetchCatalogApi('wiki-search', { q: state.searchQuery }),
     fetchCatalogApi('tv-search', { q: state.searchQuery })
   ]);
 
   let wikiHits = [];
-  if (wikiRes.status === 'fulfilled' && wikiRes.value && wikiRes.value.query && Array.isArray(wikiRes.value.query.search)) {
-    const existingTitles = new Set(curatedHits.map(x => x.title.toLowerCase()));
-    wikiHits = wikiRes.value.query.search
+  if (wikiRes.status === 'fulfilled' && wikiRes.value && wikiRes.value.query) {
+    let wikiList = Array.isArray(wikiRes.value.query.search) ? wikiRes.value.query.search : [];
+    // If typo gave 0 hits but Wikipedia suggested a spelling correction, retry cleanly!
+    const suggestion = wikiRes.value.query.searchinfo && wikiRes.value.query.searchinfo.suggestion;
+    if (!wikiList.length && suggestion) {
+      try {
+        const retry = await fetchCatalogApi('wiki-search', { q: suggestion.replace(/\s+film$/i, '') });
+        if (retry && retry.query && Array.isArray(retry.query.search)) wikiList = retry.query.search;
+      } catch (_) {}
+    }
+    const existingTitles = new Set(curatedHits.map(x => normalizeForFuzzy(x.title)));
+    wikiHits = wikiList
       .filter(w => {
         const cleanTitle = w.title.replace(/\s*\([^)]*film[^)]*\)/i, '').trim();
-        return cleanTitle && !existingTitles.has(cleanTitle.toLowerCase());
+        return cleanTitle && !existingTitles.has(normalizeForFuzzy(cleanTitle));
       })
       .slice(0, 6)
       .map(w => {
@@ -626,12 +756,13 @@ async function searchTitlesLive(query) {
           languageLabel: 'Global',
           director: '',
           cast: [],
-          platforms: ['Check Regional Streaming Apps'],
+          platforms: ['Verify Locally'],
           overview: stripHtmlTags(w.snippet) + '...',
           officialUrl: `https://en.wikipedia.org/wiki/${encodeURIComponent(w.title.replace(/ /g, '_'))}`,
           accent: 'indigo',
+          trailer_id: VERIFIED_TRAILER_IDS[cleanTitle.toLowerCase()] || '',
           poster: '',
-          backdrop: '/preview.jpg'
+          backdrop: ''
         };
       });
   }
@@ -641,30 +772,36 @@ async function searchTitlesLive(query) {
     tvHits = tvRes.value.slice(0, 8).map(r => normalizeTvMazeShow(r.show)).filter(Boolean);
   }
 
-  // Prioritize exact/prefix title matches first across Movies & TV so searching any movie or show feels natural!
-  const allCombined = state.mediaType === 'movie'
-    ? [...curatedHits, ...wikiHits, ...tvHits]
-    : [...tvHits, ...curatedHits, ...wikiHits];
-
+  const allCombined = [...curatedHits, ...tvHits, ...wikiHits];
   const scoreItem = (it) => {
-    const t = (it.title || '').toLowerCase();
-    if (t === qLower) return 100;
-    if (t.startsWith(qLower)) return 80;
-    if (t.includes(qLower)) return 60;
-    return it.source === 'WatchPulse Curated' ? 40 : 20;
+    const t = normalizeForFuzzy(it.title);
+    let score = 0;
+    if (t === qLower) score += 120;
+    else if (t.startsWith(qLower)) score += 90;
+    else if (t.includes(qLower)) score += 70;
+    else score += 30;
+    if (it.source === 'WatchPulse Curated') score += 25;
+    if (it.poster || it.trailer_id) score += 10;
+    return score;
   };
   const combined = allCombined.sort((a, b) => scoreItem(b) - scoreItem(a));
 
+  state.lastSearchResults = combined;
+  renderSearchResultTabs();
   renderMoviesGrid(combined);
   if (combined.length) renderHero(combined[0]);
-  trackEvent('watchpulse_search', { query: state.searchQuery, media_type: state.mediaType, results: combined.length });
+  if (!scrollToGrid && document.activeElement === els.searchInput) {
+    renderAutocompleteSuggestions(state.searchQuery, combined);
+  } else if (scrollToGrid && els.gridTitle) {
+    els.gridTitle.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  trackEvent('watchpulse_search', { query: state.searchQuery, results: combined.length });
 }
 
 async function openMovieModal(item) {
   state.currentModalItem = item;
   let detailed = item;
 
-  // Fetch live TVmaze cast if TV show doesn't have cast embedded yet
   if (item.media_type === 'tv' && item.tvmazeId && (!item.cast || !item.cast.length)) {
     try {
       const fullShow = await fetchCatalogApi('tv-details', { id: item.tvmazeId });
@@ -673,12 +810,20 @@ async function openMovieModal(item) {
     } catch (_) {}
   }
 
+  const thumb = getThumbUrlForItem(detailed);
   if (els.modalBackdrop) {
-    els.modalBackdrop.style.backgroundImage = `url('${detailed.backdrop || '/preview.jpg'}')`;
+    els.modalBackdrop.style.backgroundImage = detailed.backdrop || thumb
+      ? `url('${detailed.backdrop || thumb}')`
+      : 'linear-gradient(135deg, #0b132b 0%, #1c2541 60%, #0f766e 100%)';
   }
   if (els.modalPoster) {
-    els.modalPoster.src = detailed.poster || FALLBACK_POSTER;
-    els.modalPoster.alt = `${detailed.title} poster`;
+    if (thumb) {
+      els.modalPoster.src = thumb;
+      els.modalPoster.style.display = 'block';
+      els.modalPoster.alt = `${detailed.title} preview`;
+    } else {
+      els.modalPoster.style.display = 'none';
+    }
   }
   if (els.modalTitle) els.modalTitle.textContent = detailed.title;
   if (els.modalRating) els.modalRating.textContent = `⭐ ${detailed.rating}`;
@@ -701,7 +846,6 @@ async function openMovieModal(item) {
       : 'Curated Platform Note (checked Nov 21, 2026 — verify locally)';
   }
 
-  // Render honest commercial-safe provider & guide chips
   if (els.watchProvidersList) {
     const pills = (detailed.platforms || []).map(p => `<span class="provider-pill">${escapeHtml(p)}</span>`).join('');
     const guideBtn = detailed.guide_url
@@ -715,7 +859,7 @@ async function openMovieModal(item) {
       ? 'Live TV data provided by TVmaze (CC BY-SA — Commercial Allowed)'
       : detailed.source === 'Wikipedia Open Data'
         ? 'Open film summary via Wikipedia (CC BY-SA)'
-        : 'Curated by WatchPulse Editorial — verify exact regional catalog inside your app';
+        : 'Curated by WatchPulse Editorial — verify current local availability inside your app';
   }
 
   if (els.officialWatchLink) {
@@ -728,7 +872,7 @@ async function openMovieModal(item) {
   }
 
   if (els.reportDataIssueLink) {
-    els.reportDataIssueLink.href = `/contact.html?subject=bug&title=${encodeURIComponent(detailed.title)}&region=${encodeURIComponent(state.region)}`;
+    els.reportDataIssueLink.href = `/contact.html?subject=bug&title=${encodeURIComponent(detailed.title)}`;
   }
 
   if (els.modalCastList) {
@@ -741,7 +885,6 @@ async function openMovieModal(item) {
     }
   }
 
-  // Similar titles from local pool (zero extra API call!)
   if (els.modalSimilarSection && els.modalSimilarList) {
     const pool = detailed.media_type === 'tv' ? state.tvShowsCache : state.curatedMovies;
     const primaryGenre = (detailed.genres && detailed.genres[0]) || '';
@@ -770,7 +913,7 @@ async function openMovieModal(item) {
 }
 
 function closeMovieModal() {
-  els.movieModal.classList.add('hidden');
+  if (els.movieModal) els.movieModal.classList.add('hidden');
   document.body.style.overflow = '';
 }
 
@@ -782,11 +925,8 @@ function updateModalWatchlistBtn() {
 
 function toggleWatchlist(item) {
   const idx = state.watchlist.findIndex(w => w.id === item.id);
-  if (idx >= 0) {
-    state.watchlist.splice(idx, 1);
-  } else {
-    state.watchlist.unshift({ ...item, watched: false });
-  }
+  if (idx >= 0) state.watchlist.splice(idx, 1);
+  else state.watchlist.unshift({ ...item, watched: false });
   saveWatchlist();
   updateHeroWatchlistBtn();
   updateModalWatchlistBtn();
@@ -804,7 +944,7 @@ function toggleWatchedStatus(id) {
 
 function openTrailerForItem(item) {
   if (!item) return;
-  const key = VERIFIED_TRAILER_IDS[(item.title || '').toLowerCase().trim()] || '';
+  const key = getTrailerIdForItem(item);
   const searchQuery = `${item.title} ${item.year || ''} official trailer`;
   const ytWatchUrl = key
     ? `https://www.youtube.com/watch?v=${key}`
@@ -836,7 +976,7 @@ function openTrailerForItem(item) {
         fallbackBox.innerHTML = `
           <span style="font-size:2rem;">🎬</span>
           <h3 style="margin:0;font-size:1.15rem;">Official Trailer: ${escapeHtml(item.title)} (${escapeHtml(item.year || '')})</h3>
-          <p style="margin:0;max-width:420px;font-size:0.86rem;color:#cbd5e1;">Direct embedded playback is enabled for featured WatchPulse titles. Launch the official studio trailer on YouTube with one tap:</p>
+          <p style="margin:0;max-width:420px;font-size:0.86rem;color:#cbd5e1;">Launch the official studio trailer on YouTube with one tap:</p>
           <a href="${escapeHtml(ytWatchUrl)}" target="_blank" rel="noopener noreferrer" class="btn primary-btn" style="text-decoration:none;">▶ Watch Official Trailer on YouTube ↗</a>
         `;
       }
@@ -874,13 +1014,12 @@ function setupVoiceSearch() {
       recognition.start();
     } catch (_) {}
   });
-
   recognition.onresult = (event) => {
     const transcript = event.results && event.results[0] && event.results[0][0] ? event.results[0][0].transcript : '';
     if (transcript && els.searchInput) {
       els.searchInput.value = transcript;
       if (els.clearSearchBtn) els.clearSearchBtn.classList.remove('hidden');
-      searchTitlesLive(transcript);
+      searchTitlesLive(transcript, true);
     }
   };
   recognition.onend = () => els.voiceSearchBtn.classList.remove('listening');
@@ -900,9 +1039,13 @@ function resetAllFilters() {
   state.provider = 'all';
   state.language = 'all';
   state.searchQuery = '';
+  state.searchFilterTab = 'all';
+  state.lastSearchResults = [];
   state.showingWatchlist = false;
   if (els.searchInput) els.searchInput.value = '';
   if (els.clearSearchBtn) els.clearSearchBtn.classList.add('hidden');
+  if (els.searchDropdown) els.searchDropdown.classList.add('hidden');
+  if (els.searchResultTabs) els.searchResultTabs.classList.add('hidden');
   if (els.languageSelect) els.languageSelect.value = 'all';
   if (els.providerChips) {
     els.providerChips.querySelectorAll('.provider-chip').forEach(c => c.classList.toggle('active', c.dataset.provider === 'all'));
@@ -971,13 +1114,10 @@ function initCookieConsent() {
   let saved = null;
   try { saved = localStorage.getItem('wp_cookie_consent'); } catch (_) {}
 
-  // Avoid double cookie banners when Google's certified AdSense CMP (EEA/UK/CH) is active
   const hasGoogleCmp = () => typeof window.__tcfapi === 'function' || Boolean(window.googlefc && window.googlefc.ccpa);
   if (!saved) {
     setTimeout(() => {
-      if (!hasGoogleCmp()) {
-        els.cookieBanner.classList.remove('hidden');
-      }
+      if (!hasGoogleCmp()) els.cookieBanner.classList.remove('hidden');
     }, 900);
   }
 
@@ -1008,22 +1148,24 @@ function setupEventListeners() {
       const val = els.searchInput.value.trim();
       if (els.clearSearchBtn) els.clearSearchBtn.classList.toggle('hidden', !val);
       clearTimeout(searchTimer);
-      searchTimer = setTimeout(() => searchTitlesLive(val), 320);
+      if (!val) {
+        renderAutocompleteSuggestions('', []);
+        searchTitlesLive('', false);
+        return;
+      }
+      searchTimer = setTimeout(() => searchTitlesLive(val, false), 260);
+    });
+    els.searchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        clearTimeout(searchTimer);
+        if (els.searchDropdown) els.searchDropdown.classList.add('hidden');
+        searchTitlesLive(els.searchInput.value.trim(), true);
+      }
     });
     els.searchInput.addEventListener('focus', () => {
-      if (!els.searchInput.value.trim() && els.searchDropdown) {
-        els.searchDropdown.innerHTML = `<div style="padding:0.5rem 0.75rem;font-size:0.75rem;color:var(--text-muted);">Popular Quick Searches</div>` +
-          TRENDING_KEYWORDS.map(k => `<button type="button" class="dropdown-item" data-kw="${escapeHtml(k)}" style="width:100%;text-align:left;padding:0.5rem 0.75rem;background:none;border:none;color:var(--text-main);cursor:pointer;">🔍 ${escapeHtml(k)}</button>`).join('');
-        els.searchDropdown.classList.remove('hidden');
-        els.searchDropdown.querySelectorAll('[data-kw]').forEach(btn => {
-          btn.addEventListener('click', () => {
-            els.searchInput.value = btn.dataset.kw;
-            els.searchDropdown.classList.add('hidden');
-            if (els.clearSearchBtn) els.clearSearchBtn.classList.remove('hidden');
-            searchTitlesLive(btn.dataset.kw);
-          });
-        });
-      }
+      const val = els.searchInput.value.trim();
+      renderAutocompleteSuggestions(val, val ? state.lastSearchResults : []);
     });
   }
 
@@ -1037,7 +1179,8 @@ function setupEventListeners() {
     els.clearSearchBtn.addEventListener('click', () => {
       els.searchInput.value = '';
       els.clearSearchBtn.classList.add('hidden');
-      searchTitlesLive('');
+      if (els.searchDropdown) els.searchDropdown.classList.add('hidden');
+      searchTitlesLive('', false);
     });
   }
 
@@ -1045,24 +1188,18 @@ function setupEventListeners() {
     els.mediaTypeToggle.querySelectorAll('.media-type-btn').forEach(btn => {
       btn.addEventListener('click', async () => {
         const nextType = btn.dataset.type;
-        if (nextType === state.mediaType) return;
+        if (nextType === state.mediaType && !state.searchQuery) return;
+        state.searchQuery = '';
+        if (els.searchInput) els.searchInput.value = '';
+        if (els.clearSearchBtn) els.clearSearchBtn.classList.add('hidden');
+        if (els.searchResultTabs) els.searchResultTabs.classList.add('hidden');
         setMediaTypeUI(nextType);
-        if (state.searchQuery) {
-          await searchTitlesLive(state.searchQuery);
-        } else if (nextType === 'tv' && !state.tvShowsCache.length) {
+        if (nextType === 'tv' && !state.tvShowsCache.length) {
           await loadTvCatalog(false);
         } else {
           applyLocalFiltersAndRender();
         }
       });
-    });
-  }
-
-  if (els.regionSelect) {
-    els.regionSelect.value = state.region;
-    els.regionSelect.addEventListener('change', () => {
-      state.region = els.regionSelect.value;
-      try { localStorage.setItem('wp_region', state.region); } catch (_) {}
     });
   }
 
@@ -1127,6 +1264,7 @@ function setupEventListeners() {
       state.showingWatchlist = !state.showingWatchlist;
       if (state.showingWatchlist) {
         if (els.watchlistNoticeBanner) els.watchlistNoticeBanner.classList.remove('hidden');
+        if (els.searchResultTabs) els.searchResultTabs.classList.add('hidden');
         if (els.loadMoreBtn) els.loadMoreBtn.classList.add('hidden');
         renderMoviesGrid(state.watchlist);
       } else {
@@ -1161,7 +1299,6 @@ function setupEventListeners() {
   setupQuizOptionGroup(els.quizFormatOptions);
   if (els.runQuizBtn) els.runQuizBtn.addEventListener('click', runFinderQuiz);
 
-  // Trailer modal close listeners
   if (els.trailerCloseBtn) els.trailerCloseBtn.addEventListener('click', closeTrailerModal);
   if (els.trailerModal) {
     els.trailerModal.addEventListener('click', (e) => {
@@ -1169,7 +1306,6 @@ function setupEventListeners() {
     });
   }
 
-  // Mobile Bottom Navigation Dock
   if (els.mobileNavHome) {
     els.mobileNavHome.addEventListener('click', () => {
       resetAllFilters();
@@ -1201,13 +1337,11 @@ function setupEventListeners() {
 }
 
 async function initApp() {
-  state.region = detectDefaultRegion();
   state.watchlist = loadSavedWatchlist();
   updateWatchlistBadge();
   initCookieConsent();
   setupEventListeners();
 
-  // Read URL params (?type=tv|movie, ?q=..., ?genre=..., ?lang=...)
   const params = new URLSearchParams(window.location.search);
   const urlType = params.get('type');
   const urlGenre = params.get('genre');
@@ -1234,13 +1368,12 @@ async function initApp() {
     if (els.languageSelect) els.languageSelect.value = urlLang;
   }
 
-  // Load curated movies immediately + live TVmaze catalog in parallel
   await Promise.allSettled([loadCuratedMovies(), loadTvCatalog(false)]);
 
   if (urlQuery) {
     if (els.searchInput) els.searchInput.value = urlQuery;
     if (els.clearSearchBtn) els.clearSearchBtn.classList.remove('hidden');
-    await searchTitlesLive(urlQuery);
+    await searchTitlesLive(urlQuery, false);
   } else {
     applyLocalFiltersAndRender();
   }

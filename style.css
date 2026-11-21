@@ -2276,6 +2276,11 @@ a:hover {
   padding-right: 1rem;
 }
 
+/* Ensure Trailer Modal always stacks cleanly above Movie Details Modal */
+.trailer-modal-backdrop {
+  z-index: 1200;
+}
+
 /* Clean bottom-left media type badge inside .card-poster-wrap */
 .card-type-pill {
   position: absolute;

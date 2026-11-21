@@ -169,6 +169,8 @@ const els = {
   trailerModal: document.getElementById('trailerModal'),
   trailerCloseBtn: document.getElementById('trailerCloseBtn'),
   trailerIframe: document.getElementById('trailerIframe'),
+  trailerStatusLabel: document.getElementById('trailerStatusLabel'),
+  switchTrailerBtn: document.getElementById('switchTrailerBtn'),
   externalTrailerLink: document.getElementById('externalTrailerLink'),
   cookieBanner: document.getElementById('cookieBanner'),
   acceptCookiesBtn: document.getElementById('cookieAcceptBtn'),
@@ -1029,51 +1031,136 @@ function toggleWatchedStatus(id) {
   if (state.showingWatchlist) renderMoviesGrid(state.watchlist);
 }
 
-function openTrailerForItem(item) {
-  if (!item) return;
-  const key = getTrailerIdForItem(item);
-  const searchQuery = `${item.title} ${item.year || ''} official trailer`;
-  const ytWatchUrl = key
-    ? `https://www.youtube.com/watch?v=${key}`
-    : `https://www.youtube.com/results?search_query=${encodeURIComponent(searchQuery)}`;
+const trailerPlayerState = {
+  ids: [],
+  idx: 0,
+  title: ''
+};
 
+function renderEmbeddedTrailerId(videoId, title) {
+  const fallbackBox = document.getElementById('trailerNoEmbedCard');
+  if (fallbackBox) fallbackBox.style.display = 'none';
+  if (els.trailerIframe) {
+    els.trailerIframe.style.display = 'block';
+    els.trailerIframe.src = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(videoId)}?autoplay=1&rel=0&modestbranding=1`;
+  }
   if (els.externalTrailerLink) {
-    els.externalTrailerLink.href = ytWatchUrl;
-    els.externalTrailerLink.textContent = key ? '↗ Open Trailer on YouTube' : `↗ Search "${item.title}" Trailer on YouTube`;
+    els.externalTrailerLink.href = `https://www.youtube.com/watch?v=${encodeURIComponent(videoId)}`;
+    els.externalTrailerLink.textContent = '↗ YouTube';
+  }
+  if (els.trailerStatusLabel) {
+    const pos = trailerPlayerState.ids.length > 1 ? ` (Source ${trailerPlayerState.idx + 1}/${trailerPlayerState.ids.length})` : '';
+    els.trailerStatusLabel.textContent = `▶ Playing "${title}" official trailer on WatchPulse${pos}`;
+  }
+  if (els.switchTrailerBtn) {
+    els.switchTrailerBtn.classList.toggle('hidden', trailerPlayerState.ids.length <= 1);
+  }
+}
+
+function showTrailerOverlayBox(html) {
+  if (!els.trailerIframe) return;
+  const videoWrap = els.trailerIframe.parentElement;
+  els.trailerIframe.src = '';
+  els.trailerIframe.style.display = 'none';
+  let box = document.getElementById('trailerNoEmbedCard');
+  if (!box && videoWrap) {
+    box = document.createElement('div');
+    box.id = 'trailerNoEmbedCard';
+    box.style.cssText = 'position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.85rem;padding:1.5rem;text-align:center;background:radial-gradient(circle at top,#134e4a 0%,#0b0f17 75%);color:#f8fafc;';
+    videoWrap.appendChild(box);
+  }
+  if (box) {
+    box.style.display = 'flex';
+    box.innerHTML = html;
+  }
+}
+
+async function openTrailerForItem(item) {
+  if (!item || !els.trailerModal) return;
+
+  const yearStr = /^\d{4}$/.test(String(item.year || '')) ? item.year : '';
+  const searchQuery = `${item.title} ${yearStr} ${item.media_type === 'tv' ? 'official series trailer' : 'official trailer'}`.replace(/\s+/g, ' ').trim();
+  const ytSearchUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(searchQuery)}`;
+
+  trailerPlayerState.title = item.title;
+  trailerPlayerState.idx = 0;
+
+  // Open modal RIGHT ON WATCHPULSE immediately!
+  els.trailerModal.classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+  if (els.switchTrailerBtn) els.switchTrailerBtn.classList.add('hidden');
+  if (els.externalTrailerLink) {
+    els.externalTrailerLink.href = ytSearchUrl;
+    els.externalTrailerLink.textContent = '↗ YouTube';
   }
 
-  if (els.trailerModal && els.trailerIframe) {
-    const videoWrap = els.trailerIframe.parentElement;
-    let fallbackBox = document.getElementById('trailerNoEmbedCard');
-    if (key) {
-      if (fallbackBox) fallbackBox.style.display = 'none';
-      els.trailerIframe.style.display = 'block';
-      els.trailerIframe.src = `https://www.youtube-nocookie.com/embed/${key}?autoplay=1&rel=0`;
-    } else {
-      els.trailerIframe.src = '';
-      els.trailerIframe.style.display = 'none';
-      if (!fallbackBox && videoWrap) {
-        fallbackBox = document.createElement('div');
-        fallbackBox.id = 'trailerNoEmbedCard';
-        fallbackBox.style.cssText = 'position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.85rem;padding:1.5rem;text-align:center;background:radial-gradient(circle at top,#134e4a 0%,#0b0f17 75%);color:#f8fafc;';
-        videoWrap.appendChild(fallbackBox);
-      }
-      if (fallbackBox) {
-        fallbackBox.style.display = 'flex';
-        fallbackBox.innerHTML = `
-          <span style="font-size:2rem;">🎬</span>
-          <h3 style="margin:0;font-size:1.15rem;">Official Trailer: ${escapeHtml(item.title)} (${escapeHtml(item.year || '')})</h3>
-          <p style="margin:0;max-width:420px;font-size:0.86rem;color:#cbd5e1;">Launch the official studio trailer on YouTube with one tap:</p>
-          <a href="${escapeHtml(ytWatchUrl)}" target="_blank" rel="noopener noreferrer" class="btn primary-btn" style="text-decoration:none;">▶ Watch Official Trailer on YouTube ↗</a>
-        `;
-      }
+  const knownKey = getTrailerIdForItem(item);
+  if (knownKey) {
+    const existingList = Array.isArray(item._trailerCandidates) && item._trailerCandidates.length
+      ? item._trailerCandidates
+      : [knownKey];
+    trailerPlayerState.ids = existingList;
+    renderEmbeddedTrailerId(knownKey, item.title);
+    trackEvent('watchpulse_trailer_click', { title: item.title, embedded: true });
+
+    // Silently load alternate trailer IDs in background so "Alternate Trailer" works if studio disabled embed
+    if (existingList.length === 1) {
+      fetchCatalogApi('trailer-search', { q: searchQuery }).then(res => {
+        if (res && Array.isArray(res.ids) && res.ids.length) {
+          const merged = [knownKey, ...res.ids.filter(id => id !== knownKey)];
+          item._trailerCandidates = merged;
+          if (trailerPlayerState.title === item.title) {
+            trailerPlayerState.ids = merged;
+            if (els.switchTrailerBtn) els.switchTrailerBtn.classList.toggle('hidden', merged.length <= 1);
+          }
+        }
+      }).catch(() => {});
     }
-    els.trailerModal.classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
-  } else {
-    window.open(ytWatchUrl, '_blank', 'noopener,noreferrer');
+    return;
   }
-  trackEvent('watchpulse_trailer_click', { title: item.title, embedded: Boolean(key) });
+
+  // No pre-cached trailer ID yet -> resolve live on Cloudflare Edge & embed directly inside WatchPulse!
+  if (els.trailerStatusLabel) els.trailerStatusLabel.textContent = `⏳ Loading official trailer for "${item.title}"...`;
+  showTrailerOverlayBox(`
+    <span style="font-size:2rem;">🎬</span>
+    <h3 style="margin:0;font-size:1.1rem;">Finding Official HD Trailer...</h3>
+    <p style="margin:0;max-width:400px;font-size:0.85rem;color:#cbd5e1;">Loading "${escapeHtml(item.title)}" directly inside WatchPulse.</p>
+  `);
+
+  try {
+    const res = await fetchCatalogApi('trailer-search', { q: searchQuery });
+    const ids = (res && Array.isArray(res.ids)) ? res.ids.filter(Boolean) : [];
+    // Only apply if modal is still open for this same title
+    if (els.trailerModal.classList.contains('hidden') || trailerPlayerState.title !== item.title) return;
+
+    if (ids.length) {
+      item.trailer_id = ids[0];
+      item._trailerCandidates = ids;
+      trailerPlayerState.ids = ids;
+      trailerPlayerState.idx = 0;
+      renderEmbeddedTrailerId(ids[0], item.title);
+      trackEvent('watchpulse_trailer_click', { title: item.title, embedded: true, resolvedLive: true });
+      return;
+    }
+  } catch (_) {}
+
+  // Last-resort fallback only if YouTube search itself is unreachable
+  if (els.trailerStatusLabel) els.trailerStatusLabel.textContent = `Could not auto-load embed for "${item.title}"`;
+  showTrailerOverlayBox(`
+    <span style="font-size:2rem;">🎬</span>
+    <h3 style="margin:0;font-size:1.15rem;">Official Trailer: ${escapeHtml(item.title)}</h3>
+    <p style="margin:0;max-width:420px;font-size:0.86rem;color:#cbd5e1;">Auto-embed wasn't returned for this title right now. You can watch it directly on YouTube:</p>
+    <a href="${escapeHtml(ytSearchUrl)}" target="_blank" rel="noopener noreferrer" class="btn primary-btn" style="text-decoration:none;">▶ Watch on YouTube ↗</a>
+  `);
+  trackEvent('watchpulse_trailer_click', { title: item.title, embedded: false });
+}
+
+if (els.switchTrailerBtn) {
+  els.switchTrailerBtn.addEventListener('click', () => {
+    if (trailerPlayerState.ids.length <= 1) return;
+    trailerPlayerState.idx = (trailerPlayerState.idx + 1) % trailerPlayerState.ids.length;
+    renderEmbeddedTrailerId(trailerPlayerState.ids[trailerPlayerState.idx], trailerPlayerState.title);
+  });
 }
 
 function closeTrailerModal() {

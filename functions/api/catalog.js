@@ -252,6 +252,48 @@ async function handleWikiDetails(qid, wikiTitle) {
   }, { 'X-WatchPulse-Edge': 'Cloudflare-Pages' });
 }
 
+async function handleTrailerSearch(q) {
+  const ytUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(q)}&sp=EgIQAQ%253D%253D`;
+  const res = await fetch(ytUrl, {
+    headers: {
+      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+      'Accept-Language': 'en-US,en;q=0.9'
+    },
+    cf: { cacheTtl: 86400, cacheEverything: true }
+  });
+  if (!res.ok) return jsonResponse(502, { error: 'Trailer lookup temporarily unavailable', ids: [] });
+  const html = await res.text();
+  const seen = new Set();
+  const rawIds = [];
+  const re = /"videoId":"([A-Za-z0-9_-]{11})"/g;
+  let m;
+  while ((m = re.exec(html)) !== null && rawIds.length < 6) {
+    if (!seen.has(m[1])) {
+      seen.add(m[1]);
+      rawIds.push(m[1]);
+    }
+  }
+
+  // Verify top 4 candidates via YouTube oEmbed in parallel so we return playable embeds
+  const checks = await Promise.all(rawIds.slice(0, 4).map(async (vid) => {
+    try {
+      const oe = await fetch(`https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${vid}&format=json`, {
+        cf: { cacheTtl: 86400, cacheEverything: true }
+      });
+      return oe.ok ? vid : null;
+    } catch (_) {
+      return null;
+    }
+  }));
+  const verified = checks.filter(Boolean);
+  const finalIds = verified.length ? verified : rawIds.slice(0, 3);
+
+  return jsonResponse(200, { ids: finalIds, primary: finalIds[0] || '' }, {
+    'Cache-Control': 'public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800',
+    'X-WatchPulse-Edge': 'Cloudflare-Pages'
+  });
+}
+
 export async function onRequestGet(context) {
   const url = new URL(context.request.url);
   const action = (url.searchParams.get('action') || '').trim();
@@ -261,6 +303,11 @@ export async function onRequestGet(context) {
   const page = Math.max(0, Math.min(20, parseInt(url.searchParams.get('page') || '0', 10) || 0));
 
   try {
+    if (action === 'trailer-search') {
+      if (!q) return jsonResponse(400, { error: 'Missing query parameter q' });
+      return await handleTrailerSearch(q);
+    }
+
     if (action === 'wiki-search') {
       if (!q) return jsonResponse(400, { error: 'Missing query parameter q' });
       return await handleWikiSearch(q);

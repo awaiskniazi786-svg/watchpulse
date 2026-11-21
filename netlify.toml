@@ -3,8 +3,8 @@
   functions = "netlify/functions"
 
 [[redirects]]
-  from = "/api/tmdb"
-  to = "/.netlify/functions/tmdb"
+  from = "/api/catalog"
+  to = "/.netlify/functions/catalog"
   status = 200
 
 [[redirects]]

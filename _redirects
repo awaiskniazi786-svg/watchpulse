@@ -1,4 +1,4 @@
-# Serverless TMDB API Proxy & Clean Movie/TV URL Rewrites
-/api/tmdb  /.netlify/functions/tmdb  200
-/movie/*   /index.html               200
-/tv/*      /index.html               200
+# Serverless Commercial-Safe Catalog Proxy (TVmaze + Wikipedia) & Clean URL Rewrites
+/api/catalog  /.netlify/functions/catalog  200
+/movie/*      /index.html                  200
+/tv/*         /index.html                  200

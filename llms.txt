@@ -29,5 +29,5 @@
 - [Live Discovery Catalog](https://watchpulse.online/): Search movies and TV series, switch streaming country (`US`, `GB`, `PK`, `CA`, `DE`, `IN`, `AU`, `AE`, `FR`, `ES`, `JP`, `KR`, `BR`), filter by original language, or take the Tonight's Pick Quiz.
 - [About WatchPulse](https://watchpulse.online/about): Mission, creator information, and independent non-affiliation disclosure.
 - [Contact & Report Incorrect Data](https://watchpulse.online/contact): Direct contact form and availability error reporting (`awaiskniazi786@gmail.com`).
-- [Privacy Policy](https://watchpulse.online/privacy): Transparent disclosure of `localStorage`, Google Analytics (`GTM-PTPLM5VB`), Google AdSense cookies, and TMDB/YouTube API usage.
+- [Privacy Policy](https://watchpulse.online/privacy): Transparent disclosure of `localStorage`, Google Analytics (`GTM-PTPLM5VB`), Google AdSense cookies, and TVmaze/YouTube API usage.
 - [Terms of Service](https://watchpulse.online/terms): Legal discovery scope, trademark attribution, and DMCA compliance.

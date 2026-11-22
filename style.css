@@ -1086,9 +1086,47 @@ textarea {
   transform: translateY(-2px);
 }
 
+.focus-guide-card-link {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.focus-guide-card-link:hover {
+  text-decoration: none;
+}
+
 .focus-guide-cover {
+  position: relative;
   height: 150px;
   width: 100%;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.focus-guide-cover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(12, 11, 18, 0.08) 0%, rgba(20, 19, 29, 0.72) 100%);
+  pointer-events: none;
+}
+
+.focus-guide-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transform: scale(1.18);
+  transition: transform 0.35s ease;
+}
+
+.focus-guide-card:hover .focus-guide-img {
+  transform: scale(1.24);
 }
 
 .guide-cover-1 { background: linear-gradient(135deg, #4C1D95 0%, #1E173B 55%, #14131D 100%); }
@@ -1103,6 +1141,7 @@ textarea {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  flex: 1;
 }
 
 .focus-guide-eyebrow {
@@ -1117,6 +1156,24 @@ textarea {
   font-size: 0.96rem;
   font-weight: 600;
   line-height: 1.4;
+  color: var(--text);
+  transition: color 0.2s ease;
+}
+
+.focus-guide-card:hover .focus-guide-body h3 {
+  color: var(--accent-3);
+}
+
+.focus-guide-cta {
+  margin-top: auto;
+  padding-top: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--accent-2);
+}
+
+.focus-guide-card:hover .focus-guide-cta {
+  color: var(--accent-3);
 }
 
 .focus-guide-body h3 a {
@@ -1986,6 +2043,8 @@ textarea {
 }
 
 .guide-preview-card {
+  position: relative;
+  overflow: hidden;
   background: rgba(12, 11, 18, 0.45);
   border: 1px solid var(--border);
   border-radius: 16px;
@@ -1993,6 +2052,45 @@ textarea {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.guide-preview-card:hover {
+  border-color: var(--accent-2);
+  transform: translateY(-2px);
+}
+
+.guide-card-cover {
+  position: relative;
+  margin: -18px -18px 8px -18px;
+  width: calc(100% + 36px);
+  height: 148px;
+  overflow: hidden;
+  background: var(--selected-bg);
+  flex-shrink: 0;
+}
+
+.guide-card-cover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(12, 11, 18, 0.06) 0%, rgba(12, 11, 18, 0.7) 100%);
+  pointer-events: none;
+}
+
+.guide-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transform: scale(1.18);
+  transition: transform 0.35s ease;
+}
+
+.guide-preview-card:hover .guide-card-img {
+  transform: scale(1.24);
 }
 
 .guide-category-tag {
@@ -2010,6 +2108,18 @@ textarea {
 
 .guide-preview-card h3 a {
   color: var(--text);
+  text-decoration: none;
+}
+
+.guide-preview-card h3 a::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.guide-preview-card:hover h3 a {
+  color: var(--accent-3);
 }
 
 .guide-card-footer {

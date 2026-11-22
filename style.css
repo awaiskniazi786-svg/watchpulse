@@ -1096,6 +1096,48 @@ textarea {
   border-top: 1px solid rgba(43, 42, 58, 0.7);
 }
 
+.infinite-load-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px dashed rgba(167, 139, 250, 0.22);
+}
+
+.infinite-load-btn {
+  min-width: 240px;
+  height: 44px;
+  padding: 0 26px;
+  border-radius: 999px;
+  background: var(--selected-bg);
+  border: 1px solid var(--accent-2);
+  color: #fff;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.infinite-load-btn:hover:not(:disabled) {
+  background: var(--accent);
+  border-color: var(--accent-3);
+  transform: translateY(-1px);
+}
+
+.infinite-load-btn:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+.infinite-load-hint {
+  font-size: 0.77rem;
+  color: var(--muted);
+  text-align: center;
+}
+
 .movie-card {
   background: transparent;
   cursor: pointer;

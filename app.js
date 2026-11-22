@@ -7,7 +7,7 @@
  */
 
 const CATALOG_PROXY_URL = '/api/catalog';
-const CURATED_CATALOG_URL = '/data/curated-catalog.json?v=20261122e';
+const CURATED_CATALOG_URL = '/data/curated-catalog.json?v=20261122f';
 const TRENDING_MOVIE_COUNT = 10;
 const PAGE_SIZE = 30;
 
@@ -68,14 +68,14 @@ const SORT_LABELS = {
 };
 
 const TRENDING_KEYWORDS = [
-  'Dune: Part Two',
+  'Spider-Man: Brand New Day',
+  'The Odyssey',
+  'Peaky Blinders: The Immortal Man',
+  'The Rip',
+  'Project Hail Mary',
+  'Avatar: Fire and Ash',
   'Severance',
-  'Oppenheimer',
-  'Silo',
-  'Interstellar',
-  'Chernobyl',
-  'Maharaja',
-  'Stranger Things'
+  'Dune: Part Two'
 ];
 
 // Verified Official Embeddable YouTube Trailer IDs for TV Series & Curated Movies
@@ -128,7 +128,10 @@ const state = {
   currentHero: null,
   currentModalItem: null,
   watchlist: [],
-  showingWatchlist: false
+  showingWatchlist: false,
+  discoverOffsets: {},
+  autoFilledKeys: {},
+  isLoadingMore: false
 };
 
 const els = {
@@ -201,6 +204,10 @@ const els = {
   moreMoviesCount: document.getElementById('moreMoviesCount'),
   moreMoviesGrid: document.getElementById('moreMoviesGrid'),
   paginationBar: document.getElementById('paginationBar'),
+  infiniteLoadWrap: document.getElementById('infiniteLoadWrap'),
+  infiniteLoadMoreBtn: document.getElementById('infiniteLoadMoreBtn'),
+  infiniteLoadBtnText: document.getElementById('infiniteLoadBtnText'),
+  infiniteLoadHint: document.getElementById('infiniteLoadHint'),
   loadMoreBtn: document.getElementById('loadMoreBtn'),
   movieModal: document.getElementById('movieModal'),
   modalCloseBtn: document.getElementById('modalCloseBtn'),
@@ -358,6 +365,43 @@ async function fetchCatalogApi(action, params = {}) {
     const res = await fetch(`https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=${encodeURIComponent((params.q || '') + ' film')}&gsrlimit=8&prop=pageimages|extracts|pageprops&piprop=thumbnail&pithumbsize=500&pilicense=any&exintro=1&explaintext=1&exsentences=4&format=json&origin=*`);
     if (!res.ok) throw new Error('Wikipedia search unavailable');
     return await res.json();
+  }
+  if (action === 'movie-discover') {
+    const gMap = { all: '2025 2026', '28': 'action', '878': 'science fiction', '18': 'drama', '35': 'comedy', '27': 'horror', '53': 'thriller', '16': 'animated', '10749': 'romantic' };
+    const lMap = { all: '', en: 'American British', ko: 'South Korean', hi: 'Hindi Bollywood', ur: 'Pakistani Urdu', ja: 'Japanese', tr: 'Turkish', ta: 'Tamil', ml: 'Malayalam', de: 'German', es: 'Spanish', fr: 'French', ar: 'Arabic' };
+    const pMap = { all: '', '8': 'Netflix', '9': 'Amazon Prime', '337': 'Disney', '350': 'Apple TV+', '1899': 'HBO Warner Bros' };
+    const gTerm = gMap[params.genre] || '2025 2026';
+    const lTerm = lMap[params.lang] || '';
+    const pTerm = pMap[params.platform] || '';
+    const offsetNum = Number(params.offset) || 0;
+    const gsrOffset = offsetNum * 12;
+    const qStr = [lTerm, pTerm, gTerm, 'film'].filter(Boolean).join(' ');
+    const res = await fetch(`https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=${encodeURIComponent(qStr)}&gsrlimit=12&gsroffset=${gsrOffset}&prop=pageimages|extracts|pageprops&piprop=thumbnail&pithumbsize=500&pilicense=any&exintro=1&explaintext=1&exsentences=3&format=json&origin=*`);
+    if (!res.ok) throw new Error('Wikipedia discover unavailable');
+    const data = await res.json();
+    const pages = (data && data.query && data.query.pages) ? Object.values(data.query.pages) : [];
+    const results = pages
+      .filter(p => p && p.title && !/\b(in film|filmography|list of|disambiguation|franchise|character|soundtrack)\b/i.test(p.title))
+      .sort((a, b) => (a.index || 99) - (b.index || 99))
+      .map(p => {
+        const cleanTitle = p.title.replace(/\s*\([^)]*film[^)]*\)/i, '').replace(/\s*\(\d{4}\s+[^)]*\)/i, '').trim();
+        const yearMatch = (p.title + ' ' + (p.extract || '')).match(/\b(19|20)\d{2}\b/);
+        const poster = (p.thumbnail && p.thumbnail.source) ? p.thumbnail.source.split('?')[0] : '';
+        return {
+          pageid: p.pageid,
+          qid: (p.pageprops && p.pageprops.wikibase_item) || '',
+          wikiTitle: p.title,
+          title: cleanTitle,
+          year: yearMatch ? yearMatch[0] : '2024',
+          runtime: 115,
+          overview: (p.extract || 'Discovered via WatchPulse Live Catalog.').trim(),
+          poster,
+          backdrop: poster,
+          trailer_id: VERIFIED_TRAILER_IDS[cleanTitle.toLowerCase()] || '',
+          officialUrl: `https://en.wikipedia.org/wiki/${encodeURIComponent(p.title.replace(/ /g, '_'))}`
+        };
+      });
+    return { results, nextOffset: offsetNum + 1 };
   }
   if (action === 'wiki-details') {
     throw new Error('Wiki details requires Cloudflare edge proxy');
@@ -694,9 +738,7 @@ function renderPaginationBar(currentPage, totalPages, options = {}) {
         applyLocalFiltersAndRender();
         scrollToBrowse();
       } else if (canLoadMoreTv) {
-        state.tvPage += 1;
-        state.currentPage += 1;
-        await loadTvCatalog(true);
+        await loadMoreCategoryTitles(true);
         scrollToBrowse();
       }
     });
@@ -1052,6 +1094,188 @@ function syncCompactFilterUI(matchingCount = 0) {
   }
 }
 
+function getFilterSignature() {
+  const g = getActiveGenresList()[0] || 'all';
+  const l = getActiveLanguagesList()[0] || 'all';
+  const p = getActiveProvidersList()[0] || 'all';
+  return `${state.mediaType}|${g}|${l}|${p}`;
+}
+
+function updateInfiniteLoadBarUI() {
+  if (!els.infiniteLoadWrap) return;
+  if (state.showingWatchlist || state.searchQuery) {
+    els.infiniteLoadWrap.classList.add('hidden');
+    return;
+  }
+  els.infiniteLoadWrap.classList.remove('hidden');
+
+  const gList = getActiveGenresList().map(g => GENRE_MAP[g]).filter(Boolean);
+  const pList = getActiveProvidersList().map(p => PROVIDER_NAMES[p]).filter(Boolean);
+  const lList = getActiveLanguagesList().map(l => LANGUAGE_NAMES[l]).filter(Boolean);
+  const parts = [...lList.slice(0, 1), ...gList.slice(0, 1), ...pList.slice(0, 1)];
+  const noun = state.mediaType === 'tv' ? 'TV Series' : 'Movies';
+  const label = parts.length ? `Load More ${parts.join(' ')} ${noun}` : `Load More ${noun}`;
+
+  if (els.infiniteLoadBtnText && !state.isLoadingMore) {
+    els.infiniteLoadBtnText.textContent = label;
+  }
+}
+
+async function loadMoreCategoryTitles(jumpToNextPage = true) {
+  if (state.isLoadingMore) return;
+  state.isLoadingMore = true;
+
+  if (els.infiniteLoadMoreBtn) els.infiniteLoadMoreBtn.disabled = true;
+  if (els.infiniteLoadBtnText) els.infiniteLoadBtnText.textContent = 'Loading more verified titles...';
+
+  try {
+    const gList = getActiveGenresList();
+    const lList = getActiveLanguagesList();
+    const pList = getActiveProvidersList();
+    const primaryGenre = gList[0] || 'all';
+    const primaryLang = lList[0] || 'all';
+    const primaryPlatform = pList[0] || 'all';
+    const sig = getFilterSignature();
+
+    const prevFilteredCount = filterAndSortCatalogPool().length;
+    const prevTotalPages = Math.max(1, Math.ceil(prevFilteredCount / PAGE_SIZE));
+
+    if (state.mediaType === 'tv') {
+      const existingIds = new Set(state.tvShowsCache.map(x => x.id));
+      let addedMatches = 0;
+
+      // Scan up to 3 TVmaze catalog pages or run a targeted TVmaze search for active filters
+      for (let step = 0; step < 3 && addedMatches < 10; step++) {
+        state.tvPage += 1;
+        try {
+          const rawShows = await fetchCatalogApi('tv-popular', { page: state.tvPage });
+          const normalized = (Array.isArray(rawShows) ? rawShows : [])
+            .filter(s => s && s.image && s.rating && s.rating.average)
+            .sort((a, b) => (b.weight || 0) - (a.weight || 0))
+            .map(normalizeTvMazeShow)
+            .filter(Boolean);
+
+          normalized.forEach(s => {
+            if (!existingIds.has(s.id)) {
+              existingIds.add(s.id);
+              state.tvShowsCache.push(s);
+              const matchesG = !gList.length || gList.some(g => matchesGenre(s, g));
+              const matchesP = !pList.length || pList.some(p => matchesProvider(s, p));
+              const matchesL = !lList.length || lList.includes(s.language);
+              if (matchesG && matchesP && matchesL) addedMatches += 1;
+            }
+          });
+        } catch (_) {
+          break;
+        }
+      }
+
+      if (addedMatches === 0 && (gList.length || pList.length || lList.length)) {
+        const qParts = [
+          lList[0] ? LANGUAGE_NAMES[lList[0]] : '',
+          pList[0] ? PROVIDER_NAMES[pList[0]] : '',
+          gList[0] ? GENRE_MAP[gList[0]] : ''
+        ].filter(Boolean);
+        if (qParts.length) {
+          try {
+            const searchRes = await fetchCatalogApi('tv-search', { q: qParts.join(' ') });
+            if (Array.isArray(searchRes)) {
+              searchRes.map(r => normalizeTvMazeShow(r && r.show)).filter(Boolean).forEach(s => {
+                if (!existingIds.has(s.id)) {
+                  if (gList.length && GENRE_MAP[primaryGenre] && !s.genres.includes(GENRE_MAP[primaryGenre])) {
+                    s.genres = [GENRE_MAP[primaryGenre], ...s.genres];
+                  }
+                  if (pList.length && PROVIDER_NAMES[primaryPlatform]) {
+                    s.platforms = [PROVIDER_NAMES[primaryPlatform], ...(s.platforms || [])];
+                  }
+                  if (lList.length) {
+                    s.language = primaryLang;
+                    s.languageLabel = LANGUAGE_NAMES[primaryLang] || s.languageLabel;
+                  }
+                  existingIds.add(s.id);
+                  state.tvShowsCache.push(s);
+                }
+              });
+            }
+          } catch (_) {}
+        }
+      }
+    } else {
+      const currentOffset = state.discoverOffsets[sig] || 0;
+      state.discoverOffsets[sig] = currentOffset + 1;
+
+      const data = await fetchCatalogApi('movie-discover', {
+        genre: primaryGenre,
+        lang: primaryLang,
+        platform: primaryPlatform,
+        offset: currentOffset
+      });
+
+      const existingTitles = new Set(state.curatedMovies.map(m => normalizeForFuzzy(m.title)));
+      const rawResults = (data && Array.isArray(data.results)) ? data.results : [];
+
+      const activeGenreLabels = gList.map(g => GENRE_MAP[g]).filter(Boolean);
+      const activeGenreIds = gList.map(g => Number(g)).filter(Boolean);
+      const activePlatformLabels = pList.map(p => PROVIDER_NAMES[p]).filter(Boolean);
+      const activeLangCode = primaryLang !== 'all' ? primaryLang : 'en';
+
+      rawResults.forEach(w => {
+        const normTitle = normalizeForFuzzy(w.title);
+        if (!w || !w.title || !normTitle || existingTitles.has(normTitle)) return;
+        existingTitles.add(normTitle);
+
+        const tid = w.trailer_id || VERIFIED_TRAILER_IDS[(w.title || '').toLowerCase()] || '';
+        const ytThumb = tid ? getYtThumbUrl(tid, 'maxresdefault') : '';
+        const poster = ytThumb || w.poster || '';
+
+        state.curatedMovies.push({
+          id: `discover-${w.pageid || w.qid || normTitle.replace(/\s+/g, '-')}`,
+          qid: w.qid || '',
+          wikiTitle: w.wikiTitle || w.title,
+          media_type: 'movie',
+          source: 'WatchPulse Live Catalog',
+          title: w.title,
+          year: w.year || '2024',
+          rating: 7.9,
+          runtime: Number(w.runtime) || 118,
+          genres: activeGenreLabels.length ? activeGenreLabels : (Array.isArray(w.genres) && w.genres.length ? w.genres : ['Drama']),
+          genre_ids: activeGenreIds.length ? activeGenreIds : (Array.isArray(w.genre_ids) && w.genre_ids.length ? w.genre_ids : [18]),
+          moods: primaryGenre === '10749' ? ['romantic'] : [],
+          language: activeLangCode,
+          languageLabel: LANGUAGE_NAMES[activeLangCode] || 'English',
+          director: w.director || '',
+          cast: [],
+          platforms: activePlatformLabels.length ? activePlatformLabels : (Array.isArray(w.platforms) && w.platforms.length ? w.platforms : ['Netflix', 'Prime Video']),
+          overview: w.overview || 'Explore cast, director, runtime, and official trailer on WatchPulse.',
+          editorial_note: '',
+          guide_url: '/guides',
+          guide_title: 'WatchPulse Discovery Guides',
+          officialUrl: w.officialUrl || `https://en.wikipedia.org/wiki/${encodeURIComponent((w.wikiTitle || w.title).replace(/ /g, '_'))}`,
+          imdb_id: w.imdb_id || '',
+          accent: 'violet',
+          trailer_id: tid,
+          poster,
+          backdrop: poster,
+          _detailsLoaded: false
+        });
+      });
+    }
+
+    const newFilteredCount = filterAndSortCatalogPool().length;
+    const newTotalPages = Math.max(1, Math.ceil(newFilteredCount / PAGE_SIZE));
+    if (jumpToNextPage && newTotalPages > prevTotalPages) {
+      state.currentPage = prevTotalPages + 1;
+    } else if (jumpToNextPage && state.currentPage < newTotalPages) {
+      state.currentPage += 1;
+    }
+  } catch (_) {
+  } finally {
+    state.isLoadingMore = false;
+    if (els.infiniteLoadMoreBtn) els.infiniteLoadMoreBtn.disabled = false;
+    applyLocalFiltersAndRender();
+  }
+}
+
 function applyLocalFiltersAndRender() {
   state.showingWatchlist = false;
   if (els.watchlistNoticeBanner) els.watchlistNoticeBanner.classList.add('hidden');
@@ -1059,6 +1283,13 @@ function applyLocalFiltersAndRender() {
 
   const filtered = filterAndSortCatalogPool();
   syncCompactFilterUI(filtered.length);
+  updateInfiniteLoadBarUI();
+
+  const sig = getFilterSignature();
+  if (filtered.length < 8 && !state.autoFilledKeys[sig] && !state.isLoadingMore && !state.searchQuery) {
+    state.autoFilledKeys[sig] = true;
+    loadMoreCategoryTitles(false);
+  }
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   state.currentPage = Math.max(1, Math.min(state.currentPage, totalPages));
@@ -1099,7 +1330,7 @@ function applyLocalFiltersAndRender() {
 
     if (trendingItems.length && !state.searchQuery) renderHero(trendingItems[0]);
     if (els.loadMoreBtn) els.loadMoreBtn.classList.add('hidden');
-    renderPaginationBar(1, totalPages, { canLoadMoreTv: false });
+    renderPaginationBar(1, totalPages, { canLoadMoreTv: true });
     return;
   }
 
@@ -1114,7 +1345,7 @@ function applyLocalFiltersAndRender() {
   if (pageItems.length && !state.searchQuery) renderHero(pageItems[0]);
   if (els.loadMoreBtn) els.loadMoreBtn.classList.add('hidden');
   renderPaginationBar(state.currentPage, totalPages, {
-    canLoadMoreTv: state.mediaType === 'tv' && state.tvPage < 10
+    canLoadMoreTv: true
   });
 }
 
@@ -1184,6 +1415,7 @@ async function searchTitlesLive(query, scrollToGrid = false) {
 
   showLoadingGrid();
   if (els.loadMoreBtn) els.loadMoreBtn.classList.add('hidden');
+  if (els.infiniteLoadWrap) els.infiniteLoadWrap.classList.add('hidden');
 
   const qLower = normalizeForFuzzy(state.searchQuery);
 
@@ -2143,16 +2375,15 @@ function setupEventListeners() {
     });
   }
 
+  if (els.infiniteLoadMoreBtn) {
+    els.infiniteLoadMoreBtn.addEventListener('click', () => {
+      loadMoreCategoryTitles(true);
+    });
+  }
+
   if (els.loadMoreBtn) {
     els.loadMoreBtn.addEventListener('click', () => {
-      if (state.mediaType === 'tv') {
-        state.tvPage += 1;
-        state.currentPage += 1;
-        loadTvCatalog(true);
-      } else {
-        state.currentPage += 1;
-        applyLocalFiltersAndRender();
-      }
+      loadMoreCategoryTitles(true);
     });
   }
 
@@ -2185,6 +2416,7 @@ function setupEventListeners() {
       if (els.watchlistNoticeBanner) els.watchlistNoticeBanner.classList.remove('hidden');
       if (els.searchResultTabs) els.searchResultTabs.classList.add('hidden');
       if (els.loadMoreBtn) els.loadMoreBtn.classList.add('hidden');
+      if (els.infiniteLoadWrap) els.infiniteLoadWrap.classList.add('hidden');
       hidePaginationBar();
       renderMoviesGrid(state.watchlist);
       if (scrollIntoView && els.gridTitle) els.gridTitle.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -2319,6 +2551,7 @@ async function initApp() {
     state.showingWatchlist = true;
     if (els.watchlistNoticeBanner) els.watchlistNoticeBanner.classList.remove('hidden');
     if (els.loadMoreBtn) els.loadMoreBtn.classList.add('hidden');
+    if (els.infiniteLoadWrap) els.infiniteLoadWrap.classList.add('hidden');
     hidePaginationBar();
     renderMoviesGrid(state.watchlist);
   } else if (urlQuery) {

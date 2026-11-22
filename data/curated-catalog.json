@@ -1,5 +1,575 @@
 [
     {
+        "id":  "wp-spider-man-brand-new-day",
+        "media_type":  "movie",
+        "title":  "Spider-Man: Brand New Day",
+        "year":  "2026",
+        "runtime":  148,
+        "rating":  9.1,
+        "genres":  [
+                       "Action",
+                       "Sci-Fi",
+                       "Drama"
+                   ],
+        "genre_ids":  [
+                          28,
+                          878,
+                          18
+                      ],
+        "language":  "en",
+        "director":  "Destin Daniel Cretton",
+        "cast":  [
+                     "Tom Holland",
+                     "Zendaya",
+                     "Sadie Sink",
+                     "Jon Bernthal",
+                     "Mark Ruffalo",
+                     "Jacob Batalon"
+                 ],
+        "platforms":  [
+                          "Netflix",
+                          "Prime Video",
+                          "Apple TV+"
+                      ],
+        "overview":  "Living in complete anonymity after the world forgot Peter Parker, Spider-Man faces a street-level New York wave of crime alongside Frank Castle while confronting a dangerous new evolution.",
+        "editorial_note":  "Trending #1 Cinema \u0026 Streaming Blockbuster (2026). Tom Holland anchors a gritty, emotional new chapter directed by Destin Daniel Cretton.",
+        "guide_url":  "/guides",
+        "guide_title":  "WatchPulse 2026 Trending Cinema \u0026 Streaming Guide",
+        "accent":  "amber",
+        "featured":  true,
+        "trailer_id":  "62bIsvRcPv0",
+        "moods":  [
+                      "adrenaline",
+                      "edge-of-seat",
+                      "emotional"
+                  ],
+        "company":  [
+                        "friends",
+                        "date-night",
+                        "family",
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-the-odyssey-2026",
+        "media_type":  "movie",
+        "title":  "The Odyssey",
+        "year":  "2026",
+        "runtime":  175,
+        "rating":  9.3,
+        "genres":  [
+                       "Action",
+                       "Drama",
+                       "Sci-Fi"
+                   ],
+        "genre_ids":  [
+                          28,
+                          18,
+                          878
+                      ],
+        "language":  "en",
+        "director":  "Christopher Nolan",
+        "cast":  [
+                     "Matt Damon",
+                     "Tom Holland",
+                     "Zendaya",
+                     "Anne Hathaway",
+                     "Robert Pattinson",
+                     "Charlize Theron",
+                     "Lupita Nyong\u0027o"
+                 ],
+        "platforms":  [
+                          "Prime Video",
+                          "Apple TV+"
+                      ],
+        "overview":  "Shot entirely on 70mm IMAX film, Christopher Nolan brings Homer\u0027s foundational epic to life as King Odysseus battles gods, monsters, and the Wine-Dark Sea to return home to Ithaca.",
+        "editorial_note":  "Trending #2 Global Cinema Event (2026). Christopher Nolan\u0027s mythic IMAX spectacle starring Matt Damon, Tom Holland, Zendaya, and Anne Hathaway.",
+        "guide_url":  "/guides",
+        "guide_title":  "WatchPulse 2026 Trending Cinema \u0026 Streaming Guide",
+        "accent":  "amber",
+        "featured":  true,
+        "trailer_id":  "f_bKjZeJBBI",
+        "moods":  [
+                      "adrenaline",
+                      "edge-of-seat",
+                      "emotional"
+                  ],
+        "company":  [
+                        "friends",
+                        "date-night",
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-peaky-blinders-immortal-man",
+        "media_type":  "movie",
+        "title":  "Peaky Blinders: The Immortal Man",
+        "year":  "2026",
+        "runtime":  142,
+        "rating":  8.9,
+        "genres":  [
+                       "Drama",
+                       "Thriller",
+                       "Action"
+                   ],
+        "genre_ids":  [
+                          18,
+                          53,
+                          28
+                      ],
+        "language":  "en",
+        "director":  "Tom Harper",
+        "cast":  [
+                     "Cillian Murphy",
+                     "Rebecca Ferguson",
+                     "Barry Keoghan",
+                     "Tim Roth",
+                     "Stephen Graham"
+                 ],
+        "platforms":  [
+                          "Netflix"
+                      ],
+        "overview":  "Amidst the bombing raids of World War II Birmingham, Tommy Shelby returns from self-imposed exile to face his most destructive reckoning yet as the future of the family and the nation hangs in the balance.",
+        "editorial_note":  "Trending #3 on Netflix (2026). Cillian Murphy returns as Tommy Shelby alongside Barry Keoghan and Rebecca Ferguson in Steven Knight\u0027s feature-length wartime finale.",
+        "guide_url":  "/guides",
+        "guide_title":  "WatchPulse 2026 Trending Cinema \u0026 Streaming Guide",
+        "accent":  "violet",
+        "featured":  true,
+        "trailer_id":  "lcvUGs3xaDM",
+        "moods":  [
+                      "edge-of-seat",
+                      "dark-atmospheric",
+                      "emotional"
+                  ],
+        "company":  [
+                        "friends",
+                        "solo",
+                        "date-night"
+                    ]
+    },
+    {
+        "id":  "wp-the-rip-2026",
+        "media_type":  "movie",
+        "title":  "The Rip",
+        "year":  "2026",
+        "runtime":  124,
+        "rating":  8.5,
+        "genres":  [
+                       "Action",
+                       "Thriller"
+                   ],
+        "genre_ids":  [
+                          28,
+                          53
+                      ],
+        "language":  "en",
+        "director":  "Joe Carnahan",
+        "cast":  [
+                     "Matt Damon",
+                     "Ben Affleck",
+                     "Sasha Calle",
+                     "Teyana Taylor",
+                     "Kyle Chandler"
+                 ],
+        "platforms":  [
+                          "Netflix"
+                      ],
+        "overview":  "After discovering millions in untraceable cash inside a derelict Miami stash house, a squad of narcotics officers sees its trust fracture as external cartels and internal paranoia close in before dawn.",
+        "editorial_note":  "Trending #4 on Netflix (2026). Matt Damon and Ben Affleck reunite for a pressure-cooker Miami crime thriller directed by Joe Carnahan.",
+        "guide_url":  "/guides",
+        "guide_title":  "WatchPulse 2026 Trending Cinema \u0026 Streaming Guide",
+        "accent":  "teal",
+        "featured":  true,
+        "trailer_id":  "yeR5bcbRPak",
+        "moods":  [
+                      "edge-of-seat",
+                      "adrenaline",
+                      "clever-twist"
+                  ],
+        "company":  [
+                        "friends",
+                        "solo",
+                        "date-night"
+                    ]
+    },
+    {
+        "id":  "wp-project-hail-mary",
+        "media_type":  "movie",
+        "title":  "Project Hail Mary",
+        "year":  "2026",
+        "runtime":  152,
+        "rating":  9,
+        "genres":  [
+                       "Sci-Fi",
+                       "Drama",
+                       "Comedy"
+                   ],
+        "genre_ids":  [
+                          878,
+                          18,
+                          35
+                      ],
+        "language":  "en",
+        "director":  "Phil Lord, Christopher Miller",
+        "cast":  [
+                     "Ryan Gosling",
+                     "Sandra Huller",
+                     "Milana Vayntrub"
+                 ],
+        "platforms":  [
+                          "Prime Video",
+                          "Apple TV+"
+                      ],
+        "overview":  "Waking up alone aboard an interstellar spacecraft light-years from Earth with amnesia, a former middle-school science teacher must piece together his mission to save humanity from an extinction-level dimming of the sun.",
+        "editorial_note":  "Trending #5 Sci-Fi Blockbuster (2026). Adapted from Andy Weir\u0027s bestseller and starring Ryan Gosling, blending hard survival science with huge emotional warmth.",
+        "guide_url":  "/guides",
+        "guide_title":  "WatchPulse 2026 Trending Cinema \u0026 Streaming Guide",
+        "accent":  "teal",
+        "featured":  true,
+        "trailer_id":  "m08TxIsFTRI",
+        "moods":  [
+                      "mind-bending",
+                      "feel-good",
+                      "emotional"
+                  ],
+        "company":  [
+                        "date-night",
+                        "friends",
+                        "family",
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-avatar-fire-and-ash",
+        "media_type":  "movie",
+        "title":  "Avatar: Fire and Ash",
+        "year":  "2025",
+        "runtime":  192,
+        "rating":  8.6,
+        "genres":  [
+                       "Sci-Fi",
+                       "Action",
+                       "Drama"
+                   ],
+        "genre_ids":  [
+                          878,
+                          28,
+                          18
+                      ],
+        "language":  "en",
+        "director":  "James Cameron",
+        "cast":  [
+                     "Sam Worthington",
+                     "Zoe Saldana",
+                     "Sigourney Weaver",
+                     "Stephen Lang",
+                     "Oona Chaplin"
+                 ],
+        "platforms":  [
+                          "Disney+",
+                          "Prime Video",
+                          "Apple TV+"
+                      ],
+        "overview":  "Jake Sully and Neytiri encounter the volcanic Ash People—a fierce Na\u0027vi clan led by Varang—escalating the conflict across Pandora into uncharted elemental frontiers.",
+        "editorial_note":  "Trending #6 Global Box Office Phenomenon. James Cameron expands Pandora with breathtaking volcanic biomes and morally complex Na\u0027vi rivalries.",
+        "guide_url":  "/guides",
+        "guide_title":  "WatchPulse 2026 Trending Cinema \u0026 Streaming Guide",
+        "accent":  "amber",
+        "featured":  true,
+        "trailer_id":  "nb_fFj_0rq8",
+        "moods":  [
+                      "adrenaline",
+                      "emotional"
+                  ],
+        "company":  [
+                        "family",
+                        "friends",
+                        "date-night"
+                    ]
+    },
+    {
+        "id":  "wp-wake-up-dead-man",
+        "media_type":  "movie",
+        "title":  "Wake Up Dead Man: A Knives Out Mystery",
+        "year":  "2025",
+        "runtime":  140,
+        "rating":  8.4,
+        "genres":  [
+                       "Thriller",
+                       "Comedy",
+                       "Drama"
+                   ],
+        "genre_ids":  [
+                          53,
+                          35,
+                          18
+                      ],
+        "language":  "en",
+        "director":  "Rian Johnson",
+        "cast":  [
+                     "Daniel Craig",
+                     "Josh O\u0027Connor",
+                     "Glenn Close",
+                     "Josh Brolin",
+                     "Mila Kunis",
+                     "Jeremy Renner",
+                     "Cailee Spaeny",
+                     "Andrew Scott"
+                 ],
+        "platforms":  [
+                          "Netflix"
+                      ],
+        "overview":  "Master sleuth Benoit Blanc is drawn into his most dangerous and gothic impossible-crime investigation yet inside a secluded parish community.",
+        "editorial_note":  "Trending #7 on Netflix. Rian Johnson and Daniel Craig\u0027s third Benoit Blanc mystery trades sun-drenched islands for razor-sharp gothic suspense.",
+        "guide_url":  "/guides",
+        "guide_title":  "WatchPulse 2026 Trending Cinema \u0026 Streaming Guide",
+        "accent":  "violet",
+        "featured":  true,
+        "trailer_id":  "0hc8yz5-d5Y",
+        "moods":  [
+                      "clever-twist",
+                      "edge-of-seat",
+                      "mind-bending"
+                  ],
+        "company":  [
+                        "date-night",
+                        "friends",
+                        "family",
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-superman-2025",
+        "media_type":  "movie",
+        "title":  "Superman",
+        "year":  "2025",
+        "runtime":  142,
+        "rating":  8.5,
+        "genres":  [
+                       "Action",
+                       "Sci-Fi",
+                       "Drama"
+                   ],
+        "genre_ids":  [
+                          28,
+                          878,
+                          18
+                      ],
+        "language":  "en",
+        "director":  "James Gunn",
+        "cast":  [
+                     "David Corenswet",
+                     "Rachel Brosnahan",
+                     "Nicholas Hoult",
+                     "Edi Gathegi",
+                     "Nathan Fillion"
+                 ],
+        "platforms":  [
+                          "HBO Max",
+                          "Prime Video",
+                          "Apple TV+"
+                      ],
+        "overview":  "Balancing his Kryptonian heritage with his Kansas upbringing as Clark Kent, Superman fights to defend truth and kindness in a cynical world engineered by Lex Luthor.",
+        "editorial_note":  "Trending #8 on HBO Max \u0026 Cinema. James Gunn launches the new DC Universe with infectious optimism, soaring score work, and classic Daily Planet chemistry.",
+        "guide_url":  "/guides",
+        "guide_title":  "WatchPulse 2026 Trending Cinema \u0026 Streaming Guide",
+        "accent":  "teal",
+        "featured":  true,
+        "trailer_id":  "Ox8ZLF6cGM0",
+        "moods":  [
+                      "adrenaline",
+                      "feel-good",
+                      "emotional"
+                  ],
+        "company":  [
+                        "family",
+                        "friends",
+                        "date-night",
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-f1-the-movie",
+        "media_type":  "movie",
+        "title":  "F1: The Movie",
+        "year":  "2025",
+        "runtime":  155,
+        "rating":  8.6,
+        "genres":  [
+                       "Action",
+                       "Drama"
+                   ],
+        "genre_ids":  [
+                          28,
+                          18
+                      ],
+        "language":  "en",
+        "director":  "Joseph Kosinski",
+        "cast":  [
+                     "Brad Pitt",
+                     "Damson Idris",
+                     "Kerry Condon",
+                     "Javier Bardem",
+                     "Tobias Menzies"
+                 ],
+        "platforms":  [
+                          "Apple TV+",
+                          "Prime Video"
+                      ],
+        "overview":  "A former Formula 1 prodigy returns to the grid decades after a career-halting crash to mentor a fiery rookie phenom and save an underdog constructor team.",
+        "editorial_note":  "Trending #9 on Apple TV+ \u0026 Cinema. Directed by Top Gun: Maverick\u0027s Joseph Kosinski with real onboard cameras mounted during live Grand Prix weekends.",
+        "guide_url":  "/guides",
+        "guide_title":  "WatchPulse 2026 Trending Cinema \u0026 Streaming Guide",
+        "accent":  "amber",
+        "featured":  true,
+        "trailer_id":  "8yh9BPUBbbQ",
+        "moods":  [
+                      "adrenaline",
+                      "edge-of-seat",
+                      "feel-good"
+                  ],
+        "company":  [
+                        "friends",
+                        "date-night",
+                        "family",
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-jurassic-world-rebirth",
+        "media_type":  "movie",
+        "title":  "Jurassic World Rebirth",
+        "year":  "2025",
+        "runtime":  134,
+        "rating":  8.1,
+        "genres":  [
+                       "Action",
+                       "Sci-Fi",
+                       "Thriller"
+                   ],
+        "genre_ids":  [
+                          28,
+                          878,
+                          53
+                      ],
+        "language":  "en",
+        "director":  "Gareth Edwards",
+        "cast":  [
+                     "Scarlett Johansson",
+                     "Mahershala Ali",
+                     "Jonathan Bailey",
+                     "Rupert Friend"
+                 ],
+        "platforms":  [
+                          "Netflix",
+                          "Prime Video",
+                          "Apple TV+"
+                      ],
+        "overview":  "Five years after Jurassic World Dominion, a covert extraction team ventures into an equatorial island research facility to secure genetic samples from the three largest prehistoric species left alive.",
+        "editorial_note":  "Trending #10 Cinema \u0026 Streaming Hit. Gareth Edwards and original Jurassic Park screenwriter David Koepp restore pure jungle survival tension.",
+        "guide_url":  "/guides",
+        "guide_title":  "WatchPulse 2026 Trending Cinema \u0026 Streaming Guide",
+        "accent":  "emerald",
+        "featured":  true,
+        "trailer_id":  "jan5CFWs9ic",
+        "moods":  [
+                      "adrenaline",
+                      "edge-of-seat"
+                  ],
+        "company":  [
+                        "friends",
+                        "family",
+                        "date-night"
+                    ]
+    },
+    {
+        "id":  "wp-toy-story-5",
+        "media_type":  "movie",
+        "title":  "Toy Story 5",
+        "year":  "2026",
+        "runtime":  104,
+        "rating":  8.4,
+        "genres":  [
+                       "Animation",
+                       "Comedy",
+                       "Drama"
+                   ],
+        "genre_ids":  [
+                          16,
+                          35,
+                          18
+                      ],
+        "language":  "en",
+        "director":  "Andrew Stanton",
+        "cast":  [
+                     "Tom Hanks",
+                     "Tim Allen",
+                     "Joan Cusack"
+                 ],
+        "platforms":  [
+                          "Disney+",
+                          "Apple TV+"
+                      ],
+        "overview":  "Woody, Buzz Lightyear, Jessie, and the gang face their most modern existential challenge yet when playroom time collides with a wave of smart screen-obsessed electronics.",
+        "editorial_note":  "2026 Pixar Box Office Leader. Directed by Finding Nemo and WALL-E veteran Andrew Stanton, blending classic Pixar wit with timely family heart.",
+        "guide_url":  "/guides",
+        "guide_title":  "WatchPulse 2026 Trending Cinema \u0026 Streaming Guide",
+        "accent":  "amber",
+        "featured":  false,
+        "trailer_id":  "c51ND9Hdbw0",
+        "moods":  [
+                      "feel-good",
+                      "emotional"
+                  ],
+        "company":  [
+                        "family",
+                        "friends",
+                        "date-night"
+                    ]
+    },
+    {
+        "id":  "wp-michael-2026",
+        "media_type":  "movie",
+        "title":  "Michael",
+        "year":  "2026",
+        "runtime":  158,
+        "rating":  8.3,
+        "genres":  [
+                       "Drama"
+                   ],
+        "genre_ids":  [
+                          18
+                      ],
+        "language":  "en",
+        "director":  "Antoine Fuqua",
+        "cast":  [
+                     "Jaafar Jackson",
+                     "Colman Domingo",
+                     "Nia Long",
+                     "Miles Teller"
+                 ],
+        "platforms":  [
+                          "Prime Video",
+                          "Apple TV+"
+                      ],
+        "overview":  "An epic biographical portrait tracing Michael Jackson\u0027s journey from the Jackson 5 in Gary, Indiana, to the studio sessions and global stadium tours that redefined modern pop culture.",
+        "editorial_note":  "2026 Event Biopic. Directed by Antoine Fuqua and starring Jaafar Jackson alongside Oscar nominee Colman Domingo.",
+        "guide_url":  "/guides",
+        "guide_title":  "WatchPulse 2026 Trending Cinema \u0026 Streaming Guide",
+        "accent":  "violet",
+        "featured":  false,
+        "trailer_id":  "mbtgEE6rkxw",
+        "moods":  [
+                      "emotional",
+                      "feel-good"
+                  ],
+        "company":  [
+                        "friends",
+                        "date-night",
+                        "family"
+                    ]
+    },
+    {
         "id":  "wp-dune-part-two",
         "media_type":  "movie",
         "title":  "Dune: Part Two",

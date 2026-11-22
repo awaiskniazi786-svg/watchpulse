@@ -172,6 +172,170 @@ async function handleWikiSearch(q) {
   return jsonResponse(200, { results: results.slice(0, 6), suggestion: usedSuggestion }, { 'X-WatchPulse-Edge': 'Cloudflare-Pages' });
 }
 
+const DISCOVER_GENRE_TERMS = {
+  all: { term: '2025 2026 release', label: 'Drama', id: 18 },
+  '28': { term: 'action', label: 'Action', id: 28 },
+  '878': { term: 'science fiction', label: 'Sci-Fi', id: 878 },
+  '18': { term: 'drama', label: 'Drama', id: 18 },
+  '35': { term: 'comedy', label: 'Comedy', id: 35 },
+  '27': { term: 'horror', label: 'Horror', id: 27 },
+  '53': { term: 'thriller', label: 'Thriller', id: 53 },
+  '16': { term: 'animated', label: 'Animation', id: 16 },
+  '10749': { term: 'romantic', label: 'Romance', id: 10749 }
+};
+
+const DISCOVER_LANG_TERMS = {
+  all: { term: '', label: 'English', code: 'en' },
+  en: { term: 'American British', label: 'English', code: 'en' },
+  ko: { term: 'South Korean', label: 'Korean', code: 'ko' },
+  hi: { term: 'Hindi Indian Bollywood', label: 'Hindi', code: 'hi' },
+  ur: { term: 'Pakistani Urdu', label: 'Urdu', code: 'ur' },
+  ja: { term: 'Japanese', label: 'Japanese', code: 'ja' },
+  tr: { term: 'Turkish', label: 'Turkish', code: 'tr' },
+  ta: { term: 'Tamil Indian', label: 'Tamil', code: 'ta' },
+  ml: { term: 'Malayalam Indian', label: 'Malayalam', code: 'ml' },
+  de: { term: 'German', label: 'German', code: 'de' },
+  es: { term: 'Spanish', label: 'Spanish', code: 'es' },
+  fr: { term: 'French', label: 'French', code: 'fr' },
+  ar: { term: 'Arabic', label: 'Arabic', code: 'ar' }
+};
+
+const DISCOVER_PLATFORM_TERMS = {
+  all: { term: '', label: 'Prime Video' },
+  '8': { term: 'Netflix', label: 'Netflix' },
+  '9': { term: 'Amazon Prime Video', label: 'Prime Video' },
+  '337': { term: 'Disney', label: 'Disney+' },
+  '350': { term: 'Apple TV+', label: 'Apple TV+' },
+  '1899': { term: 'HBO Max Warner Bros', label: 'HBO Max' }
+};
+
+async function resolveQuickTrailerId(movieTitle, year) {
+  try {
+    const q = `${movieTitle} ${year && year !== 'Film' ? year : ''} official trailer`.trim();
+    const ytUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(q)}&sp=EgIQAQ%253D%253D`;
+    const res = await fetch(ytUrl, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+        'Accept-Language': 'en-US,en;q=0.9'
+      },
+      cf: { cacheTtl: 86400, cacheEverything: true }
+    });
+    if (!res.ok) return '';
+    const html = await res.text();
+    const re = /"videoId":"([A-Za-z0-9_-]{11})"/g;
+    const candidates = [];
+    let m;
+    while ((m = re.exec(html)) !== null && candidates.length < 3) {
+      if (m[1] !== 'ASSCNBSAxm0' && !candidates.includes(m[1])) candidates.push(m[1]);
+    }
+    for (const vid of candidates) {
+      const oe = await fetch(`https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${vid}&format=json`, {
+        cf: { cacheTtl: 86400, cacheEverything: true }
+      });
+      if (!oe.ok) continue;
+      const info = await oe.json();
+      const author = String(info.author_name || '');
+      const title = String(info.title || '');
+      if (UNOFFICIAL_TRAILER_RE.test(author) || UNOFFICIAL_TRAILER_RE.test(title)) continue;
+      return vid;
+    }
+  } catch (_) {}
+  return '';
+}
+
+async function handleMovieDiscover(genreKey, langKey, platformKey, offsetNum) {
+  const gCfg = DISCOVER_GENRE_TERMS[genreKey] || DISCOVER_GENRE_TERMS.all;
+  const lCfg = DISCOVER_LANG_TERMS[langKey] || DISCOVER_LANG_TERMS.all;
+  const pCfg = DISCOVER_PLATFORM_TERMS[platformKey] || DISCOVER_PLATFORM_TERMS.all;
+
+  const queryParts = [lCfg.term, pCfg.term, gCfg.term, 'film'].filter(Boolean);
+  const searchTerm = queryParts.join(' ');
+  const gsrOffset = Math.max(0, offsetNum * 12);
+
+  const wikiUrl = `https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=${encodeURIComponent(searchTerm)}&gsrlimit=14&gsroffset=${gsrOffset}&prop=pageimages|extracts|pageprops&piprop=thumbnail&pithumbsize=500&pilicense=any&exintro=1&explaintext=1&exsentences=3&format=json&origin=*`;
+  const data = await fetchJson(wikiUrl);
+  let pages = (data && data.query && data.query.pages) ? Object.values(data.query.pages) : [];
+
+  pages = pages
+    .filter(p => p && p.title && !NON_FILM_TITLE_RE.test(p.title))
+    .sort((a, b) => (a.index || 99) - (b.index || 99))
+    .slice(0, 10);
+
+  const qids = pages.map(p => p.pageprops && p.pageprops.wikibase_item).filter(Boolean);
+  let entities = {};
+  if (qids.length) {
+    try {
+      const wdUrl = `https://www.wikidata.org/w/api.php?action=wbgetentities&ids=${encodeURIComponent(qids.join('|'))}&props=claims|descriptions&languages=en&format=json`;
+      const wdData = await fetchJson(wdUrl);
+      entities = (wdData && wdData.entities) || {};
+    } catch (_) {}
+  }
+
+  const rawItems = [];
+  for (const p of pages) {
+    const qid = (p.pageprops && p.pageprops.wikibase_item) || '';
+    const ent = qid ? entities[qid] : null;
+    const claims = (ent && ent.claims) || {};
+    const desc = (ent && ent.descriptions && ent.descriptions.en && ent.descriptions.en.value) || '';
+    const instanceIds = getClaimEntityIds(claims, 'P31', 5);
+    const isFilmEntity = instanceIds.some(id => FILM_INSTANCE_IDS.has(id)) || /\bfilm\b/i.test(desc) || /\bfilm\b/i.test(p.title);
+    if (instanceIds.length && !isFilmEntity) continue;
+
+    const cleanTitle = p.title.replace(/\s*\([^)]*film[^)]*\)/i, '').replace(/\s*\(\d{4}\s+[^)]*\)/i, '').trim();
+    if (!cleanTitle || NON_FILM_TITLE_RE.test(cleanTitle)) continue;
+
+    const yearFromWd = getClaimYear(claims, 'P577');
+    const yearFromText = ((p.title || '') + ' ' + desc + ' ' + (p.extract || '')).match(/\b(19\d{2}|20\d{2})\b/);
+    const year = yearFromWd || (yearFromText ? yearFromText[1] : '2024');
+    const runtime = getClaimRuntime(claims) || 115;
+    const trailerId = getClaimString(claims, 'P1651');
+    const imdbId = getClaimString(claims, 'P345');
+    const wikiThumb = (p.thumbnail && p.thumbnail.source) ? p.thumbnail.source.split('?')[0] : '';
+    const directorMatch = desc.match(/directed by ([^,;]+)/i);
+
+    rawItems.push({
+      pageid: p.pageid,
+      qid,
+      wikiTitle: p.title,
+      title: cleanTitle,
+      year,
+      runtime,
+      director: directorMatch ? directorMatch[1].trim() : '',
+      overview: (p.extract || desc || 'Discovered via WatchPulse Live Catalog (Wikipedia & Wikidata).').trim(),
+      wikiThumb,
+      trailer_id: trailerId,
+      imdb_id: imdbId,
+      genres: [gCfg.label],
+      genre_ids: [gCfg.id],
+      language: lCfg.code,
+      languageLabel: lCfg.label,
+      platforms: [pCfg.label],
+      officialUrl: `https://en.wikipedia.org/wiki/${encodeURIComponent(p.title.replace(/ /g, '_'))}`
+    });
+  }
+
+  // Resolve verified YouTube trailer IDs in parallel for up to 6 items missing P1651 so cards get 16:9 trailer previews
+  await Promise.all(rawItems.slice(0, 6).map(async (item) => {
+    if (!item.trailer_id) {
+      item.trailer_id = await resolveQuickTrailerId(item.title, item.year);
+    }
+  }));
+
+  const results = rawItems.map(item => {
+    const ytThumb = item.trailer_id ? `https://i.ytimg.com/vi/${item.trailer_id}/maxresdefault.jpg` : '';
+    return {
+      ...item,
+      poster: ytThumb || item.wikiThumb || '',
+      backdrop: ytThumb || item.wikiThumb || ''
+    };
+  });
+
+  return jsonResponse(200, {
+    results,
+    nextOffset: offsetNum + 1
+  }, { 'X-WatchPulse-Edge': 'Cloudflare-Pages' });
+}
+
 async function handleWikiDetails(qid, wikiTitle) {
   const wdUrl = `https://www.wikidata.org/w/api.php?action=wbgetentities&ids=${encodeURIComponent(qid)}&props=claims|labels|descriptions&languages=en&format=json`;
   const [wdData, wikiData] = await Promise.all([
@@ -315,12 +479,20 @@ export async function onRequestGet(context) {
   const q = (url.searchParams.get('q') || '').trim().slice(0, 120);
   const id = (url.searchParams.get('id') || '').trim();
   const title = (url.searchParams.get('title') || '').trim().slice(0, 160);
-  const page = Math.max(0, Math.min(20, parseInt(url.searchParams.get('page') || '0', 10) || 0));
+  const page = Math.max(0, Math.min(250, parseInt(url.searchParams.get('page') || '0', 10) || 0));
+  const genre = (url.searchParams.get('genre') || 'all').trim();
+  const lang = (url.searchParams.get('lang') || 'all').trim();
+  const platform = (url.searchParams.get('platform') || 'all').trim();
+  const offset = Math.max(0, Math.min(50, parseInt(url.searchParams.get('offset') || '0', 10) || 0));
 
   try {
     if (action === 'trailer-search') {
       if (!q) return jsonResponse(400, { error: 'Missing query parameter q' });
       return await handleTrailerSearch(q);
+    }
+
+    if (action === 'movie-discover') {
+      return await handleMovieDiscover(genre, lang, platform, offset);
     }
 
     if (action === 'wiki-search') {

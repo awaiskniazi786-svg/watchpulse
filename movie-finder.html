@@ -28,24 +28,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>What Movie Should I Watch Tonight? Quiz — WatchPulse</title>
   <meta name="description"
-    content="Take WatchPulse's free 30-second Movie & TV Finder Quiz. Pick your mood, available runtime, format, and language to get 3 tailored recommendations with trailers and editorial notes.">
+    content="Stop scrolling. Take WatchPulse's 30-second Movie & TV Finder Quiz—match your mood, who you're watching with, runtime, and language to get 1 laser-focused pick or Top 3 recommendations.">
   <link rel="canonical" href="https://watchpulse.online/movie-finder">
   <meta name="robots" content="max-image-preview:large">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="WatchPulse">
   <meta property="og:title" content="What Movie Should I Watch Tonight? Quiz — WatchPulse">
-  <meta property="og:description" content="Take WatchPulse's free 30-second Movie & TV Finder Quiz. Pick your mood, runtime, format, and language for 3 instant, spoiler-free picks.">
+  <meta property="og:description" content="Stop scrolling. Match your mood, company, runtime, and language for 1 instant pick or Top 3 curated movies & TV shows.">
   <meta property="og:url" content="https://watchpulse.online/movie-finder">
   <meta property="og:image" content="https://watchpulse.online/preview.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="What Movie Should I Watch Tonight? Quiz — WatchPulse">
-  <meta name="twitter:description" content="Take WatchPulse's free 30-second Movie & TV Finder Quiz. Pick your mood, runtime, format, and language for 3 instant, spoiler-free picks.">
+  <meta name="twitter:description" content="Stop scrolling. Match your mood, company, runtime, and language for 1 instant pick or Top 3 curated movies & TV shows.">
   <meta name="twitter:image" content="https://watchpulse.online/preview.jpg">
   <link rel="icon" href="/favicon.ico" sizes="48x48">
   <link rel="icon" type="image/png" sizes="96x96" href="/favicon.png">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="apple-touch-icon" href="/favicon.png">
-  <link rel="stylesheet" href="/style.css?v=20261121f">
+  <link rel="stylesheet" href="/style.css?v=20261122a">
 
   <script type="application/ld+json">
   {
@@ -67,7 +67,7 @@
     "applicationCategory": "EntertainmentApplication",
     "operatingSystem": "All",
     "browserRequirements": "Requires JavaScript",
-    "description": "Free interactive movie and TV series recommendation quiz filtered by mood, runtime budget, format, and language with zero sign-up required.",
+    "description": "Free interactive movie and TV series picker filtered by who you are watching with, emotional mood, runtime budget, and language with zero sign-up required.",
     "offers": {
       "@type": "Offer",
       "price": "0",
@@ -110,79 +110,94 @@
     </nav>
 
     <article class="content-card legal-card">
-      <span class="pill-badge">Free Interactive Tool • Zero Account Required</span>
+      <span class="pill-badge">Stop Scrolling • Human-Curated Decision Solver</span>
       <h1>What Movie or TV Show Should I Watch Tonight? (30-Second Quiz)</h1>
-      <p class="last-updated">Curated by <strong>Awais K</strong> • Powered by WatchPulse Curated Films &amp; Live TVmaze Catalog</p>
+      <p class="last-updated">Curated by <strong>Awais K</strong> • 70 Hand-Curated Films &amp; Live TVmaze Catalog</p>
 
       <section class="legal-section">
-        <p>Stop scrolling through endless home-screen carousels for forty minutes until you are too tired to watch anything. Answer four quick questions below—matching your current mood, how much time you actually have tonight, your format, and preferred language—and WatchPulse will immediately suggest <strong>three high-confidence picks</strong> with runtimes, editorial reasons why they fit, and links to official trailers.</p>
+        <p>Stop scrolling through endless home-screen carousels until you are too tired to press play. Tell us <strong>who is watching</strong>, your <strong>mood tonight</strong>, how much <strong>time</strong> you have, and your language preference—and get either <strong>one clear pick</strong> (with an instant Skip button) or <strong>Top 3 matches</strong> backed by real human notes.</p>
       </section>
 
       <section aria-label="Interactive Movie and TV Finder Quiz" style="background: rgba(255, 255, 255, 0.025); border: 1px solid var(--border-color); border-radius: 14px; padding: 1.5rem; margin-bottom: 2.5rem;">
         <div style="margin-bottom: 1rem;">
-          <strong style="font-size: 0.92rem; color: #fff;">1. What mood or genre fits tonight?</strong>
+          <strong style="font-size: 0.92rem; color: #fff;">1. Who are you watching with?</strong>
+          <div class="quiz-options-grid" id="mfCompanyOptions">
+            <button type="button" class="quiz-opt-btn selected" data-company="any" data-label="Anyone">🌍 Anyone / Flexible</button>
+            <button type="button" class="quiz-opt-btn" data-company="solo" data-label="Solo Watch">🎧 Just Myself (Solo)</button>
+            <button type="button" class="quiz-opt-btn" data-company="date-night" data-label="Date Night">💑 Date Night</button>
+            <button type="button" class="quiz-opt-btn" data-company="friends" data-label="With Friends">🍿 With Friends</button>
+            <button type="button" class="quiz-opt-btn" data-company="family" data-label="Family-Safe">👨‍👩‍👧‍👦 Family-Safe</button>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 1rem;">
+          <strong style="font-size: 0.92rem; color: #fff;">2. What's your mood or energy tonight?</strong>
           <div class="quiz-options-grid" id="mfMoodOptions">
-            <button type="button" class="quiz-opt-btn selected" data-genre="53" data-label="Thriller">⚡ High-Tension Thriller</button>
-            <button type="button" class="quiz-opt-btn" data-genre="878" data-label="Sci-Fi">🚀 Smart Sci-Fi</button>
-            <button type="button" class="quiz-opt-btn" data-genre="28" data-label="Action">💥 Practical Action</button>
-            <button type="button" class="quiz-opt-btn" data-genre="35" data-label="Comedy">😂 Smart Comedy</button>
-            <button type="button" class="quiz-opt-btn" data-genre="16" data-label="Family &amp; Animation">🎨 Family &amp; Animation</button>
-            <button type="button" class="quiz-opt-btn" data-genre="18" data-label="Drama">🎭 Acclaimed Drama</button>
-            <button type="button" class="quiz-opt-btn" data-genre="27" data-label="Horror">👻 Psychological Horror</button>
+            <button type="button" class="quiz-opt-btn selected" data-mood="edge-of-seat" data-label="Edge-of-Seat Tension">⚡ Edge-of-Seat Tension</button>
+            <button type="button" class="quiz-opt-btn" data-mood="mind-bending" data-label="Mind-Bending &amp; Smart">🧠 Mind-Bending &amp; Smart</button>
+            <button type="button" class="quiz-opt-btn" data-mood="feel-good" data-label="Warm &amp; Stress-Free">🛋️ Warm &amp; Stress-Free</button>
+            <button type="button" class="quiz-opt-btn" data-mood="clever-twist" data-label="Clever Twist &amp; Mystery">🔍 Clever Twist &amp; Mystery</button>
+            <button type="button" class="quiz-opt-btn" data-mood="adrenaline" data-label="Big Action &amp; Pace">💥 Big Action &amp; Pace</button>
+            <button type="button" class="quiz-opt-btn" data-mood="dark-atmospheric" data-label="Dark &amp; Atmospheric">👻 Dark &amp; Atmospheric</button>
+            <button type="button" class="quiz-opt-btn" data-mood="emotional" data-label="Emotional &amp; Moving">❤️ Emotional &amp; Moving</button>
           </div>
         </div>
 
         <div style="margin-bottom: 1rem;">
-          <strong style="font-size: 0.92rem; color: #fff;">2. How much time do you have?</strong>
+          <strong style="font-size: 0.92rem; color: #fff;">3. How much time do you have?</strong>
           <div class="quiz-options-grid" id="mfTimeOptions">
-            <button type="button" class="quiz-opt-btn selected" data-time="short" data-label="Under 105 min">⏱️ Quick Watch (&le; 105m)</button>
-            <button type="button" class="quiz-opt-btn" data-time="standard" data-label="100–135 min">🍿 Standard Feature (100–135m)</button>
-            <button type="button" class="quiz-opt-btn" data-time="epic" data-label="130+ min Epic">🌌 Full Epic / Deep Binge (130m+)</button>
+            <button type="button" class="quiz-opt-btn" data-time="any" data-label="Any Length">⏳ Any Length</button>
+            <button type="button" class="quiz-opt-btn selected" data-time="short" data-label="Under 100 min">⏱️ Quick Watch (&le; 100m)</button>
+            <button type="button" class="quiz-opt-btn" data-time="standard" data-label="100–135 min">🍿 Standard (100–135m)</button>
+            <button type="button" class="quiz-opt-btn" data-time="epic" data-label="130+ min Epic">🌌 Full Epic / Binge (130m+)</button>
           </div>
         </div>
 
         <div style="margin-bottom: 1rem;">
-          <strong style="font-size: 0.92rem; color: #fff;">3. Movies or TV Series?</strong>
-          <div class="quiz-options-grid" id="mfFormatOptions">
-            <button type="button" class="quiz-opt-btn selected" data-format="movie">🎬 Curated Movies</button>
+          <strong style="font-size: 0.92rem; color: #fff;">4. Format &amp; Language preference:</strong>
+          <div class="quiz-options-grid" id="mfFormatOptions" style="margin-bottom: 0.65rem;">
+            <button type="button" class="quiz-opt-btn selected" data-format="movie">🎬 Curated Movies (70 Picks)</button>
             <button type="button" class="quiz-opt-btn" data-format="tv">📺 Live TV Series</button>
           </div>
-        </div>
-
-        <div style="margin-bottom: 1.25rem;">
-          <strong style="font-size: 0.92rem; color: #fff;">4. Language preference?</strong>
           <div class="quiz-options-grid" id="mfLangOptions">
             <button type="button" class="quiz-opt-btn selected" data-lang="all" data-label="Any Language">🌍 Any Language</button>
             <button type="button" class="quiz-opt-btn" data-lang="en" data-label="English">🇬🇧 English</button>
+            <button type="button" class="quiz-opt-btn" data-lang="global" data-label="Global / Non-English">🌐 Global / Non-English</button>
             <button type="button" class="quiz-opt-btn" data-lang="ko" data-label="Korean">🇰🇷 Korean</button>
-            <button type="button" class="quiz-opt-btn" data-lang="hi-ur" data-label="Hindi &amp; Urdu">🎬 Hindi / Urdu</button>
-            <button type="button" class="quiz-opt-btn" data-lang="ja" data-label="Japanese">🇯🇵 Japanese</button>
+            <button type="button" class="quiz-opt-btn" data-lang="south-asia" data-label="South Asian">🎬 Hindi / Urdu / Malayalam</button>
+            <button type="button" class="quiz-opt-btn" data-lang="ja" data-label="Japanese">🇯🇵 Japanese / Anime</button>
           </div>
         </div>
 
         <div style="display: flex; flex-wrap: wrap; gap: 0.65rem; align-items: center;">
-          <button id="mfFindBtn" type="button" class="btn primary-btn" style="flex: 1 1 220px; justify-content: center;">✨ Find My 3 Matches</button>
-          <button id="mfShuffleBtn" type="button" class="btn secondary-btn" style="flex: 0 1 auto;">🎲 Shuffle Picks</button>
+          <button id="mfFindBtn" type="button" class="btn primary-btn" style="flex: 1 1 210px; justify-content: center;">✨ Find My Match</button>
+          <button id="mfShuffleBtn" type="button" class="btn secondary-btn" style="flex: 0 1 auto;">↻ Skip — Next Pick</button>
           <button id="mfShareBtn" type="button" class="btn secondary-btn" style="flex: 0 1 auto;">🔗 Copy Result Link</button>
         </div>
 
-        <div id="mfStatusNote" style="font-size: 0.85rem; color: var(--text-muted); margin-top: 1rem;"></div>
-        <div id="mfResults" aria-live="polite" style="margin-top: 0.75rem;"></div>
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.75rem; margin-top: 1.15rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+          <div id="mfStatusNote" style="font-size: 0.85rem; color: var(--text-muted);"></div>
+          <div class="mf-mode-toggle" role="group" aria-label="Result display mode">
+            <button type="button" id="mfModeOneBtn" class="mf-mode-btn active" data-mode="one">🎯 1 Instant Pick</button>
+            <button type="button" id="mfModeThreeBtn" class="mf-mode-btn" data-mode="three">📋 Top 3 Matches</button>
+          </div>
+        </div>
+
+        <div id="mfResults" aria-live="polite" style="margin-top: 0.5rem;"></div>
       </section>
 
       <section class="legal-section">
-        <h2>How to Beat Streaming Decision Fatigue in 30 Seconds</h2>
-        <p>Most streaming apps fail viewers at 9:30 PM because their carousels optimize for whatever launched that Friday rather than how much energy or time you actually have left. A brilliant three-hour historical drama like <em>Oppenheimer</em> feels exhausting when you only have 95 minutes before bed, whereas a tight single-location thriller under 100 minutes delivers a complete payoff before midnight.</p>
-        <p>When you run the WatchPulse Movie Finder above, start with <strong>runtime reality first</strong> rather than star rating alone:</p>
+        <h2>Why "Who + Mood + Time" Beats Traditional Genre Lists</h2>
+        <p>Generic streaming menus fail at 9:30 PM because broad genres ignore context. <em>Hereditary</em> and <em>Game Night</em> are both thrilling in different ways, yet one ruins a lighthearted Friday with friends while the other keeps everyone laughing. Filtering by <strong>who is on the couch</strong> and <strong>how much time you have before bed</strong> cuts choice overload down to a single confident decision.</p>
         <ul>
-          <li><strong>Weeknights under 105 minutes:</strong> Prioritize lean thrillers, tight comedies, or animated features with crisp Act 1 hooks so you finish satisfied without sacrificing sleep.</li>
-          <li><strong>Standard 100–135 minute window:</strong> The sweet spot for modern sci-fi mysteries (<em>Arrival</em>, <em>Ex Machina</em>), clever whodunits (<em>Knives Out</em>), and practical stunt action.</li>
-          <li><strong>Weekend 130+ minute epics or TV binges:</strong> Save sprawling cinema like <em>Dune: Part Two</em> or dense mystery-box television like <em>Severance</em> for nights when you can watch without checking your phone.</li>
+          <li><strong>Weeknights under 100 minutes:</strong> Start in <em>1 Instant Pick</em> mode with Quick Watch selected so you get tight pacing and a complete ending before midnight.</li>
+          <li><strong>Date night without awkward tonal shifts:</strong> Pick <em>Date Night</em> + <em>Warm &amp; Stress-Free</em> or <em>Clever Twist</em> for crowd-pleasing chemistry and smart dialogue.</li>
+          <li><strong>Solo deep dives:</strong> Pair <em>Solo</em> with <em>Mind-Bending</em> or <em>Global / Non-English</em> to surface acclaimed Korean, Japanese, European, and South Asian cinema.</li>
         </ul>
       </section>
 
       <section class="legal-section">
-        <h2>Browse Matching Editorial Guides by Mood</h2>
+        <h2>Browse Matching Editorial Guides by Situation</h2>
         <div class="editorial-guides-grid">
           <article class="guide-preview-card">
             <span class="guide-category-tag">⏱️ Under 100 Minutes</span>
@@ -251,7 +266,7 @@
         <div class="seo-faq" style="margin-top: 1rem; border-top: none; padding-top: 0;">
           <details open>
             <summary>How does the WatchPulse Movie Finder Quiz choose picks?</summary>
-            <p>For movies, the tool filters WatchPulse's hand-curated 44-film editorial catalog by genre tag, exact runtime window, and original language—prioritizing exact matches first and explaining why each title fits. For TV series, it queries live popular series metadata from TVmaze (CC BY-SA).</p>
+            <p>For movies, the picker scores WatchPulse's hand-curated 70-film editorial catalog by who is watching, emotional vibe, runtime window, and original language—surfacing either one laser-focused match or your Top 3 with clear editorial reasons. For TV series, it scores live series metadata from TVmaze (CC BY-SA).</p>
           </details>
           <details open>
             <summary>Do I need to sign up or install an app to save my picks?</summary>
@@ -292,31 +307,52 @@
 
   <script>
     (function () {
-      const GENRE_LABELS = {
-        '53': 'Thriller',
-        '878': 'Sci-Fi',
-        '28': 'Action',
-        '35': 'Comedy',
-        '16': 'Animation & Family',
-        '18': 'Drama',
-        '27': 'Horror'
+      const MOOD_LABELS = {
+        'edge-of-seat': 'Edge-of-Seat Tension',
+        'mind-bending': 'Mind-Bending & Smart',
+        'feel-good': 'Warm & Stress-Free',
+        'clever-twist': 'Clever Twist & Mystery',
+        'adrenaline': 'Big Action & Pace',
+        'dark-atmospheric': 'Dark & Atmospheric',
+        'emotional': 'Emotional & Moving'
+      };
+      const COMPANY_LABELS = {
+        'any': 'Anyone',
+        'solo': 'Solo Watch',
+        'date-night': 'Date Night',
+        'friends': 'With Friends',
+        'family': 'Family-Safe'
+      };
+      const LEGACY_MOOD_MAP = {
+        '53': 'edge-of-seat',
+        '878': 'mind-bending',
+        '28': 'adrenaline',
+        '35': 'feel-good',
+        '16': 'feel-good',
+        '18': 'emotional',
+        '27': 'dark-atmospheric'
       };
       const LANG_LABELS = {
         en: 'English',
         ko: 'Korean',
         hi: 'Hindi',
         ur: 'Urdu',
+        ml: 'Malayalam',
+        ta: 'Tamil',
         ja: 'Japanese',
         es: 'Spanish',
-        fr: 'French'
+        fr: 'French',
+        de: 'German'
       };
 
       const state = {
         movies: [],
         tvShows: [],
-        shuffleOffset: 0
+        shuffleOffset: 0,
+        mode: 'one'
       };
 
+      const companyBox = document.getElementById('mfCompanyOptions');
       const moodBox = document.getElementById('mfMoodOptions');
       const timeBox = document.getElementById('mfTimeOptions');
       const formatBox = document.getElementById('mfFormatOptions');
@@ -324,6 +360,8 @@
       const findBtn = document.getElementById('mfFindBtn');
       const shuffleBtn = document.getElementById('mfShuffleBtn');
       const shareBtn = document.getElementById('mfShareBtn');
+      const modeOneBtn = document.getElementById('mfModeOneBtn');
+      const modeThreeBtn = document.getElementById('mfModeThreeBtn');
       const statusEl = document.getElementById('mfStatusNote');
       const resultsEl = document.getElementById('mfResults');
 
@@ -347,7 +385,16 @@
         } catch (_) {}
       }
 
-      function bindGroup(container, attr) {
+      function setMode(nextMode) {
+        state.mode = nextMode === 'three' ? 'three' : 'one';
+        if (modeOneBtn) modeOneBtn.classList.toggle('active', state.mode === 'one');
+        if (modeThreeBtn) modeThreeBtn.classList.toggle('active', state.mode === 'three');
+        if (shuffleBtn) {
+          shuffleBtn.textContent = state.mode === 'one' ? '↻ Skip — Next Pick' : '🎲 Shuffle Next 3';
+        }
+      }
+
+      function bindGroup(container) {
         if (!container) return;
         container.querySelectorAll('.quiz-opt-btn').forEach(function (btn) {
           btn.addEventListener('click', function () {
@@ -371,32 +418,37 @@
       }
 
       function getSelections() {
-        const gBtn = moodBox.querySelector('.selected');
+        const cBtn = companyBox.querySelector('.selected');
+        const mBtn = moodBox.querySelector('.selected');
         const tBtn = timeBox.querySelector('.selected');
         const fBtn = formatBox.querySelector('.selected');
         const lBtn = langBox.querySelector('.selected');
         return {
-          mood: gBtn ? gBtn.dataset.genre : '53',
+          company: cBtn ? cBtn.dataset.company : 'any',
+          mood: mBtn ? mBtn.dataset.mood : 'edge-of-seat',
           time: tBtn ? tBtn.dataset.time : 'short',
           format: fBtn ? fBtn.dataset.format : 'movie',
-          lang: lBtn ? lBtn.dataset.lang : 'all'
+          lang: lBtn ? lBtn.dataset.lang : 'all',
+          mode: state.mode
         };
       }
 
       function syncUrl(sel) {
         try {
           const url = new URL(window.location.href);
+          url.searchParams.set('company', sel.company);
           url.searchParams.set('mood', sel.mood);
           url.searchParams.set('time', sel.time);
           url.searchParams.set('format', sel.format);
           url.searchParams.set('lang', sel.lang);
+          url.searchParams.set('mode', sel.mode);
           window.history.replaceState({}, '', url.pathname + url.search);
         } catch (_) {}
       }
 
       async function loadMovies() {
         if (state.movies.length) return state.movies;
-        const res = await fetch('/data/curated-catalog.json?v=20261121f');
+        const res = await fetch('/data/curated-catalog.json?v=20261122a');
         if (!res.ok) throw new Error('Unable to load curated catalog');
         const raw = await res.json();
         state.movies = (Array.isArray(raw) ? raw : []).map(function (m) {
@@ -409,7 +461,10 @@
             runtime: Number(m.runtime) || 0,
             rating: m.rating || '',
             genres: Array.isArray(m.genres) ? m.genres : [],
-            genre_ids: Array.isArray(m.genre_ids) ? m.genre_ids : [],
+            director: m.director || '',
+            accent: m.accent || 'teal',
+            moods: Array.isArray(m.moods) ? m.moods : [],
+            company: Array.isArray(m.company) ? m.company : [],
             language: m.language || 'en',
             overview: m.editorial_note || m.overview || '',
             guide_url: m.guide_url ? m.guide_url.replace(/\.html$/i, '') : '',
@@ -434,24 +489,27 @@
           if (!res.ok) throw new Error('TVmaze unavailable');
           raw = await res.json();
         }
-        const langMap = { English: 'en', Korean: 'ko', Hindi: 'hi', Japanese: 'ja', Spanish: 'es', French: 'fr', Urdu: 'ur' };
+        const langMap = { English: 'en', Korean: 'ko', Hindi: 'hi', Japanese: 'ja', Spanish: 'es', French: 'fr', Urdu: 'ur', German: 'de' };
         state.tvShows = raw
           .filter(function (s) { return s && s.name && s.rating && s.rating.average; })
           .sort(function (a, b) { return (b.weight || 0) - (a.weight || 0); })
           .map(function (s) {
             const genres = Array.isArray(s.genres) && s.genres.length ? s.genres : ['Drama'];
-              const cleanSum = stripHtml(s.summary);
-              return {
-                id: 'tv-' + s.id,
-                media_type: 'tv',
-                title: s.name,
-                year: s.premiered ? s.premiered.slice(0, 4) : 'Series',
-                runtime: s.averageRuntime || s.runtime || 45,
-                rating: Number(s.rating.average).toFixed(1),
-                genres: genres,
-                genre_ids: [],
-                language: langMap[s.language] || 'en',
-                overview: cleanSum.slice(0, 175) + (cleanSum.length > 175 ? '...' : ''),
+            const cleanSum = stripHtml(s.summary);
+            return {
+              id: 'tv-' + s.id,
+              media_type: 'tv',
+              title: s.name,
+              year: s.premiered ? s.premiered.slice(0, 4) : 'Series',
+              runtime: s.averageRuntime || s.runtime || 45,
+              rating: Number(s.rating.average).toFixed(1),
+              genres: genres,
+              director: '',
+              accent: 'indigo',
+              moods: [],
+              company: [],
+              language: langMap[s.language] || 'en',
+              overview: cleanSum.slice(0, 175) + (cleanSum.length > 175 ? '...' : ''),
               guide_url: '/guide-best-mini-series-to-binge-in-one-weekend',
               guide_title: 'Weekend Binge & Series Guides',
               poster: s.image ? (s.image.medium || s.image.original) : ''
@@ -460,19 +518,33 @@
         return state.tvShows;
       }
 
-      function matchesGenre(item, genreId) {
-        const gNum = Number(genreId);
-        if (Array.isArray(item.genre_ids) && item.genre_ids.indexOf(gNum) !== -1) return true;
-        const target = (GENRE_LABELS[genreId] || '').toLowerCase();
-        return (item.genres || []).some(function (g) {
-          const lg = String(g).toLowerCase();
-          if (genreId === '878') return lg.includes('sci') || lg.includes('science');
-          if (genreId === '16') return lg.includes('anim') || lg.includes('family');
-          return lg.includes(target);
-        });
+      function matchesMood(item, moodKey) {
+        if (Array.isArray(item.moods) && item.moods.length) {
+          return item.moods.indexOf(moodKey) !== -1;
+        }
+        const g = (item.genres || []).join(' ').toLowerCase();
+        if (moodKey === 'edge-of-seat') return /thriller|crime|mystery|suspense|drama/.test(g);
+        if (moodKey === 'mind-bending') return /sci-fi|science|mystery|fantasy/.test(g);
+        if (moodKey === 'feel-good') return /comedy|family|animation|music/.test(g);
+        if (moodKey === 'clever-twist') return /mystery|crime|thriller/.test(g);
+        if (moodKey === 'adrenaline') return /action|adventure|sci-fi/.test(g);
+        if (moodKey === 'dark-atmospheric') return /horror|crime|supernatural|thriller/.test(g);
+        if (moodKey === 'emotional') return /drama|romance/.test(g);
+        return true;
+      }
+
+      function matchesCompany(item, companyKey) {
+        if (companyKey === 'any') return true;
+        if (Array.isArray(item.company) && item.company.length) {
+          return item.company.indexOf(companyKey) !== -1;
+        }
+        const g = (item.genres || []).join(' ').toLowerCase();
+        if (companyKey === 'family') return /family|animation|comedy|adventure/.test(g) && !/horror/.test(g);
+        return true;
       }
 
       function matchesRuntime(item, timeMode, format) {
+        if (timeMode === 'any') return true;
         const rt = Number(item.runtime) || 0;
         if (format === 'tv') {
           if (timeMode === 'short') return rt > 0 && rt <= 42;
@@ -486,14 +558,34 @@
 
       function matchesLang(item, langPref) {
         if (langPref === 'all') return true;
+        if (langPref === 'global') return item.language !== 'en';
+        if (langPref === 'south-asia') return ['hi', 'ur', 'ml', 'ta'].indexOf(item.language) !== -1;
         if (langPref === 'hi-ur') return item.language === 'hi' || item.language === 'ur';
         return item.language === langPref;
+      }
+
+      function renderPosterMarkup(it, large) {
+        if (it.poster) {
+          return '<img src="' + escapeHtml(it.poster) + '" alt="' + escapeHtml(it.title) + ' poster" loading="lazy">';
+        }
+        const accent = escapeHtml(it.accent || 'teal');
+        const sub = it.director ? 'Dir. ' + it.director : (it.genres || []).slice(0, 2).join(' • ');
+        if (large) {
+          return (
+            '<div class="editorial-poster-art accent-' + accent + '" style="height:100%;padding:0.85rem;">' +
+              '<div class="ep-top"><span class="ep-badge">CURATED PICK</span><span class="ep-year">' + escapeHtml(it.year) + '</span></div>' +
+              '<div class="ep-center"><div class="ep-title" style="font-size:0.95rem;">' + escapeHtml(it.title) + '</div><div class="ep-sub">' + escapeHtml(sub) + '</div></div>' +
+              '<div class="ep-bottom"><span>⏱️ ' + (it.runtime ? it.runtime + 'm' : 'Film') + '</span><span>' + escapeHtml((it.genres || ['Film'])[0]) + '</span></div>' +
+            '</div>'
+          );
+        }
+        return '<div style="width:68px;height:100px;border-radius:8px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0;">' + (it.media_type === 'tv' ? '📺' : '🎬') + '</div>';
       }
 
       async function runFinder(pushAnalytics, shouldSyncUrl) {
         const sel = getSelections();
         if (shouldSyncUrl) syncUrl(sel);
-        statusEl.textContent = 'Finding your best matches...';
+        statusEl.textContent = 'Finding your best match...';
         resultsEl.innerHTML = '';
 
         let pool = [];
@@ -516,87 +608,146 @@
         }
 
         const scored = pool.map(function (item, idx) {
-          const gOk = matchesGenre(item, sel.mood);
+          const mOk = matchesMood(item, sel.mood);
+          const cOk = matchesCompany(item, sel.company);
           const tOk = matchesRuntime(item, sel.time, item.media_type);
           const lOk = matchesLang(item, sel.lang);
           let score = 0;
-          if (gOk) score += 100;
-          if (tOk) score += 40;
-          if (lOk) score += 30;
+          if (mOk) score += 100;
+          if (cOk) score += 60;
+          if (tOk) score += 45;
+          if (lOk) score += 35;
           score += (Number(item.rating) || 7) * 0.5;
-          return { item: item, gOk: gOk, tOk: tOk, lOk: lOk, score: score, idx: idx };
+          return { item: item, mOk: mOk, cOk: cOk, tOk: tOk, lOk: lOk, score: score, idx: idx };
         }).sort(function (a, b) {
           if (Math.abs(b.score - a.score) > 0.01) return b.score - a.score;
           return a.idx - b.idx;
         });
 
-        const topPool = scored.filter(function (s) { return s.gOk && s.lOk; });
-        const usePool = topPool.length >= 3
-          ? topPool
-          : scored.filter(function (s) { return s.gOk; });
-        const finalPool = usePool.length ? usePool : scored;
+        const strictMatches = scored.filter(function (s) { return s.mOk && s.cOk && s.lOk && (sel.time === 'any' || s.tOk); });
+        const goodMatches = scored.filter(function (s) { return s.mOk && s.cOk && s.lOk; });
+        const moodMatches = scored.filter(function (s) { return s.mOk && s.lOk; });
+        const finalPool = strictMatches.length ? strictMatches : (goodMatches.length ? goodMatches : (moodMatches.length ? moodMatches : scored));
 
-        const picks = [];
+        const moodName = MOOD_LABELS[sel.mood] || 'Curated';
+        const companyName = COMPANY_LABELS[sel.company] || 'Anyone';
         const len = finalPool.length;
-        for (let i = 0; i < Math.min(3, len); i++) {
+        const countToShow = sel.mode === 'one' ? 1 : Math.min(3, len);
+        const picks = [];
+        for (let i = 0; i < countToShow; i++) {
           picks.push(finalPool[(state.shuffleOffset + i) % len]);
         }
 
-        const moodName = GENRE_LABELS[sel.mood] || 'Curated';
-        const exactCount = picks.filter(function (p) { return p.gOk && p.tOk && p.lOk; }).length;
+        const rankNum = (state.shuffleOffset % len) + 1;
         statusEl.textContent = fallbackNote || (
-          exactCount === 3
-            ? 'Showing 3 exact matches for ' + moodName + ':'
-            : 'Showing top 3 ' + moodName + ' recommendations (widened filters where exact combinations had fewer than 3 titles):'
+          sel.mode === 'one'
+            ? 'Your #' + rankNum + ' of ' + len + ' tailored matches (' + moodName + ' • ' + companyName + '):'
+            : 'Showing ' + picks.length + ' of ' + len + ' matching recommendations (' + moodName + ' • ' + companyName + '):'
         );
 
-        resultsEl.innerHTML = picks.map(function (entry) {
+        if (sel.mode === 'one' && picks[0]) {
+          const entry = picks[0];
           const it = entry.item;
           const rtText = it.runtime ? (it.media_type === 'tv' ? '~' + it.runtime + 'm / ep' : it.runtime + ' min') : '';
           const langText = LANG_LABELS[it.language] || 'Global';
-          const fitTags = [];
-          if (entry.gOk) fitTags.push(moodName + ' Match');
-          if (entry.tOk && rtText) fitTags.push(rtText);
-          else if (rtText) fitTags.push(rtText);
-          fitTags.push(langText);
-
           const detailUrl = '/?type=' + encodeURIComponent(it.media_type) + '&q=' + encodeURIComponent(it.title);
-          const posterHtml = it.poster
-            ? '<img src="' + escapeHtml(it.poster) + '" alt="' + escapeHtml(it.title) + ' poster" loading="lazy">'
-            : '<div style="width:68px;height:100px;border-radius:8px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0;">' + (it.media_type === 'tv' ? '📺' : '🎬') + '</div>';
 
-          const guideHtml = it.guide_url
-            ? ' &nbsp;•&nbsp; <a href="' + escapeHtml(it.guide_url) + '" class="highlight-link" style="font-size:0.84rem;">Read Related Guide →</a>'
-            : '';
+          const pills = [];
+          if (entry.mOk) pills.push(moodName);
+          if (sel.company !== 'any' && entry.cOk) pills.push(companyName);
+          if (rtText) pills.push(rtText);
+          pills.push(langText);
+          if (it.genres && it.genres.length) pills.push(it.genres.slice(0, 2).join(' / '));
 
-          return (
-            '<div class="quiz-result-item">' +
-              posterHtml +
-              '<div style="flex:1;min-width:0;">' +
-                '<div style="display:flex;justify-content:space-between;align-items:baseline;gap:0.5rem;flex-wrap:wrap;">' +
-                  '<strong style="font-size:1.05rem;color:#fff;">' + escapeHtml(it.title) + (it.year ? ' (' + escapeHtml(it.year) + ')' : '') + '</strong>' +
-                  (it.rating ? '<span style="color:#38bdf8;font-size:0.85rem;font-weight:700;">⭐ ' + escapeHtml(it.rating) + '</span>' : '') +
+          resultsEl.innerHTML =
+            '<div class="mf-single-card">' +
+              '<div class="mf-single-poster">' + renderPosterMarkup(it, true) + '</div>' +
+              '<div class="mf-single-body">' +
+                '<div style="display:flex;justify-content:space-between;align-items:baseline;gap:0.65rem;flex-wrap:wrap;">' +
+                  '<h2 style="font-size:1.45rem;margin:0;color:#fff;">' + escapeHtml(it.title) + (it.year ? ' (' + escapeHtml(it.year) + ')' : '') + '</h2>' +
+                  (it.rating ? '<span style="color:#38bdf8;font-size:0.95rem;font-weight:800;">⭐ ' + escapeHtml(it.rating) + '</span>' : '') +
                 '</div>' +
-                '<div class="quiz-why-badge">' + escapeHtml(fitTags.join(' • ')) + '</div>' +
-                '<p style="font-size:0.88rem;color:#cbd5e1;margin:0.35rem 0 0.55rem;line-height:1.5;">' + escapeHtml(it.overview) + '</p>' +
-                '<div style="display:flex;flex-wrap:wrap;align-items:center;gap:0.35rem;">' +
-                  '<a href="' + escapeHtml(detailUrl) + '" class="highlight-link" style="font-size:0.86rem;">▶ Open Details &amp; Trailer →</a>' +
-                  guideHtml +
+                (it.director ? '<div style="font-size:0.84rem;color:var(--text-muted);margin-top:0.2rem;">Directed by ' + escapeHtml(it.director) + '</div>' : '') +
+                '<div class="mf-pill-row">' +
+                  pills.map(function (p) { return '<span class="mf-tag-pill">' + escapeHtml(p) + '</span>'; }).join('') +
+                '</div>' +
+                '<p style="font-size:0.95rem;color:#e2e8f0;margin:0 0 1rem;line-height:1.6;">' + escapeHtml(it.overview) + '</p>' +
+                '<div style="display:flex;flex-wrap:wrap;gap:0.6rem;align-items:center;">' +
+                  '<a href="' + escapeHtml(detailUrl) + '" class="btn primary-btn" style="padding:0.6rem 1.1rem;font-size:0.88rem;">▶ Open Details &amp; Official Trailer</a>' +
+                  '<button type="button" id="mfSkipNextBtn" class="btn secondary-btn" style="padding:0.6rem 1.05rem;font-size:0.88rem;">↻ Skip — Show Another</button>' +
+                  (it.guide_url ? '<a href="' + escapeHtml(it.guide_url) + '" class="highlight-link" style="font-size:0.86rem;margin-left:0.25rem;">📚 Read Matching Guide →</a>' : '') +
                 '</div>' +
               '</div>' +
-            '</div>'
-          );
-        }).join('');
+            '</div>';
+
+          const skipBtn = document.getElementById('mfSkipNextBtn');
+          if (skipBtn) {
+            skipBtn.addEventListener('click', function () {
+              state.shuffleOffset += 1;
+              runFinder(true, true);
+            });
+          }
+        } else {
+          resultsEl.innerHTML = picks.map(function (entry) {
+            const it = entry.item;
+            const rtText = it.runtime ? (it.media_type === 'tv' ? '~' + it.runtime + 'm / ep' : it.runtime + ' min') : '';
+            const langText = LANG_LABELS[it.language] || 'Global';
+            const fitTags = [];
+            if (entry.mOk) fitTags.push(moodName);
+            if (sel.company !== 'any' && entry.cOk) fitTags.push(companyName);
+            if (rtText) fitTags.push(rtText);
+            fitTags.push(langText);
+
+            const detailUrl = '/?type=' + encodeURIComponent(it.media_type) + '&q=' + encodeURIComponent(it.title);
+            const guideHtml = it.guide_url
+              ? ' &nbsp;•&nbsp; <a href="' + escapeHtml(it.guide_url) + '" class="highlight-link" style="font-size:0.84rem;">Read Related Guide →</a>'
+              : '';
+
+            return (
+              '<div class="quiz-result-item">' +
+                renderPosterMarkup(it, false) +
+                '<div style="flex:1;min-width:0;">' +
+                  '<div style="display:flex;justify-content:space-between;align-items:baseline;gap:0.5rem;flex-wrap:wrap;">' +
+                    '<strong style="font-size:1.05rem;color:#fff;">' + escapeHtml(it.title) + (it.year ? ' (' + escapeHtml(it.year) + ')' : '') + '</strong>' +
+                    (it.rating ? '<span style="color:#38bdf8;font-size:0.85rem;font-weight:700;">⭐ ' + escapeHtml(it.rating) + '</span>' : '') +
+                  '</div>' +
+                  '<div class="quiz-why-badge">' + escapeHtml(fitTags.join(' • ')) + '</div>' +
+                  '<p style="font-size:0.88rem;color:#cbd5e1;margin:0.35rem 0 0.55rem;line-height:1.5;">' + escapeHtml(it.overview) + '</p>' +
+                  '<div style="display:flex;flex-wrap:wrap;align-items:center;gap:0.35rem;">' +
+                    '<a href="' + escapeHtml(detailUrl) + '" class="highlight-link" style="font-size:0.86rem;">▶ Open Details &amp; Trailer →</a>' +
+                    guideHtml +
+                  '</div>' +
+                '</div>' +
+              '</div>'
+            );
+          }).join('');
+        }
 
         if (pushAnalytics) {
-          trackEvent('watchpulse_finder_quiz', { mood: moodName, time: sel.time, format: sel.format, lang: sel.lang });
+          trackEvent('watchpulse_finder_quiz', { company: sel.company, mood: sel.mood, time: sel.time, format: sel.format, lang: sel.lang, mode: sel.mode });
         }
       }
 
-      bindGroup(moodBox, 'genre');
-      bindGroup(timeBox, 'time');
-      bindGroup(formatBox, 'format');
-      bindGroup(langBox, 'lang');
+      bindGroup(companyBox);
+      bindGroup(moodBox);
+      bindGroup(timeBox);
+      bindGroup(formatBox);
+      bindGroup(langBox);
+
+      if (modeOneBtn) {
+        modeOneBtn.addEventListener('click', function () {
+          setMode('one');
+          state.shuffleOffset = 0;
+          runFinder(false, true);
+        });
+      }
+      if (modeThreeBtn) {
+        modeThreeBtn.addEventListener('click', function () {
+          setMode('three');
+          state.shuffleOffset = 0;
+          runFinder(false, true);
+        });
+      }
 
       findBtn.addEventListener('click', function () {
         state.shuffleOffset = 0;
@@ -604,7 +755,7 @@
       });
 
       shuffleBtn.addEventListener('click', function () {
-        state.shuffleOffset += 3;
+        state.shuffleOffset += state.mode === 'one' ? 1 : 3;
         runFinder(true, true);
       });
 
@@ -620,13 +771,24 @@
         }
       });
 
-      // Hydrate from URL query params if opened via shared link
+      // Hydrate from URL query params (including legacy numeric mood IDs)
       const params = new URLSearchParams(window.location.search);
-      const hasSharedParams = Boolean(params.get('mood') || params.get('time') || params.get('format') || params.get('lang'));
-      if (params.get('mood')) selectOption(moodBox, 'genre', params.get('mood'));
-      if (params.get('time')) selectOption(timeBox, 'time', params.get('time'));
-      if (params.get('format')) selectOption(formatBox, 'format', params.get('format'));
-      if (params.get('lang')) selectOption(langBox, 'lang', params.get('lang'));
+      const pCompany = params.get('company');
+      const pMoodRaw = params.get('mood');
+      const pMood = pMoodRaw ? (LEGACY_MOOD_MAP[pMoodRaw] || pMoodRaw) : '';
+      const pTime = params.get('time');
+      const pFormat = params.get('format');
+      const pLangRaw = params.get('lang');
+      const pLang = pLangRaw === 'hi-ur' ? 'south-asia' : pLangRaw;
+      const pMode = params.get('mode');
+      const hasSharedParams = Boolean(pCompany || pMood || pTime || pFormat || pLang || pMode);
+
+      if (pCompany) selectOption(companyBox, 'company', pCompany);
+      if (pMood) selectOption(moodBox, 'mood', pMood);
+      if (pTime) selectOption(timeBox, 'time', pTime);
+      if (pFormat) selectOption(formatBox, 'format', pFormat);
+      if (pLang) selectOption(langBox, 'lang', pLang);
+      setMode(pMode === 'three' ? 'three' : 'one');
 
       runFinder(false, hasSharedParams);
     })();

@@ -7,7 +7,7 @@
  */
 
 const CATALOG_PROXY_URL = '/api/catalog';
-const CURATED_CATALOG_URL = '/data/curated-catalog.json?v=20261121f';
+const CURATED_CATALOG_URL = '/data/curated-catalog.json?v=20261122a';
 
 const GENRE_MAP = {
   28: 'Action',
@@ -45,6 +45,9 @@ const LANGUAGE_NAMES = {
   ja: 'Japanese',
   es: 'Spanish',
   fr: 'French',
+  de: 'German',
+  ml: 'Malayalam',
+  ta: 'Tamil',
   ur: 'Urdu',
   tr: 'Turkish',
   ar: 'Arabic'
@@ -116,6 +119,7 @@ const els = {
   searchDropdown: document.getElementById('searchDropdown'),
   quizNavBtn: document.getElementById('quizNavBtn'),
   surpriseNavBtn: document.getElementById('surpriseNavBtn'),
+  compassQuickPickBtn: document.getElementById('compassQuickPickBtn'),
   watchlistNavBtn: document.getElementById('watchlistNavBtn'),
   watchlistCount: document.getElementById('watchlistCount'),
   heroBackdrop: document.getElementById('heroBackdrop'),
@@ -1427,6 +1431,16 @@ function setupEventListeners() {
       if (!pool.length) return;
       const pick = pool[Math.floor(Math.random() * pool.length)];
       openMovieModal(pick);
+    });
+  }
+
+  if (els.compassQuickPickBtn) {
+    els.compassQuickPickBtn.addEventListener('click', () => {
+      const pool = state.curatedMovies.length ? state.curatedMovies : state.displayedItems;
+      if (!pool.length) return;
+      const pick = pool[Math.floor(Math.random() * pool.length)];
+      openMovieModal(pick);
+      trackEvent('watchpulse_quick_pick', { title: pick.title });
     });
   }
 

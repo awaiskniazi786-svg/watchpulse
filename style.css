@@ -341,12 +341,12 @@ a:hover {
 /* Hero Section */
 .hero-section {
   position: relative;
-  min-height: 480px;
+  min-height: 360px;
   border-radius: 16px;
   overflow: hidden;
   display: flex;
   align-items: flex-end;
-  padding: 3rem;
+  padding: 2.25rem;
   margin-bottom: 2rem;
   box-shadow: var(--shadow-card);
 }
@@ -1651,7 +1651,7 @@ a:hover {
 
   /* Cinematic Immersive Mobile Hero Spotlight */
   .hero-section {
-    min-height: 480px;
+    min-height: 340px;
     padding: 1.5rem 1.25rem;
     border-radius: 14px;
     margin-bottom: 1.5rem;
@@ -2477,4 +2477,264 @@ a:hover {
   color: var(--text-muted);
   border-top: 1px solid var(--border-color);
   background: rgba(255, 255, 255, 0.02);
+}
+
+/* Decision-Fatigue Positioning Hero (Homepage Top) */
+a.btn,
+a.btn:hover {
+  text-decoration: none;
+}
+
+.compass-hero {
+  position: relative;
+  border-radius: 18px;
+  padding: 2.25rem 2.5rem;
+  margin-bottom: 1.75rem;
+  border: 1px solid rgba(56, 189, 248, 0.22);
+  background:
+    radial-gradient(circle at top right, rgba(229, 9, 20, 0.16), transparent 48%),
+    radial-gradient(circle at bottom left, rgba(56, 189, 248, 0.14), transparent 52%),
+    linear-gradient(135deg, #101624 0%, #0b0f18 100%);
+  box-shadow: var(--shadow-card);
+}
+
+.compass-hero-inner {
+  max-width: 980px;
+}
+
+.compass-kicker {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--accent-cyan);
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.28);
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  margin-bottom: 0.9rem;
+}
+
+.compass-hero-title {
+  font-size: 2.55rem;
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  margin-bottom: 0.75rem;
+}
+
+.compass-accent {
+  color: var(--accent-cyan);
+}
+
+.compass-subtitle {
+  font-size: 1.02rem;
+  color: #cbd5e1;
+  max-width: 760px;
+  line-height: 1.65;
+  margin-bottom: 1.35rem;
+}
+
+.compass-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.compass-mood-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.35rem;
+}
+
+.compass-mood-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-right: 0.2rem;
+}
+
+.compass-mood-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.42rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #e2e8f0;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-color);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.compass-mood-pill:hover {
+  color: #ffffff;
+  border-color: var(--accent-cyan);
+  background: rgba(56, 189, 248, 0.12);
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
+.compass-pillars {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.85rem;
+  padding-top: 1.15rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.compass-pillar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.compass-pillar strong {
+  font-size: 0.88rem;
+  color: #ffffff;
+}
+
+.compass-pillar span {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* Movie Finder Mode Toggle & 1-Pick Spotlight Card */
+.mf-mode-toggle {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 0.3rem;
+}
+
+.mf-mode-btn {
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.84rem;
+  font-weight: 700;
+  padding: 0.45rem 0.9rem;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.mf-mode-btn.active {
+  background: var(--accent-red);
+  color: #ffffff;
+}
+
+.mf-single-card {
+  display: flex;
+  gap: 1.35rem;
+  align-items: flex-start;
+  background: linear-gradient(135deg, rgba(23, 29, 43, 0.95) 0%, rgba(15, 20, 31, 0.95) 100%);
+  border: 1px solid rgba(56, 189, 248, 0.28);
+  border-radius: 16px;
+  padding: 1.35rem;
+  margin-top: 0.85rem;
+  box-shadow: var(--shadow-card);
+}
+
+.mf-single-poster {
+  width: 148px;
+  height: 210px;
+  border-radius: 12px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: #141a29;
+  border: 1px solid var(--border-color);
+}
+
+.mf-single-poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.mf-single-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.mf-pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: 0.55rem 0 0.75rem;
+}
+
+.mf-tag-pill {
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--accent-cyan);
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  padding: 0.22rem 0.6rem;
+  border-radius: 999px;
+}
+
+@media (max-width: 768px) {
+  .compass-hero {
+    padding: 1.5rem 1.2rem;
+    border-radius: 14px;
+    margin-bottom: 1.25rem;
+  }
+
+  .compass-hero-title {
+    font-size: 1.7rem;
+  }
+
+  .compass-subtitle {
+    font-size: 0.92rem;
+  }
+
+  .compass-cta-row {
+    flex-direction: column;
+  }
+
+  .compass-cta-row .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .compass-mood-row {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 0.25rem;
+    scrollbar-width: none;
+  }
+
+  .compass-mood-row::-webkit-scrollbar {
+    display: none;
+  }
+
+  .compass-mood-pill {
+    flex-shrink: 0;
+  }
+
+  .compass-pillars {
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
+  }
+
+  .mf-single-card {
+    flex-direction: column;
+    padding: 1.1rem;
+  }
+
+  .mf-single-poster {
+    width: 100%;
+    height: 190px;
+  }
 }

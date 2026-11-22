@@ -37,7 +37,17 @@
         "guide_title":  "Dune: Part Two Home Viewing \u0026 Audio Review",
         "accent":  "amber",
         "featured":  true,
-        "trailer_id":  "Way9Dexny3w"
+        "trailer_id":  "Way9Dexny3w",
+        "moods":  [
+                      "adrenaline",
+                      "emotional",
+                      "edge-of-seat"
+                  ],
+        "company":  [
+                        "solo",
+                        "date-night",
+                        "friends"
+                    ]
     },
     {
         "id":  "wp-oppenheimer",
@@ -74,7 +84,16 @@
         "guide_title":  "Oppenheimer Home Review \u0026 Dialogue Audio Fixes",
         "accent":  "orange",
         "featured":  true,
-        "trailer_id":  "uYPbbksJxIg"
+        "trailer_id":  "uYPbbksJxIg",
+        "moods":  [
+                      "edge-of-seat",
+                      "mind-bending",
+                      "dark-atmospheric"
+                  ],
+        "company":  [
+                        "solo",
+                        "date-night"
+                    ]
     },
     {
         "id":  "wp-interstellar",
@@ -109,7 +128,17 @@
         "guide_url":  "/guide-movies-like-interstellar-and-arrival",
         "guide_title":  "8 Smart Sci-Fi Films Like Interstellar \u0026 Arrival",
         "accent":  "indigo",
-        "trailer_id":  "zSWdZVtXT7E"
+        "trailer_id":  "zSWdZVtXT7E",
+        "moods":  [
+                      "emotional",
+                      "mind-bending",
+                      "edge-of-seat"
+                  ],
+        "company":  [
+                        "solo",
+                        "date-night",
+                        "friends"
+                    ]
     },
     {
         "id":  "wp-arrival",
@@ -143,7 +172,15 @@
         "guide_url":  "/guide-movies-like-interstellar-and-arrival",
         "guide_title":  "8 Smart Sci-Fi Films Like Interstellar \u0026 Arrival",
         "accent":  "teal",
-        "trailer_id":  "tFMo3UJ4B4g"
+        "trailer_id":  "tFMo3UJ4B4g",
+        "moods":  [
+                      "mind-bending",
+                      "emotional"
+                  ],
+        "company":  [
+                        "solo",
+                        "date-night"
+                    ]
     },
     {
         "id":  "wp-the-wild-robot",
@@ -180,7 +217,16 @@
         "guide_url":  "/guide-family-and-animated-movies-everyone-enjoys",
         "guide_title":  "All-Ages Family Movie Night Guide",
         "accent":  "emerald",
-        "trailer_id":  "67vbA5ZJdKQ"
+        "trailer_id":  "67vbA5ZJdKQ",
+        "moods":  [
+                      "feel-good",
+                      "emotional"
+                  ],
+        "company":  [
+                        "family",
+                        "date-night",
+                        "solo"
+                    ]
     },
     {
         "id":  "wp-locke",
@@ -215,7 +261,14 @@
         "guide_url":  "/guide-short-thrillers-under-100-minutes",
         "guide_title":  "10 Tight Thrillers Under 100 Minutes",
         "accent":  "slate",
-        "trailer_id":  ""
+        "trailer_id":  "",
+        "moods":  [
+                      "edge-of-seat",
+                      "emotional"
+                  ],
+        "company":  [
+                        "solo"
+                    ]
     },
     {
         "id":  "wp-a-quiet-place",
@@ -252,7 +305,16 @@
         "guide_url":  "/guide-short-thrillers-under-100-minutes",
         "guide_title":  "10 Tight Thrillers Under 100 Minutes",
         "accent":  "rose",
-        "trailer_id":  "WR7cc5t7tv8"
+        "trailer_id":  "WR7cc5t7tv8",
+        "moods":  [
+                      "edge-of-seat",
+                      "dark-atmospheric"
+                  ],
+        "company":  [
+                        "friends",
+                        "date-night",
+                        "solo"
+                    ]
     },
     {
         "id":  "wp-coherence",
@@ -286,7 +348,17 @@
         "guide_url":  "/guide-short-thrillers-under-100-minutes",
         "guide_title":  "10 Tight Thrillers Under 100 Minutes",
         "accent":  "violet",
-        "trailer_id":  "sEceDz1Rodc"
+        "trailer_id":  "sEceDz1Rodc",
+        "moods":  [
+                      "mind-bending",
+                      "clever-twist",
+                      "edge-of-seat"
+                  ],
+        "company":  [
+                        "solo",
+                        "friends",
+                        "date-night"
+                    ]
     },
     {
         "id":  "wp-source-code",
@@ -323,7 +395,17 @@
         "guide_url":  "/guide-short-thrillers-under-100-minutes",
         "guide_title":  "10 Tight Thrillers Under 100 Minutes",
         "accent":  "cyan",
-        "trailer_id":  "mnJegNyAb1w"
+        "trailer_id":  "mnJegNyAb1w",
+        "moods":  [
+                      "mind-bending",
+                      "edge-of-seat",
+                      "clever-twist"
+                  ],
+        "company":  [
+                        "solo",
+                        "date-night",
+                        "friends"
+                    ]
     },
     {
         "id":  "wp-the-guilty",
@@ -355,7 +437,16 @@
         "guide_url":  "/guide-short-thrillers-under-100-minutes",
         "guide_title":  "10 Tight Thrillers Under 100 Minutes",
         "accent":  "slate",
-        "trailer_id":  "ab1H602yc_Y"
+        "trailer_id":  "ab1H602yc_Y",
+        "moods":  [
+                      "edge-of-seat",
+                      "clever-twist",
+                      "dark-atmospheric"
+                  ],
+        "company":  [
+                        "solo",
+                        "date-night"
+                    ]
     },
     {
         "id":  "wp-maharaja",
@@ -389,7 +480,16 @@
         "guide_url":  "/guide-best-bollywood-and-south-asian-thrillers",
         "guide_title":  "8 Acclaimed South Asian Thrillers",
         "accent":  "amber",
-        "trailer_id":  "Otcr-vRuaQs"
+        "trailer_id":  "Otcr-vRuaQs",
+        "moods":  [
+                      "clever-twist",
+                      "edge-of-seat",
+                      "dark-atmospheric"
+                  ],
+        "company":  [
+                        "solo",
+                        "friends"
+                    ]
     },
     {
         "id":  "wp-drishyam",
@@ -424,7 +524,17 @@
         "guide_url":  "/guide-best-bollywood-and-south-asian-thrillers",
         "guide_title":  "8 Acclaimed South Asian Thrillers",
         "accent":  "emerald",
-        "trailer_id":  ""
+        "trailer_id":  "",
+        "moods":  [
+                      "clever-twist",
+                      "edge-of-seat"
+                  ],
+        "company":  [
+                        "family",
+                        "friends",
+                        "date-night",
+                        "solo"
+                    ]
     },
     {
         "id":  "wp-tumbbad",
@@ -458,7 +568,15 @@
         "guide_url":  "/guide-best-bollywood-and-south-asian-thrillers",
         "guide_title":  "8 Acclaimed South Asian Thrillers",
         "accent":  "orange",
-        "trailer_id":  ""
+        "trailer_id":  "",
+        "moods":  [
+                      "dark-atmospheric",
+                      "edge-of-seat"
+                  ],
+        "company":  [
+                        "solo",
+                        "friends"
+                    ]
     },
     {
         "id":  "wp-laal-kabootar",
@@ -493,7 +611,15 @@
         "guide_url":  "/guide-best-bollywood-and-south-asian-thrillers",
         "guide_title":  "8 Acclaimed South Asian Thrillers",
         "accent":  "rose",
-        "trailer_id":  ""
+        "trailer_id":  "",
+        "moods":  [
+                      "dark-atmospheric",
+                      "edge-of-seat"
+                  ],
+        "company":  [
+                        "solo",
+                        "friends"
+                    ]
     },
     {
         "id":  "wp-kahaani",
@@ -526,7 +652,16 @@
         "guide_url":  "/guide-best-bollywood-and-south-asian-thrillers",
         "guide_title":  "8 Acclaimed South Asian Thrillers",
         "accent":  "amber",
-        "trailer_id":  ""
+        "trailer_id":  "",
+        "moods":  [
+                      "clever-twist",
+                      "edge-of-seat"
+                  ],
+        "company":  [
+                        "solo",
+                        "date-night",
+                        "friends"
+                    ]
     },
     {
         "id":  "wp-memories-of-murder",
@@ -560,7 +695,14 @@
         "guide_url":  "/guide-hidden-gem-korean-and-international-thrillers",
         "guide_title":  "Beyond Parasite: 7 Korean \u0026 International Thrillers",
         "accent":  "slate",
-        "trailer_id":  "0n_HQwQU8ls"
+        "trailer_id":  "0n_HQwQU8ls",
+        "moods":  [
+                      "dark-atmospheric",
+                      "edge-of-seat"
+                  ],
+        "company":  [
+                        "solo"
+                    ]
     },
     {
         "id":  "wp-the-handmaiden",
@@ -592,7 +734,16 @@
         "guide_url":  "/guide-hidden-gem-korean-and-international-thrillers",
         "guide_title":  "Beyond Parasite: 7 Korean \u0026 International Thrillers",
         "accent":  "violet",
-        "trailer_id":  "whldChqCsYk"
+        "trailer_id":  "whldChqCsYk",
+        "moods":  [
+                      "clever-twist",
+                      "dark-atmospheric",
+                      "edge-of-seat"
+                  ],
+        "company":  [
+                        "solo",
+                        "date-night"
+                    ]
     },
     {
         "id":  "wp-the-invisible-guest",
@@ -625,7 +776,16 @@
         "guide_url":  "/guide-hidden-gem-korean-and-international-thrillers",
         "guide_title":  "Beyond Parasite: 7 Korean \u0026 International Thrillers",
         "accent":  "indigo",
-        "trailer_id":  "epCg2RbyF80"
+        "trailer_id":  "epCg2RbyF80",
+        "moods":  [
+                      "clever-twist",
+                      "edge-of-seat"
+                  ],
+        "company":  [
+                        "solo",
+                        "date-night",
+                        "friends"
+                    ]
     },
     {
         "id":  "wp-anatomy-of-a-fall",
@@ -659,7 +819,16 @@
         "guide_url":  "/guide-best-courtroom-and-legal-dramas",
         "guide_title":  "7 Gripping Courtroom \u0026 Legal Thrillers",
         "accent":  "cyan",
-        "trailer_id":  "fTrsp5BMloA"
+        "trailer_id":  "fTrsp5BMloA",
+        "moods":  [
+                      "clever-twist",
+                      "edge-of-seat",
+                      "emotional"
+                  ],
+        "company":  [
+                        "solo",
+                        "date-night"
+                    ]
     },
     {
         "id":  "wp-12-angry-men",
@@ -694,7 +863,16 @@
         "guide_url":  "/guide-best-courtroom-and-legal-dramas",
         "guide_title":  "7 Gripping Courtroom \u0026 Legal Thrillers",
         "accent":  "slate",
-        "trailer_id":  "TEN-2uTi2c0"
+        "trailer_id":  "TEN-2uTi2c0",
+        "moods":  [
+                      "edge-of-seat",
+                      "clever-twist"
+                  ],
+        "company":  [
+                        "solo",
+                        "family",
+                        "friends"
+                    ]
     },
     {
         "id":  "wp-michael-clayton",
@@ -728,7 +906,16 @@
         "guide_url":  "/guide-best-courtroom-and-legal-dramas",
         "guide_title":  "7 Gripping Courtroom \u0026 Legal Thrillers",
         "accent":  "indigo",
-        "trailer_id":  "5kJRYBhG43Q"
+        "trailer_id":  "5kJRYBhG43Q",
+        "moods":  [
+                      "edge-of-seat",
+                      "clever-twist",
+                      "dark-atmospheric"
+                  ],
+        "company":  [
+                        "solo",
+                        "date-night"
+                    ]
     },
     {
         "id":  "wp-spotlight",
@@ -763,7 +950,15 @@
         "guide_url":  "/guide-best-courtroom-and-legal-dramas",
         "guide_title":  "7 Gripping Courtroom \u0026 Legal Thrillers",
         "accent":  "teal",
-        "trailer_id":  "EwdCIpbTN5g"
+        "trailer_id":  "EwdCIpbTN5g",
+        "moods":  [
+                      "edge-of-seat",
+                      "emotional"
+                  ],
+        "company":  [
+                        "solo",
+                        "date-night"
+                    ]
     },
     {
         "id":  "wp-inside-man",
@@ -800,7 +995,16 @@
         "guide_url":  "/guide-best-heist-movies-ranked-by-cleverness",
         "guide_title":  "8 Smartest Heist Movies Ranked by Cleverness",
         "accent":  "amber",
-        "trailer_id":  "_QQNUhUM3m4"
+        "trailer_id":  "_QQNUhUM3m4",
+        "moods":  [
+                      "clever-twist",
+                      "edge-of-seat"
+                  ],
+        "company":  [
+                        "friends",
+                        "date-night",
+                        "solo"
+                    ]
     },
     {
         "id":  "wp-oceans-eleven",
@@ -836,7 +1040,17 @@
         "guide_url":  "/guide-best-heist-movies-ranked-by-cleverness",
         "guide_title":  "8 Smartest Heist Movies Ranked by Cleverness",
         "accent":  "emerald",
-        "trailer_id":  "imm6OR605UI"
+        "trailer_id":  "imm6OR605UI",
+        "moods":  [
+                      "feel-good",
+                      "clever-twist"
+                  ],
+        "company":  [
+                        "friends",
+                        "date-night",
+                        "family",
+                        "solo"
+                    ]
     },
     {
         "id":  "wp-heat",
@@ -873,7 +1087,16 @@
         "guide_url":  "/guide-best-heist-movies-ranked-by-cleverness",
         "guide_title":  "8 Smartest Heist Movies Ranked by Cleverness",
         "accent":  "indigo",
-        "trailer_id":  "0xbBLJ1WGwQ"
+        "trailer_id":  "0xbBLJ1WGwQ",
+        "moods":  [
+                      "adrenaline",
+                      "edge-of-seat",
+                      "dark-atmospheric"
+                  ],
+        "company":  [
+                        "solo",
+                        "friends"
+                    ]
     },
     {
         "id":  "wp-the-raid",
@@ -906,7 +1129,15 @@
         "guide_url":  "/guide-movies-like-john-wick-practical-action",
         "guide_title":  "8 Practical Action Movies Like John Wick",
         "accent":  "rose",
-        "trailer_id":  ""
+        "trailer_id":  "",
+        "moods":  [
+                      "adrenaline",
+                      "edge-of-seat"
+                  ],
+        "company":  [
+                        "friends",
+                        "solo"
+                    ]
     },
     {
         "id":  "wp-mad-max-fury-road",
@@ -940,7 +1171,16 @@
         "guide_url":  "/guide-movies-like-john-wick-practical-action",
         "guide_title":  "8 Practical Action Movies Like John Wick",
         "accent":  "orange",
-        "trailer_id":  "hEJnMQG9ev8"
+        "trailer_id":  "hEJnMQG9ev8",
+        "moods":  [
+                      "adrenaline",
+                      "edge-of-seat"
+                  ],
+        "company":  [
+                        "friends",
+                        "solo",
+                        "date-night"
+                    ]
     },
     {
         "id":  "wp-nobody",
@@ -976,7 +1216,16 @@
         "guide_url":  "/guide-movies-like-john-wick-practical-action",
         "guide_title":  "8 Practical Action Movies Like John Wick",
         "accent":  "amber",
-        "trailer_id":  "wZti8QKBWPo"
+        "trailer_id":  "wZti8QKBWPo",
+        "moods":  [
+                      "adrenaline",
+                      "feel-good"
+                  ],
+        "company":  [
+                        "friends",
+                        "solo",
+                        "date-night"
+                    ]
     },
     {
         "id":  "wp-mission-impossible-fallout",
@@ -1011,7 +1260,17 @@
         "guide_url":  "/guide-movies-like-john-wick-practical-action",
         "guide_title":  "8 Practical Action Movies Like John Wick",
         "accent":  "cyan",
-        "trailer_id":  "wb49-oV0F78"
+        "trailer_id":  "wb49-oV0F78",
+        "moods":  [
+                      "adrenaline",
+                      "edge-of-seat"
+                  ],
+        "company":  [
+                        "friends",
+                        "family",
+                        "date-night",
+                        "solo"
+                    ]
     },
     {
         "id":  "wp-get-out",
@@ -1046,7 +1305,17 @@
         "guide_url":  "/guide-best-psychological-horror-without-cheap-jumpscares",
         "guide_title":  "8 Psychological Horror Films Without Cheap Jump Scares",
         "accent":  "violet",
-        "trailer_id":  "DzfpyUB60YY"
+        "trailer_id":  "DzfpyUB60YY",
+        "moods":  [
+                      "clever-twist",
+                      "dark-atmospheric",
+                      "edge-of-seat"
+                  ],
+        "company":  [
+                        "friends",
+                        "date-night",
+                        "solo"
+                    ]
     },
     {
         "id":  "wp-hereditary",
@@ -1081,7 +1350,15 @@
         "guide_url":  "/guide-best-psychological-horror-without-cheap-jumpscares",
         "guide_title":  "8 Psychological Horror Films Without Cheap Jump Scares",
         "accent":  "rose",
-        "trailer_id":  "V6wWKNij_1M"
+        "trailer_id":  "V6wWKNij_1M",
+        "moods":  [
+                      "dark-atmospheric",
+                      "emotional"
+                  ],
+        "company":  [
+                        "solo",
+                        "friends"
+                    ]
     },
     {
         "id":  "wp-the-others",
@@ -1114,7 +1391,16 @@
         "guide_url":  "/guide-best-psychological-horror-without-cheap-jumpscares",
         "guide_title":  "8 Psychological Horror Films Without Cheap Jump Scares",
         "accent":  "slate",
-        "trailer_id":  ""
+        "trailer_id":  "",
+        "moods":  [
+                      "dark-atmospheric",
+                      "clever-twist"
+                  ],
+        "company":  [
+                        "solo",
+                        "date-night",
+                        "friends"
+                    ]
     },
     {
         "id":  "wp-chef",
@@ -1149,7 +1435,17 @@
         "guide_url":  "/guide-comfort-comedies-for-stressful-weeknights",
         "guide_title":  "8 Smart Comfort Comedies for Stressful Weeknights",
         "accent":  "amber",
-        "trailer_id":  "FF_rYNupPwg"
+        "trailer_id":  "FF_rYNupPwg",
+        "moods":  [
+                      "feel-good",
+                      "emotional"
+                  ],
+        "company":  [
+                        "family",
+                        "date-night",
+                        "friends",
+                        "solo"
+                    ]
     },
     {
         "id":  "wp-palm-springs",
@@ -1183,7 +1479,16 @@
         "guide_url":  "/guide-comfort-comedies-for-stressful-weeknights",
         "guide_title":  "8 Smart Comfort Comedies for Stressful Weeknights",
         "accent":  "teal",
-        "trailer_id":  "CpBLtXduh_k"
+        "trailer_id":  "CpBLtXduh_k",
+        "moods":  [
+                      "feel-good",
+                      "mind-bending"
+                  ],
+        "company":  [
+                        "date-night",
+                        "friends",
+                        "solo"
+                    ]
     },
     {
         "id":  "wp-grand-budapest-hotel",
@@ -1218,7 +1523,16 @@
         "guide_url":  "/guide-comfort-comedies-for-stressful-weeknights",
         "guide_title":  "8 Smart Comfort Comedies for Stressful Weeknights",
         "accent":  "rose",
-        "trailer_id":  "1Fg5iWmQjwk"
+        "trailer_id":  "1Fg5iWmQjwk",
+        "moods":  [
+                      "feel-good",
+                      "clever-twist"
+                  ],
+        "company":  [
+                        "date-night",
+                        "friends",
+                        "solo"
+                    ]
     },
     {
         "id":  "wp-game-night",
@@ -1253,7 +1567,16 @@
         "guide_url":  "/guide-movies-like-knives-out-and-glass-onion",
         "guide_title":  "8 Clever Whodunits Like Knives Out",
         "accent":  "emerald",
-        "trailer_id":  "qmxMAdV6s4U"
+        "trailer_id":  "qmxMAdV6s4U",
+        "moods":  [
+                      "feel-good",
+                      "clever-twist"
+                  ],
+        "company":  [
+                        "friends",
+                        "date-night",
+                        "solo"
+                    ]
     },
     {
         "id":  "wp-clue",
@@ -1288,7 +1611,17 @@
         "guide_url":  "/guide-movies-like-knives-out-and-glass-onion",
         "guide_title":  "8 Clever Whodunits Like Knives Out",
         "accent":  "violet",
-        "trailer_id":  "cDDdeHtrxfA"
+        "trailer_id":  "cDDdeHtrxfA",
+        "moods":  [
+                      "feel-good",
+                      "clever-twist"
+                  ],
+        "company":  [
+                        "friends",
+                        "family",
+                        "date-night",
+                        "solo"
+                    ]
     },
     {
         "id":  "wp-your-name",
@@ -1323,7 +1656,17 @@
         "guide_url":  "/guide-beginner-guide-to-anime-movies-beyond-ghibli",
         "guide_title":  "8 Essential Anime Films Beyond Studio Ghibli",
         "accent":  "cyan",
-        "trailer_id":  "xU47nhruN-Q"
+        "trailer_id":  "xU47nhruN-Q",
+        "moods":  [
+                      "emotional",
+                      "mind-bending",
+                      "feel-good"
+                  ],
+        "company":  [
+                        "date-night",
+                        "family",
+                        "solo"
+                    ]
     },
     {
         "id":  "wp-perfect-blue",
@@ -1357,7 +1700,15 @@
         "guide_url":  "/guide-beginner-guide-to-anime-movies-beyond-ghibli",
         "guide_title":  "8 Essential Anime Films Beyond Studio Ghibli",
         "accent":  "rose",
-        "trailer_id":  "dpaCRJ_u600"
+        "trailer_id":  "dpaCRJ_u600",
+        "moods":  [
+                      "mind-bending",
+                      "dark-atmospheric",
+                      "edge-of-seat"
+                  ],
+        "company":  [
+                        "solo"
+                    ]
     },
     {
         "id":  "wp-paprika",
@@ -1391,7 +1742,15 @@
         "guide_url":  "/guide-beginner-guide-to-anime-movies-beyond-ghibli",
         "guide_title":  "8 Essential Anime Films Beyond Studio Ghibli",
         "accent":  "violet",
-        "trailer_id":  "jJzEW_eE1G0"
+        "trailer_id":  "jJzEW_eE1G0",
+        "moods":  [
+                      "mind-bending",
+                      "adrenaline"
+                  ],
+        "company":  [
+                        "solo",
+                        "friends"
+                    ]
     },
     {
         "id":  "wp-spirited-away",
@@ -1424,7 +1783,17 @@
         "guide_url":  "/guide-family-and-animated-movies-everyone-enjoys",
         "guide_title":  "All-Ages Family Movie Night Guide",
         "accent":  "teal",
-        "trailer_id":  "ByXuk9QqQkk"
+        "trailer_id":  "ByXuk9QqQkk",
+        "moods":  [
+                      "feel-good",
+                      "emotional",
+                      "mind-bending"
+                  ],
+        "company":  [
+                        "family",
+                        "date-night",
+                        "solo"
+                    ]
     },
     {
         "id":  "wp-paddington-2",
@@ -1459,7 +1828,17 @@
         "guide_url":  "/guide-family-and-animated-movies-everyone-enjoys",
         "guide_title":  "All-Ages Family Movie Night Guide",
         "accent":  "amber",
-        "trailer_id":  "52x5HJ9H8DM"
+        "trailer_id":  "52x5HJ9H8DM",
+        "moods":  [
+                      "feel-good",
+                      "emotional"
+                  ],
+        "company":  [
+                        "family",
+                        "date-night",
+                        "friends",
+                        "solo"
+                    ]
     },
     {
         "id":  "wp-spider-verse",
@@ -1496,7 +1875,18 @@
         "guide_url":  "/guide-family-and-animated-movies-everyone-enjoys",
         "guide_title":  "All-Ages Family Movie Night Guide",
         "accent":  "rose",
-        "trailer_id":  "g4Hbz2jLxvQ"
+        "trailer_id":  "g4Hbz2jLxvQ",
+        "moods":  [
+                      "adrenaline",
+                      "feel-good",
+                      "emotional"
+                  ],
+        "company":  [
+                        "family",
+                        "friends",
+                        "date-night",
+                        "solo"
+                    ]
     },
     {
         "id":  "wp-klaus",
@@ -1528,6 +1918,1146 @@
         "guide_url":  "/guide-family-and-animated-movies-everyone-enjoys",
         "guide_title":  "All-Ages Family Movie Night Guide",
         "accent":  "cyan",
-        "trailer_id":  "k520L5yyWl0"
+        "trailer_id":  "k520L5yyWl0",
+        "moods":  [
+                      "feel-good",
+                      "emotional"
+                  ],
+        "company":  [
+                        "family",
+                        "date-night",
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-run-lola-run",
+        "media_type":  "movie",
+        "title":  "Run Lola Run",
+        "year":  "1998",
+        "runtime":  81,
+        "rating":  8.4,
+        "genres":  [
+                       "Thriller",
+                       "Action"
+                   ],
+        "genre_ids":  [
+                          53,
+                          28
+                      ],
+        "language":  "de",
+        "director":  "Tom Tykwer",
+        "cast":  [
+                     "Franka Potente",
+                     "Moritz Bleibtreu",
+                     "Herbert Knaup"
+                 ],
+        "platforms":  [
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "A woman has twenty minutes to raise 100,000 Deutschmarks in Berlin to save her boyfriend, sprinting through three branching timelines where split-second decisions change everything.",
+        "editorial_note":  "Pure 81-minute techno adrenaline that starts at full sprint and never drops pace for a single minute.",
+        "guide_url":  "/guide-short-thrillers-under-100-minutes",
+        "guide_title":  "10 Tight Thrillers Under 100 Minutes",
+        "accent":  "rose",
+        "moods":  [
+                      "adrenaline",
+                      "edge-of-seat",
+                      "mind-bending"
+                  ],
+        "company":  [
+                        "solo",
+                        "friends",
+                        "date-night"
+                    ],
+        "trailer_id":  ""
+    },
+    {
+        "id":  "wp-stand-by-me",
+        "media_type":  "movie",
+        "title":  "Stand by Me",
+        "year":  "1986",
+        "runtime":  89,
+        "rating":  8.6,
+        "genres":  [
+                       "Drama"
+                   ],
+        "genre_ids":  [
+                          18
+                      ],
+        "language":  "en",
+        "director":  "Rob Reiner",
+        "cast":  [
+                     "Wil Wheaton",
+                     "River Phoenix",
+                     "Corey Feldman",
+                     "Jerry O\u0027Connell"
+                 ],
+        "platforms":  [
+                          "Netflix",
+                          "Prime Video"
+                      ],
+        "overview":  "Four twelve-year-old friends in 1959 Oregon hike along rural railroad tracks in search of a missing boy, confronting growing up along the way.",
+        "editorial_note":  "Warm, nostalgic, and surprisingly funny under 90 minutes with timeless chemistry.",
+        "guide_url":  "/guides",
+        "guide_title":  "WatchPulse Editorial Guides",
+        "accent":  "amber",
+        "moods":  [
+                      "emotional",
+                      "feel-good"
+                  ],
+        "company":  [
+                        "solo",
+                        "friends",
+                        "family",
+                        "date-night"
+                    ],
+        "trailer_id":  ""
+    },
+    {
+        "id":  "wp-zombieland",
+        "media_type":  "movie",
+        "title":  "Zombieland",
+        "year":  "2009",
+        "runtime":  88,
+        "rating":  8.1,
+        "genres":  [
+                       "Comedy",
+                       "Action",
+                       "Horror"
+                   ],
+        "genre_ids":  [
+                          35,
+                          28,
+                          27
+                      ],
+        "language":  "en",
+        "director":  "Ruben Fleischer",
+        "cast":  [
+                     "Jesse Eisenberg",
+                     "Woody Harrelson",
+                     "Emma Stone",
+                     "Abigail Breslin"
+                 ],
+        "platforms":  [
+                          "Netflix",
+                          "Prime Video"
+                      ],
+        "overview":  "A nervous college student teams up with a rule-breaking survivalist and two resourceful sisters to cross post-apocalyptic America.",
+        "editorial_note":  "Snappy 88-minute zombie comedy with zero slow spots and effortless buddy energy.",
+        "guide_url":  "/guide-comfort-comedies-for-stressful-weeknights",
+        "guide_title":  "8 Comfort Comedies for Stressful Weeknights",
+        "accent":  "orange",
+        "moods":  [
+                      "feel-good",
+                      "adrenaline"
+                  ],
+        "company":  [
+                        "friends",
+                        "date-night",
+                        "solo"
+                    ],
+        "trailer_id":  ""
+    },
+    {
+        "id":  "wp-gravity",
+        "media_type":  "movie",
+        "title":  "Gravity",
+        "year":  "2013",
+        "runtime":  91,
+        "rating":  8.3,
+        "genres":  [
+                       "Sci-Fi",
+                       "Thriller",
+                       "Drama"
+                   ],
+        "genre_ids":  [
+                          878,
+                          53,
+                          18
+                      ],
+        "language":  "en",
+        "director":  "Alfonso Cuarón",
+        "cast":  [
+                     "Sandra Bullock",
+                     "George Clooney"
+                 ],
+        "platforms":  [
+                          "HBO Max",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "Two astronauts fight to survive in low Earth orbit after high-speed debris destroys their space shuttle and cuts communication with Houston.",
+        "editorial_note":  "Relentless 91-minute survival thriller that feels like one continuous, breathless roller-coaster.",
+        "guide_url":  "/guide-short-thrillers-under-100-minutes",
+        "guide_title":  "10 Tight Thrillers Under 100 Minutes",
+        "accent":  "indigo",
+        "moods":  [
+                      "edge-of-seat",
+                      "adrenaline"
+                  ],
+        "company":  [
+                        "solo",
+                        "date-night",
+                        "friends"
+                    ],
+        "trailer_id":  ""
+    },
+    {
+        "id":  "wp-my-neighbor-totoro",
+        "media_type":  "movie",
+        "title":  "My Neighbor Totoro",
+        "year":  "1988",
+        "runtime":  86,
+        "rating":  8.7,
+        "genres":  [
+                       "Animation",
+                       "Comedy"
+                   ],
+        "genre_ids":  [
+                          16,
+                          35
+                      ],
+        "language":  "ja",
+        "director":  "Hayao Miyazaki",
+        "cast":  [
+                     "Noriko Hidaka",
+                     "Chika Sakamoto",
+                     "Hitoshi Takagi"
+                 ],
+        "platforms":  [
+                          "Netflix",
+                          "HBO Max"
+                      ],
+        "overview":  "Two young sisters move to the Japanese countryside to be near their hospitalized mother and discover friendly forest spirits led by the giant Totoro.",
+        "editorial_note":  "Pure, gentle 86-minute comfort watch with zero villain anxiety—ideal when you are exhausted.",
+        "guide_url":  "/guide-family-and-animated-movies-everyone-enjoys",
+        "guide_title":  "All-Ages Family Movie Night Guide",
+        "accent":  "teal",
+        "moods":  [
+                      "feel-good",
+                      "emotional"
+                  ],
+        "company":  [
+                        "family",
+                        "date-night",
+                        "solo"
+                    ],
+        "trailer_id":  ""
+    },
+    {
+        "id":  "wp-fantastic-mr-fox",
+        "media_type":  "movie",
+        "title":  "Fantastic Mr. Fox",
+        "year":  "2009",
+        "runtime":  87,
+        "rating":  8.6,
+        "genres":  [
+                       "Animation",
+                       "Comedy"
+                   ],
+        "genre_ids":  [
+                          16,
+                          35
+                      ],
+        "language":  "en",
+        "director":  "Wes Anderson",
+        "cast":  [
+                     "George Clooney",
+                     "Meryl Streep",
+                     "Jason Schwartzman",
+                     "Bill Murray"
+                 ],
+        "platforms":  [
+                          "Disney+",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "A clever fox slips back into his old poultry-raiding habits, forcing three ruthless farmers to wage an escalating siege against the woodland animals.",
+        "editorial_note":  "Witty 87-minute stop-motion caper that plays as sharp adult comedy and charming family craft.",
+        "guide_url":  "/guide-family-and-animated-movies-everyone-enjoys",
+        "guide_title":  "All-Ages Family Movie Night Guide",
+        "accent":  "amber",
+        "moods":  [
+                      "feel-good",
+                      "clever-twist"
+                  ],
+        "company":  [
+                        "family",
+                        "date-night",
+                        "friends",
+                        "solo"
+                    ],
+        "trailer_id":  ""
+    },
+    {
+        "id":  "wp-toy-story",
+        "media_type":  "movie",
+        "title":  "Toy Story",
+        "year":  "1995",
+        "runtime":  81,
+        "rating":  8.7,
+        "genres":  [
+                       "Animation",
+                       "Comedy"
+                   ],
+        "genre_ids":  [
+                          16,
+                          35
+                      ],
+        "language":  "en",
+        "director":  "John Lasseter",
+        "cast":  [
+                     "Tom Hanks",
+                     "Tim Allen",
+                     "Don Rickles",
+                     "Wallace Shawn"
+                 ],
+        "platforms":  [
+                          "Disney+",
+                          "Apple TV"
+                      ],
+        "overview":  "A pull-string cowboy doll feels his top spot threatened when a high-tech space ranger arrives for Andy\u0027s birthday, forcing the rivals to team up to get home.",
+        "editorial_note":  "Lean 81-minute buddy comedy with zero wasted scenes and universal crowd appeal.",
+        "guide_url":  "/guide-family-and-animated-movies-everyone-enjoys",
+        "guide_title":  "All-Ages Family Movie Night Guide",
+        "accent":  "cyan",
+        "moods":  [
+                      "feel-good",
+                      "adrenaline"
+                  ],
+        "company":  [
+                        "family",
+                        "friends",
+                        "date-night",
+                        "solo"
+                    ],
+        "trailer_id":  ""
+    },
+    {
+        "id":  "wp-a-real-pain",
+        "media_type":  "movie",
+        "title":  "A Real Pain",
+        "year":  "2024",
+        "runtime":  90,
+        "rating":  8.3,
+        "genres":  [
+                       "Comedy",
+                       "Drama"
+                   ],
+        "genre_ids":  [
+                          35,
+                          18
+                      ],
+        "language":  "en",
+        "director":  "Jesse Eisenberg",
+        "cast":  [
+                     "Jesse Eisenberg",
+                     "Kieran Culkin",
+                     "Will Sharpe",
+                     "Jennifer Grey"
+                 ],
+        "platforms":  [
+                          "Disney+",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "Two mismatched cousins reunite for a heritage tour across Poland to honor their late grandmother, testing old family affection and unspoken resentment.",
+        "editorial_note":  "Breezy, funny, and deeply human at exactly 90 minutes without feeling heavy or overlong.",
+        "guide_url":  "/guide-comfort-comedies-for-stressful-weeknights",
+        "guide_title":  "8 Comfort Comedies for Stressful Weeknights",
+        "accent":  "amber",
+        "moods":  [
+                      "emotional",
+                      "feel-good"
+                  ],
+        "company":  [
+                        "solo",
+                        "date-night"
+                    ],
+        "trailer_id":  ""
+    },
+    {
+        "id":  "wp-before-sunrise",
+        "media_type":  "movie",
+        "title":  "Before Sunrise",
+        "year":  "1995",
+        "runtime":  101,
+        "rating":  8.7,
+        "genres":  [
+                       "Drama"
+                   ],
+        "genre_ids":  [
+                          18
+                      ],
+        "language":  "en",
+        "director":  "Richard Linklater",
+        "cast":  [
+                     "Ethan Hawke",
+                     "Julie Delpy"
+                 ],
+        "platforms":  [
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "A young American traveler and a French student meet on a Eurail train and spend one spontaneous night walking and talking through Vienna before his morning flight.",
+        "editorial_note":  "Effortlessly charming, dialogue-driven gold standard for a quiet date night.",
+        "guide_url":  "/guides",
+        "guide_title":  "WatchPulse Editorial Guides",
+        "accent":  "rose",
+        "moods":  [
+                      "emotional",
+                      "feel-good"
+                  ],
+        "company":  [
+                        "date-night",
+                        "solo"
+                    ],
+        "trailer_id":  ""
+    },
+    {
+        "id":  "wp-about-time",
+        "media_type":  "movie",
+        "title":  "About Time",
+        "year":  "2013",
+        "runtime":  123,
+        "rating":  8.5,
+        "genres":  [
+                       "Comedy",
+                       "Drama",
+                       "Sci-Fi"
+                   ],
+        "genre_ids":  [
+                          35,
+                          18,
+                          878
+                      ],
+        "language":  "en",
+        "director":  "Richard Curtis",
+        "cast":  [
+                     "Domhnall Gleeson",
+                     "Rachel McAdams",
+                     "Bill Nighy"
+                 ],
+        "platforms":  [
+                          "Netflix",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "At twenty-one, Tim learns the men in his family can travel back into their own memories and uses the gift to win love and savor ordinary days.",
+        "editorial_note":  "Warm romantic comedy that sneaks up with one of the best father-son arcs of modern cinema.",
+        "guide_url":  "/guide-comfort-comedies-for-stressful-weeknights",
+        "guide_title":  "8 Comfort Comedies for Stressful Weeknights",
+        "accent":  "rose",
+        "moods":  [
+                      "feel-good",
+                      "emotional"
+                  ],
+        "company":  [
+                        "date-night",
+                        "solo",
+                        "family"
+                    ],
+        "trailer_id":  ""
+    },
+    {
+        "id":  "wp-crazy-stupid-love",
+        "media_type":  "movie",
+        "title":  "Crazy, Stupid, Love",
+        "year":  "2011",
+        "runtime":  118,
+        "rating":  8.2,
+        "genres":  [
+                       "Comedy",
+                       "Drama"
+                   ],
+        "genre_ids":  [
+                          35,
+                          18
+                      ],
+        "language":  "en",
+        "director":  "Glenn Ficarra \u0026 John Requa",
+        "cast":  [
+                     "Steve Carell",
+                     "Ryan Gosling",
+                     "Julianne Moore",
+                     "Emma Stone"
+                 ],
+        "platforms":  [
+                          "HBO Max",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "A blindsided suburban dad gets a makeover from a smooth bachelor only for intersecting romances to collide in a hilarious backyard twist.",
+        "editorial_note":  "Sharp, crowd-pleasing romantic comedy with a genuinely clever ensemble payoff.",
+        "guide_url":  "/guide-comfort-comedies-for-stressful-weeknights",
+        "guide_title":  "8 Comfort Comedies for Stressful Weeknights",
+        "accent":  "teal",
+        "moods":  [
+                      "feel-good",
+                      "clever-twist"
+                  ],
+        "company":  [
+                        "date-night",
+                        "friends",
+                        "solo"
+                    ],
+        "trailer_id":  ""
+    },
+    {
+        "id":  "wp-la-la-land",
+        "media_type":  "movie",
+        "title":  "La La Land",
+        "year":  "2016",
+        "runtime":  128,
+        "rating":  8.6,
+        "genres":  [
+                       "Drama",
+                       "Comedy"
+                   ],
+        "genre_ids":  [
+                          18,
+                          35
+                      ],
+        "language":  "en",
+        "director":  "Damien Chazelle",
+        "cast":  [
+                     "Ryan Gosling",
+                     "Emma Stone",
+                     "John Legend"
+                 ],
+        "platforms":  [
+                          "Netflix",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "An aspiring actress and a stubborn jazz pianist fall in love in Los Angeles while chasing ambitions that threaten to pull them apart.",
+        "editorial_note":  "Vibrant color, unforgettable music, and a bittersweet ending made for date night.",
+        "guide_url":  "/guides",
+        "guide_title":  "WatchPulse Editorial Guides",
+        "accent":  "indigo",
+        "moods":  [
+                      "emotional",
+                      "feel-good"
+                  ],
+        "company":  [
+                        "date-night",
+                        "solo"
+                    ],
+        "trailer_id":  ""
+    },
+    {
+        "id":  "wp-walter-mitty",
+        "media_type":  "movie",
+        "title":  "The Secret Life of Walter Mitty",
+        "year":  "2013",
+        "runtime":  114,
+        "rating":  8.2,
+        "genres":  [
+                       "Comedy",
+                       "Drama"
+                   ],
+        "genre_ids":  [
+                          35,
+                          18
+                      ],
+        "language":  "en",
+        "director":  "Ben Stiller",
+        "cast":  [
+                     "Ben Stiller",
+                     "Kristen Wiig",
+                     "Sean Penn",
+                     "Adam Scott"
+                 ],
+        "platforms":  [
+                          "Disney+",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "A daydreaming photo archivist leaves his quiet desk job behind to track down a missing negative across Greenland, Iceland, and the Himalayas.",
+        "editorial_note":  "Uplifting visual comfort film when work burnout hits and you need a breezy reset.",
+        "guide_url":  "/guide-comfort-comedies-for-stressful-weeknights",
+        "guide_title":  "8 Comfort Comedies for Stressful Weeknights",
+        "accent":  "cyan",
+        "moods":  [
+                      "feel-good",
+                      "emotional"
+                  ],
+        "company":  [
+                        "solo",
+                        "family",
+                        "date-night"
+                    ],
+        "trailer_id":  ""
+    },
+    {
+        "id":  "wp-knives-out",
+        "media_type":  "movie",
+        "title":  "Knives Out",
+        "year":  "2019",
+        "runtime":  130,
+        "rating":  8.6,
+        "genres":  [
+                       "Comedy",
+                       "Thriller",
+                       "Drama"
+                   ],
+        "genre_ids":  [
+                          35,
+                          53,
+                          18
+                      ],
+        "language":  "en",
+        "director":  "Rian Johnson",
+        "cast":  [
+                     "Daniel Craig",
+                     "Ana de Armas",
+                     "Chris Evans",
+                     "Jamie Lee Curtis"
+                 ],
+        "platforms":  [
+                          "Prime Video",
+                          "Netflix",
+                          "Apple TV"
+                      ],
+        "overview":  "Southern detective Benoit Blanc investigates the suspicious death of a wealthy mystery novelist surrounded by his scheming, greedy family.",
+        "editorial_note":  "Playful fair-play whodunit where every family member, date partner, and friend gets hooked.",
+        "guide_url":  "/guide-movies-like-knives-out-and-glass-onion",
+        "guide_title":  "8 Clever Whodunits Like Knives Out",
+        "accent":  "amber",
+        "moods":  [
+                      "clever-twist",
+                      "feel-good"
+                  ],
+        "company":  [
+                        "friends",
+                        "date-night",
+                        "family",
+                        "solo"
+                    ],
+        "trailer_id":  ""
+    },
+    {
+        "id":  "wp-the-intouchables",
+        "media_type":  "movie",
+        "title":  "The Intouchables",
+        "year":  "2011",
+        "runtime":  112,
+        "rating":  8.8,
+        "genres":  [
+                       "Comedy",
+                       "Drama"
+                   ],
+        "genre_ids":  [
+                          35,
+                          18
+                      ],
+        "language":  "fr",
+        "director":  "Olivier Nakache \u0026 Éric Toledano",
+        "cast":  [
+                     "François Cluzet",
+                     "Omar Sy"
+                 ],
+        "platforms":  [
+                          "Netflix",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "After a paragliding accident leaves a wealthy Parisian quadriplegic, he hires a street-smart caretaker from the projects who brings joy back into his life.",
+        "editorial_note":  "Crowd-pleasing, deeply funny true-inspired buddy drama that bridges every audience.",
+        "guide_url":  "/guide-comfort-comedies-for-stressful-weeknights",
+        "guide_title":  "8 Comfort Comedies for Stressful Weeknights",
+        "accent":  "teal",
+        "moods":  [
+                      "feel-good",
+                      "emotional"
+                  ],
+        "company":  [
+                        "family",
+                        "date-night",
+                        "friends",
+                        "solo"
+                    ],
+        "trailer_id":  ""
+    },
+    {
+        "id":  "wp-past-lives",
+        "media_type":  "movie",
+        "title":  "Past Lives",
+        "year":  "2023",
+        "runtime":  106,
+        "rating":  8.5,
+        "genres":  [
+                       "Drama"
+                   ],
+        "genre_ids":  [
+                          18
+                      ],
+        "language":  "ko",
+        "director":  "Celine Song",
+        "cast":  [
+                     "Greta Lee",
+                     "Teo Yoo",
+                     "John Magaro"
+                 ],
+        "platforms":  [
+                          "Netflix",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "Two childhood sweethearts separated when one family emigrates from South Korea reconnect twenty years later in New York for one quiet week.",
+        "editorial_note":  "Tender, mature romantic drama without melodrama—hits hard for solo or date-night viewing.",
+        "guide_url":  "/guides",
+        "guide_title":  "WatchPulse Editorial Guides",
+        "accent":  "indigo",
+        "moods":  [
+                      "emotional"
+                  ],
+        "company":  [
+                        "date-night",
+                        "solo"
+                    ],
+        "trailer_id":  ""
+    },
+    {
+        "id":  "wp-the-prestige",
+        "media_type":  "movie",
+        "title":  "The Prestige",
+        "year":  "2006",
+        "runtime":  130,
+        "rating":  8.9,
+        "genres":  [
+                       "Thriller",
+                       "Drama",
+                       "Sci-Fi"
+                   ],
+        "genre_ids":  [
+                          53,
+                          18,
+                          878
+                      ],
+        "language":  "en",
+        "director":  "Christopher Nolan",
+        "cast":  [
+                     "Hugh Jackman",
+                     "Christian Bale",
+                     "Scarlett Johansson",
+                     "Michael Caine"
+                 ],
+        "platforms":  [
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "After a stage accident turns two Victorian magicians into bitter rivals, their obsession to outdo each other\u0027s illusions leads to fatal deception.",
+        "editorial_note":  "One of the best puzzle-box scripts ever filmed—rewards every second on first watch and rewatch.",
+        "guide_url":  "/guide-movies-like-interstellar-and-arrival",
+        "guide_title":  "8 Smart Sci-Fi Films Like Interstellar \u0026 Arrival",
+        "accent":  "amber",
+        "moods":  [
+                      "mind-bending",
+                      "clever-twist",
+                      "dark-atmospheric"
+                  ],
+        "company":  [
+                        "solo",
+                        "date-night",
+                        "friends"
+                    ],
+        "trailer_id":  ""
+    },
+    {
+        "id":  "wp-shutter-island",
+        "media_type":  "movie",
+        "title":  "Shutter Island",
+        "year":  "2010",
+        "runtime":  138,
+        "rating":  8.6,
+        "genres":  [
+                       "Thriller",
+                       "Drama"
+                   ],
+        "genre_ids":  [
+                          53,
+                          18
+                      ],
+        "language":  "en",
+        "director":  "Martin Scorsese",
+        "cast":  [
+                     "Leonardo DiCaprio",
+                     "Mark Ruffalo",
+                     "Ben Kingsley"
+                 ],
+        "platforms":  [
+                          "Prime Video",
+                          "Netflix",
+                          "Apple TV"
+                      ],
+        "overview":  "In 1954, a U.S. Marshal investigates a patient\u0027s disappearance from a storm-swept island asylum where staff and memories hide a shattering truth.",
+        "editorial_note":  "Gothically atmospheric psychological mystery built around one unforgettable third-act turn.",
+        "guide_url":  "/guide-best-psychological-horror-without-cheap-jumpscares",
+        "guide_title":  "8 Psychological Horror Movies Without Jump Scares",
+        "accent":  "indigo",
+        "moods":  [
+                      "mind-bending",
+                      "clever-twist",
+                      "dark-atmospheric"
+                  ],
+        "company":  [
+                        "solo",
+                        "date-night",
+                        "friends"
+                    ],
+        "trailer_id":  ""
+    },
+    {
+        "id":  "wp-gone-girl",
+        "media_type":  "movie",
+        "title":  "Gone Girl",
+        "year":  "2014",
+        "runtime":  149,
+        "rating":  8.6,
+        "genres":  [
+                       "Thriller",
+                       "Drama"
+                   ],
+        "genre_ids":  [
+                          53,
+                          18
+                      ],
+        "language":  "en",
+        "director":  "David Fincher",
+        "cast":  [
+                     "Ben Affleck",
+                     "Rosamund Pike",
+                     "Neil Patrick Harris",
+                     "Carrie Coon"
+                 ],
+        "platforms":  [
+                          "Prime Video",
+                          "Disney+",
+                          "Apple TV"
+                      ],
+        "overview":  "When his wife vanishes on their fifth wedding anniversary, intense media scrutiny turns an ordinary husband into the prime suspect.",
+        "editorial_note":  "Ice-cold, razor-sharp marital mystery with a midpoint twist that flips the entire story.",
+        "guide_url":  "/guide-movies-like-knives-out-and-glass-onion",
+        "guide_title":  "8 Clever Whodunits Like Knives Out",
+        "accent":  "rose",
+        "moods":  [
+                      "clever-twist",
+                      "edge-of-seat",
+                      "dark-atmospheric"
+                  ],
+        "company":  [
+                        "solo",
+                        "friends"
+                    ],
+        "trailer_id":  ""
+    },
+    {
+        "id":  "wp-prisoners",
+        "media_type":  "movie",
+        "title":  "Prisoners",
+        "year":  "2013",
+        "runtime":  153,
+        "rating":  8.8,
+        "genres":  [
+                       "Thriller",
+                       "Drama"
+                   ],
+        "genre_ids":  [
+                          53,
+                          18
+                      ],
+        "language":  "en",
+        "director":  "Denis Villeneuve",
+        "cast":  [
+                     "Hugh Jackman",
+                     "Jake Gyllenhaal",
+                     "Viola Davis",
+                     "Paul Dano"
+                 ],
+        "platforms":  [
+                          "Netflix",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "When two young girls disappear on Thanksgiving, a desperate father takes matters into his own hands while a methodical detective follows darker clues.",
+        "editorial_note":  "Unflinching, masterfully acted mystery thriller with powerhouse rain-soaked tension.",
+        "guide_url":  "/guide-best-psychological-horror-without-cheap-jumpscares",
+        "guide_title":  "8 Psychological Horror Movies Without Jump Scares",
+        "accent":  "indigo",
+        "moods":  [
+                      "dark-atmospheric",
+                      "edge-of-seat",
+                      "clever-twist"
+                  ],
+        "company":  [
+                        "solo"
+                    ],
+        "trailer_id":  ""
+    },
+    {
+        "id":  "wp-parasite",
+        "media_type":  "movie",
+        "title":  "Parasite",
+        "year":  "2019",
+        "runtime":  132,
+        "rating":  9.2,
+        "genres":  [
+                       "Thriller",
+                       "Drama",
+                       "Comedy"
+                   ],
+        "genre_ids":  [
+                          53,
+                          18,
+                          35
+                      ],
+        "language":  "ko",
+        "director":  "Bong Joon-ho",
+        "cast":  [
+                     "Song Kang-ho",
+                     "Lee Sun-kyun",
+                     "Cho Yeo-jeong",
+                     "Park So-dam"
+                 ],
+        "platforms":  [
+                          "Prime Video",
+                          "HBO Max",
+                          "Apple TV"
+                      ],
+        "overview":  "A struggling Seoul family schemes their way one by one into the jobs and mansion of a wealthy household until an unexpected secret surfaces.",
+        "editorial_note":  "Darkly funny class satire that mutates effortlessly into an unforgettable thriller.",
+        "guide_url":  "/guide-hidden-gem-korean-and-international-thrillers",
+        "guide_title":  "7 Essential Korean \u0026 International Thrillers",
+        "accent":  "teal",
+        "moods":  [
+                      "clever-twist",
+                      "edge-of-seat",
+                      "dark-atmospheric"
+                  ],
+        "company":  [
+                        "solo",
+                        "date-night",
+                        "friends"
+                    ],
+        "trailer_id":  ""
+    },
+    {
+        "id":  "wp-oldboy",
+        "media_type":  "movie",
+        "title":  "Oldboy",
+        "year":  "2003",
+        "runtime":  120,
+        "rating":  8.8,
+        "genres":  [
+                       "Thriller",
+                       "Action",
+                       "Drama"
+                   ],
+        "genre_ids":  [
+                          53,
+                          28,
+                          18
+                      ],
+        "language":  "ko",
+        "director":  "Park Chan-wook",
+        "cast":  [
+                     "Choi Min-sik",
+                     "Yoo Ji-tae",
+                     "Kang Hye-jung"
+                 ],
+        "platforms":  [
+                          "Netflix",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "Imprisoned in a private hotel room for fifteen years without explanation, a man is suddenly freed and given five days to uncover why.",
+        "editorial_note":  "Visceral, dark mystery-thriller featuring cinema\u0027s most famous corridor fight—strictly mature solo watch.",
+        "guide_url":  "/guide-hidden-gem-korean-and-international-thrillers",
+        "guide_title":  "7 Essential Korean \u0026 International Thrillers",
+        "accent":  "rose",
+        "moods":  [
+                      "dark-atmospheric",
+                      "mind-bending",
+                      "clever-twist"
+                  ],
+        "company":  [
+                        "solo"
+                    ],
+        "trailer_id":  ""
+    },
+    {
+        "id":  "wp-andhadhun",
+        "media_type":  "movie",
+        "title":  "Andhadhun",
+        "year":  "2018",
+        "runtime":  139,
+        "rating":  8.8,
+        "genres":  [
+                       "Thriller",
+                       "Comedy"
+                   ],
+        "genre_ids":  [
+                          53,
+                          35
+                      ],
+        "language":  "hi",
+        "director":  "Sriram Raghavan",
+        "cast":  [
+                     "Ayushmann Khurrana",
+                     "Tabu",
+                     "Radhika Apte"
+                 ],
+        "platforms":  [
+                          "Netflix",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "A pianist pretending to be blind for artistic inspiration accidentally witnesses a murder inside an aging film star\u0027s apartment.",
+        "editorial_note":  "Wickedly funny black-comedy mystery with rapid twists that keep everyone guessing.",
+        "guide_url":  "/guide-best-bollywood-and-south-asian-thrillers",
+        "guide_title":  "8 Acclaimed Hindi, Malayalam \u0026 Urdu Thrillers",
+        "accent":  "amber",
+        "moods":  [
+                      "clever-twist",
+                      "edge-of-seat"
+                  ],
+        "company":  [
+                        "friends",
+                        "date-night",
+                        "solo"
+                    ],
+        "trailer_id":  ""
+    },
+    {
+        "id":  "wp-piku",
+        "media_type":  "movie",
+        "title":  "Piku",
+        "year":  "2015",
+        "runtime":  123,
+        "rating":  8.3,
+        "genres":  [
+                       "Comedy",
+                       "Drama"
+                   ],
+        "genre_ids":  [
+                          35,
+                          18
+                      ],
+        "language":  "hi",
+        "director":  "Shoojit Sircar",
+        "cast":  [
+                     "Deepika Padukone",
+                     "Amitabh Bachchan",
+                     "Irrfan Khan"
+                 ],
+        "platforms":  [
+                          "Prime Video",
+                          "Netflix"
+                      ],
+        "overview":  "An architect juggling her hypochondriac, stubborn father takes a chaotic road trip from Delhi to Kolkata with a calm cab company owner.",
+        "editorial_note":  "Zero-melodrama, warm Hindi slice-of-life comedy powered by Irrfan Khan and Amitabh Bachchan.",
+        "guide_url":  "/guide-comfort-comedies-for-stressful-weeknights",
+        "guide_title":  "8 Comfort Comedies for Stressful Weeknights",
+        "accent":  "teal",
+        "moods":  [
+                      "feel-good",
+                      "emotional"
+                  ],
+        "company":  [
+                        "family",
+                        "date-night",
+                        "solo"
+                    ],
+        "trailer_id":  ""
+    },
+    {
+        "id":  "wp-3-idiots",
+        "media_type":  "movie",
+        "title":  "3 Idiots",
+        "year":  "2009",
+        "runtime":  170,
+        "rating":  8.9,
+        "genres":  [
+                       "Comedy",
+                       "Drama"
+                   ],
+        "genre_ids":  [
+                          35,
+                          18
+                      ],
+        "language":  "hi",
+        "director":  "Rajkumar Hirani",
+        "cast":  [
+                     "Aamir Khan",
+                     "R. Madhavan",
+                     "Sharman Joshi",
+                     "Kareena Kapoor"
+                 ],
+        "platforms":  [
+                          "Netflix",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "Two former college friends embark on a road trip to find their brilliant, free-spirited roommate who vanished right after graduation.",
+        "editorial_note":  "Big-hearted, endlessly rewatchable crowd-pleaser for family movie night or friends.",
+        "guide_url":  "/guide-comfort-comedies-for-stressful-weeknights",
+        "guide_title":  "8 Comfort Comedies for Stressful Weeknights",
+        "accent":  "amber",
+        "moods":  [
+                      "feel-good",
+                      "emotional"
+                  ],
+        "company":  [
+                        "family",
+                        "friends",
+                        "date-night",
+                        "solo"
+                    ],
+        "trailer_id":  ""
+    },
+    {
+        "id":  "wp-kumbalangi-nights",
+        "media_type":  "movie",
+        "title":  "Kumbalangi Nights",
+        "year":  "2019",
+        "runtime":  135,
+        "rating":  8.8,
+        "genres":  [
+                       "Drama",
+                       "Comedy"
+                   ],
+        "genre_ids":  [
+                          18,
+                          35
+                      ],
+        "language":  "ml",
+        "director":  "Madhu C. Narayanan",
+        "cast":  [
+                     "Soubin Shahir",
+                     "Shane Nigam",
+                     "Fahadh Faasil",
+                     "Anna Ben"
+                 ],
+        "platforms":  [
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "Four estranged brothers living in a crumbling backwater fishing village slowly learn empathy while a quietly menacing neighbor tests their sister-in-law\u0027s family.",
+        "editorial_note":  "Luminous Malayalam masterpiece balancing gentle humor, warm relationships, and eerie tension.",
+        "guide_url":  "/guide-best-bollywood-and-south-asian-thrillers",
+        "guide_title":  "8 Acclaimed Hindi, Malayalam \u0026 Urdu Thrillers",
+        "accent":  "cyan",
+        "moods":  [
+                      "emotional",
+                      "feel-good",
+                      "dark-atmospheric"
+                  ],
+        "company":  [
+                        "solo",
+                        "date-night"
+                    ],
+        "trailer_id":  ""
     }
 ]

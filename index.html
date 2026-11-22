@@ -26,20 +26,18 @@
   <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-PTPLM5VB"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WatchPulse — Movie &amp; TV Discovery Guide, Official Trailers &amp; Editorial Reviews</title>
+  <title>WatchPulse — Movie &amp; TV Guide, Trailers &amp; Reviews</title>
   <meta name="description"
     content="WatchPulse is an independent movie and TV discovery guide with official YouTube trailers, cast and title metadata via TVmaze, Wikipedia and Wikidata, and 20 original editorial guides.">
   <meta name="author" content="Awais K">
   <link rel="canonical" id="canonicalLink" href="https://watchpulse.online/">
+  <meta id="dynamicRobotsMeta" name="robots" content="index, follow, max-image-preview:large">
   <script>
     (function () {
       var p = new URLSearchParams(window.location.search);
       if (p.has('q') || p.has('genre') || p.has('lang') || p.has('region') || p.has('type')) {
-        var m = document.createElement('meta');
-        m.id = 'dynamicRobotsMeta';
-        m.name = 'robots';
-        m.content = 'noindex, follow';
-        document.head.appendChild(m);
+        var m = document.getElementById('dynamicRobotsMeta');
+        if (m) m.content = 'noindex, follow';
       }
     })();
   </script>
@@ -52,7 +50,7 @@
   <!-- Open Graph / Facebook / WhatsApp -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://watchpulse.online/">
-  <meta property="og:title" content="WatchPulse — Movie &amp; TV Discovery Guide, Trailers &amp; Reviews">
+  <meta property="og:title" content="WatchPulse — Movie &amp; TV Guide, Trailers &amp; Reviews">
   <meta property="og:description"
     content="Explore movie and TV cast, directors, runtimes, official YouTube trailers, curated collections, and 20 original editorial guides on WatchPulse.">
   <meta property="og:image" content="https://watchpulse.online/preview.jpg">
@@ -63,7 +61,7 @@
   <!-- Twitter / X -->
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://watchpulse.online/">
-  <meta property="twitter:title" content="WatchPulse.online — Independent Movie &amp; TV Discovery Guide">
+  <meta property="twitter:title" content="WatchPulse — Movie &amp; TV Guide, Trailers &amp; Reviews">
   <meta property="twitter:description"
     content="Discover curated films, TV series metadata, official studio trailers, and 20 original editorial guides on WatchPulse.online.">
   <meta property="twitter:image" content="https://watchpulse.online/preview.jpg">
@@ -79,7 +77,7 @@
         "name": "WatchPulse",
         "alternateName": ["WatchPulse.online", "WatchPulse Online"],
         "url": "https://watchpulse.online/",
-        "logo": "https://watchpulse.online/favicon.png",
+        "logo": "https://watchpulse.online/logo.png",
         "founder": {
           "@type": "Person",
           "name": "Awais K",
@@ -167,7 +165,7 @@
       <div class="hero-overlay"></div>
       <div class="hero-content">
         <div class="hero-badge">⭐ WATCHPULSE EDITORIAL SPOTLIGHT</div>
-        <h1 id="heroTitle" class="hero-title">Dune: Part Two</h1>
+        <h2 id="heroTitle" class="hero-title">Dune: Part Two</h2>
         <div class="hero-meta">
           <span id="heroRating" class="rating-pill">⭐ 9.2</span>
           <span id="heroYear">2024</span>
@@ -285,7 +283,10 @@
       <div class="seo-container">
         <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.75rem;">
           <h2>📚 Original Editorial Guides, Comparisons &amp; Reviews</h2>
-          <a href="/guides" class="highlight-link" style="font-weight: 700;">View All 20 Editorial Guides →</a>
+          <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+            <a href="/movie-finder" class="highlight-link" style="font-weight: 700;">🎯 Movie Finder Quiz →</a>
+            <a href="/guides" class="highlight-link" style="font-weight: 700;">View All 20 Editorial Guides →</a>
+          </div>
         </div>
         <p style="color: var(--text-muted); margin-bottom: 1rem;">Go beyond raw ratings with our hand-crafted editorial guides—featuring listed runtimes, pacing notes, side-by-side film comparisons, and honest viewing verdicts.</p>
 
@@ -356,7 +357,7 @@
     <!-- Comprehensive Editorial Hub & FAQ Guide -->
     <section class="seo-content-section">
       <div class="seo-container">
-        <h2>WatchPulse: Independent Movie &amp; TV Discovery Guide (2026)</h2>
+        <h1>WatchPulse: Independent Movie &amp; TV Discovery Guide (2026)</h1>
         <p>Tired of scrolling across five apps trying to pick something worth watching tonight? <strong>WatchPulse</strong> is an independent movie &amp; TV discovery guide and editorial publication. Explore TV series details via TVmaze, look up open movie profiles via Wikipedia and Wikidata, watch official studio trailers on YouTube, and read 20 in-depth editorial guides and critical reviews.</p>
         
         <div class="seo-keywords-grid">
@@ -550,6 +551,8 @@
       </div>
       <div class="footer-links">
         <a href="/guides" class="footer-link">Editorial Guides</a>
+        <span class="footer-dot">•</span>
+        <a href="/movie-finder" class="footer-link">Movie Finder</a>
         <span class="footer-dot">•</span>
         <a href="/privacy" class="footer-link">Privacy Policy</a>
         <span class="footer-dot">•</span>

@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Google Consent Mode v2 Defaults (Runs before Google tags load) -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    (function () {
+      var saved = null;
+      try { saved = localStorage.getItem('wp_cookie_consent'); } catch (_) {}
+      var state = saved === 'accepted' ? 'granted' : 'denied';
+      gtag('consent', 'default', {
+        ad_storage: state,
+        ad_user_data: state,
+        ad_personalization: state,
+        analytics_storage: state,
+        functionality_storage: 'granted',
+        security_storage: 'granted',
+        wait_for_update: 500
+      });
+    })();
+    gtag('js', new Date());
+  </script>
+  <!-- Google Tag Manager / Analytics -->
+  <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-PTPLM5VB"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What Movie Should I Watch Tonight? Quiz — WatchPulse</title>
+  <meta name="description"
+    content="Take WatchPulse's free 30-second Movie & TV Finder Quiz. Pick your mood, available runtime, format, and language to get 3 tailored recommendations with trailers and editorial notes.">
+  <link rel="canonical" href="https://watchpulse.online/movie-finder">
+  <meta name="robots" content="max-image-preview:large">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="WatchPulse">
+  <meta property="og:title" content="What Movie Should I Watch Tonight? Quiz — WatchPulse">
+  <meta property="og:description" content="Take WatchPulse's free 30-second Movie & TV Finder Quiz. Pick your mood, runtime, format, and language for 3 instant, spoiler-free picks.">
+  <meta property="og:url" content="https://watchpulse.online/movie-finder">
+  <meta property="og:image" content="https://watchpulse.online/preview.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="What Movie Should I Watch Tonight? Quiz — WatchPulse">
+  <meta name="twitter:description" content="Take WatchPulse's free 30-second Movie & TV Finder Quiz. Pick your mood, runtime, format, and language for 3 instant, spoiler-free picks.">
+  <meta name="twitter:image" content="https://watchpulse.online/preview.jpg">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon.png">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.png">
+  <link rel="stylesheet" href="/style.css?v=20261121f">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://watchpulse.online/" },
+      { "@type": "ListItem", "position": 2, "name": "Movie Finder Quiz", "item": "https://watchpulse.online/movie-finder" }
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "WatchPulse 30-Second Movie & TV Finder Quiz",
+    "url": "https://watchpulse.online/movie-finder",
+    "applicationCategory": "EntertainmentApplication",
+    "operatingSystem": "All",
+    "browserRequirements": "Requires JavaScript",
+    "description": "Free interactive movie and TV series recommendation quiz filtered by mood, runtime budget, format, and language with zero sign-up required.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "WatchPulse",
+      "url": "https://watchpulse.online/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://watchpulse.online/logo.png"
+      }
+    }
+  }
+  </script>
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5022914500809430"
+    crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <header class="app-header">
+    <div class="header-container">
+      <a href="/" class="logo">
+        <span class="logo-icon">⚡</span>
+        <span class="logo-text">Watch<span class="highlight">Pulse</span></span>
+      </a>
+      <div class="nav-actions">
+        <a href="/guides" class="btn secondary-btn">📚 20 Editorial Guides</a>
+        <a href="/" class="btn primary-btn">🎬 Discovery Catalog</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-container">
+    <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+      <a href="/">Home</a> <span>›</span> <strong>Movie Finder Quiz</strong>
+    </nav>
+
+    <article class="content-card legal-card">
+      <span class="pill-badge">Free Interactive Tool • Zero Account Required</span>
+      <h1>What Movie or TV Show Should I Watch Tonight? (30-Second Quiz)</h1>
+      <p class="last-updated">Curated by <strong>Awais K</strong> • Powered by WatchPulse Curated Films &amp; Live TVmaze Catalog</p>
+
+      <section class="legal-section">
+        <p>Stop scrolling through endless home-screen carousels for forty minutes until you are too tired to watch anything. Answer four quick questions below—matching your current mood, how much time you actually have tonight, your format, and preferred language—and WatchPulse will immediately suggest <strong>three high-confidence picks</strong> with runtimes, editorial reasons why they fit, and links to official trailers.</p>
+      </section>
+
+      <section aria-label="Interactive Movie and TV Finder Quiz" style="background: rgba(255, 255, 255, 0.025); border: 1px solid var(--border-color); border-radius: 14px; padding: 1.5rem; margin-bottom: 2.5rem;">
+        <div style="margin-bottom: 1rem;">
+          <strong style="font-size: 0.92rem; color: #fff;">1. What mood or genre fits tonight?</strong>
+          <div class="quiz-options-grid" id="mfMoodOptions">
+            <button type="button" class="quiz-opt-btn selected" data-genre="53" data-label="Thriller">⚡ High-Tension Thriller</button>
+            <button type="button" class="quiz-opt-btn" data-genre="878" data-label="Sci-Fi">🚀 Smart Sci-Fi</button>
+            <button type="button" class="quiz-opt-btn" data-genre="28" data-label="Action">💥 Practical Action</button>
+            <button type="button" class="quiz-opt-btn" data-genre="35" data-label="Comedy">😂 Smart Comedy</button>
+            <button type="button" class="quiz-opt-btn" data-genre="16" data-label="Family &amp; Animation">🎨 Family &amp; Animation</button>
+            <button type="button" class="quiz-opt-btn" data-genre="18" data-label="Drama">🎭 Acclaimed Drama</button>
+            <button type="button" class="quiz-opt-btn" data-genre="27" data-label="Horror">👻 Psychological Horror</button>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 1rem;">
+          <strong style="font-size: 0.92rem; color: #fff;">2. How much time do you have?</strong>
+          <div class="quiz-options-grid" id="mfTimeOptions">
+            <button type="button" class="quiz-opt-btn selected" data-time="short" data-label="Under 105 min">⏱️ Quick Watch (&le; 105m)</button>
+            <button type="button" class="quiz-opt-btn" data-time="standard" data-label="100–135 min">🍿 Standard Feature (100–135m)</button>
+            <button type="button" class="quiz-opt-btn" data-time="epic" data-label="130+ min Epic">🌌 Full Epic / Deep Binge (130m+)</button>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 1rem;">
+          <strong style="font-size: 0.92rem; color: #fff;">3. Movies or TV Series?</strong>
+          <div class="quiz-options-grid" id="mfFormatOptions">
+            <button type="button" class="quiz-opt-btn selected" data-format="movie">🎬 Curated Movies</button>
+            <button type="button" class="quiz-opt-btn" data-format="tv">📺 Live TV Series</button>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 1.25rem;">
+          <strong style="font-size: 0.92rem; color: #fff;">4. Language preference?</strong>
+          <div class="quiz-options-grid" id="mfLangOptions">
+            <button type="button" class="quiz-opt-btn selected" data-lang="all" data-label="Any Language">🌍 Any Language</button>
+            <button type="button" class="quiz-opt-btn" data-lang="en" data-label="English">🇬🇧 English</button>
+            <button type="button" class="quiz-opt-btn" data-lang="ko" data-label="Korean">🇰🇷 Korean</button>
+            <button type="button" class="quiz-opt-btn" data-lang="hi-ur" data-label="Hindi &amp; Urdu">🎬 Hindi / Urdu</button>
+            <button type="button" class="quiz-opt-btn" data-lang="ja" data-label="Japanese">🇯🇵 Japanese</button>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 0.65rem; align-items: center;">
+          <button id="mfFindBtn" type="button" class="btn primary-btn" style="flex: 1 1 220px; justify-content: center;">✨ Find My 3 Matches</button>
+          <button id="mfShuffleBtn" type="button" class="btn secondary-btn" style="flex: 0 1 auto;">🎲 Shuffle Picks</button>
+          <button id="mfShareBtn" type="button" class="btn secondary-btn" style="flex: 0 1 auto;">🔗 Copy Result Link</button>
+        </div>
+
+        <div id="mfStatusNote" style="font-size: 0.85rem; color: var(--text-muted); margin-top: 1rem;"></div>
+        <div id="mfResults" aria-live="polite" style="margin-top: 0.75rem;"></div>
+      </section>
+
+      <section class="legal-section">
+        <h2>How to Beat Streaming Decision Fatigue in 30 Seconds</h2>
+        <p>Most streaming apps fail viewers at 9:30 PM because their carousels optimize for whatever launched that Friday rather than how much energy or time you actually have left. A brilliant three-hour historical drama like <em>Oppenheimer</em> feels exhausting when you only have 95 minutes before bed, whereas a tight single-location thriller under 100 minutes delivers a complete payoff before midnight.</p>
+        <p>When you run the WatchPulse Movie Finder above, start with <strong>runtime reality first</strong> rather than star rating alone:</p>
+        <ul>
+          <li><strong>Weeknights under 105 minutes:</strong> Prioritize lean thrillers, tight comedies, or animated features with crisp Act 1 hooks so you finish satisfied without sacrificing sleep.</li>
+          <li><strong>Standard 100–135 minute window:</strong> The sweet spot for modern sci-fi mysteries (<em>Arrival</em>, <em>Ex Machina</em>), clever whodunits (<em>Knives Out</em>), and practical stunt action.</li>
+          <li><strong>Weekend 130+ minute epics or TV binges:</strong> Save sprawling cinema like <em>Dune: Part Two</em> or dense mystery-box television like <em>Severance</em> for nights when you can watch without checking your phone.</li>
+        </ul>
+      </section>
+
+      <section class="legal-section">
+        <h2>Browse Matching Editorial Guides by Mood</h2>
+        <div class="editorial-guides-grid">
+          <article class="guide-preview-card">
+            <span class="guide-category-tag">⏱️ Under 100 Minutes</span>
+            <h3><a href="/guide-short-thrillers-under-100-minutes">10 Tight, High-Tension Thrillers Under 100 Minutes</a></h3>
+            <p>Zero-bloat suspense films evaluated for late weeknights when a three-hour epic feels too heavy.</p>
+            <div class="guide-card-footer">
+              <span>Weeknight Picks</span>
+              <a href="/guide-short-thrillers-under-100-minutes" class="highlight-link">Read Guide →</a>
+            </div>
+          </article>
+
+          <article class="guide-preview-card">
+            <span class="guide-category-tag">🚀 Smart Sci-Fi</span>
+            <h3><a href="/guide-movies-like-interstellar-and-arrival">8 Smart Sci-Fi Movies Like Interstellar &amp; Arrival</a></h3>
+            <p>Separated into emotional space survival epics and cerebral first-contact mysteries.</p>
+            <div class="guide-card-footer">
+              <span>Tone Matrix</span>
+              <a href="/guide-movies-like-interstellar-and-arrival" class="highlight-link">Read Guide →</a>
+            </div>
+          </article>
+
+          <article class="guide-preview-card">
+            <span class="guide-category-tag">😂 Zero Cringe</span>
+            <h3><a href="/guide-comfort-comedies-for-stressful-weeknights">8 Smart Comfort Comedies for Stressful Weeknights</a></h3>
+            <p>Warm, witty movies with likable ensembles when you need relief after a long day.</p>
+            <div class="guide-card-footer">
+              <span>Low-Stress Picks</span>
+              <a href="/guide-comfort-comedies-for-stressful-weeknights" class="highlight-link">Read Guide →</a>
+            </div>
+          </article>
+
+          <article class="guide-preview-card">
+            <span class="guide-category-tag">🗓️ Weekend Series</span>
+            <h3><a href="/guide-best-mini-series-to-binge-in-one-weekend">8 Limited Series You Can Finish in One Weekend</a></h3>
+            <p>Self-contained miniseries with real endings and zero multi-year cliffhangers.</p>
+            <div class="guide-card-footer">
+              <span>Complete Endings</span>
+              <a href="/guide-best-mini-series-to-binge-in-one-weekend" class="highlight-link">Read Guide →</a>
+            </div>
+          </article>
+
+          <article class="guide-preview-card">
+            <span class="guide-category-tag">🌍 South Asian Suspense</span>
+            <h3><a href="/guide-best-bollywood-and-south-asian-thrillers">8 Acclaimed Hindi, Malayalam &amp; Urdu Thrillers</a></h3>
+            <p>Tightly plotted regional mysteries selected for twist discipline and craft.</p>
+            <div class="guide-card-footer">
+              <span>Regional Gems</span>
+              <a href="/guide-best-bollywood-and-south-asian-thrillers" class="highlight-link">Read Guide →</a>
+            </div>
+          </article>
+
+          <article class="guide-preview-card">
+            <span class="guide-category-tag">🆓 Free Legal Streaming</span>
+            <h3><a href="/guide-best-free-legal-movie-streaming-apps-2026">Best Free Legal Movie Apps in 2026</a></h3>
+            <p>Honest test of ad-supported legal movie services and which genres survive ad breaks.</p>
+            <div class="guide-card-footer">
+              <span>AVOD Test</span>
+              <a href="/guide-best-free-legal-movie-streaming-apps-2026" class="highlight-link">Read Guide →</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="legal-section">
+        <h2>Frequently Asked Questions</h2>
+        <div class="seo-faq" style="margin-top: 1rem; border-top: none; padding-top: 0;">
+          <details open>
+            <summary>How does the WatchPulse Movie Finder Quiz choose picks?</summary>
+            <p>For movies, the tool filters WatchPulse's hand-curated 44-film editorial catalog by genre tag, exact runtime window, and original language—prioritizing exact matches first and explaining why each title fits. For TV series, it queries live popular series metadata from TVmaze (CC BY-SA).</p>
+          </details>
+          <details open>
+            <summary>Do I need to sign up or install an app to save my picks?</summary>
+            <p>No account is required. You can copy a direct shareable link to your exact filter combination or open any recommended title in the <a href="/" class="highlight-link">WatchPulse Discovery Catalog</a> to watch its official YouTube trailer and save it to your browser's local watchlist.</p>
+          </details>
+          <details open>
+            <summary>Does WatchPulse stream full movies or track live country availability?</summary>
+            <p>No. WatchPulse is strictly an editorial discovery guide. We embed verified official trailers via YouTube and share reference metadata, so always verify current playback inside your local streaming app.</p>
+          </details>
+        </div>
+      </section>
+    </article>
+  </main>
+
+  <footer class="app-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <span class="brand-name">⚡ Watch<span class="highlight">Pulse</span></span>
+        <p class="owner-credit">Proudly Designed &amp; Created by <strong>Awais K</strong> &copy; 2026 WatchPulse. All rights reserved.</p>
+      </div>
+      <div class="footer-links">
+        <a href="/guides" class="footer-link">Editorial Guides</a>
+        <span class="footer-dot">•</span>
+        <a href="/movie-finder" class="footer-link">Movie Finder</a>
+        <span class="footer-dot">•</span>
+        <a href="/privacy" class="footer-link">Privacy Policy</a>
+        <span class="footer-dot">•</span>
+        <a href="/terms" class="footer-link">Terms of Service</a>
+        <span class="footer-dot">•</span>
+        <a href="/about" class="footer-link">About Us</a>
+        <span class="footer-dot">•</span>
+        <a href="/contact" class="footer-link">Contact</a>
+        <span class="footer-dot">•</span>
+        <a href="#" class="footer-link" data-privacy-settings="true">Privacy Settings</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      const GENRE_LABELS = {
+        '53': 'Thriller',
+        '878': 'Sci-Fi',
+        '28': 'Action',
+        '35': 'Comedy',
+        '16': 'Animation & Family',
+        '18': 'Drama',
+        '27': 'Horror'
+      };
+      const LANG_LABELS = {
+        en: 'English',
+        ko: 'Korean',
+        hi: 'Hindi',
+        ur: 'Urdu',
+        ja: 'Japanese',
+        es: 'Spanish',
+        fr: 'French'
+      };
+
+      const state = {
+        movies: [],
+        tvShows: [],
+        shuffleOffset: 0
+      };
+
+      const moodBox = document.getElementById('mfMoodOptions');
+      const timeBox = document.getElementById('mfTimeOptions');
+      const formatBox = document.getElementById('mfFormatOptions');
+      const langBox = document.getElementById('mfLangOptions');
+      const findBtn = document.getElementById('mfFindBtn');
+      const shuffleBtn = document.getElementById('mfShuffleBtn');
+      const shareBtn = document.getElementById('mfShareBtn');
+      const statusEl = document.getElementById('mfStatusNote');
+      const resultsEl = document.getElementById('mfResults');
+
+      function escapeHtml(str) {
+        return String(str || '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      function stripHtml(html) {
+        return String(html || '').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+      }
+
+      function trackEvent(name, params) {
+        try {
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push(Object.assign({ event: name }, params || {}));
+        } catch (_) {}
+      }
+
+      function bindGroup(container, attr) {
+        if (!container) return;
+        container.querySelectorAll('.quiz-opt-btn').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            container.querySelectorAll('.quiz-opt-btn').forEach(function (b) { b.classList.remove('selected'); });
+            btn.classList.add('selected');
+            state.shuffleOffset = 0;
+            runFinder(false, true);
+          });
+        });
+      }
+
+      function selectOption(container, attr, value) {
+        if (!container || !value) return;
+        let target = null;
+        container.querySelectorAll('.quiz-opt-btn').forEach(function (b) {
+          if (!target && b.dataset[attr] === value) target = b;
+        });
+        if (!target) return;
+        container.querySelectorAll('.quiz-opt-btn').forEach(function (b) { b.classList.remove('selected'); });
+        target.classList.add('selected');
+      }
+
+      function getSelections() {
+        const gBtn = moodBox.querySelector('.selected');
+        const tBtn = timeBox.querySelector('.selected');
+        const fBtn = formatBox.querySelector('.selected');
+        const lBtn = langBox.querySelector('.selected');
+        return {
+          mood: gBtn ? gBtn.dataset.genre : '53',
+          time: tBtn ? tBtn.dataset.time : 'short',
+          format: fBtn ? fBtn.dataset.format : 'movie',
+          lang: lBtn ? lBtn.dataset.lang : 'all'
+        };
+      }
+
+      function syncUrl(sel) {
+        try {
+          const url = new URL(window.location.href);
+          url.searchParams.set('mood', sel.mood);
+          url.searchParams.set('time', sel.time);
+          url.searchParams.set('format', sel.format);
+          url.searchParams.set('lang', sel.lang);
+          window.history.replaceState({}, '', url.pathname + url.search);
+        } catch (_) {}
+      }
+
+      async function loadMovies() {
+        if (state.movies.length) return state.movies;
+        const res = await fetch('/data/curated-catalog.json?v=20261121f');
+        if (!res.ok) throw new Error('Unable to load curated catalog');
+        const raw = await res.json();
+        state.movies = (Array.isArray(raw) ? raw : []).map(function (m) {
+          const thumb = m.poster || (m.trailer_id ? 'https://i.ytimg.com/vi/' + encodeURIComponent(m.trailer_id) + '/hqdefault.jpg' : '');
+          return {
+            id: m.id,
+            media_type: 'movie',
+            title: m.title,
+            year: m.year || '',
+            runtime: Number(m.runtime) || 0,
+            rating: m.rating || '',
+            genres: Array.isArray(m.genres) ? m.genres : [],
+            genre_ids: Array.isArray(m.genre_ids) ? m.genre_ids : [],
+            language: m.language || 'en',
+            overview: m.editorial_note || m.overview || '',
+            guide_url: m.guide_url ? m.guide_url.replace(/\.html$/i, '') : '',
+            guide_title: m.guide_title || '',
+            poster: thumb
+          };
+        });
+        return state.movies;
+      }
+
+      async function loadTvShows() {
+        if (state.tvShows.length) return state.tvShows;
+        let raw = null;
+        try {
+          const res = await fetch('/api/catalog?action=tv-popular&page=0');
+          if (res.ok && (res.headers.get('content-type') || '').includes('application/json')) {
+            raw = await res.json();
+          }
+        } catch (_) {}
+        if (!Array.isArray(raw)) {
+          const res = await fetch('https://api.tvmaze.com/shows?page=0');
+          if (!res.ok) throw new Error('TVmaze unavailable');
+          raw = await res.json();
+        }
+        const langMap = { English: 'en', Korean: 'ko', Hindi: 'hi', Japanese: 'ja', Spanish: 'es', French: 'fr', Urdu: 'ur' };
+        state.tvShows = raw
+          .filter(function (s) { return s && s.name && s.rating && s.rating.average; })
+          .sort(function (a, b) { return (b.weight || 0) - (a.weight || 0); })
+          .map(function (s) {
+            const genres = Array.isArray(s.genres) && s.genres.length ? s.genres : ['Drama'];
+              const cleanSum = stripHtml(s.summary);
+              return {
+                id: 'tv-' + s.id,
+                media_type: 'tv',
+                title: s.name,
+                year: s.premiered ? s.premiered.slice(0, 4) : 'Series',
+                runtime: s.averageRuntime || s.runtime || 45,
+                rating: Number(s.rating.average).toFixed(1),
+                genres: genres,
+                genre_ids: [],
+                language: langMap[s.language] || 'en',
+                overview: cleanSum.slice(0, 175) + (cleanSum.length > 175 ? '...' : ''),
+              guide_url: '/guide-best-mini-series-to-binge-in-one-weekend',
+              guide_title: 'Weekend Binge & Series Guides',
+              poster: s.image ? (s.image.medium || s.image.original) : ''
+            };
+          });
+        return state.tvShows;
+      }
+
+      function matchesGenre(item, genreId) {
+        const gNum = Number(genreId);
+        if (Array.isArray(item.genre_ids) && item.genre_ids.indexOf(gNum) !== -1) return true;
+        const target = (GENRE_LABELS[genreId] || '').toLowerCase();
+        return (item.genres || []).some(function (g) {
+          const lg = String(g).toLowerCase();
+          if (genreId === '878') return lg.includes('sci') || lg.includes('science');
+          if (genreId === '16') return lg.includes('anim') || lg.includes('family');
+          return lg.includes(target);
+        });
+      }
+
+      function matchesRuntime(item, timeMode, format) {
+        const rt = Number(item.runtime) || 0;
+        if (format === 'tv') {
+          if (timeMode === 'short') return rt > 0 && rt <= 42;
+          if (timeMode === 'standard') return rt >= 40 && rt <= 55;
+          return rt >= 50;
+        }
+        if (timeMode === 'short') return rt > 0 && rt <= 105;
+        if (timeMode === 'standard') return rt >= 95 && rt <= 135;
+        return rt >= 130;
+      }
+
+      function matchesLang(item, langPref) {
+        if (langPref === 'all') return true;
+        if (langPref === 'hi-ur') return item.language === 'hi' || item.language === 'ur';
+        return item.language === langPref;
+      }
+
+      async function runFinder(pushAnalytics, shouldSyncUrl) {
+        const sel = getSelections();
+        if (shouldSyncUrl) syncUrl(sel);
+        statusEl.textContent = 'Finding your best matches...';
+        resultsEl.innerHTML = '';
+
+        let pool = [];
+        let fallbackNote = '';
+        if (sel.format === 'tv') {
+          try {
+            pool = await loadTvShows();
+          } catch (_) {
+            pool = await loadMovies();
+            fallbackNote = 'Live TV series catalog could not be reached right now, so we matched from WatchPulse’s curated film library instead.';
+          }
+        } else {
+          try {
+            pool = await loadMovies();
+          } catch (_) {
+            resultsEl.innerHTML = '<p style="color:#fca5a5;">Could not load the catalog right now. Please refresh and try again.</p>';
+            statusEl.textContent = '';
+            return;
+          }
+        }
+
+        const scored = pool.map(function (item, idx) {
+          const gOk = matchesGenre(item, sel.mood);
+          const tOk = matchesRuntime(item, sel.time, item.media_type);
+          const lOk = matchesLang(item, sel.lang);
+          let score = 0;
+          if (gOk) score += 100;
+          if (tOk) score += 40;
+          if (lOk) score += 30;
+          score += (Number(item.rating) || 7) * 0.5;
+          return { item: item, gOk: gOk, tOk: tOk, lOk: lOk, score: score, idx: idx };
+        }).sort(function (a, b) {
+          if (Math.abs(b.score - a.score) > 0.01) return b.score - a.score;
+          return a.idx - b.idx;
+        });
+
+        const topPool = scored.filter(function (s) { return s.gOk && s.lOk; });
+        const usePool = topPool.length >= 3
+          ? topPool
+          : scored.filter(function (s) { return s.gOk; });
+        const finalPool = usePool.length ? usePool : scored;
+
+        const picks = [];
+        const len = finalPool.length;
+        for (let i = 0; i < Math.min(3, len); i++) {
+          picks.push(finalPool[(state.shuffleOffset + i) % len]);
+        }
+
+        const moodName = GENRE_LABELS[sel.mood] || 'Curated';
+        const exactCount = picks.filter(function (p) { return p.gOk && p.tOk && p.lOk; }).length;
+        statusEl.textContent = fallbackNote || (
+          exactCount === 3
+            ? 'Showing 3 exact matches for ' + moodName + ':'
+            : 'Showing top 3 ' + moodName + ' recommendations (widened filters where exact combinations had fewer than 3 titles):'
+        );
+
+        resultsEl.innerHTML = picks.map(function (entry) {
+          const it = entry.item;
+          const rtText = it.runtime ? (it.media_type === 'tv' ? '~' + it.runtime + 'm / ep' : it.runtime + ' min') : '';
+          const langText = LANG_LABELS[it.language] || 'Global';
+          const fitTags = [];
+          if (entry.gOk) fitTags.push(moodName + ' Match');
+          if (entry.tOk && rtText) fitTags.push(rtText);
+          else if (rtText) fitTags.push(rtText);
+          fitTags.push(langText);
+
+          const detailUrl = '/?type=' + encodeURIComponent(it.media_type) + '&q=' + encodeURIComponent(it.title);
+          const posterHtml = it.poster
+            ? '<img src="' + escapeHtml(it.poster) + '" alt="' + escapeHtml(it.title) + ' poster" loading="lazy">'
+            : '<div style="width:68px;height:100px;border-radius:8px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0;">' + (it.media_type === 'tv' ? '📺' : '🎬') + '</div>';
+
+          const guideHtml = it.guide_url
+            ? ' &nbsp;•&nbsp; <a href="' + escapeHtml(it.guide_url) + '" class="highlight-link" style="font-size:0.84rem;">Read Related Guide →</a>'
+            : '';
+
+          return (
+            '<div class="quiz-result-item">' +
+              posterHtml +
+              '<div style="flex:1;min-width:0;">' +
+                '<div style="display:flex;justify-content:space-between;align-items:baseline;gap:0.5rem;flex-wrap:wrap;">' +
+                  '<strong style="font-size:1.05rem;color:#fff;">' + escapeHtml(it.title) + (it.year ? ' (' + escapeHtml(it.year) + ')' : '') + '</strong>' +
+                  (it.rating ? '<span style="color:#38bdf8;font-size:0.85rem;font-weight:700;">⭐ ' + escapeHtml(it.rating) + '</span>' : '') +
+                '</div>' +
+                '<div class="quiz-why-badge">' + escapeHtml(fitTags.join(' • ')) + '</div>' +
+                '<p style="font-size:0.88rem;color:#cbd5e1;margin:0.35rem 0 0.55rem;line-height:1.5;">' + escapeHtml(it.overview) + '</p>' +
+                '<div style="display:flex;flex-wrap:wrap;align-items:center;gap:0.35rem;">' +
+                  '<a href="' + escapeHtml(detailUrl) + '" class="highlight-link" style="font-size:0.86rem;">▶ Open Details &amp; Trailer →</a>' +
+                  guideHtml +
+                '</div>' +
+              '</div>' +
+            '</div>'
+          );
+        }).join('');
+
+        if (pushAnalytics) {
+          trackEvent('watchpulse_finder_quiz', { mood: moodName, time: sel.time, format: sel.format, lang: sel.lang });
+        }
+      }
+
+      bindGroup(moodBox, 'genre');
+      bindGroup(timeBox, 'time');
+      bindGroup(formatBox, 'format');
+      bindGroup(langBox, 'lang');
+
+      findBtn.addEventListener('click', function () {
+        state.shuffleOffset = 0;
+        runFinder(true, true);
+      });
+
+      shuffleBtn.addEventListener('click', function () {
+        state.shuffleOffset += 3;
+        runFinder(true, true);
+      });
+
+      shareBtn.addEventListener('click', async function () {
+        syncUrl(getSelections());
+        try {
+          await navigator.clipboard.writeText(window.location.href);
+          shareBtn.textContent = '✓ Link Copied!';
+          setTimeout(function () { shareBtn.textContent = '🔗 Copy Result Link'; }, 1800);
+        } catch (_) {
+          shareBtn.textContent = '✓ URL Updated';
+          setTimeout(function () { shareBtn.textContent = '🔗 Copy Result Link'; }, 1800);
+        }
+      });
+
+      // Hydrate from URL query params if opened via shared link
+      const params = new URLSearchParams(window.location.search);
+      const hasSharedParams = Boolean(params.get('mood') || params.get('time') || params.get('format') || params.get('lang'));
+      if (params.get('mood')) selectOption(moodBox, 'genre', params.get('mood'));
+      if (params.get('time')) selectOption(timeBox, 'time', params.get('time'));
+      if (params.get('format')) selectOption(formatBox, 'format', params.get('format'));
+      if (params.get('lang')) selectOption(langBox, 'lang', params.get('lang'));
+
+      runFinder(false, hasSharedParams);
+    })();
+  </script>
+  <script src="/consent-ui.js?v=20261121f" defer></script>
+</body>
+
+</html>

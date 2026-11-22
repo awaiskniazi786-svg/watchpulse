@@ -261,7 +261,7 @@
         "guide_url":  "/guide-short-thrillers-under-100-minutes",
         "guide_title":  "10 Tight Thrillers Under 100 Minutes",
         "accent":  "slate",
-        "trailer_id":  "",
+        "trailer_id":  "MyoO35P41YM",
         "moods":  [
                       "edge-of-seat",
                       "emotional"
@@ -524,7 +524,7 @@
         "guide_url":  "/guide-best-bollywood-and-south-asian-thrillers",
         "guide_title":  "8 Acclaimed South Asian Thrillers",
         "accent":  "emerald",
-        "trailer_id":  "",
+        "trailer_id":  "64xJLmcA2K8",
         "moods":  [
                       "clever-twist",
                       "edge-of-seat"
@@ -568,7 +568,7 @@
         "guide_url":  "/guide-best-bollywood-and-south-asian-thrillers",
         "guide_title":  "8 Acclaimed South Asian Thrillers",
         "accent":  "orange",
-        "trailer_id":  "",
+        "trailer_id":  "Vz21G8V7wzg",
         "moods":  [
                       "dark-atmospheric",
                       "edge-of-seat"
@@ -611,7 +611,7 @@
         "guide_url":  "/guide-best-bollywood-and-south-asian-thrillers",
         "guide_title":  "8 Acclaimed South Asian Thrillers",
         "accent":  "rose",
-        "trailer_id":  "",
+        "trailer_id":  "qBjTvyE4RLQ",
         "moods":  [
                       "dark-atmospheric",
                       "edge-of-seat"
@@ -652,7 +652,7 @@
         "guide_url":  "/guide-best-bollywood-and-south-asian-thrillers",
         "guide_title":  "8 Acclaimed South Asian Thrillers",
         "accent":  "amber",
-        "trailer_id":  "",
+        "trailer_id":  "rsjamVgPoI8",
         "moods":  [
                       "clever-twist",
                       "edge-of-seat"
@@ -713,11 +713,13 @@
         "rating":  8.8,
         "genres":  [
                        "Thriller",
-                       "Drama"
+                       "Drama",
+                       "Romance"
                    ],
         "genre_ids":  [
                           53,
-                          18
+                          18,
+                          10749
                       ],
         "language":  "ko",
         "director":  "Park Chan-wook",
@@ -738,7 +740,8 @@
         "moods":  [
                       "clever-twist",
                       "dark-atmospheric",
-                      "edge-of-seat"
+                      "edge-of-seat",
+                      "romantic"
                   ],
         "company":  [
                         "solo",
@@ -1129,7 +1132,7 @@
         "guide_url":  "/guide-movies-like-john-wick-practical-action",
         "guide_title":  "8 Practical Action Movies Like John Wick",
         "accent":  "rose",
-        "trailer_id":  "",
+        "trailer_id":  "m6Q7KnXpNOg",
         "moods":  [
                       "adrenaline",
                       "edge-of-seat"
@@ -1391,7 +1394,7 @@
         "guide_url":  "/guide-best-psychological-horror-without-cheap-jumpscares",
         "guide_title":  "8 Psychological Horror Films Without Cheap Jump Scares",
         "accent":  "slate",
-        "trailer_id":  "",
+        "trailer_id":  "C7pKqaPtMiA",
         "moods":  [
                       "dark-atmospheric",
                       "clever-twist"
@@ -1456,11 +1459,13 @@
         "rating":  8.3,
         "genres":  [
                        "Comedy",
-                       "Sci-Fi"
+                       "Sci-Fi",
+                       "Romance"
                    ],
         "genre_ids":  [
                           35,
-                          878
+                          878,
+                          10749
                       ],
         "language":  "en",
         "director":  "Max Barbakow",
@@ -1482,7 +1487,8 @@
         "trailer_id":  "CpBLtXduh_k",
         "moods":  [
                       "feel-good",
-                      "mind-bending"
+                      "mind-bending",
+                      "romantic"
                   ],
         "company":  [
                         "date-night",
@@ -1633,12 +1639,14 @@
         "genres":  [
                        "Animation",
                        "Drama",
-                       "Sci-Fi"
+                       "Sci-Fi",
+                       "Romance"
                    ],
         "genre_ids":  [
                           16,
                           18,
-                          878
+                          878,
+                          10749
                       ],
         "language":  "ja",
         "director":  "Makoto Shinkai",
@@ -1660,7 +1668,8 @@
         "moods":  [
                       "emotional",
                       "mind-bending",
-                      "feel-good"
+                      "feel-good",
+                      "romantic"
                   ],
         "company":  [
                         "date-night",
@@ -1970,7 +1979,7 @@
                         "friends",
                         "date-night"
                     ],
-        "trailer_id":  ""
+        "trailer_id":  "ZCYnsUdO6H0"
     },
     {
         "id":  "wp-stand-by-me",
@@ -2012,7 +2021,7 @@
                         "family",
                         "date-night"
                     ],
-        "trailer_id":  ""
+        "trailer_id":  "9UUcTNZKrks"
     },
     {
         "id":  "wp-zombieland",
@@ -2057,7 +2066,7 @@
                         "date-night",
                         "solo"
                     ],
-        "trailer_id":  ""
+        "trailer_id":  "8m9EVP8X7N8"
     },
     {
         "id":  "wp-gravity",
@@ -2101,7 +2110,7 @@
                         "date-night",
                         "friends"
                     ],
-        "trailer_id":  ""
+        "trailer_id":  "8y7Hg5mxMPE"
     },
     {
         "id":  "wp-my-neighbor-totoro",
@@ -2143,7 +2152,7 @@
                         "date-night",
                         "solo"
                     ],
-        "trailer_id":  ""
+        "trailer_id":  "92a7Hj0ijLs"
     },
     {
         "id":  "wp-fantastic-mr-fox",
@@ -2188,7 +2197,7 @@
                         "friends",
                         "solo"
                     ],
-        "trailer_id":  ""
+        "trailer_id":  "1v6-T52zLO0"
     },
     {
         "id":  "wp-toy-story",
@@ -2232,7 +2241,7 @@
                         "date-night",
                         "solo"
                     ],
-        "trailer_id":  ""
+        "trailer_id":  "v-PjgYDrg70"
     },
     {
         "id":  "wp-a-real-pain",
@@ -2275,7 +2284,7 @@
                         "solo",
                         "date-night"
                     ],
-        "trailer_id":  ""
+        "trailer_id":  "b2et8Vpu7Ls"
     },
     {
         "id":  "wp-before-sunrise",
@@ -2285,10 +2294,12 @@
         "runtime":  101,
         "rating":  8.7,
         "genres":  [
-                       "Drama"
+                       "Drama",
+                       "Romance"
                    ],
         "genre_ids":  [
-                          18
+                          18,
+                          10749
                       ],
         "language":  "en",
         "director":  "Richard Linklater",
@@ -2307,13 +2318,14 @@
         "accent":  "rose",
         "moods":  [
                       "emotional",
-                      "feel-good"
+                      "feel-good",
+                      "romantic"
                   ],
         "company":  [
                         "date-night",
                         "solo"
                     ],
-        "trailer_id":  ""
+        "trailer_id":  "6MUcuqbGTxc"
     },
     {
         "id":  "wp-about-time",
@@ -2325,12 +2337,14 @@
         "genres":  [
                        "Comedy",
                        "Drama",
-                       "Sci-Fi"
+                       "Sci-Fi",
+                       "Romance"
                    ],
         "genre_ids":  [
                           35,
                           18,
-                          878
+                          878,
+                          10749
                       ],
         "language":  "en",
         "director":  "Richard Curtis",
@@ -2351,14 +2365,15 @@
         "accent":  "rose",
         "moods":  [
                       "feel-good",
-                      "emotional"
+                      "emotional",
+                      "romantic"
                   ],
         "company":  [
                         "date-night",
                         "solo",
                         "family"
                     ],
-        "trailer_id":  ""
+        "trailer_id":  "T7A810duHvw"
     },
     {
         "id":  "wp-crazy-stupid-love",
@@ -2369,11 +2384,13 @@
         "rating":  8.2,
         "genres":  [
                        "Comedy",
-                       "Drama"
+                       "Drama",
+                       "Romance"
                    ],
         "genre_ids":  [
                           35,
-                          18
+                          18,
+                          10749
                       ],
         "language":  "en",
         "director":  "Glenn Ficarra \u0026 John Requa",
@@ -2395,14 +2412,15 @@
         "accent":  "teal",
         "moods":  [
                       "feel-good",
-                      "clever-twist"
+                      "clever-twist",
+                      "romantic"
                   ],
         "company":  [
                         "date-night",
                         "friends",
                         "solo"
                     ],
-        "trailer_id":  ""
+        "trailer_id":  "8iCwtxJejik"
     },
     {
         "id":  "wp-la-la-land",
@@ -2413,11 +2431,13 @@
         "rating":  8.6,
         "genres":  [
                        "Drama",
-                       "Comedy"
+                       "Comedy",
+                       "Romance"
                    ],
         "genre_ids":  [
                           18,
-                          35
+                          35,
+                          10749
                       ],
         "language":  "en",
         "director":  "Damien Chazelle",
@@ -2438,13 +2458,14 @@
         "accent":  "indigo",
         "moods":  [
                       "emotional",
-                      "feel-good"
+                      "feel-good",
+                      "romantic"
                   ],
         "company":  [
                         "date-night",
                         "solo"
                     ],
-        "trailer_id":  ""
+        "trailer_id":  "0pdqf4P9MB8"
     },
     {
         "id":  "wp-walter-mitty",
@@ -2488,7 +2509,7 @@
                         "family",
                         "date-night"
                     ],
-        "trailer_id":  ""
+        "trailer_id":  "QD6cy4PBQPI"
     },
     {
         "id":  "wp-knives-out",
@@ -2535,7 +2556,7 @@
                         "family",
                         "solo"
                     ],
-        "trailer_id":  ""
+        "trailer_id":  "qGqiHJTsRkQ"
     },
     {
         "id":  "wp-the-intouchables",
@@ -2578,7 +2599,7 @@
                         "friends",
                         "solo"
                     ],
-        "trailer_id":  ""
+        "trailer_id":  "34WIbmXkewU"
     },
     {
         "id":  "wp-past-lives",
@@ -2588,10 +2609,12 @@
         "runtime":  106,
         "rating":  8.5,
         "genres":  [
-                       "Drama"
+                       "Drama",
+                       "Romance"
                    ],
         "genre_ids":  [
-                          18
+                          18,
+                          10749
                       ],
         "language":  "ko",
         "director":  "Celine Song",
@@ -2611,13 +2634,14 @@
         "guide_title":  "WatchPulse Editorial Guides",
         "accent":  "indigo",
         "moods":  [
-                      "emotional"
+                      "emotional",
+                      "romantic"
                   ],
         "company":  [
                         "date-night",
                         "solo"
                     ],
-        "trailer_id":  ""
+        "trailer_id":  "kA244xewjcI"
     },
     {
         "id":  "wp-the-prestige",
@@ -2663,7 +2687,7 @@
                         "date-night",
                         "friends"
                     ],
-        "trailer_id":  ""
+        "trailer_id":  "RLtaA9fFNXU"
     },
     {
         "id":  "wp-shutter-island",
@@ -2707,7 +2731,7 @@
                         "date-night",
                         "friends"
                     ],
-        "trailer_id":  ""
+        "trailer_id":  "v8yrZSkKxTA"
     },
     {
         "id":  "wp-gone-girl",
@@ -2751,7 +2775,7 @@
                         "solo",
                         "friends"
                     ],
-        "trailer_id":  ""
+        "trailer_id":  "2-_-1nJf8Vg"
     },
     {
         "id":  "wp-prisoners",
@@ -2794,7 +2818,7 @@
         "company":  [
                         "solo"
                     ],
-        "trailer_id":  ""
+        "trailer_id":  "bpXfcTF6iVk"
     },
     {
         "id":  "wp-parasite",
@@ -2841,7 +2865,7 @@
                         "date-night",
                         "friends"
                     ],
-        "trailer_id":  ""
+        "trailer_id":  "isOGD_7hNIY"
     },
     {
         "id":  "wp-oldboy",
@@ -2885,7 +2909,7 @@
         "company":  [
                         "solo"
                     ],
-        "trailer_id":  ""
+        "trailer_id":  "tAaBkFChaRg"
     },
     {
         "id":  "wp-andhadhun",
@@ -2928,7 +2952,7 @@
                         "date-night",
                         "solo"
                     ],
-        "trailer_id":  ""
+        "trailer_id":  "2iVYI99VGaw"
     },
     {
         "id":  "wp-piku",
@@ -2970,7 +2994,7 @@
                         "date-night",
                         "solo"
                     ],
-        "trailer_id":  ""
+        "trailer_id":  "oeiKUlUUNQ8"
     },
     {
         "id":  "wp-3-idiots",
@@ -3015,7 +3039,7 @@
                         "date-night",
                         "solo"
                     ],
-        "trailer_id":  ""
+        "trailer_id":  "zIKu9k50SDo"
     },
     {
         "id":  "wp-kumbalangi-nights",
@@ -3058,6 +3082,4191 @@
                         "solo",
                         "date-night"
                     ],
-        "trailer_id":  ""
+        "trailer_id":  "3P4BFBSafF0"
+    },
+    {
+        "id":  "wp-the-matrix",
+        "media_type":  "movie",
+        "title":  "The Matrix",
+        "year":  "1999",
+        "runtime":  136,
+        "rating":  9.1,
+        "genres":  [
+                       "Sci-Fi",
+                       "Action"
+                   ],
+        "genre_ids":  [
+                          878,
+                          28
+                      ],
+        "language":  "en",
+        "director":  "The Wachowskis",
+        "cast":  [
+                     "Keanu Reeves",
+                     "Laurence Fishburne",
+                     "Carrie-Anne Moss",
+                     "Hugo Weaving"
+                 ],
+        "platforms":  [
+                          "HBO Max",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "A computer hacker learns the world around him is a simulated prison and joins a rebellion fighting the machines.",
+        "editorial_note":  "Genre-redefining cyberpunk action with practical stunts and razor-sharp pacing.",
+        "guide_url":  "/guide-movies-like-interstellar-and-arrival",
+        "guide_title":  "Smart Sci-Fi Essentials",
+        "accent":  "emerald",
+        "trailer_id":  "vKQi3bBA1y8",
+        "moods":  [
+                      "mind-bending",
+                      "adrenaline",
+                      "edge-of-seat"
+                  ],
+        "company":  [
+                        "solo",
+                        "friends",
+                        "date-night"
+                    ]
+    },
+    {
+        "id":  "wp-inception",
+        "media_type":  "movie",
+        "title":  "Inception",
+        "year":  "2010",
+        "runtime":  148,
+        "rating":  9,
+        "genres":  [
+                       "Sci-Fi",
+                       "Action",
+                       "Thriller"
+                   ],
+        "genre_ids":  [
+                          878,
+                          28,
+                          53
+                      ],
+        "language":  "en",
+        "director":  "Christopher Nolan",
+        "cast":  [
+                     "Leonardo DiCaprio",
+                     "Joseph Gordon-Levitt",
+                     "Elliot Page",
+                     "Tom Hardy"
+                 ],
+        "platforms":  [
+                          "Netflix",
+                          "HBO Max",
+                          "Prime Video"
+                      ],
+        "overview":  "A thief who steals corporate secrets through dream-sharing technology is tasked with planting an idea deep inside a target subconscious.",
+        "editorial_note":  "Relentless heist-movie momentum layered inside interlocking dream levels.",
+        "guide_url":  "/guide-best-heist-movies-ranked-by-cleverness",
+        "guide_title":  "Best Heist Movies Ranked by Cleverness",
+        "accent":  "indigo",
+        "trailer_id":  "YoHD9XEInc0",
+        "moods":  [
+                      "mind-bending",
+                      "adrenaline",
+                      "clever-twist"
+                  ],
+        "company":  [
+                        "solo",
+                        "friends",
+                        "date-night"
+                    ]
+    },
+    {
+        "id":  "wp-edge-of-tomorrow",
+        "media_type":  "movie",
+        "title":  "Edge of Tomorrow",
+        "year":  "2014",
+        "runtime":  113,
+        "rating":  8.6,
+        "genres":  [
+                       "Sci-Fi",
+                       "Action"
+                   ],
+        "genre_ids":  [
+                          878,
+                          28
+                      ],
+        "language":  "en",
+        "director":  "Doug Liman",
+        "cast":  [
+                     "Tom Cruise",
+                     "Emily Blunt",
+                     "Bill Paxton"
+                 ],
+        "platforms":  [
+                          "HBO Max",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "A reluctant military officer caught in an alien invasion relives the same brutal combat day each time he dies, training alongside a seasoned warrior.",
+        "editorial_note":  "Taut, darkly funny time-loop actioner with zero wasted scenes.",
+        "guide_url":  "/guide-movies-like-john-wick-practical-action",
+        "guide_title":  "Practical Action Essentials",
+        "accent":  "amber",
+        "trailer_id":  "vw61gCe2oqI",
+        "moods":  [
+                      "adrenaline",
+                      "clever-twist",
+                      "edge-of-seat"
+                  ],
+        "company":  [
+                        "solo",
+                        "friends",
+                        "date-night"
+                    ]
+    },
+    {
+        "id":  "wp-terminator-2",
+        "media_type":  "movie",
+        "title":  "Terminator 2: Judgment Day",
+        "year":  "1991",
+        "runtime":  137,
+        "rating":  9,
+        "genres":  [
+                       "Sci-Fi",
+                       "Action"
+                   ],
+        "genre_ids":  [
+                          878,
+                          28
+                      ],
+        "language":  "en",
+        "director":  "James Cameron",
+        "cast":  [
+                     "Arnold Schwarzenegger",
+                     "Linda Hamilton",
+                     "Edward Furlong",
+                     "Robert Patrick"
+                 ],
+        "platforms":  [
+                          "Prime Video",
+                          "Paramount+",
+                          "Apple TV"
+                      ],
+        "overview":  "A reprogrammed cyborg is sent back in time to protect the young future leader of the human resistance from a shapeshifting liquid-metal assassin.",
+        "editorial_note":  "Landmark practical effects and relentless chase pacing that never ages.",
+        "guide_url":  "/guide-movies-like-john-wick-practical-action",
+        "guide_title":  "Practical Action Essentials",
+        "accent":  "cyan",
+        "trailer_id":  "CRRlbK5w8AE",
+        "moods":  [
+                      "adrenaline",
+                      "edge-of-seat"
+                  ],
+        "company":  [
+                        "solo",
+                        "friends"
+                    ]
+    },
+    {
+        "id":  "wp-aliens",
+        "media_type":  "movie",
+        "title":  "Aliens",
+        "year":  "1986",
+        "runtime":  137,
+        "rating":  8.9,
+        "genres":  [
+                       "Sci-Fi",
+                       "Action",
+                       "Horror"
+                   ],
+        "genre_ids":  [
+                          878,
+                          28,
+                          27
+                      ],
+        "language":  "en",
+        "director":  "James Cameron",
+        "cast":  [
+                     "Sigourney Weaver",
+                     "Michael Biehn",
+                     "Carrie Henn",
+                     "Bill Paxton"
+                 ],
+        "platforms":  [
+                          "Hulu",
+                          "Disney+",
+                          "Apple TV"
+                      ],
+        "overview":  "Fifty-seven years after surviving the Nostromo, Ellen Ripley returns to LV-426 with a platoon of colonial marines after contact with the colony goes dark.",
+        "editorial_note":  "Shifts seamlessly from claustrophobic dread to explosive sci-fi survival.",
+        "guide_url":  "/guide-best-psychological-horror-without-cheap-jumpscares",
+        "guide_title":  "Smart Atmospheric Horror",
+        "accent":  "teal",
+        "trailer_id":  "oSeQQlaCZgU",
+        "moods":  [
+                      "edge-of-seat",
+                      "adrenaline",
+                      "dark-atmospheric"
+                  ],
+        "company":  [
+                        "solo",
+                        "friends"
+                    ]
+    },
+    {
+        "id":  "wp-district-9",
+        "media_type":  "movie",
+        "title":  "District 9",
+        "year":  "2009",
+        "runtime":  112,
+        "rating":  8.5,
+        "genres":  [
+                       "Sci-Fi",
+                       "Action",
+                       "Thriller"
+                   ],
+        "genre_ids":  [
+                          878,
+                          28,
+                          53
+                      ],
+        "language":  "en",
+        "director":  "Neill Blomkamp",
+        "cast":  [
+                     "Sharlto Copley",
+                     "Jason Cope",
+                     "David James"
+                 ],
+        "platforms":  [
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "After an alien ship stalls above Johannesburg, a bureaucratic eviction agent exposed to extraterrestrial fluid becomes the most hunted man in the city.",
+        "editorial_note":  "Gritty documentary framing turned into visceral sci-fi action.",
+        "guide_url":  "/guide-movies-like-interstellar-and-arrival",
+        "guide_title":  "Thought-Provoking Sci-Fi",
+        "accent":  "amber",
+        "trailer_id":  "DyLUwOcR5pk",
+        "moods":  [
+                      "adrenaline",
+                      "edge-of-seat",
+                      "mind-bending"
+                  ],
+        "company":  [
+                        "solo",
+                        "friends"
+                    ]
+    },
+    {
+        "id":  "wp-blade-runner-2049",
+        "media_type":  "movie",
+        "title":  "Blade Runner 2049",
+        "year":  "2017",
+        "runtime":  164,
+        "rating":  8.8,
+        "genres":  [
+                       "Sci-Fi",
+                       "Action",
+                       "Drama"
+                   ],
+        "genre_ids":  [
+                          878,
+                          28,
+                          18
+                      ],
+        "language":  "en",
+        "director":  "Denis Villeneuve",
+        "cast":  [
+                     "Ryan Gosling",
+                     "Harrison Ford",
+                     "Ana de Armas",
+                     "Sylvia Hoeks"
+                 ],
+        "platforms":  [
+                          "Netflix",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "A young blade runner unearths a long-buried secret that plunges him into a search for former officer Rick Deckard across a fractured future.",
+        "editorial_note":  "Hypnotic visual scale and melancholic mystery built for a dark room.",
+        "guide_url":  "/review-dune-part-two-and-modern-sci-fi-epics",
+        "guide_title":  "Modern Sci-Fi Epics at Home",
+        "accent":  "orange",
+        "trailer_id":  "gCcx85zbxz4",
+        "moods":  [
+                      "dark-atmospheric",
+                      "mind-bending",
+                      "emotional"
+                  ],
+        "company":  [
+                        "solo",
+                        "date-night"
+                    ]
+    },
+    {
+        "id":  "wp-minority-report",
+        "media_type":  "movie",
+        "title":  "Minority Report",
+        "year":  "2002",
+        "runtime":  145,
+        "rating":  8.4,
+        "genres":  [
+                       "Sci-Fi",
+                       "Action",
+                       "Thriller"
+                   ],
+        "genre_ids":  [
+                          878,
+                          28,
+                          53
+                      ],
+        "language":  "en",
+        "director":  "Steven Spielberg",
+        "cast":  [
+                     "Tom Cruise",
+                     "Colin Farrell",
+                     "Samantha Morton",
+                     "Max von Sydow"
+                 ],
+        "platforms":  [
+                          "Paramount+",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "In a future where police arrest killers before crimes occur, the PreCrime unit chief goes on the run when the system predicts his own murder.",
+        "editorial_note":  "Slick neo-noir mystery wrapped in kinetic Spielberg chase craft.",
+        "guide_url":  "/guide-movies-like-interstellar-and-arrival",
+        "guide_title":  "Smart Sci-Fi Thrillers",
+        "accent":  "cyan",
+        "trailer_id":  "lG7DGMgfOb8",
+        "moods":  [
+                      "clever-twist",
+                      "edge-of-seat",
+                      "mind-bending"
+                  ],
+        "company":  [
+                        "solo",
+                        "date-night",
+                        "friends"
+                    ]
+    },
+    {
+        "id":  "wp-looper",
+        "media_type":  "movie",
+        "title":  "Looper",
+        "year":  "2012",
+        "runtime":  119,
+        "rating":  8.2,
+        "genres":  [
+                       "Sci-Fi",
+                       "Action",
+                       "Thriller"
+                   ],
+        "genre_ids":  [
+                          878,
+                          28,
+                          53
+                      ],
+        "language":  "en",
+        "director":  "Rian Johnson",
+        "cast":  [
+                     "Joseph Gordon-Levitt",
+                     "Bruce Willis",
+                     "Emily Blunt"
+                 ],
+        "platforms":  [
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "When the mob wants to erase someone, targets are sent back in time for hitmen to eliminate—until one assassin confronts his future self.",
+        "editorial_note":  "Tight, character-driven time-travel thriller with zero filler.",
+        "guide_url":  "/guide-movies-like-interstellar-and-arrival",
+        "guide_title":  "Smart Sci-Fi Thrillers",
+        "accent":  "indigo",
+        "trailer_id":  "8Ltpa4QmnuU",
+        "moods":  [
+                      "mind-bending",
+                      "clever-twist",
+                      "adrenaline"
+                  ],
+        "company":  [
+                        "solo",
+                        "date-night"
+                    ]
+    },
+    {
+        "id":  "wp-upgrade",
+        "media_type":  "movie",
+        "title":  "Upgrade",
+        "year":  "2018",
+        "runtime":  100,
+        "rating":  8.3,
+        "genres":  [
+                       "Sci-Fi",
+                       "Action",
+                       "Horror"
+                   ],
+        "genre_ids":  [
+                          878,
+                          28,
+                          27
+                      ],
+        "language":  "en",
+        "director":  "Leigh Whannell",
+        "cast":  [
+                     "Logan Marshall-Green",
+                     "Melanie Vallejo",
+                     "Harrison Gilbertson"
+                 ],
+        "platforms":  [
+                          "Netflix",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "Left paralyzed after a brutal mugging, a technophobe accepts an experimental neural chip that grants him superhuman precision to hunt his attackers.",
+        "editorial_note":  "Lean 100-minute sci-fi revenge rush with inventive camera choreography.",
+        "guide_url":  "/guide-short-thrillers-under-100-minutes",
+        "guide_title":  "10 Tight Thrillers Under 100 Minutes",
+        "accent":  "violet",
+        "trailer_id":  "Ye56822ZUAs",
+        "moods":  [
+                      "adrenaline",
+                      "edge-of-seat",
+                      "clever-twist"
+                  ],
+        "company":  [
+                        "solo",
+                        "friends"
+                    ]
+    },
+    {
+        "id":  "wp-dredd",
+        "media_type":  "movie",
+        "title":  "Dredd",
+        "year":  "2012",
+        "runtime":  95,
+        "rating":  8.1,
+        "genres":  [
+                       "Sci-Fi",
+                       "Action"
+                   ],
+        "genre_ids":  [
+                          878,
+                          28
+                      ],
+        "language":  "en",
+        "director":  "Pete Travis",
+        "cast":  [
+                     "Karl Urban",
+                     "Olivia Thirlby",
+                     "Lena Headey"
+                 ],
+        "platforms":  [
+                          "Prime Video",
+                          "Apple TV",
+                          "Tubi"
+                      ],
+        "overview":  "Trapped inside a 200-story vertical slum controlled by a ruthless crime boss, Judge Dredd and a psychic rookie fight floor by floor to survive.",
+        "editorial_note":  "Zero-fat 95-minute siege movie with brutal clarity and style.",
+        "guide_url":  "/guide-movies-like-john-wick-practical-action",
+        "guide_title":  "Practical Action Essentials",
+        "accent":  "rose",
+        "trailer_id":  "G-eI5oLlIeY",
+        "moods":  [
+                      "adrenaline",
+                      "edge-of-seat"
+                  ],
+        "company":  [
+                        "solo",
+                        "friends"
+                    ]
+    },
+    {
+        "id":  "wp-pacific-rim",
+        "media_type":  "movie",
+        "title":  "Pacific Rim",
+        "year":  "2013",
+        "runtime":  131,
+        "rating":  8,
+        "genres":  [
+                       "Sci-Fi",
+                       "Action"
+                   ],
+        "genre_ids":  [
+                          878,
+                          28
+                      ],
+        "language":  "en",
+        "director":  "Guillermo del Toro",
+        "cast":  [
+                     "Charlie Hunnam",
+                     "Idris Elba",
+                     "Rinko Kikuchi"
+                 ],
+        "platforms":  [
+                          "HBO Max",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "As colossal monsters emerge from a Pacific rift, two mismatched pilots must mentally sync to pilot an obsolete giant mech in humanity last stand.",
+        "editorial_note":  "Big-hearted monster spectacle with genuine weight and rain-soaked scale.",
+        "guide_url":  "/guide-movies-like-john-wick-practical-action",
+        "guide_title":  "Big Action Spectacle",
+        "accent":  "cyan",
+        "trailer_id":  "5guMumPFBag",
+        "moods":  [
+                      "adrenaline",
+                      "feel-good"
+                  ],
+        "company":  [
+                        "friends",
+                        "family",
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-snowpiercer",
+        "media_type":  "movie",
+        "title":  "Snowpiercer",
+        "year":  "2013",
+        "runtime":  126,
+        "rating":  8.3,
+        "genres":  [
+                       "Sci-Fi",
+                       "Action",
+                       "Drama"
+                   ],
+        "genre_ids":  [
+                          878,
+                          28,
+                          18
+                      ],
+        "language":  "en",
+        "director":  "Bong Joon-ho",
+        "cast":  [
+                     "Chris Evans",
+                     "Song Kang-ho",
+                     "Tilda Swinton",
+                     "Octavia Spencer"
+                 ],
+        "platforms":  [
+                          "Netflix",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "In a frozen future where humanity survivors live aboard a perpetually moving train divided by class, passengers in the tail car mount an uprising.",
+        "editorial_note":  "Every train car reveals a new tonal surprise in Bong Joon-ho sharp thriller.",
+        "guide_url":  "/guide-hidden-gem-korean-and-international-thrillers",
+        "guide_title":  "International Thrillers",
+        "accent":  "slate",
+        "trailer_id":  "lGcJL6TG5cA",
+        "moods":  [
+                      "edge-of-seat",
+                      "dark-atmospheric",
+                      "adrenaline"
+                  ],
+        "company":  [
+                        "solo",
+                        "friends"
+                    ]
+    },
+    {
+        "id":  "wp-everything-everywhere",
+        "media_type":  "movie",
+        "title":  "Everything Everywhere All at Once",
+        "year":  "2022",
+        "runtime":  139,
+        "rating":  8.8,
+        "genres":  [
+                       "Sci-Fi",
+                       "Action",
+                       "Comedy"
+                   ],
+        "genre_ids":  [
+                          878,
+                          28,
+                          35
+                      ],
+        "language":  "en",
+        "director":  "Daniel Kwan \u0026 Daniel Scheinert",
+        "cast":  [
+                     "Michelle Yeoh",
+                     "Ke Huy Quan",
+                     "Stephanie Hsu",
+                     "Jamie Lee Curtis"
+                 ],
+        "platforms":  [
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "An exhausted laundromat owner is swept into an absurd multiverse conflict where only she can channel skills from alternate versions of her life.",
+        "editorial_note":  "Wildly inventive martial-arts comedy that lands with genuine family heart.",
+        "guide_url":  "/guide-movies-like-interstellar-and-arrival",
+        "guide_title":  "Mind-Bending Sci-Fi",
+        "accent":  "violet",
+        "trailer_id":  "wxN1T1uxQ2g",
+        "moods":  [
+                      "mind-bending",
+                      "emotional",
+                      "adrenaline"
+                  ],
+        "company":  [
+                        "solo",
+                        "date-night",
+                        "friends"
+                    ]
+    },
+    {
+        "id":  "wp-guardians-of-the-galaxy",
+        "media_type":  "movie",
+        "title":  "Guardians of the Galaxy",
+        "year":  "2014",
+        "runtime":  121,
+        "rating":  8.5,
+        "genres":  [
+                       "Sci-Fi",
+                       "Action",
+                       "Comedy"
+                   ],
+        "genre_ids":  [
+                          878,
+                          28,
+                          35
+                      ],
+        "language":  "en",
+        "director":  "James Gunn",
+        "cast":  [
+                     "Chris Pratt",
+                     "Zoe Saldana",
+                     "Dave Bautista",
+                     "Bradley Cooper"
+                 ],
+        "platforms":  [
+                          "Disney+",
+                          "Apple TV"
+                      ],
+        "overview":  "A brash space scavenger forms an unlikely alliance with four misfits after stealing a coveted orb hunted by a galactic warlord.",
+        "editorial_note":  "Breezy space adventure propelled by banter, soundtrack needles, and found-family warmth.",
+        "guide_url":  "/guide-comfort-comedies-for-stressful-weeknights",
+        "guide_title":  "Fun Crowd-Pleasers",
+        "accent":  "rose",
+        "trailer_id":  "d96cjJhvlMA",
+        "moods":  [
+                      "feel-good",
+                      "adrenaline"
+                  ],
+        "company":  [
+                        "friends",
+                        "family",
+                        "date-night"
+                    ]
+    },
+    {
+        "id":  "wp-predator",
+        "media_type":  "movie",
+        "title":  "Predator",
+        "year":  "1987",
+        "runtime":  107,
+        "rating":  8.4,
+        "genres":  [
+                       "Sci-Fi",
+                       "Action",
+                       "Horror"
+                   ],
+        "genre_ids":  [
+                          878,
+                          28,
+                          27
+                      ],
+        "language":  "en",
+        "director":  "John McTiernan",
+        "cast":  [
+                     "Arnold Schwarzenegger",
+                     "Carl Weathers",
+                     "Jesse Ventura"
+                 ],
+        "platforms":  [
+                          "Hulu",
+                          "Disney+",
+                          "Apple TV"
+                      ],
+        "overview":  "An elite rescue squad trekking through a Central American jungle realizes they are being stalked one by one by an invisible extraterrestrial hunter.",
+        "editorial_note":  "Trim, muscular 1980s survival thriller that flips from action into pure dread.",
+        "guide_url":  "/guide-movies-like-john-wick-practical-action",
+        "guide_title":  "Practical Action Essentials",
+        "accent":  "emerald",
+        "trailer_id":  "_1wDBNHYDv8",
+        "moods":  [
+                      "adrenaline",
+                      "edge-of-seat",
+                      "dark-atmospheric"
+                  ],
+        "company":  [
+                        "solo",
+                        "friends"
+                    ]
+    },
+    {
+        "id":  "wp-jurassic-park",
+        "media_type":  "movie",
+        "title":  "Jurassic Park",
+        "year":  "1993",
+        "runtime":  127,
+        "rating":  8.9,
+        "genres":  [
+                       "Sci-Fi",
+                       "Action"
+                   ],
+        "genre_ids":  [
+                          878,
+                          28
+                      ],
+        "language":  "en",
+        "director":  "Steven Spielberg",
+        "cast":  [
+                     "Sam Neill",
+                     "Laura Dern",
+                     "Jeff Goldblum"
+                 ],
+        "platforms":  [
+                          "Netflix",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "A billionaire invites scientists to preview an island theme park populated by cloned dinosaurs right before a sabotage cripples its security grid.",
+        "editorial_note":  "Unmatched awe-to-terror tension built with animatronics and rain-drenched pacing.",
+        "guide_url":  "/guide-family-and-animated-movies-everyone-enjoys",
+        "guide_title":  "Crowd-Pleasing Classics",
+        "accent":  "amber",
+        "trailer_id":  "QWBKEmWWL38",
+        "moods":  [
+                      "edge-of-seat",
+                      "adrenaline"
+                  ],
+        "company":  [
+                        "family",
+                        "friends",
+                        "date-night",
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-ex-machina",
+        "media_type":  "movie",
+        "title":  "Ex Machina",
+        "year":  "2014",
+        "runtime":  108,
+        "rating":  8.5,
+        "genres":  [
+                       "Sci-Fi",
+                       "Drama",
+                       "Thriller"
+                   ],
+        "genre_ids":  [
+                          878,
+                          18,
+                          53
+                      ],
+        "language":  "en",
+        "director":  "Alex Garland",
+        "cast":  [
+                     "Domhnall Gleeson",
+                     "Alicia Vikander",
+                     "Oscar Isaac"
+                 ],
+        "platforms":  [
+                          "HBO Max",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "A young coder wins a week at his CEO isolated mountain estate to administer a Turing test to a sentient humanoid AI with motives of her own.",
+        "editorial_note":  "Ice-cold chamber thriller where every conversation carries double meaning.",
+        "guide_url":  "/guide-movies-like-interstellar-and-arrival",
+        "guide_title":  "Smart Sci-Fi Picks",
+        "accent":  "cyan",
+        "trailer_id":  "gyKqHOgMi4g",
+        "moods":  [
+                      "mind-bending",
+                      "clever-twist",
+                      "dark-atmospheric"
+                  ],
+        "company":  [
+                        "solo",
+                        "date-night"
+                    ]
+    },
+    {
+        "id":  "wp-alien",
+        "media_type":  "movie",
+        "title":  "Alien",
+        "year":  "1979",
+        "runtime":  117,
+        "rating":  9,
+        "genres":  [
+                       "Horror",
+                       "Sci-Fi"
+                   ],
+        "genre_ids":  [
+                          27,
+                          878
+                      ],
+        "language":  "en",
+        "director":  "Ridley Scott",
+        "cast":  [
+                     "Sigourney Weaver",
+                     "Tom Skerritt",
+                     "John Hurt",
+                     "Ian Holm"
+                 ],
+        "platforms":  [
+                          "Hulu",
+                          "Disney+",
+                          "Apple TV"
+                      ],
+        "overview":  "A deep-space mining crew answers a distress signal on a barren moon and unwittingly brings an unstoppable organism aboard their ship.",
+        "editorial_note":  "Slow-burn industrial terror where silence and shadow do all the heavy lifting.",
+        "guide_url":  "/guide-best-psychological-horror-without-cheap-jumpscares",
+        "guide_title":  "Horror Without Cheap Jumpscares",
+        "accent":  "teal",
+        "trailer_id":  "jQ5lPt9edzQ",
+        "moods":  [
+                      "dark-atmospheric",
+                      "edge-of-seat"
+                  ],
+        "company":  [
+                        "solo",
+                        "friends"
+                    ]
+    },
+    {
+        "id":  "wp-the-thing",
+        "media_type":  "movie",
+        "title":  "The Thing",
+        "year":  "1982",
+        "runtime":  109,
+        "rating":  8.9,
+        "genres":  [
+                       "Horror",
+                       "Sci-Fi",
+                       "Thriller"
+                   ],
+        "genre_ids":  [
+                          27,
+                          878,
+                          53
+                      ],
+        "language":  "en",
+        "director":  "John Carpenter",
+        "cast":  [
+                     "Kurt Russell",
+                     "Keith David",
+                     "Wilford Brimley"
+                 ],
+        "platforms":  [
+                          "Prime Video",
+                          "Peacock",
+                          "Apple TV"
+                      ],
+        "overview":  "Researchers at an isolated Antarctic outpost confront a parasitic alien lifeform capable of perfectly imitating any living member of the team.",
+        "editorial_note":  "Peak paranoia cinema—every glance across the rec room feels lethal.",
+        "guide_url":  "/guide-best-psychological-horror-without-cheap-jumpscares",
+        "guide_title":  "Horror Without Cheap Jumpscares",
+        "accent":  "cyan",
+        "trailer_id":  "brPRW-_OcdE",
+        "moods":  [
+                      "dark-atmospheric",
+                      "edge-of-seat"
+                  ],
+        "company":  [
+                        "solo",
+                        "friends"
+                    ]
+    },
+    {
+        "id":  "wp-annihilation",
+        "media_type":  "movie",
+        "title":  "Annihilation",
+        "year":  "2018",
+        "runtime":  115,
+        "rating":  8.1,
+        "genres":  [
+                       "Horror",
+                       "Sci-Fi",
+                       "Drama"
+                   ],
+        "genre_ids":  [
+                          27,
+                          878,
+                          18
+                      ],
+        "language":  "en",
+        "director":  "Alex Garland",
+        "cast":  [
+                     "Natalie Portman",
+                     "Jennifer Jason Leigh",
+                     "Tessa Thompson",
+                     "Oscar Isaac"
+                 ],
+        "platforms":  [
+                          "Paramount+",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "A biologist joins an all-female scientific expedition into a quarantined coastal zone where the laws of nature mutate every living thing.",
+        "editorial_note":  "Hypnotic ecological sci-fi horror with an unforgettable third-act crescendo.",
+        "guide_url":  "/guide-movies-like-interstellar-and-arrival",
+        "guide_title":  "Mind-Bending Sci-Fi",
+        "accent":  "violet",
+        "trailer_id":  "89OP78l9oF0",
+        "moods":  [
+                      "mind-bending",
+                      "dark-atmospheric"
+                  ],
+        "company":  [
+                        "solo",
+                        "date-night"
+                    ]
+    },
+    {
+        "id":  "wp-nope",
+        "media_type":  "movie",
+        "title":  "Nope",
+        "year":  "2022",
+        "runtime":  130,
+        "rating":  8.1,
+        "genres":  [
+                       "Horror",
+                       "Sci-Fi",
+                       "Thriller"
+                   ],
+        "genre_ids":  [
+                          27,
+                          878,
+                          53
+                      ],
+        "language":  "en",
+        "director":  "Jordan Peele",
+        "cast":  [
+                     "Daniel Kaluuya",
+                     "Keke Palmer",
+                     "Steven Yeun"
+                 ],
+        "platforms":  [
+                          "Peacock",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "Two California horse-wrangling siblings try to capture definitive footage of an inexplicable presence hovering above their desert ranch.",
+        "editorial_note":  "Playful blockbuster spectacle fused with classic Jaws-style dread.",
+        "guide_url":  "/guide-best-psychological-horror-without-cheap-jumpscares",
+        "guide_title":  "Smart Atmospheric Horror",
+        "accent":  "amber",
+        "trailer_id":  "In8fuzj3gck",
+        "moods":  [
+                      "edge-of-seat",
+                      "dark-atmospheric",
+                      "mind-bending"
+                  ],
+        "company":  [
+                        "solo",
+                        "friends",
+                        "date-night"
+                    ]
+    },
+    {
+        "id":  "wp-28-days-later",
+        "media_type":  "movie",
+        "title":  "28 Days Later",
+        "year":  "2002",
+        "runtime":  113,
+        "rating":  8.4,
+        "genres":  [
+                       "Horror",
+                       "Sci-Fi",
+                       "Drama"
+                   ],
+        "genre_ids":  [
+                          27,
+                          878,
+                          18
+                      ],
+        "language":  "en",
+        "director":  "Danny Boyle",
+        "cast":  [
+                     "Cillian Murphy",
+                     "Naomie Harris",
+                     "Brendan Gleeson"
+                 ],
+        "platforms":  [
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "A bicycle courier wakes from a coma in an eerily deserted London four weeks after a fast-acting rage virus collapses British society.",
+        "editorial_note":  "Raw digital urgency and haunting empty-city atmosphere.",
+        "guide_url":  "/guide-best-psychological-horror-without-cheap-jumpscares",
+        "guide_title":  "Atmospheric Horror",
+        "accent":  "rose",
+        "trailer_id":  "mWEhfF27O0c",
+        "moods":  [
+                      "dark-atmospheric",
+                      "edge-of-seat",
+                      "emotional"
+                  ],
+        "company":  [
+                        "solo",
+                        "friends"
+                    ]
+    },
+    {
+        "id":  "wp-10-cloverfield-lane",
+        "media_type":  "movie",
+        "title":  "10 Cloverfield Lane",
+        "year":  "2016",
+        "runtime":  103,
+        "rating":  8.1,
+        "genres":  [
+                       "Horror",
+                       "Sci-Fi",
+                       "Thriller"
+                   ],
+        "genre_ids":  [
+                          27,
+                          878,
+                          53
+                      ],
+        "language":  "en",
+        "director":  "Dan Trachtenberg",
+        "cast":  [
+                     "Mary Elizabeth Winstead",
+                     "John Goodman",
+                     "John Gallagher Jr."
+                 ],
+        "platforms":  [
+                          "Paramount+",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "After surviving a car crash, a young woman awakens inside a subterranean bunker with a survivalist who insists the outside air is fatal.",
+        "editorial_note":  "Claustrophobic three-hander powered by John Goodman volcanic unpredictability.",
+        "guide_url":  "/guide-best-psychological-horror-without-cheap-jumpscares",
+        "guide_title":  "Smart Suspense \u0026 Horror",
+        "accent":  "slate",
+        "trailer_id":  "yQy-ANhnUpE",
+        "moods":  [
+                      "edge-of-seat",
+                      "clever-twist"
+                  ],
+        "company":  [
+                        "solo",
+                        "date-night",
+                        "friends"
+                    ]
+    },
+    {
+        "id":  "wp-the-fly",
+        "media_type":  "movie",
+        "title":  "The Fly",
+        "year":  "1986",
+        "runtime":  96,
+        "rating":  8.3,
+        "genres":  [
+                       "Horror",
+                       "Sci-Fi"
+                   ],
+        "genre_ids":  [
+                          27,
+                          878
+                      ],
+        "language":  "en",
+        "director":  "David Cronenberg",
+        "cast":  [
+                     "Jeff Goldblum",
+                     "Geena Davis",
+                     "John Getz"
+                 ],
+        "platforms":  [
+                          "Hulu",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "An eccentric physicist testing teleportation pods accidentally splices his DNA with a common housefly while falling in love with a journalist.",
+        "editorial_note":  "Tragic romance hiding inside 96 relentless minutes of Cronenberg body horror.",
+        "guide_url":  "/guide-short-thrillers-under-100-minutes",
+        "guide_title":  "Tight Genre Classics",
+        "accent":  "emerald",
+        "trailer_id":  "fj1SHpBsY7w",
+        "moods":  [
+                      "dark-atmospheric",
+                      "emotional"
+                  ],
+        "company":  [
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-a-quiet-place-part-ii",
+        "media_type":  "movie",
+        "title":  "A Quiet Place Part II",
+        "year":  "2020",
+        "runtime":  97,
+        "rating":  8,
+        "genres":  [
+                       "Horror",
+                       "Sci-Fi",
+                       "Thriller"
+                   ],
+        "genre_ids":  [
+                          27,
+                          878,
+                          53
+                      ],
+        "language":  "en",
+        "director":  "John Krasinski",
+        "cast":  [
+                     "Emily Blunt",
+                     "Cillian Murphy",
+                     "Millicent Simmonds",
+                     "Noah Jupe"
+                 ],
+        "platforms":  [
+                          "Paramount+",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "Forced to venture beyond their ruined homestead, the Abbott family navigates sound-hunting predators and untrustworthy survivors.",
+        "editorial_note":  "Taut 97-minute parallel suspense that starts right in the middle of the action.",
+        "guide_url":  "/guide-short-thrillers-under-100-minutes",
+        "guide_title":  "Tight Thrillers Under 100 Minutes",
+        "accent":  "indigo",
+        "trailer_id":  "BpdDN9d9Jio",
+        "moods":  [
+                      "edge-of-seat",
+                      "adrenaline"
+                  ],
+        "company":  [
+                        "friends",
+                        "date-night",
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-the-invisible-man",
+        "media_type":  "movie",
+        "title":  "The Invisible Man",
+        "year":  "2020",
+        "runtime":  124,
+        "rating":  8.1,
+        "genres":  [
+                       "Horror",
+                       "Sci-Fi",
+                       "Thriller"
+                   ],
+        "genre_ids":  [
+                          27,
+                          878,
+                          53
+                      ],
+        "language":  "en",
+        "director":  "Leigh Whannell",
+        "cast":  [
+                     "Elisabeth Moss",
+                     "Aldis Hodge",
+                     "Oliver Jackson-Cohen"
+                 ],
+        "platforms":  [
+                          "Peacock",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "After escaping a controlling relationship, a woman suspects her abusive ex-husband faked his death and is stalking her unseen.",
+        "editorial_note":  "Uses empty negative space in the frame better than almost any modern thriller.",
+        "guide_url":  "/guide-best-psychological-horror-without-cheap-jumpscares",
+        "guide_title":  "Psychological Horror",
+        "accent":  "slate",
+        "trailer_id":  "WO_FJdiY9dA",
+        "moods":  [
+                      "edge-of-seat",
+                      "dark-atmospheric"
+                  ],
+        "company":  [
+                        "solo",
+                        "date-night"
+                    ]
+    },
+    {
+        "id":  "wp-shaun-of-the-dead",
+        "media_type":  "movie",
+        "title":  "Shaun of the Dead",
+        "year":  "2004",
+        "runtime":  99,
+        "rating":  8.6,
+        "genres":  [
+                       "Horror",
+                       "Comedy"
+                   ],
+        "genre_ids":  [
+                          27,
+                          35
+                      ],
+        "language":  "en",
+        "director":  "Edgar Wright",
+        "cast":  [
+                     "Simon Pegg",
+                     "Nick Frost",
+                     "Kate Ashfield",
+                     "Bill Nighy"
+                 ],
+        "platforms":  [
+                          "Peacock",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "An aimless London electronics salesman tries to win back his girlfriend and rescue his mum just as a zombie outbreak hits his neighborhood.",
+        "editorial_note":  "Every setup pays off twice in Edgar Wright razor-sharp 99-minute zombie rom-com.",
+        "guide_url":  "/guide-comfort-comedies-for-stressful-weeknights",
+        "guide_title":  "Smart Comedies",
+        "accent":  "rose",
+        "trailer_id":  "LIfcaZ4pC-4",
+        "moods":  [
+                      "feel-good",
+                      "adrenaline"
+                  ],
+        "company":  [
+                        "friends",
+                        "date-night",
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-cabin-in-the-woods",
+        "media_type":  "movie",
+        "title":  "The Cabin in the Woods",
+        "year":  "2011",
+        "runtime":  95,
+        "rating":  8.1,
+        "genres":  [
+                       "Horror",
+                       "Comedy",
+                       "Thriller"
+                   ],
+        "genre_ids":  [
+                          27,
+                          35,
+                          53
+                      ],
+        "language":  "en",
+        "director":  "Drew Goddard",
+        "cast":  [
+                     "Kristen Connolly",
+                     "Chris Hemsworth",
+                     "Fran Kranz",
+                     "Richard Jenkins"
+                 ],
+        "platforms":  [
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "Five college friends retreat to a remote forest cabin, unaware their every move is orchestrated by bored technicians in an underground lab.",
+        "editorial_note":  "Joyfully dismantles horror cliches in 95 brisk, unpredictable minutes.",
+        "guide_url":  "/guide-short-thrillers-under-100-minutes",
+        "guide_title":  "Under 100-Minute Favorites",
+        "accent":  "amber",
+        "trailer_id":  "NsIilFNNmkY",
+        "moods":  [
+                      "clever-twist",
+                      "feel-good"
+                  ],
+        "company":  [
+                        "friends",
+                        "date-night",
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-ready-or-not",
+        "media_type":  "movie",
+        "title":  "Ready or Not",
+        "year":  "2019",
+        "runtime":  95,
+        "rating":  8,
+        "genres":  [
+                       "Horror",
+                       "Comedy",
+                       "Thriller"
+                   ],
+        "genre_ids":  [
+                          27,
+                          35,
+                          53
+                      ],
+        "language":  "en",
+        "director":  "Matt Bettinelli-Olpin \u0026 Tyler Gillett",
+        "cast":  [
+                     "Samara Weaving",
+                     "Adam Brody",
+                     "Mark OBrien",
+                     "Andie MacDowell"
+                 ],
+        "platforms":  [
+                          "Hulu",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "A bride wedding night turns into a deadly game of hide-and-seek inside her eccentric in-laws sprawling gothic estate.",
+        "editorial_note":  "Fierce, darkly hilarious 95-minute cat-and-mouse crowd-pleaser.",
+        "guide_url":  "/guide-short-thrillers-under-100-minutes",
+        "guide_title":  "Tight Thrillers Under 100 Minutes",
+        "accent":  "rose",
+        "trailer_id":  "yClkP2uinzg",
+        "moods":  [
+                      "edge-of-seat",
+                      "clever-twist"
+                  ],
+        "company":  [
+                        "friends",
+                        "date-night",
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-tucker-and-dale",
+        "media_type":  "movie",
+        "title":  "Tucker and Dale vs. Evil",
+        "year":  "2010",
+        "runtime":  89,
+        "rating":  8.1,
+        "genres":  [
+                       "Horror",
+                       "Comedy"
+                   ],
+        "genre_ids":  [
+                          27,
+                          35
+                      ],
+        "language":  "en",
+        "director":  "Eli Craig",
+        "cast":  [
+                     "Tyler Labine",
+                     "Alan Tudyk",
+                     "Katrina Bowden"
+                 ],
+        "platforms":  [
+                          "Peacock",
+                          "Tubi",
+                          "Prime Video"
+                      ],
+        "overview":  "Two kindhearted hillbillies fixing up a vacation cabin are mistaken for homicidal maniacs by panicked college campers in a chain of mishaps.",
+        "editorial_note":  "89 minutes of pure slapstick misunderstanding turned into a cult classic.",
+        "guide_url":  "/guide-comfort-comedies-for-stressful-weeknights",
+        "guide_title":  "Smart Comedies",
+        "accent":  "teal",
+        "trailer_id":  "l1t8OZn_uhE",
+        "moods":  [
+                      "feel-good"
+                  ],
+        "company":  [
+                        "friends",
+                        "date-night",
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-happy-death-day",
+        "media_type":  "movie",
+        "title":  "Happy Death Day",
+        "year":  "2017",
+        "runtime":  96,
+        "rating":  7.8,
+        "genres":  [
+                       "Horror",
+                       "Comedy",
+                       "Thriller"
+                   ],
+        "genre_ids":  [
+                          27,
+                          35,
+                          53
+                      ],
+        "language":  "en",
+        "director":  "Christopher Landon",
+        "cast":  [
+                     "Jessica Rothe",
+                     "Israel Broussard",
+                     "Ruby Modine"
+                 ],
+        "platforms":  [
+                          "Netflix",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "A sharp-tongued college student must solve the mystery of her own murder by reliving her birthday over and over until she unmasks the killer.",
+        "editorial_note":  "Groundhog Day meets slasher mystery with infectious energy.",
+        "guide_url":  "/guide-short-thrillers-under-100-minutes",
+        "guide_title":  "Quick 96-Minute Watches",
+        "accent":  "indigo",
+        "trailer_id":  "1NTaDm3atkc",
+        "moods":  [
+                      "clever-twist",
+                      "feel-good"
+                  ],
+        "company":  [
+                        "friends",
+                        "date-night"
+                    ]
+    },
+    {
+        "id":  "wp-what-we-do-in-the-shadows",
+        "media_type":  "movie",
+        "title":  "What We Do in the Shadows",
+        "year":  "2014",
+        "runtime":  86,
+        "rating":  8.4,
+        "genres":  [
+                       "Horror",
+                       "Comedy"
+                   ],
+        "genre_ids":  [
+                          27,
+                          35
+                      ],
+        "language":  "en",
+        "director":  "Jemaine Clement \u0026 Taika Waititi",
+        "cast":  [
+                     "Jemaine Clement",
+                     "Taika Waititi",
+                     "Jonathan Brugh"
+                 ],
+        "platforms":  [
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "A documentary crew shadows four eccentric vampire flatmates in Wellington as they bicker over chore wheels and navigate modern nightlife.",
+        "editorial_note":  "86 minutes of deadpan mockumentary gold with zero jump scares.",
+        "guide_url":  "/guide-comfort-comedies-for-stressful-weeknights",
+        "guide_title":  "Comfort Comedies",
+        "accent":  "violet",
+        "trailer_id":  "IAZEWtyhpes",
+        "moods":  [
+                      "feel-good"
+                  ],
+        "company":  [
+                        "friends",
+                        "date-night",
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-bodies-bodies-bodies",
+        "media_type":  "movie",
+        "title":  "Bodies Bodies Bodies",
+        "year":  "2022",
+        "runtime":  94,
+        "rating":  7.7,
+        "genres":  [
+                       "Horror",
+                       "Comedy",
+                       "Thriller"
+                   ],
+        "genre_ids":  [
+                          27,
+                          35,
+                          53
+                      ],
+        "language":  "en",
+        "director":  "Halina Reijn",
+        "cast":  [
+                     "Amandla Stenberg",
+                     "Maria Bakalova",
+                     "Rachel Sennott",
+                     "Pete Davidson"
+                 ],
+        "platforms":  [
+                          "Netflix",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "When a hurricane cuts power at a remote mansion party, a parlor game spins into paranoid accusations as friends start turning up dead.",
+        "editorial_note":  "Biting 94-minute whodunit satire made for group viewing.",
+        "guide_url":  "/guide-movies-like-knives-out-and-glass-onion",
+        "guide_title":  "Whodunits \u0026 Parlor Mysteries",
+        "accent":  "violet",
+        "trailer_id":  "DMgLMaLlK9k",
+        "moods":  [
+                      "clever-twist",
+                      "edge-of-seat"
+                  ],
+        "company":  [
+                        "friends",
+                        "date-night"
+                    ]
+    },
+    {
+        "id":  "wp-scream",
+        "media_type":  "movie",
+        "title":  "Scream",
+        "year":  "1996",
+        "runtime":  111,
+        "rating":  8.4,
+        "genres":  [
+                       "Horror",
+                       "Thriller"
+                   ],
+        "genre_ids":  [
+                          27,
+                          53
+                      ],
+        "language":  "en",
+        "director":  "Wes Craven",
+        "cast":  [
+                     "Neve Campbell",
+                     "Courteney Cox",
+                     "David Arquette",
+                     "Matthew Lillard"
+                 ],
+        "platforms":  [
+                          "Paramount+",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "A year after her mother murder, a California teenager and her movie-obsessed friends are stalked by a masked killer quizzing them on horror rules.",
+        "editorial_note":  "Playful, vicious whodunit that reinvented teen suspense.",
+        "guide_url":  "/guide-movies-like-knives-out-and-glass-onion",
+        "guide_title":  "Clever Whodunit Mysteries",
+        "accent":  "rose",
+        "trailer_id":  "tV4PTwciTuQ",
+        "moods":  [
+                      "clever-twist",
+                      "edge-of-seat"
+                  ],
+        "company":  [
+                        "friends",
+                        "date-night",
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-the-conjuring",
+        "media_type":  "movie",
+        "title":  "The Conjuring",
+        "year":  "2013",
+        "runtime":  112,
+        "rating":  8.3,
+        "genres":  [
+                       "Horror",
+                       "Thriller"
+                   ],
+        "genre_ids":  [
+                          27,
+                          53
+                      ],
+        "language":  "en",
+        "director":  "James Wan",
+        "cast":  [
+                     "Vera Farmiga",
+                     "Patrick Wilson",
+                     "Lili Taylor",
+                     "Ron Livingston"
+                 ],
+        "platforms":  [
+                          "HBO Max",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "Paranormal investigators Ed and Lorraine Warren are summoned to a secluded Rhode Island farmhouse terrorized by a dark presence.",
+        "editorial_note":  "Old-school haunted-house craft with tactile dread and crisp sound design.",
+        "guide_url":  "/guide-best-psychological-horror-without-cheap-jumpscares",
+        "guide_title":  "Atmospheric Horror",
+        "accent":  "slate",
+        "trailer_id":  "ejMMn0t58Lc",
+        "moods":  [
+                      "dark-atmospheric",
+                      "edge-of-seat"
+                  ],
+        "company":  [
+                        "friends",
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-sinister",
+        "media_type":  "movie",
+        "title":  "Sinister",
+        "year":  "2012",
+        "runtime":  110,
+        "rating":  7.8,
+        "genres":  [
+                       "Horror",
+                       "Thriller"
+                   ],
+        "genre_ids":  [
+                          27,
+                          53
+                      ],
+        "language":  "en",
+        "director":  "Scott Derrickson",
+        "cast":  [
+                     "Ethan Hawke",
+                     "Juliet Rylance",
+                     "James Ransone"
+                 ],
+        "platforms":  [
+                          "Peacock",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "A struggling true-crime author moves his family into a murder house and uncovers a box of disturbing Super 8 home movies in the attic.",
+        "editorial_note":  "Chilling found-footage mystery anchored by Ethan Hawke.",
+        "guide_url":  "/guide-best-psychological-horror-without-cheap-jumpscares",
+        "guide_title":  "Psychological Horror",
+        "accent":  "indigo",
+        "trailer_id":  "_kbQAJR9YWQ",
+        "moods":  [
+                      "dark-atmospheric",
+                      "edge-of-seat"
+                  ],
+        "company":  [
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-it-follows",
+        "media_type":  "movie",
+        "title":  "It Follows",
+        "year":  "2014",
+        "runtime":  100,
+        "rating":  8,
+        "genres":  [
+                       "Horror",
+                       "Thriller"
+                   ],
+        "genre_ids":  [
+                          27,
+                          53
+                      ],
+        "language":  "en",
+        "director":  "David Robert Mitchell",
+        "cast":  [
+                     "Maika Monroe",
+                     "Keir Gilchrist",
+                     "Daniel Zovatto"
+                 ],
+        "platforms":  [
+                          "Netflix",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "After an unsettling encounter, a teenager discovers she is pursued relentlessly by a slow-walking entity visible only to those in its chain.",
+        "editorial_note":  "Dreamlike synth score and wide-angle framing that makes every background figure suspect.",
+        "guide_url":  "/guide-best-psychological-horror-without-cheap-jumpscares",
+        "guide_title":  "Horror Without Cheap Jumpscares",
+        "accent":  "amber",
+        "trailer_id":  "HkZYbOH0ujw",
+        "moods":  [
+                      "dark-atmospheric",
+                      "edge-of-seat"
+                  ],
+        "company":  [
+                        "solo",
+                        "friends"
+                    ]
+    },
+    {
+        "id":  "wp-the-babadook",
+        "media_type":  "movie",
+        "title":  "The Babadook",
+        "year":  "2014",
+        "runtime":  94,
+        "rating":  8,
+        "genres":  [
+                       "Horror",
+                       "Drama"
+                   ],
+        "genre_ids":  [
+                          27,
+                          18
+                      ],
+        "language":  "en",
+        "director":  "Jennifer Kent",
+        "cast":  [
+                     "Essie Davis",
+                     "Noah Wiseman",
+                     "Daniel Henshall"
+                 ],
+        "platforms":  [
+                          "Tubi",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "An exhausted single mother grieving her husband death fights to protect her young son after an eerie pop-up storybook appears in their home.",
+        "editorial_note":  "Deeply unsettling psychological portrait wrapped in 94 minutes of storybook dread.",
+        "guide_url":  "/guide-best-psychological-horror-without-cheap-jumpscares",
+        "guide_title":  "Horror Without Cheap Jumpscares",
+        "accent":  "slate",
+        "trailer_id":  "k5WQZzDRVtw",
+        "moods":  [
+                      "dark-atmospheric",
+                      "emotional"
+                  ],
+        "company":  [
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-midsommar",
+        "media_type":  "movie",
+        "title":  "Midsommar",
+        "year":  "2019",
+        "runtime":  148,
+        "rating":  8.1,
+        "genres":  [
+                       "Horror",
+                       "Drama"
+                   ],
+        "genre_ids":  [
+                          27,
+                          18
+                      ],
+        "language":  "en",
+        "director":  "Ari Aster",
+        "cast":  [
+                     "Florence Pugh",
+                     "Jack Reynor",
+                     "Will Poulter",
+                     "William Jackson Harper"
+                 ],
+        "platforms":  [
+                          "HBO Max",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "A grieving couple travels with friends to an idyllic rural Swedish village for a once-in-a-century midsummer festival in endless daylight.",
+        "editorial_note":  "Proves horror can be terrifying under blinding sunshine and floral symmetry.",
+        "guide_url":  "/guide-best-psychological-horror-without-cheap-jumpscares",
+        "guide_title":  "Horror Without Cheap Jumpscares",
+        "accent":  "amber",
+        "trailer_id":  "_I9ZeUWXI2s",
+        "moods":  [
+                      "dark-atmospheric",
+                      "mind-bending"
+                  ],
+        "company":  [
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-talk-to-me",
+        "media_type":  "movie",
+        "title":  "Talk to Me",
+        "year":  "2022",
+        "runtime":  95,
+        "rating":  8,
+        "genres":  [
+                       "Horror",
+                       "Thriller"
+                   ],
+        "genre_ids":  [
+                          27,
+                          53
+                      ],
+        "language":  "en",
+        "director":  "Danny \u0026 Michael Philippou",
+        "cast":  [
+                     "Sophie Wilde",
+                     "Alexandra Jensen",
+                     "Joe Bird",
+                     "Miranda Otto"
+                 ],
+        "platforms":  [
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "A group of friends turn conjuring spirits through an embalmed hand into a viral party thrill until one grieving teen pushes past the ninety-second limit.",
+        "editorial_note":  "Tight 95-minute modern horror debut with genuine emotional sting.",
+        "guide_url":  "/guide-short-thrillers-under-100-minutes",
+        "guide_title":  "Under 100-Minute Thrillers",
+        "accent":  "indigo",
+        "trailer_id":  "aLAKJu9aJys",
+        "moods":  [
+                      "dark-atmospheric",
+                      "edge-of-seat"
+                  ],
+        "company":  [
+                        "friends",
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-barbarian",
+        "media_type":  "movie",
+        "title":  "Barbarian",
+        "year":  "2022",
+        "runtime":  102,
+        "rating":  7.9,
+        "genres":  [
+                       "Horror",
+                       "Thriller"
+                   ],
+        "genre_ids":  [
+                          27,
+                          53
+                      ],
+        "language":  "en",
+        "director":  "Zach Cregger",
+        "cast":  [
+                     "Georgina Campbell",
+                     "Bill Skarsgard",
+                     "Justin Long"
+                 ],
+        "platforms":  [
+                          "Hulu",
+                          "HBO Max",
+                          "Apple TV"
+                      ],
+        "overview":  "A woman arriving at her Detroit rental late at night discovers a stranger already booked in—and something far worse hidden behind the basement door.",
+        "editorial_note":  "Go in blind for one of the wildest mid-movie tonal pivots of the decade.",
+        "guide_url":  "/guide-best-psychological-horror-without-cheap-jumpscares",
+        "guide_title":  "Atmospheric Horror Picks",
+        "accent":  "rose",
+        "trailer_id":  "Dr89pmKrqkI",
+        "moods":  [
+                      "clever-twist",
+                      "edge-of-seat"
+                  ],
+        "company":  [
+                        "friends",
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-the-shining",
+        "media_type":  "movie",
+        "title":  "The Shining",
+        "year":  "1980",
+        "runtime":  146,
+        "rating":  9,
+        "genres":  [
+                       "Horror",
+                       "Drama",
+                       "Thriller"
+                   ],
+        "genre_ids":  [
+                          27,
+                          18,
+                          53
+                      ],
+        "language":  "en",
+        "director":  "Stanley Kubrick",
+        "cast":  [
+                     "Jack Nicholson",
+                     "Shelley Duvall",
+                     "Danny Lloyd",
+                     "Scatman Crothers"
+                 ],
+        "platforms":  [
+                          "HBO Max",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "A struggling writer takes a winter caretaker job at an isolated mountain hotel with his family as cabin fever and sinister forces close in.",
+        "editorial_note":  "Steadicam perfection and hypnotic psychological decay.",
+        "guide_url":  "/guide-best-psychological-horror-without-cheap-jumpscares",
+        "guide_title":  "Psychological Horror",
+        "accent":  "amber",
+        "trailer_id":  "QYrPlGq5O_c",
+        "moods":  [
+                      "dark-atmospheric",
+                      "mind-bending"
+                  ],
+        "company":  [
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-the-witch",
+        "media_type":  "movie",
+        "title":  "The Witch",
+        "year":  "2015",
+        "runtime":  92,
+        "rating":  8.1,
+        "genres":  [
+                       "Horror",
+                       "Drama"
+                   ],
+        "genre_ids":  [
+                          27,
+                          18
+                      ],
+        "language":  "en",
+        "director":  "Robert Eggers",
+        "cast":  [
+                     "Anya Taylor-Joy",
+                     "Ralph Ineson",
+                     "Kate Dickie"
+                 ],
+        "platforms":  [
+                          "HBO Max",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "Banished from their Puritan settlement to the edge of an untamed New England forest in 1630, a family unravels under suspicion of witchcraft.",
+        "editorial_note":  "92 minutes of period-authentic atmosphere that burrows under your skin.",
+        "guide_url":  "/guide-best-psychological-horror-without-cheap-jumpscares",
+        "guide_title":  "Horror Without Cheap Jumpscares",
+        "accent":  "teal",
+        "trailer_id":  "iQXmlf3Sefg",
+        "moods":  [
+                      "dark-atmospheric"
+                  ],
+        "company":  [
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-train-to-busan",
+        "media_type":  "movie",
+        "title":  "Train to Busan",
+        "year":  "2016",
+        "runtime":  118,
+        "rating":  8.6,
+        "genres":  [
+                       "Horror",
+                       "Action",
+                       "Thriller"
+                   ],
+        "genre_ids":  [
+                          27,
+                          28,
+                          53
+                      ],
+        "language":  "ko",
+        "director":  "Yeon Sang-ho",
+        "cast":  [
+                     "Gong Yoo",
+                     "Jung Yu-mi",
+                     "Ma Dong-seok",
+                     "Kim Su-an"
+                 ],
+        "platforms":  [
+                          "Netflix",
+                          "Prime Video",
+                          "Tubi"
+                      ],
+        "overview":  "A workaholic father and his young daughter board a bullet train from Seoul to Busan at the exact moment a zombie outbreak sweeps the country.",
+        "editorial_note":  "High-velocity train suspense with unexpected emotional weight.",
+        "guide_url":  "/guide-hidden-gem-korean-and-international-thrillers",
+        "guide_title":  "Essential Korean Thrillers",
+        "accent":  "cyan",
+        "trailer_id":  "1ovgxN2VWNc",
+        "moods":  [
+                      "adrenaline",
+                      "edge-of-seat",
+                      "emotional"
+                  ],
+        "company":  [
+                        "friends",
+                        "solo",
+                        "date-night"
+                    ]
+    },
+    {
+        "id":  "wp-the-wailing",
+        "media_type":  "movie",
+        "title":  "The Wailing",
+        "year":  "2016",
+        "runtime":  156,
+        "rating":  8.5,
+        "genres":  [
+                       "Horror",
+                       "Thriller",
+                       "Drama"
+                   ],
+        "genre_ids":  [
+                          27,
+                          53,
+                          18
+                      ],
+        "language":  "ko",
+        "director":  "Na Hong-jin",
+        "cast":  [
+                     "Kwak Do-won",
+                     "Hwang Jung-min",
+                     "Kunimura Jun"
+                 ],
+        "platforms":  [
+                          "Prime Video",
+                          "Tubi",
+                          "Apple TV"
+                      ],
+        "overview":  "When a mysterious sickness drives villagers in a rainy Korean mountain town to madness, a bumbling policeman races to save his infected daughter.",
+        "editorial_note":  "Epic folk-horror mystery whose final 20 minutes will keep you debating.",
+        "guide_url":  "/guide-hidden-gem-korean-and-international-thrillers",
+        "guide_title":  "Korean Thrillers \u0026 Folk Horror",
+        "accent":  "emerald",
+        "trailer_id":  "43uAputjI4k",
+        "moods":  [
+                      "dark-atmospheric",
+                      "clever-twist",
+                      "mind-bending"
+                  ],
+        "company":  [
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-us",
+        "media_type":  "movie",
+        "title":  "Us",
+        "year":  "2019",
+        "runtime":  116,
+        "rating":  8,
+        "genres":  [
+                       "Horror",
+                       "Thriller"
+                   ],
+        "genre_ids":  [
+                          27,
+                          53
+                      ],
+        "language":  "en",
+        "director":  "Jordan Peele",
+        "cast":  [
+                     "Lupita Nyongo",
+                     "Winston Duke",
+                     "Elisabeth Moss",
+                     "Tim Heidecker"
+                 ],
+        "platforms":  [
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "A family beach vacation turns terrifying when four masked strangers—looking identical to themselves—appear on their driveway at dusk.",
+        "editorial_note":  "Anchored by Lupita Nyongo extraordinary dual performance.",
+        "guide_url":  "/guide-best-psychological-horror-without-cheap-jumpscares",
+        "guide_title":  "Psychological Horror",
+        "accent":  "rose",
+        "trailer_id":  "hNCmb-4oXJA",
+        "moods":  [
+                      "dark-atmospheric",
+                      "clever-twist",
+                      "edge-of-seat"
+                  ],
+        "company":  [
+                        "solo",
+                        "friends"
+                    ]
+    },
+    {
+        "id":  "wp-longlegs",
+        "media_type":  "movie",
+        "title":  "Longlegs",
+        "year":  "2024",
+        "runtime":  101,
+        "rating":  7.8,
+        "genres":  [
+                       "Horror",
+                       "Thriller"
+                   ],
+        "genre_ids":  [
+                          27,
+                          53
+                      ],
+        "language":  "en",
+        "director":  "Osgood Perkins",
+        "cast":  [
+                     "Maika Monroe",
+                     "Nicolas Cage",
+                     "Blair Underwood"
+                 ],
+        "platforms":  [
+                          "Hulu",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "In 1990s Oregon, an intuitive FBI agent is assigned a decades-old cold case of murder-suicides linked by occult cipher letters.",
+        "editorial_note":  "Dread-soaked 1990s detective horror with Silence of the Lambs DNA.",
+        "guide_url":  "/guide-best-psychological-horror-without-cheap-jumpscares",
+        "guide_title":  "Atmospheric Horror",
+        "accent":  "slate",
+        "trailer_id":  "1yUYe8-o3jk",
+        "moods":  [
+                      "dark-atmospheric",
+                      "edge-of-seat"
+                  ],
+        "company":  [
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-smile",
+        "media_type":  "movie",
+        "title":  "Smile",
+        "year":  "2022",
+        "runtime":  115,
+        "rating":  7.7,
+        "genres":  [
+                       "Horror",
+                       "Thriller"
+                   ],
+        "genre_ids":  [
+                          27,
+                          53
+                      ],
+        "language":  "en",
+        "director":  "Parker Finn",
+        "cast":  [
+                     "Sosie Bacon",
+                     "Jessie T. Usher",
+                     "Kyle Gallner"
+                 ],
+        "platforms":  [
+                          "Paramount+",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "After witnessing a patient bizarre traumatic breakdown, a psychiatrist begins experiencing terrifying visions she cannot explain away.",
+        "editorial_note":  "Relentless nightmare pacing driven by unsettling camera inversions.",
+        "guide_url":  "/guide-best-psychological-horror-without-cheap-jumpscares",
+        "guide_title":  "Psychological Horror",
+        "accent":  "rose",
+        "trailer_id":  "BcDK7lkzzsU",
+        "moods":  [
+                      "dark-atmospheric",
+                      "edge-of-seat"
+                  ],
+        "company":  [
+                        "friends",
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-the-incredibles",
+        "media_type":  "movie",
+        "title":  "The Incredibles",
+        "year":  "2004",
+        "runtime":  115,
+        "rating":  8.9,
+        "genres":  [
+                       "Animation",
+                       "Action",
+                       "Comedy"
+                   ],
+        "genre_ids":  [
+                          16,
+                          28,
+                          35
+                      ],
+        "language":  "en",
+        "director":  "Brad Bird",
+        "cast":  [
+                     "Craig T. Nelson",
+                     "Holly Hunter",
+                     "Samuel L. Jackson",
+                     "Jason Lee"
+                 ],
+        "platforms":  [
+                          "Disney+",
+                          "Apple TV"
+                      ],
+        "overview":  "Forced into suburban anonymity, a retired superhero dad leaps at a secret solo assignment that ends up pulling his whole family back into action.",
+        "editorial_note":  "Pixar sharpest superhero adventure with mid-century spy style.",
+        "guide_url":  "/guide-family-and-animated-movies-everyone-enjoys",
+        "guide_title":  "All-Ages Family Picks",
+        "accent":  "rose",
+        "trailer_id":  "-UaGUdNJdRQ",
+        "moods":  [
+                      "adrenaline",
+                      "feel-good"
+                  ],
+        "company":  [
+                        "family",
+                        "friends",
+                        "date-night",
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-across-the-spider-verse",
+        "media_type":  "movie",
+        "title":  "Spider-Man: Across the Spider-Verse",
+        "year":  "2023",
+        "runtime":  140,
+        "rating":  9.1,
+        "genres":  [
+                       "Animation",
+                       "Action",
+                       "Sci-Fi"
+                   ],
+        "genre_ids":  [
+                          16,
+                          28,
+                          878
+                      ],
+        "language":  "en",
+        "director":  "Joaquim Dos Santos",
+        "cast":  [
+                     "Shameik Moore",
+                     "Hailee Steinfeld",
+                     "Oscar Isaac"
+                 ],
+        "platforms":  [
+                          "Netflix",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "Miles Morales catapults across the multiverse and clashes with an elite Spider-Society when saving one life threatens every dimension.",
+        "editorial_note":  "Six distinct animation styles moving at breathless emotional speed.",
+        "guide_url":  "/guide-family-and-animated-movies-everyone-enjoys",
+        "guide_title":  "Animated Essentials",
+        "accent":  "violet",
+        "trailer_id":  "cqGjhVJWtEg",
+        "moods":  [
+                      "adrenaline",
+                      "emotional",
+                      "mind-bending"
+                  ],
+        "company":  [
+                        "family",
+                        "friends",
+                        "date-night",
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-big-hero-6",
+        "media_type":  "movie",
+        "title":  "Big Hero 6",
+        "year":  "2014",
+        "runtime":  102,
+        "rating":  8.3,
+        "genres":  [
+                       "Animation",
+                       "Action",
+                       "Comedy"
+                   ],
+        "genre_ids":  [
+                          16,
+                          28,
+                          35
+                      ],
+        "language":  "en",
+        "director":  "Don Hall \u0026 Chris Williams",
+        "cast":  [
+                     "Ryan Potter",
+                     "Scott Adsit",
+                     "T.J. Miller",
+                     "Jamie Chung"
+                 ],
+        "platforms":  [
+                          "Disney+",
+                          "Apple TV"
+                      ],
+        "overview":  "A robotics prodigy in San Fransokyo teams up with his late brother inflatable healthcare robot Baymax and four friends to uncover a masked thief.",
+        "editorial_note":  "Warm grief-healing adventure anchored by Baymax gentle comedy.",
+        "guide_url":  "/guide-family-and-animated-movies-everyone-enjoys",
+        "guide_title":  "All-Ages Family Picks",
+        "accent":  "cyan",
+        "trailer_id":  "z3biFxZIJOQ",
+        "moods":  [
+                      "feel-good",
+                      "emotional",
+                      "adrenaline"
+                  ],
+        "company":  [
+                        "family",
+                        "friends"
+                    ]
+    },
+    {
+        "id":  "wp-wall-e",
+        "media_type":  "movie",
+        "title":  "WALL-E",
+        "year":  "2008",
+        "runtime":  98,
+        "rating":  9,
+        "genres":  [
+                       "Animation",
+                       "Sci-Fi",
+                       "Romance"
+                   ],
+        "genre_ids":  [
+                          16,
+                          878,
+                          10749
+                      ],
+        "language":  "en",
+        "director":  "Andrew Stanton",
+        "cast":  [
+                     "Ben Burtt",
+                     "Elissa Knight",
+                     "Jeff Garlin"
+                 ],
+        "platforms":  [
+                          "Disney+",
+                          "Apple TV"
+                      ],
+        "overview":  "After centuries compacting trash on a silent Earth, a lonely cleanup robot falls for a sleek probe and follows her across deep space.",
+        "editorial_note":  "Forty minutes of wordless Chaplin-grade romance before soaring sci-fi adventure.",
+        "guide_url":  "/guide-family-and-animated-movies-everyone-enjoys",
+        "guide_title":  "All-Ages Family Picks",
+        "accent":  "amber",
+        "trailer_id":  "CZ1CATNbXg0",
+        "moods":  [
+                      "romantic",
+                      "emotional",
+                      "feel-good"
+                  ],
+        "company":  [
+                        "family",
+                        "date-night",
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-the-iron-giant",
+        "media_type":  "movie",
+        "title":  "The Iron Giant",
+        "year":  "1999",
+        "runtime":  86,
+        "rating":  8.8,
+        "genres":  [
+                       "Animation",
+                       "Action",
+                       "Sci-Fi"
+                   ],
+        "genre_ids":  [
+                          16,
+                          28,
+                          878
+                      ],
+        "language":  "en",
+        "director":  "Brad Bird",
+        "cast":  [
+                     "Eli Marienthal",
+                     "Jennifer Aniston",
+                     "Harry Connick Jr.",
+                     "Vin Diesel"
+                 ],
+        "platforms":  [
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "In 1957 Maine, a curious nine-year-old boy befriends a fifty-foot amnesia-stricken alien robot hunted by paranoid Cold War agents.",
+        "editorial_note":  "86 heartfelt minutes with one of the finest endings in animation.",
+        "guide_url":  "/guide-family-and-animated-movies-everyone-enjoys",
+        "guide_title":  "All-Ages Family Picks",
+        "accent":  "teal",
+        "trailer_id":  "obLtyj8hfFk",
+        "moods":  [
+                      "emotional",
+                      "feel-good"
+                  ],
+        "company":  [
+                        "family",
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-akira",
+        "media_type":  "movie",
+        "title":  "Akira",
+        "year":  "1988",
+        "runtime":  124,
+        "rating":  8.7,
+        "genres":  [
+                       "Animation",
+                       "Action",
+                       "Sci-Fi",
+                       "Drama"
+                   ],
+        "genre_ids":  [
+                          16,
+                          28,
+                          878,
+                          18
+                      ],
+        "language":  "ja",
+        "director":  "Katsuhiro Otomo",
+        "cast":  [
+                     "Mitsuo Iwata",
+                     "Nozomu Sasaki",
+                     "Mami Koyama"
+                 ],
+        "platforms":  [
+                          "Crunchyroll",
+                          "Hulu",
+                          "Prime Video"
+                      ],
+        "overview":  "In Neo-Tokyo 2019, a biker gang leader tries to rescue his childhood friend after a secret military project awakens uncontrollable telekinetic power.",
+        "editorial_note":  "Hand-drawn cyberpunk milestone whose lighting and scale still stun.",
+        "guide_url":  "/guide-beginner-guide-to-anime-movies-beyond-ghibli",
+        "guide_title":  "Anime Films Beyond Ghibli",
+        "accent":  "rose",
+        "trailer_id":  "vvnNpjH93NU",
+        "moods":  [
+                      "adrenaline",
+                      "dark-atmospheric",
+                      "mind-bending"
+                  ],
+        "company":  [
+                        "solo",
+                        "friends"
+                    ]
+    },
+    {
+        "id":  "wp-ghost-in-the-shell",
+        "media_type":  "movie",
+        "title":  "Ghost in the Shell",
+        "year":  "1995",
+        "runtime":  83,
+        "rating":  8.6,
+        "genres":  [
+                       "Animation",
+                       "Action",
+                       "Sci-Fi",
+                       "Thriller"
+                   ],
+        "genre_ids":  [
+                          16,
+                          28,
+                          878,
+                          53
+                      ],
+        "language":  "ja",
+        "director":  "Mamoru Oshii",
+        "cast":  [
+                     "Atsuko Tanaka",
+                     "Akio Otsuka",
+                     "Koichi Yamadera"
+                 ],
+        "platforms":  [
+                          "Prime Video",
+                          "Tubi",
+                          "Apple TV"
+                      ],
+        "overview":  "In a hyper-connected future, a cybernetic public-security major hunts a phantom hacker known as the Puppet Master while questioning her own identity.",
+        "editorial_note":  "83 meditative, razor-sharp minutes that shaped The Matrix and modern sci-fi.",
+        "guide_url":  "/guide-beginner-guide-to-anime-movies-beyond-ghibli",
+        "guide_title":  "Anime Films Beyond Ghibli",
+        "accent":  "cyan",
+        "trailer_id":  "R1K__7QhLaA",
+        "moods":  [
+                      "mind-bending",
+                      "dark-atmospheric"
+                  ],
+        "company":  [
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-mitchells-vs-machines",
+        "media_type":  "movie",
+        "title":  "The Mitchells vs. the Machines",
+        "year":  "2021",
+        "runtime":  114,
+        "rating":  8.4,
+        "genres":  [
+                       "Animation",
+                       "Comedy",
+                       "Sci-Fi"
+                   ],
+        "genre_ids":  [
+                          16,
+                          35,
+                          878
+                      ],
+        "language":  "en",
+        "director":  "Michael Rianda",
+        "cast":  [
+                     "Abbi Jacobson",
+                     "Danny McBride",
+                     "Maya Rudolph",
+                     "Olivia Colman"
+                 ],
+        "platforms":  [
+                          "Netflix"
+                      ],
+        "overview":  "A dysfunctional family road trip to drop their daughter at college gets hijacked when every smart device on Earth rebels in an AI uprising.",
+        "editorial_note":  "Fast-paced, laugh-out-loud family comedy with real parent-kid warmth.",
+        "guide_url":  "/guide-family-and-animated-movies-everyone-enjoys",
+        "guide_title":  "All-Ages Family Picks",
+        "accent":  "orange",
+        "trailer_id":  "_ak5dFt8Ar0",
+        "moods":  [
+                      "feel-good",
+                      "adrenaline"
+                  ],
+        "company":  [
+                        "family",
+                        "friends",
+                        "date-night"
+                    ]
+    },
+    {
+        "id":  "wp-nimona",
+        "media_type":  "movie",
+        "title":  "Nimona",
+        "year":  "2023",
+        "runtime":  101,
+        "rating":  8.3,
+        "genres":  [
+                       "Animation",
+                       "Action",
+                       "Comedy"
+                   ],
+        "genre_ids":  [
+                          16,
+                          28,
+                          35
+                      ],
+        "language":  "en",
+        "director":  "Nick Bruno \u0026 Troy Quane",
+        "cast":  [
+                     "Chloe Grace Moretz",
+                     "Riz Ahmed",
+                     "Eugene Lee Yang"
+                 ],
+        "platforms":  [
+                          "Netflix"
+                      ],
+        "overview":  "Framed for a crime he did not commit in a medieval-futuristic kingdom, a knight reluctantly accepts help from a rebellious shapeshifting teen.",
+        "editorial_note":  "Rebellious, tender 101-minute sci-fi fantasy bursting with personality.",
+        "guide_url":  "/guide-family-and-animated-movies-everyone-enjoys",
+        "guide_title":  "Animated Picks",
+        "accent":  "rose",
+        "trailer_id":  "g5VNITRJ68k",
+        "moods":  [
+                      "feel-good",
+                      "emotional",
+                      "adrenaline"
+                  ],
+        "company":  [
+                        "family",
+                        "friends",
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-coraline",
+        "media_type":  "movie",
+        "title":  "Coraline",
+        "year":  "2009",
+        "runtime":  100,
+        "rating":  8.5,
+        "genres":  [
+                       "Animation",
+                       "Horror"
+                   ],
+        "genre_ids":  [
+                          16,
+                          27
+                      ],
+        "language":  "en",
+        "director":  "Henry Selick",
+        "cast":  [
+                     "Dakota Fanning",
+                     "Teri Hatcher",
+                     "Keith David",
+                     "Ian McShane"
+                 ],
+        "platforms":  [
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "An adventurous girl finds a hidden door in her new Oregon home leading to an idealized parallel world where everyone has buttons for eyes.",
+        "editorial_note":  "Stop-motion gothic fairytale with genuine chills for older kids and adults.",
+        "guide_url":  "/guide-family-and-animated-movies-everyone-enjoys",
+        "guide_title":  "Animated Favorites",
+        "accent":  "indigo",
+        "trailer_id":  "m9bOpeuvNwY",
+        "moods":  [
+                      "dark-atmospheric",
+                      "edge-of-seat"
+                  ],
+        "company":  [
+                        "family",
+                        "solo",
+                        "date-night"
+                    ]
+    },
+    {
+        "id":  "wp-paranorman",
+        "media_type":  "movie",
+        "title":  "ParaNorman",
+        "year":  "2012",
+        "runtime":  92,
+        "rating":  7.9,
+        "genres":  [
+                       "Animation",
+                       "Horror",
+                       "Comedy"
+                   ],
+        "genre_ids":  [
+                          16,
+                          27,
+                          35
+                      ],
+        "language":  "en",
+        "director":  "Sam Fell \u0026 Chris Butler",
+        "cast":  [
+                     "Kodi Smit-McPhee",
+                     "Anna Kendrick",
+                     "Casey Affleck",
+                     "John Goodman"
+                 ],
+        "platforms":  [
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "A misunderstood boy who can speak with the dead must stop a centuries-old witch curse descending on his New England town.",
+        "editorial_note":  "92 charmingly spooky minutes of Laika stop-motion craft.",
+        "guide_url":  "/guide-family-and-animated-movies-everyone-enjoys",
+        "guide_title":  "All-Ages Animated Picks",
+        "accent":  "emerald",
+        "trailer_id":  "wPwGwwVbn9I",
+        "moods":  [
+                      "feel-good",
+                      "dark-atmospheric"
+                  ],
+        "company":  [
+                        "family",
+                        "friends"
+                    ]
+    },
+    {
+        "id":  "wp-monster-house",
+        "media_type":  "movie",
+        "title":  "Monster House",
+        "year":  "2006",
+        "runtime":  91,
+        "rating":  7.7,
+        "genres":  [
+                       "Animation",
+                       "Horror",
+                       "Comedy"
+                   ],
+        "genre_ids":  [
+                          16,
+                          27,
+                          35
+                      ],
+        "language":  "en",
+        "director":  "Gil Kenan",
+        "cast":  [
+                     "Mitchel Musso",
+                     "Sam Lerner",
+                     "Spencer Locke",
+                     "Steve Buscemi"
+                 ],
+        "platforms":  [
+                          "Netflix",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "Three neighborhood kids discover the grumpy old man house across the street is actually a living, hungry monster before Halloween night arrives.",
+        "editorial_note":  "Snappy 91-minute gateway haunted-house adventure.",
+        "guide_url":  "/guide-family-and-animated-movies-everyone-enjoys",
+        "guide_title":  "Family Movie Night",
+        "accent":  "amber",
+        "trailer_id":  "yB9vThNAIjs",
+        "moods":  [
+                      "edge-of-seat",
+                      "feel-good"
+                  ],
+        "company":  [
+                        "family",
+                        "friends"
+                    ]
+    },
+    {
+        "id":  "wp-nightmare-before-christmas",
+        "media_type":  "movie",
+        "title":  "The Nightmare Before Christmas",
+        "year":  "1993",
+        "runtime":  76,
+        "rating":  8.5,
+        "genres":  [
+                       "Animation",
+                       "Horror"
+                   ],
+        "genre_ids":  [
+                          16,
+                          27
+                      ],
+        "language":  "en",
+        "director":  "Henry Selick",
+        "cast":  [
+                     "Danny Elfman",
+                     "Chris Sarandon",
+                     "Catherine OHara"
+                 ],
+        "platforms":  [
+                          "Disney+",
+                          "Apple TV"
+                      ],
+        "overview":  "Bored with scaring year after year, Halloween Town Pumpkin King Jack Skellington stumbles onto Christmas Town and tries to take over the holiday.",
+        "editorial_note":  "76 brisk, Danny Elfman-powered stop-motion minutes.",
+        "guide_url":  "/guide-family-and-animated-movies-everyone-enjoys",
+        "guide_title":  "Animated Classics",
+        "accent":  "violet",
+        "trailer_id":  "wr6N_hZyBCk",
+        "moods":  [
+                      "feel-good",
+                      "dark-atmospheric"
+                  ],
+        "company":  [
+                        "family",
+                        "date-night",
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-ratatouille",
+        "media_type":  "movie",
+        "title":  "Ratatouille",
+        "year":  "2007",
+        "runtime":  111,
+        "rating":  8.9,
+        "genres":  [
+                       "Animation",
+                       "Comedy"
+                   ],
+        "genre_ids":  [
+                          16,
+                          35
+                      ],
+        "language":  "en",
+        "director":  "Brad Bird",
+        "cast":  [
+                     "Patton Oswalt",
+                     "Lou Romano",
+                     "Ian Holm",
+                     "Peter OToole"
+                 ],
+        "platforms":  [
+                          "Disney+",
+                          "Apple TV"
+                      ],
+        "overview":  "A Parisian rat with extraordinary culinary instincts forms a secret kitchen partnership with a clumsy garbage boy at a faded five-star restaurant.",
+        "editorial_note":  "Pure joy and artistry—celebrates anyone creating something great from nowhere.",
+        "guide_url":  "/guide-family-and-animated-movies-everyone-enjoys",
+        "guide_title":  "All-Ages Family Picks",
+        "accent":  "amber",
+        "trailer_id":  "NgsQ8mVkN8w",
+        "moods":  [
+                      "feel-good",
+                      "emotional"
+                  ],
+        "company":  [
+                        "family",
+                        "date-night",
+                        "friends",
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-up",
+        "media_type":  "movie",
+        "title":  "Up",
+        "year":  "2009",
+        "runtime":  96,
+        "rating":  8.8,
+        "genres":  [
+                       "Animation",
+                       "Comedy",
+                       "Drama"
+                   ],
+        "genre_ids":  [
+                          16,
+                          35,
+                          18
+                      ],
+        "language":  "en",
+        "director":  "Pete Docter",
+        "cast":  [
+                     "Ed Asner",
+                     "Jordan Nagai",
+                     "Christopher Plummer"
+                 ],
+        "platforms":  [
+                          "Disney+",
+                          "Apple TV"
+                      ],
+        "overview":  "A widowed balloon salesman ties thousands of balloons to his house to fulfill a promise to his late wife—accidentally bringing a stowaway scout.",
+        "editorial_note":  "Its wordless opening 10 minutes remain cinema finest emotional shorthand.",
+        "guide_url":  "/guide-family-and-animated-movies-everyone-enjoys",
+        "guide_title":  "All-Ages Family Picks",
+        "accent":  "cyan",
+        "trailer_id":  "HWEW_qTLSEE",
+        "moods":  [
+                      "emotional",
+                      "feel-good"
+                  ],
+        "company":  [
+                        "family",
+                        "date-night",
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-coco",
+        "media_type":  "movie",
+        "title":  "Coco",
+        "year":  "2017",
+        "runtime":  105,
+        "rating":  8.9,
+        "genres":  [
+                       "Animation",
+                       "Comedy",
+                       "Drama"
+                   ],
+        "genre_ids":  [
+                          16,
+                          35,
+                          18
+                      ],
+        "language":  "en",
+        "director":  "Lee Unkrich",
+        "cast":  [
+                     "Anthony Gonzalez",
+                     "Gael Garcia Bernal",
+                     "Benjamin Bratt"
+                 ],
+        "platforms":  [
+                          "Disney+",
+                          "Apple TV"
+                      ],
+        "overview":  "An aspiring young guitarist accidentally crosses into the dazzling Land of the Dead during Dia de los Muertos to uncover his family hidden musical past.",
+        "editorial_note":  "Vibrant, deeply moving celebration of memory and family.",
+        "guide_url":  "/guide-family-and-animated-movies-everyone-enjoys",
+        "guide_title":  "All-Ages Family Picks",
+        "accent":  "orange",
+        "trailer_id":  "Ga6RYejo6Hk",
+        "moods":  [
+                      "emotional",
+                      "feel-good"
+                  ],
+        "company":  [
+                        "family",
+                        "date-night",
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-inside-out",
+        "media_type":  "movie",
+        "title":  "Inside Out",
+        "year":  "2015",
+        "runtime":  95,
+        "rating":  8.7,
+        "genres":  [
+                       "Animation",
+                       "Comedy",
+                       "Drama"
+                   ],
+        "genre_ids":  [
+                          16,
+                          35,
+                          18
+                      ],
+        "language":  "en",
+        "director":  "Pete Docter",
+        "cast":  [
+                     "Amy Poehler",
+                     "Phyllis Smith",
+                     "Bill Hader",
+                     "Mindy Kaling"
+                 ],
+        "platforms":  [
+                          "Disney+",
+                          "Apple TV"
+                      ],
+        "overview":  "After an 11-year-old uproots her life in a cross-country move, her personified emotions scramble to steady her mind when Joy and Sadness get lost.",
+        "editorial_note":  "Clever, empathetic 95-minute masterpiece that resonates equally with kids and adults.",
+        "guide_url":  "/guide-family-and-animated-movies-everyone-enjoys",
+        "guide_title":  "All-Ages Family Picks",
+        "accent":  "indigo",
+        "trailer_id":  "yRUAzGQ3nSY",
+        "moods":  [
+                      "emotional",
+                      "feel-good"
+                  ],
+        "company":  [
+                        "family",
+                        "solo",
+                        "date-night"
+                    ]
+    },
+    {
+        "id":  "wp-finding-nemo",
+        "media_type":  "movie",
+        "title":  "Finding Nemo",
+        "year":  "2003",
+        "runtime":  100,
+        "rating":  8.7,
+        "genres":  [
+                       "Animation",
+                       "Comedy"
+                   ],
+        "genre_ids":  [
+                          16,
+                          35
+                      ],
+        "language":  "en",
+        "director":  "Andrew Stanton",
+        "cast":  [
+                     "Albert Brooks",
+                     "Ellen DeGeneres",
+                     "Alexander Gould",
+                     "Willem Dafoe"
+                 ],
+        "platforms":  [
+                          "Disney+",
+                          "Apple TV"
+                      ],
+        "overview":  "An anxious clownfish crosses the entire ocean alongside a forgetful blue tang to rescue his son from a Sydney dentist aquarium.",
+        "editorial_note":  "Crisp 100-minute ocean odyssey packed with timeless comic timing.",
+        "guide_url":  "/guide-family-and-animated-movies-everyone-enjoys",
+        "guide_title":  "All-Ages Family Picks",
+        "accent":  "cyan",
+        "trailer_id":  "9oQ628Seb9w",
+        "moods":  [
+                      "feel-good",
+                      "emotional"
+                  ],
+        "company":  [
+                        "family",
+                        "friends",
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-monsters-inc",
+        "media_type":  "movie",
+        "title":  "Monsters, Inc.",
+        "year":  "2001",
+        "runtime":  92,
+        "rating":  8.6,
+        "genres":  [
+                       "Animation",
+                       "Comedy"
+                   ],
+        "genre_ids":  [
+                          16,
+                          35
+                      ],
+        "language":  "en",
+        "director":  "Pete Docter",
+        "cast":  [
+                     "John Goodman",
+                     "Billy Crystal",
+                     "Steve Buscemi"
+                 ],
+        "platforms":  [
+                          "Disney+",
+                          "Apple TV"
+                      ],
+        "overview":  "Two monster scare-factory pals turn their city upside down trying to sneak a fearless human toddler back through her closet door.",
+        "editorial_note":  "92 tight minutes ending with one of Pixar smartest action set-pieces.",
+        "guide_url":  "/guide-family-and-animated-movies-everyone-enjoys",
+        "guide_title":  "All-Ages Family Picks",
+        "accent":  "teal",
+        "trailer_id":  "CGbgaHoapFM",
+        "moods":  [
+                      "feel-good"
+                  ],
+        "company":  [
+                        "family",
+                        "friends"
+                    ]
+    },
+    {
+        "id":  "wp-soul",
+        "media_type":  "movie",
+        "title":  "Soul",
+        "year":  "2020",
+        "runtime":  100,
+        "rating":  8.5,
+        "genres":  [
+                       "Animation",
+                       "Comedy",
+                       "Drama"
+                   ],
+        "genre_ids":  [
+                          16,
+                          35,
+                          18
+                      ],
+        "language":  "en",
+        "director":  "Pete Docter",
+        "cast":  [
+                     "Jamie Foxx",
+                     "Tina Fey",
+                     "Graham Norton",
+                     "Questlove"
+                 ],
+        "platforms":  [
+                          "Disney+",
+                          "Apple TV"
+                      ],
+        "overview":  "A middle-school jazz teacher lands his dream gig—only to fall down a manhole and try to escape the afterlife alongside an uninspired soul.",
+        "editorial_note":  "Jazz-infused meditation on savoring ordinary everyday sparks of living.",
+        "guide_url":  "/guide-family-and-animated-movies-everyone-enjoys",
+        "guide_title":  "Animated Essentials",
+        "accent":  "indigo",
+        "trailer_id":  "xOsLIiBStEs",
+        "moods":  [
+                      "emotional",
+                      "feel-good"
+                  ],
+        "company":  [
+                        "solo",
+                        "date-night",
+                        "family"
+                    ]
+    },
+    {
+        "id":  "wp-shrek",
+        "media_type":  "movie",
+        "title":  "Shrek",
+        "year":  "2001",
+        "runtime":  90,
+        "rating":  8.4,
+        "genres":  [
+                       "Animation",
+                       "Comedy"
+                   ],
+        "genre_ids":  [
+                          16,
+                          35
+                      ],
+        "language":  "en",
+        "director":  "Andrew Adamson \u0026 Vicky Jenson",
+        "cast":  [
+                     "Mike Myers",
+                     "Eddie Murphy",
+                     "Cameron Diaz",
+                     "John Lithgow"
+                 ],
+        "platforms":  [
+                          "Peacock",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "To reclaim his quiet swamp from fairy-tale squatters, a grumpy ogre agrees to rescue a fiery princess for a scheming miniature lord.",
+        "editorial_note":  "90 relentlessly quotable minutes that subverted every storybook cliche.",
+        "guide_url":  "/guide-family-and-animated-movies-everyone-enjoys",
+        "guide_title":  "Family Movie Night",
+        "accent":  "emerald",
+        "trailer_id":  "ooJJX3R42WM",
+        "moods":  [
+                      "feel-good"
+                  ],
+        "company":  [
+                        "family",
+                        "friends",
+                        "date-night"
+                    ]
+    },
+    {
+        "id":  "wp-kung-fu-panda",
+        "media_type":  "movie",
+        "title":  "Kung Fu Panda",
+        "year":  "2008",
+        "runtime":  92,
+        "rating":  8.3,
+        "genres":  [
+                       "Animation",
+                       "Action",
+                       "Comedy"
+                   ],
+        "genre_ids":  [
+                          16,
+                          28,
+                          35
+                      ],
+        "language":  "en",
+        "director":  "Mark Osborne \u0026 John Stevenson",
+        "cast":  [
+                     "Jack Black",
+                     "Dustin Hoffman",
+                     "Angelina Jolie",
+                     "Ian McShane"
+                 ],
+        "platforms":  [
+                          "Peacock",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "A clumsy noodle-shop panda is shocked to be chosen as the fabled Dragon Warrior just as an unstoppable snow leopard escapes prison.",
+        "editorial_note":  "Genuinely great martial-arts choreography wrapped inside a 92-minute crowd-pleaser.",
+        "guide_url":  "/guide-family-and-animated-movies-everyone-enjoys",
+        "guide_title":  "All-Ages Family Picks",
+        "accent":  "amber",
+        "trailer_id":  "NRc-ze7Wrxw",
+        "moods":  [
+                      "feel-good",
+                      "adrenaline"
+                  ],
+        "company":  [
+                        "family",
+                        "friends",
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-how-to-train-your-dragon",
+        "media_type":  "movie",
+        "title":  "How to Train Your Dragon",
+        "year":  "2010",
+        "runtime":  98,
+        "rating":  8.6,
+        "genres":  [
+                       "Animation",
+                       "Action"
+                   ],
+        "genre_ids":  [
+                          16,
+                          28
+                      ],
+        "language":  "en",
+        "director":  "Dean DeBlois \u0026 Chris Sanders",
+        "cast":  [
+                     "Jay Baruchel",
+                     "Gerard Butler",
+                     "America Ferrera"
+                 ],
+        "platforms":  [
+                          "Peacock",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "A misfit Viking teen expected to slay dragons instead secretly befriends an injured Night Fury and reshapes his village entire way of life.",
+        "editorial_note":  "Soaring 98-minute flight sequences with John Powell unforgettable score.",
+        "guide_url":  "/guide-family-and-animated-movies-everyone-enjoys",
+        "guide_title":  "All-Ages Family Picks",
+        "accent":  "teal",
+        "trailer_id":  "2AKsAxrhqgM",
+        "moods":  [
+                      "feel-good",
+                      "adrenaline",
+                      "emotional"
+                  ],
+        "company":  [
+                        "family",
+                        "friends",
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-puss-in-boots-last-wish",
+        "media_type":  "movie",
+        "title":  "Puss in Boots: The Last Wish",
+        "year":  "2022",
+        "runtime":  102,
+        "rating":  8.5,
+        "genres":  [
+                       "Animation",
+                       "Action",
+                       "Comedy"
+                   ],
+        "genre_ids":  [
+                          16,
+                          28,
+                          35
+                      ],
+        "language":  "en",
+        "director":  "Joel Crawford",
+        "cast":  [
+                     "Antonio Banderas",
+                     "Salma Hayek",
+                     "Harvey Guillen",
+                     "Florence Pugh"
+                 ],
+        "platforms":  [
+                          "Netflix",
+                          "Peacock",
+                          "Apple TV"
+                      ],
+        "overview":  "Discovering he is down to his final life, the legendary outlaw cat embarks on a frantic race for a Wishing Star while pursued by a chilling wolf.",
+        "editorial_note":  "Painterly action frames and surprisingly sharp stakes make this a 102-minute gem.",
+        "guide_url":  "/guide-family-and-animated-movies-everyone-enjoys",
+        "guide_title":  "All-Ages Animated Picks",
+        "accent":  "orange",
+        "trailer_id":  "xgZLXyqbYOc",
+        "moods":  [
+                      "adrenaline",
+                      "feel-good",
+                      "edge-of-seat"
+                  ],
+        "company":  [
+                        "family",
+                        "friends",
+                        "date-night",
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-zootopia",
+        "media_type":  "movie",
+        "title":  "Zootopia",
+        "year":  "2016",
+        "runtime":  108,
+        "rating":  8.5,
+        "genres":  [
+                       "Animation",
+                       "Comedy",
+                       "Thriller"
+                   ],
+        "genre_ids":  [
+                          16,
+                          35,
+                          53
+                      ],
+        "language":  "en",
+        "director":  "Byron Howard \u0026 Rich Moore",
+        "cast":  [
+                     "Ginnifer Goodwin",
+                     "Jason Bateman",
+                     "Idris Elba"
+                 ],
+        "platforms":  [
+                          "Disney+",
+                          "Apple TV"
+                      ],
+        "overview":  "An idealistic rookie bunny cop teams up with a cynical con-artist fox to crack a string of missing-predator cases in a sprawling animal metropolis.",
+        "editorial_note":  "Chinatown-style buddy detective mystery disguised as an upbeat family film.",
+        "guide_url":  "/guide-family-and-animated-movies-everyone-enjoys",
+        "guide_title":  "All-Ages Family Picks",
+        "accent":  "cyan",
+        "trailer_id":  "Y0c3nKWhlIA",
+        "moods":  [
+                      "feel-good",
+                      "clever-twist"
+                  ],
+        "company":  [
+                        "family",
+                        "friends",
+                        "date-night"
+                    ]
+    },
+    {
+        "id":  "wp-the-lego-movie",
+        "media_type":  "movie",
+        "title":  "The Lego Movie",
+        "year":  "2014",
+        "runtime":  100,
+        "rating":  8.3,
+        "genres":  [
+                       "Animation",
+                       "Comedy"
+                   ],
+        "genre_ids":  [
+                          16,
+                          35
+                      ],
+        "language":  "en",
+        "director":  "Phil Lord \u0026 Christopher Miller",
+        "cast":  [
+                     "Chris Pratt",
+                     "Will Ferrell",
+                     "Elizabeth Banks",
+                     "Will Arnett"
+                 ],
+        "platforms":  [
+                          "Max",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "An ordinary rule-following construction minifigure is mistaken for the prophesied Special destined to stop a tyrant from gluing the universe shut.",
+        "editorial_note":  "Hyper-inventive joke-a-second comedy with a genuinely touching live-action twist.",
+        "guide_url":  "/guide-family-and-animated-movies-everyone-enjoys",
+        "guide_title":  "Family Movie Night",
+        "accent":  "amber",
+        "trailer_id":  "fZ_JOBCLF-I",
+        "moods":  [
+                      "feel-good",
+                      "clever-twist"
+                  ],
+        "company":  [
+                        "family",
+                        "friends"
+                    ]
+    },
+    {
+        "id":  "wp-rango",
+        "media_type":  "movie",
+        "title":  "Rango",
+        "year":  "2011",
+        "runtime":  107,
+        "rating":  7.9,
+        "genres":  [
+                       "Animation",
+                       "Comedy"
+                   ],
+        "genre_ids":  [
+                          16,
+                          35
+                      ],
+        "language":  "en",
+        "director":  "Gore Verbinski",
+        "cast":  [
+                     "Johnny Depp",
+                     "Isla Fisher",
+                     "Abigail Breslin",
+                     "Bill Nighy"
+                 ],
+        "platforms":  [
+                          "Paramount+",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "A theatrical pet chameleon stranded in the Mojave Desert accidentally becomes sheriff of a parched frontier town plagued by water thieves.",
+        "editorial_note":  "Sun-baked Spaghetti Western animation with glorious weirdness.",
+        "guide_url":  "/guide-family-and-animated-movies-everyone-enjoys",
+        "guide_title":  "Animated Favorites",
+        "accent":  "orange",
+        "trailer_id":  "_gQys92pTqM",
+        "moods":  [
+                      "feel-good",
+                      "clever-twist"
+                  ],
+        "company":  [
+                        "family",
+                        "friends",
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-princess-mononoke",
+        "media_type":  "movie",
+        "title":  "Princess Mononoke",
+        "year":  "1997",
+        "runtime":  134,
+        "rating":  9,
+        "genres":  [
+                       "Animation",
+                       "Action",
+                       "Drama"
+                   ],
+        "genre_ids":  [
+                          16,
+                          28,
+                          18
+                      ],
+        "language":  "ja",
+        "director":  "Hayao Miyazaki",
+        "cast":  [
+                     "Yoji Matsuda",
+                     "Yuriko Ishida",
+                     "Yuko Tanaka"
+                 ],
+        "platforms":  [
+                          "HBO Max",
+                          "Apple TV"
+                      ],
+        "overview":  "Cursed by a demon boar, a young warrior travels west and gets caught between a progressive ironworks town and the wolf-raised protector of the forest.",
+        "editorial_note":  "Miyazaki grandest adult fable—neither side is cartoonishly evil.",
+        "guide_url":  "/guide-beginner-guide-to-anime-movies-beyond-ghibli",
+        "guide_title":  "Anime \u0026 Ghibli Essentials",
+        "accent":  "emerald",
+        "trailer_id":  "4OiMOHRDs14",
+        "moods":  [
+                      "emotional",
+                      "adrenaline",
+                      "dark-atmospheric"
+                  ],
+        "company":  [
+                        "solo",
+                        "date-night"
+                    ]
+    },
+    {
+        "id":  "wp-howls-moving-castle",
+        "media_type":  "movie",
+        "title":  "Howl\u0027s Moving Castle",
+        "year":  "2004",
+        "runtime":  119,
+        "rating":  8.8,
+        "genres":  [
+                       "Animation",
+                       "Drama",
+                       "Romance"
+                   ],
+        "genre_ids":  [
+                          16,
+                          18,
+                          10749
+                      ],
+        "language":  "ja",
+        "director":  "Hayao Miyazaki",
+        "cast":  [
+                     "Chieko Baisho",
+                     "Takuya Kimura",
+                     "Akihiro Miwa"
+                 ],
+        "platforms":  [
+                          "HBO Max",
+                          "Apple TV"
+                      ],
+        "overview":  "Cursed with old age by a jealous witch, a quiet hatmaker seeks shelter aboard the wandering mechanical castle of a vain, war-weary wizard.",
+        "editorial_note":  "Lush, comforting romantic fantasy anchored by Joe Hisaishi waltz score.",
+        "guide_url":  "/guide-beginner-guide-to-anime-movies-beyond-ghibli",
+        "guide_title":  "Anime \u0026 Ghibli Essentials",
+        "accent":  "rose",
+        "trailer_id":  "iwROgK94zcM",
+        "moods":  [
+                      "romantic",
+                      "feel-good",
+                      "emotional"
+                  ],
+        "company":  [
+                        "date-night",
+                        "family",
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-suzume",
+        "media_type":  "movie",
+        "title":  "Suzume",
+        "year":  "2022",
+        "runtime":  122,
+        "rating":  8.2,
+        "genres":  [
+                       "Animation",
+                       "Drama"
+                   ],
+        "genre_ids":  [
+                          16,
+                          18
+                      ],
+        "language":  "ja",
+        "director":  "Makoto Shinkai",
+        "cast":  [
+                     "Nanoka Hara",
+                     "Hokuto Matsumura",
+                     "Eri Fukatsu"
+                 ],
+        "platforms":  [
+                          "Crunchyroll",
+                          "Netflix",
+                          "Apple TV"
+                      ],
+        "overview":  "A high-schooler from Kyushu teams up with a mysterious traveler turned into a three-legged chair to seal abandoned doors triggering earthquakes across Japan.",
+        "editorial_note":  "Sweeping cross-country road movie blending grief healing with kinetic spectacle.",
+        "guide_url":  "/guide-beginner-guide-to-anime-movies-beyond-ghibli",
+        "guide_title":  "Anime Films Beyond Ghibli",
+        "accent":  "cyan",
+        "trailer_id":  "g0JMPkn7Wuo",
+        "moods":  [
+                      "emotional",
+                      "feel-good"
+                  ],
+        "company":  [
+                        "solo",
+                        "date-night",
+                        "family"
+                    ]
+    },
+    {
+        "id":  "wp-a-silent-voice",
+        "media_type":  "movie",
+        "title":  "A Silent Voice",
+        "year":  "2016",
+        "runtime":  130,
+        "rating":  8.7,
+        "genres":  [
+                       "Animation",
+                       "Drama",
+                       "Romance"
+                   ],
+        "genre_ids":  [
+                          16,
+                          18,
+                          10749
+                      ],
+        "language":  "ja",
+        "director":  "Naoko Yamada",
+        "cast":  [
+                     "Miyu Irino",
+                     "Saori Hayami",
+                     "Aoi Yuki"
+                 ],
+        "platforms":  [
+                          "Netflix",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "A former school bully plagued by guilt seeks out the deaf classmate he once tormented years earlier to make genuine amends.",
+        "editorial_note":  "Sensitive, devastatingly empathetic study of remorse and connection.",
+        "guide_url":  "/guide-beginner-guide-to-anime-movies-beyond-ghibli",
+        "guide_title":  "Anime Films Beyond Ghibli",
+        "accent":  "indigo",
+        "trailer_id":  "nfK6UgLra7g",
+        "moods":  [
+                      "emotional",
+                      "romantic"
+                  ],
+        "company":  [
+                        "solo",
+                        "date-night"
+                    ]
+    },
+    {
+        "id":  "wp-transformers-one",
+        "media_type":  "movie",
+        "title":  "Transformers One",
+        "year":  "2024",
+        "runtime":  104,
+        "rating":  8.2,
+        "genres":  [
+                       "Animation",
+                       "Action",
+                       "Sci-Fi"
+                   ],
+        "genre_ids":  [
+                          16,
+                          28,
+                          878
+                      ],
+        "language":  "en",
+        "director":  "Josh Cooley",
+        "cast":  [
+                     "Chris Hemsworth",
+                     "Brian Tyree Henry",
+                     "Scarlett Johansson",
+                     "Keegan-Michael Key"
+                 ],
+        "platforms":  [
+                          "Paramount+",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "Long before they became mortal enemies Optimus Prime and Megatron, two Cybertronian miner bots uncover a planetary conspiracy and drift apart.",
+        "editorial_note":  "Surprisingly sharp tragic-brotherhood sci-fi animated blockbuster.",
+        "guide_url":  "/guide-family-and-animated-movies-everyone-enjoys",
+        "guide_title":  "All-Ages Animated Picks",
+        "accent":  "amber",
+        "trailer_id":  "jaVcDaozGgc",
+        "moods":  [
+                      "adrenaline",
+                      "emotional"
+                  ],
+        "company":  [
+                        "family",
+                        "friends",
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-john-wick",
+        "media_type":  "movie",
+        "title":  "John Wick",
+        "year":  "2014",
+        "runtime":  101,
+        "rating":  8.5,
+        "genres":  [
+                       "Action",
+                       "Thriller"
+                   ],
+        "genre_ids":  [
+                          28,
+                          53
+                      ],
+        "language":  "en",
+        "director":  "Chad Stahelski",
+        "cast":  [
+                     "Keanu Reeves",
+                     "Michael Nyqvist",
+                     "Alfie Allen",
+                     "Willem Dafoe"
+                 ],
+        "platforms":  [
+                          "Peacock",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "A grieving retired assassin unleashes ruthless precision across New York criminal underworld after mobsters steal his car and kill his puppy.",
+        "editorial_note":  "Clean, unbroken camera choreography that reshaped modern action cinema.",
+        "guide_url":  "/guide-movies-like-john-wick-practical-action",
+        "guide_title":  "Movies Like John Wick",
+        "accent":  "violet",
+        "trailer_id":  "C0BMx-qxsP4",
+        "moods":  [
+                      "adrenaline",
+                      "edge-of-seat"
+                  ],
+        "company":  [
+                        "solo",
+                        "friends"
+                    ]
+    },
+    {
+        "id":  "wp-the-dark-knight",
+        "media_type":  "movie",
+        "title":  "The Dark Knight",
+        "year":  "2008",
+        "runtime":  152,
+        "rating":  9.4,
+        "genres":  [
+                       "Action",
+                       "Drama",
+                       "Thriller"
+                   ],
+        "genre_ids":  [
+                          28,
+                          18,
+                          53
+                      ],
+        "language":  "en",
+        "director":  "Christopher Nolan",
+        "cast":  [
+                     "Christian Bale",
+                     "Heath Ledger",
+                     "Aaron Eckhart",
+                     "Gary Oldman"
+                 ],
+        "platforms":  [
+                          "HBO Max",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "Batman, Lieutenant Gordon, and DA Harvey Dent push Gotham organized crime to the brink until an anarchist mastermind known as the Joker forces chaos.",
+        "editorial_note":  "Plays like a titanic crime thriller with Heath Ledger peerless performance.",
+        "guide_url":  "/guide-movies-like-john-wick-practical-action",
+        "guide_title":  "Crime \u0026 Practical Action",
+        "accent":  "slate",
+        "trailer_id":  "EXeTwQWrcwY",
+        "moods":  [
+                      "edge-of-seat",
+                      "dark-atmospheric",
+                      "adrenaline"
+                  ],
+        "company":  [
+                        "solo",
+                        "friends",
+                        "date-night"
+                    ]
+    },
+    {
+        "id":  "wp-top-gun-maverick",
+        "media_type":  "movie",
+        "title":  "Top Gun: Maverick",
+        "year":  "2022",
+        "runtime":  130,
+        "rating":  8.8,
+        "genres":  [
+                       "Action",
+                       "Drama"
+                   ],
+        "genre_ids":  [
+                          28,
+                          18
+                      ],
+        "language":  "en",
+        "director":  "Joseph Kosinski",
+        "cast":  [
+                     "Tom Cruise",
+                     "Miles Teller",
+                     "Jennifer Connelly",
+                     "Glen Powell"
+                 ],
+        "platforms":  [
+                          "Paramount+",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "After thirty years as a maverick Navy aviator, Pete Mitchell is called back to train elite Top Gun graduates for an impossible canyon strike.",
+        "editorial_note":  "Pure practical cockpit physics and crowd-pleasing third-act momentum.",
+        "guide_url":  "/guide-movies-like-john-wick-practical-action",
+        "guide_title":  "Practical Action Essentials",
+        "accent":  "amber",
+        "trailer_id":  "qSqVVswa420",
+        "moods":  [
+                      "adrenaline",
+                      "feel-good"
+                  ],
+        "company":  [
+                        "friends",
+                        "family",
+                        "date-night",
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-casino-royale",
+        "media_type":  "movie",
+        "title":  "Casino Royale",
+        "year":  "2006",
+        "runtime":  144,
+        "rating":  8.6,
+        "genres":  [
+                       "Action",
+                       "Thriller"
+                   ],
+        "genre_ids":  [
+                          28,
+                          53
+                      ],
+        "language":  "en",
+        "director":  "Martin Campbell",
+        "cast":  [
+                     "Daniel Craig",
+                     "Eva Green",
+                     "Mads Mikkelsen",
+                     "Judi Dench"
+                 ],
+        "platforms":  [
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "Freshly minted 007 James Bond enters a high-stakes Montenegro poker tournament to bankrupt a ruthless terrorist financier.",
+        "editorial_note":  "Opens with a breathtaking parkour chase and settles into lethal poker tension.",
+        "guide_url":  "/guide-best-heist-movies-ranked-by-cleverness",
+        "guide_title":  "Action \u0026 High-Stakes Thrillers",
+        "accent":  "teal",
+        "trailer_id":  "36mnx8dBbGE",
+        "moods":  [
+                      "adrenaline",
+                      "edge-of-seat",
+                      "clever-twist"
+                  ],
+        "company":  [
+                        "date-night",
+                        "friends",
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-baby-driver",
+        "media_type":  "movie",
+        "title":  "Baby Driver",
+        "year":  "2017",
+        "runtime":  113,
+        "rating":  8.3,
+        "genres":  [
+                       "Action",
+                       "Thriller"
+                   ],
+        "genre_ids":  [
+                          28,
+                          53
+                      ],
+        "language":  "en",
+        "director":  "Edgar Wright",
+        "cast":  [
+                     "Ansel Elgort",
+                     "Lily James",
+                     "Jon Hamm",
+                     "Jamie Foxx"
+                 ],
+        "platforms":  [
+                          "Netflix",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "A young getaway driver who relies on personal playlists to drown out tinnitus wants out after falling for a waitress—until one last heist goes sideways.",
+        "editorial_note":  "Every gunshot and tire screech is choreographed to the beat.",
+        "guide_url":  "/guide-best-heist-movies-ranked-by-cleverness",
+        "guide_title":  "Heist \u0026 Action Thrillers",
+        "accent":  "rose",
+        "trailer_id":  "zTvJJnoWIPk",
+        "moods":  [
+                      "adrenaline",
+                      "edge-of-seat"
+                  ],
+        "company":  [
+                        "date-night",
+                        "friends",
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-hot-fuzz",
+        "media_type":  "movie",
+        "title":  "Hot Fuzz",
+        "year":  "2007",
+        "runtime":  121,
+        "rating":  8.6,
+        "genres":  [
+                       "Action",
+                       "Comedy"
+                   ],
+        "genre_ids":  [
+                          28,
+                          35
+                      ],
+        "language":  "en",
+        "director":  "Edgar Wright",
+        "cast":  [
+                     "Simon Pegg",
+                     "Nick Frost",
+                     "Jim Broadbent",
+                     "Timothy Dalton"
+                 ],
+        "platforms":  [
+                          "Peacock",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "An overachieving London cop is reassigned to a sleepy picture-perfect English village where suspiciously grisly \"accidents\" keep piling up.",
+        "editorial_note":  "Turns small-town mystery into an outrageously funny third-act action blowout.",
+        "guide_url":  "/guide-comfort-comedies-for-stressful-weeknights",
+        "guide_title":  "Smart Comedies",
+        "accent":  "cyan",
+        "trailer_id":  "ayTnvVpj9t4",
+        "moods":  [
+                      "feel-good",
+                      "clever-twist",
+                      "adrenaline"
+                  ],
+        "company":  [
+                        "friends",
+                        "date-night",
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-bullet-train",
+        "media_type":  "movie",
+        "title":  "Bullet Train",
+        "year":  "2022",
+        "runtime":  127,
+        "rating":  7.9,
+        "genres":  [
+                       "Action",
+                       "Comedy"
+                   ],
+        "genre_ids":  [
+                          28,
+                          35
+                      ],
+        "language":  "en",
+        "director":  "David Leitch",
+        "cast":  [
+                     "Brad Pitt",
+                     "Joey King",
+                     "Aaron Taylor-Johnson",
+                     "Brian Tyree Henry"
+                 ],
+        "platforms":  [
+                          "Netflix",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "An unlucky operative looking for a simple briefcase snatch aboard a Japanese high-speed train discovers four other assassins are on intersecting contracts.",
+        "editorial_note":  "Breezy neon-lit farce with clever interlocking flashbacks.",
+        "guide_url":  "/guide-comfort-comedies-for-stressful-weeknights",
+        "guide_title":  "Action Comedies",
+        "accent":  "indigo",
+        "trailer_id":  "0IOsk2Vlc4o",
+        "moods":  [
+                      "adrenaline",
+                      "feel-good",
+                      "clever-twist"
+                  ],
+        "company":  [
+                        "friends",
+                        "date-night"
+                    ]
+    },
+    {
+        "id":  "wp-the-nice-guys",
+        "media_type":  "movie",
+        "title":  "The Nice Guys",
+        "year":  "2016",
+        "runtime":  116,
+        "rating":  8.4,
+        "genres":  [
+                       "Action",
+                       "Comedy"
+                   ],
+        "genre_ids":  [
+                          28,
+                          35
+                      ],
+        "language":  "en",
+        "director":  "Shane Black",
+        "cast":  [
+                     "Russell Crowe",
+                     "Ryan Gosling",
+                     "Angourie Rice"
+                 ],
+        "platforms":  [
+                          "HBO Max",
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "In 1977 Los Angeles, a tough enforcer and a bumbling private eye form an uneasy partnership to find a missing girl amid an auto-industry cover-up.",
+        "editorial_note":  "Peak Russell Crowe and Ryan Gosling slapstick detective chemistry.",
+        "guide_url":  "/guide-comfort-comedies-for-stressful-weeknights",
+        "guide_title":  "Smart Comedies",
+        "accent":  "amber",
+        "trailer_id":  "GQR5zsLHbYw",
+        "moods":  [
+                      "feel-good",
+                      "clever-twist"
+                  ],
+        "company":  [
+                        "friends",
+                        "date-night",
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-legend-of-maula-jatt",
+        "media_type":  "movie",
+        "title":  "The Legend of Maula Jatt",
+        "year":  "2022",
+        "runtime":  153,
+        "rating":  8.7,
+        "genres":  [
+                       "Action",
+                       "Drama"
+                   ],
+        "genre_ids":  [
+                          28,
+                          18
+                      ],
+        "language":  "ur",
+        "director":  "Bilal Lashari",
+        "cast":  [
+                     "Fawad Khan",
+                     "Hamza Ali Abbasi",
+                     "Mahira Khan",
+                     "Humaima Malick"
+                 ],
+        "platforms":  [
+                          "Check Local Cinemas / Streaming"
+                      ],
+        "overview":  "A haunted folk hero in rural Punjab faces the ruthless clan leader Noori Natt in a sweeping reimagining of Pakistani cinema most iconic rivalry.",
+        "editorial_note":  "Monumental sound design, mythological scale, and career-best Hamza Ali Abbasi.",
+        "guide_url":  "/guide-best-bollywood-and-south-asian-thrillers",
+        "guide_title":  "South Asian Cinema Essentials",
+        "accent":  "amber",
+        "trailer_id":  "pEWqOAcYgpQ",
+        "moods":  [
+                      "adrenaline",
+                      "dark-atmospheric",
+                      "emotional"
+                  ],
+        "company":  [
+                        "friends",
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-jawan",
+        "media_type":  "movie",
+        "title":  "Jawan",
+        "year":  "2023",
+        "runtime":  169,
+        "rating":  8.1,
+        "genres":  [
+                       "Action",
+                       "Thriller"
+                   ],
+        "genre_ids":  [
+                          28,
+                          53
+                      ],
+        "language":  "hi",
+        "director":  "Atlee",
+        "cast":  [
+                     "Shah Rukh Khan",
+                     "Nayanthara",
+                     "Vijay Sethupathi",
+                     "Deepika Padukone"
+                 ],
+        "platforms":  [
+                          "Netflix"
+                      ],
+        "overview":  "A principled vigilante leading an all-women tactical crew hijacks a Mumbai metro to force systemic accountability while confronting his own past.",
+        "editorial_note":  "Big-screen masala action driven by Anirudh propulsive score and sharp set-pieces.",
+        "guide_url":  "/guide-best-bollywood-and-south-asian-thrillers",
+        "guide_title":  "South Asian Cinema Essentials",
+        "accent":  "rose",
+        "trailer_id":  "MWOlnZSnXJo",
+        "moods":  [
+                      "adrenaline",
+                      "edge-of-seat"
+                  ],
+        "company":  [
+                        "friends",
+                        "family",
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-veer-zaara",
+        "media_type":  "movie",
+        "title":  "Veer-Zaara",
+        "year":  "2004",
+        "runtime":  192,
+        "rating":  8.6,
+        "genres":  [
+                       "Drama",
+                       "Romance"
+                   ],
+        "genre_ids":  [
+                          18,
+                          10749
+                      ],
+        "language":  "hi",
+        "director":  "Yash Chopra",
+        "cast":  [
+                     "Shah Rukh Khan",
+                     "Preity Zinta",
+                     "Rani Mukerji"
+                 ],
+        "platforms":  [
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "Twenty-two years after an Indian Air Force rescue pilot and a Pakistani woman cross paths, a rookie lawyer fights to reunite their separated lives.",
+        "editorial_note":  "Sweeping cross-border epic romance anchored by timeless Madan Mohan melodies.",
+        "guide_url":  "/guides",
+        "guide_title":  "WatchPulse Editorial Guides",
+        "accent":  "rose",
+        "trailer_id":  "OSaVImLnnsw",
+        "moods":  [
+                      "romantic",
+                      "emotional"
+                  ],
+        "company":  [
+                        "date-night",
+                        "family",
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-jab-we-met",
+        "media_type":  "movie",
+        "title":  "Jab We Met",
+        "year":  "2007",
+        "runtime":  138,
+        "rating":  8.5,
+        "genres":  [
+                       "Comedy",
+                       "Drama",
+                       "Romance"
+                   ],
+        "genre_ids":  [
+                          35,
+                          18,
+                          10749
+                      ],
+        "language":  "hi",
+        "director":  "Imtiaz Ali",
+        "cast":  [
+                     "Shahid Kapoor",
+                     "Kareena Kapoor",
+                     "Tarun Arora"
+                 ],
+        "platforms":  [
+                          "Prime Video",
+                          "JioHotstar",
+                          "Netflix"
+                      ],
+        "overview":  "A heartbroken Mumbai businessman aimlessly boards an overnight train and gets swept up in the infectious optimism of a runaway chatterbox.",
+        "editorial_note":  "Pure comfort romance powered by Kareena Kapoor unforgettable Geet.",
+        "guide_url":  "/guide-comfort-comedies-for-stressful-weeknights",
+        "guide_title":  "Comfort Comedies \u0026 Romance",
+        "accent":  "amber",
+        "trailer_id":  "Q4k-l5_-0Zg",
+        "moods":  [
+                      "romantic",
+                      "feel-good",
+                      "emotional"
+                  ],
+        "company":  [
+                        "date-night",
+                        "family",
+                        "friends"
+                    ]
+    },
+    {
+        "id":  "wp-punjab-nahi-jaungi",
+        "media_type":  "movie",
+        "title":  "Punjab Nahi Jaungi",
+        "year":  "2017",
+        "runtime":  158,
+        "rating":  8,
+        "genres":  [
+                       "Comedy",
+                       "Romance"
+                   ],
+        "genre_ids":  [
+                          35,
+                          10749
+                      ],
+        "language":  "ur",
+        "director":  "Nadeem Baig",
+        "cast":  [
+                     "Humayun Saeed",
+                     "Mehwish Hayat",
+                     "Urwa Hocane",
+                     "Ahmad Ali Butt"
+                 ],
+        "platforms":  [
+                          "Prime Video",
+                          "Netflix"
+                      ],
+        "overview":  "A traditional landowner son sets out to win the affection of an outspoken London-educated bride in a lively collision of family pride and romance.",
+        "editorial_note":  "Crowd-pleasing Pakistani romantic comedy full of family banter and warmth.",
+        "guide_url":  "/guides",
+        "guide_title":  "WatchPulse Editorial Guides",
+        "accent":  "teal",
+        "trailer_id":  "z1AaNERuYHs",
+        "moods":  [
+                      "romantic",
+                      "feel-good"
+                  ],
+        "company":  [
+                        "family",
+                        "date-night",
+                        "friends"
+                    ]
+    },
+    {
+        "id":  "wp-eternal-sunshine",
+        "media_type":  "movie",
+        "title":  "Eternal Sunshine of the Spotless Mind",
+        "year":  "2004",
+        "runtime":  108,
+        "rating":  8.9,
+        "genres":  [
+                       "Sci-Fi",
+                       "Drama",
+                       "Romance"
+                   ],
+        "genre_ids":  [
+                          878,
+                          18,
+                          10749
+                      ],
+        "language":  "en",
+        "director":  "Michel Gondry",
+        "cast":  [
+                     "Jim Carrey",
+                     "Kate Winslet",
+                     "Kirsten Dunst",
+                     "Mark Ruffalo"
+                 ],
+        "platforms":  [
+                          "Prime Video",
+                          "Apple TV"
+                      ],
+        "overview":  "After a painful breakup, a quiet man undergoes a procedure to erase memories of his ex—only to fight through his own crumbling mind to keep her.",
+        "editorial_note":  "Inventive in-camera dreamcraft fused with one of cinema truest love stories.",
+        "guide_url":  "/guide-movies-like-interstellar-and-arrival",
+        "guide_title":  "Smart Sci-Fi \u0026 Romance",
+        "accent":  "indigo",
+        "trailer_id":  "07-QBnEkgXU",
+        "moods":  [
+                      "romantic",
+                      "mind-bending",
+                      "emotional"
+                  ],
+        "company":  [
+                        "solo",
+                        "date-night"
+                    ]
     }
 ]

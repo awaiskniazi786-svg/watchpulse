@@ -7,7 +7,9 @@
  */
 
 const CATALOG_PROXY_URL = '/api/catalog';
-const CURATED_CATALOG_URL = '/data/curated-catalog.json?v=20261122a';
+const CURATED_CATALOG_URL = '/data/curated-catalog.json?v=20261122d';
+const TRENDING_MOVIE_COUNT = 10;
+const PAGE_SIZE = 30;
 
 const GENRE_MAP = {
   28: 'Action',
@@ -16,7 +18,8 @@ const GENRE_MAP = {
   35: 'Comedy',
   27: 'Horror',
   53: 'Thriller',
-  16: 'Animation'
+  16: 'Animation',
+  10749: 'Romance'
 };
 
 const GENRE_SLUG_MAP = {
@@ -27,7 +30,9 @@ const GENRE_SLUG_MAP = {
   comedy: '35',
   horror: '27',
   thriller: '53',
-  animation: '16'
+  animation: '16',
+  romance: '10749',
+  romantic: '10749'
 };
 
 const PROVIDER_NAMES = {
@@ -50,7 +55,9 @@ const LANGUAGE_NAMES = {
   ta: 'Tamil',
   ur: 'Urdu',
   tr: 'Turkish',
-  ar: 'Arabic'
+  ar: 'Arabic',
+  it: 'Italian',
+  zh: 'Chinese'
 };
 
 const TRENDING_KEYWORDS = [
@@ -102,7 +109,7 @@ const state = {
   searchFilterTab: 'all', // 'all' | 'movie' | 'tv'
   lastSearchResults: [],
   tvPage: 0,
-  movieLimit: 12,
+  currentPage: 1,
   curatedMovies: [],
   tvShowsCache: [],
   displayedItems: [],
@@ -149,6 +156,11 @@ const els = {
   watchlistNoticeBanner: document.getElementById('watchlistNoticeBanner'),
   searchResultTabs: document.getElementById('searchResultTabs'),
   moviesGrid: document.getElementById('moviesGrid'),
+  moreMoviesSection: document.getElementById('moreMoviesSection'),
+  moreGridTitle: document.getElementById('moreGridTitle'),
+  moreMoviesCount: document.getElementById('moreMoviesCount'),
+  moreMoviesGrid: document.getElementById('moreMoviesGrid'),
+  paginationBar: document.getElementById('paginationBar'),
   loadMoreBtn: document.getElementById('loadMoreBtn'),
   movieModal: document.getElementById('movieModal'),
   modalCloseBtn: document.getElementById('modalCloseBtn'),
@@ -176,6 +188,7 @@ const els = {
   quizMoodOptions: document.getElementById('quizMoodOptions'),
   quizRuntimeOptions: document.getElementById('quizRuntimeOptions'),
   quizFormatOptions: document.getElementById('quizFormatOptions'),
+  quizLangOptions: document.getElementById('quizLangOptions'),
   runQuizBtn: document.getElementById('runQuizBtn'),
   quizResultsContainer: document.getElementById('quizResultsContainer'),
   trailerModal: document.getElementById('trailerModal'),
@@ -332,7 +345,23 @@ function normalizeTvMazeShow(show) {
   const year = show.premiered ? show.premiered.slice(0, 4) : 'TBA';
   const rating = show.rating && show.rating.average ? Number(show.rating.average) : 7.5;
   const genres = Array.isArray(show.genres) && show.genres.length ? show.genres : ['Drama'];
-  const langMap = { English: 'en', Korean: 'ko', Hindi: 'hi', Japanese: 'ja', Spanish: 'es', French: 'fr', Urdu: 'ur', Turkish: 'tr', Arabic: 'ar' };
+  const langMap = {
+    English: 'en',
+    Korean: 'ko',
+    Hindi: 'hi',
+    Japanese: 'ja',
+    Spanish: 'es',
+    French: 'fr',
+    German: 'de',
+    Malayalam: 'ml',
+    Tamil: 'ta',
+    Urdu: 'ur',
+    Turkish: 'tr',
+    Arabic: 'ar',
+    Italian: 'it',
+    Chinese: 'zh',
+    Mandarin: 'zh'
+  };
   const langCode = langMap[show.language] || 'en';
   const cast = show._embedded && Array.isArray(show._embedded.cast)
     ? show._embedded.cast.slice(0, 8).map(c => c.person && c.person.name).filter(Boolean)
@@ -375,6 +404,7 @@ function normalizeCuratedMovie(m) {
     runtime: m.runtime,
     genres: m.genres || ['Drama'],
     genre_ids: m.genre_ids || [],
+    moods: Array.isArray(m.moods) ? m.moods : [],
     language: m.language || 'en',
     languageLabel: LANGUAGE_NAMES[m.language] || 'English',
     director: m.director || '',
@@ -391,23 +421,7 @@ function normalizeCuratedMovie(m) {
   };
 }
 
-function renderPosterArtHtml(item) {
-  const isYtThumb = Boolean(item.poster && item.poster.includes('i.ytimg.com'));
-  if (item.poster && !isYtThumb) {
-    return `<img src="${escapeHtml(item.poster)}" alt="${escapeHtml(item.title)} poster" class="card-poster" width="220" height="330" loading="lazy" referrerpolicy="no-referrer">`;
-  }
-  const thumb = getThumbUrlForItem(item);
-  if (thumb) {
-    return `
-      <div class="curated-thumb-card">
-        <img src="${escapeHtml(thumb)}" alt="${escapeHtml(item.title)} official trailer preview" class="curated-thumb-img" width="220" height="330" loading="lazy">
-        <div class="curated-thumb-scrim"></div>
-        <div class="curated-thumb-play" aria-hidden="true">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-        </div>
-      </div>
-    `;
-  }
+function renderEditorialPosterFallbackHtml(item) {
   const accent = escapeHtml(item.accent || 'violet');
   const tag = item.source === 'Wikipedia & Wikidata' ? 'OPEN DATA' : 'CURATED';
   const sub = item.director ? `Dir. ${escapeHtml(item.director)}` : escapeHtml((item.genres || []).slice(0, 2).join(' \u00b7 '));
@@ -427,6 +441,26 @@ function renderPosterArtHtml(item) {
       </div>
     </div>
   `;
+}
+
+function renderPosterArtHtml(item) {
+  const isYtThumb = Boolean(item.poster && item.poster.includes('i.ytimg.com'));
+  if (item.poster && !isYtThumb) {
+    return `<img src="${escapeHtml(item.poster)}" alt="${escapeHtml(item.title)} poster" class="card-poster" width="220" height="330" loading="lazy" referrerpolicy="no-referrer">`;
+  }
+  const thumb = getThumbUrlForItem(item);
+  if (thumb) {
+    return `
+      <div class="curated-thumb-card">
+        <img src="${escapeHtml(thumb)}" alt="${escapeHtml(item.title)} official trailer preview" class="curated-thumb-img" width="220" height="330" loading="lazy">
+        <div class="curated-thumb-scrim"></div>
+        <div class="curated-thumb-play" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+        </div>
+      </div>
+    `;
+  }
+  return renderEditorialPosterFallbackHtml(item);
 }
 
 function renderHero(item) {
@@ -500,30 +534,111 @@ function renderSearchResultTabs() {
   });
 }
 
-function renderMoviesGrid(items) {
-  state.displayedItems = items;
-  if (els.gridTitle) els.gridTitle.textContent = buildCatalogHeading();
-  if (els.moviesCount) els.moviesCount.textContent = `Showing ${items.length} title${items.length === 1 ? '' : 's'}`;
+function hideMoreMoviesSection() {
+  if (els.moreMoviesSection) els.moreMoviesSection.classList.add('hidden');
+  if (els.moreMoviesGrid) els.moreMoviesGrid.innerHTML = '';
+  if (els.moviesGrid) els.moviesGrid.classList.remove('trending-grid');
+}
 
-  if (!items.length) {
-    els.moviesGrid.innerHTML = `
-      <div class="empty-state" style="grid-column: 1 / -1; text-align: center; padding: 2.5rem 1rem;">
-        <h3 style="margin-bottom: 0.5rem;">No matching titles found</h3>
-        <p style="color: var(--text-muted); margin-bottom: 1rem;">Try switching between Curated Movies &amp; Live TV Series, clearing a filter, or searching another title.</p>
-        <button type="button" class="btn primary-btn" id="resetFiltersBtn">Reset Filters</button>
-      </div>
-    `;
-    const resetBtn = document.getElementById('resetFiltersBtn');
-    if (resetBtn) resetBtn.addEventListener('click', resetAllFilters);
+function hidePaginationBar() {
+  if (!els.paginationBar) return;
+  els.paginationBar.classList.add('hidden');
+  els.paginationBar.innerHTML = '';
+}
+
+function getPaginationNumbers(currentPage, totalPages) {
+  if (totalPages <= 7) {
+    return Array.from({ length: totalPages }, (_, i) => i + 1);
+  }
+  const pages = [1];
+  if (currentPage > 3) pages.push('...');
+  const start = Math.max(2, currentPage - 1);
+  const end = Math.min(totalPages - 1, currentPage + 1);
+  for (let p = start; p <= end; p++) pages.push(p);
+  if (currentPage < totalPages - 2) pages.push('...');
+  pages.push(totalPages);
+  return pages;
+}
+
+function renderPaginationBar(currentPage, totalPages, options = {}) {
+  if (!els.paginationBar) return;
+  const canLoadMoreTv = Boolean(options.canLoadMoreTv);
+  if (totalPages <= 1 && !canLoadMoreTv) {
+    hidePaginationBar();
     return;
   }
 
-  els.moviesGrid.innerHTML = items.map((item, idx) => {
+  const pageTokens = getPaginationNumbers(currentPage, totalPages);
+  const pageButtonsHtml = pageTokens.map(tok => {
+    if (tok === '...') {
+      return '<span class="page-status-pill" aria-hidden="true">&hellip;</span>';
+    }
+    return `<button type="button" class="page-btn ${tok === currentPage ? 'active' : ''}" data-page="${tok}" aria-label="Page ${tok}" ${tok === currentPage ? 'aria-current="page"' : ''}>${tok}</button>`;
+  }).join('');
+
+  els.paginationBar.innerHTML = `
+    <button type="button" class="page-btn" data-page-nav="prev" ${currentPage <= 1 ? 'disabled' : ''}>&larr; Prev</button>
+    ${pageButtonsHtml}
+    <button type="button" class="page-btn" data-page-nav="next" ${(currentPage >= totalPages && !canLoadMoreTv) ? 'disabled' : ''}>Next &rarr;</button>
+    <span class="page-status-pill">Page ${currentPage} of ${totalPages}</span>
+  `;
+  els.paginationBar.classList.remove('hidden');
+
+  const scrollToBrowse = () => {
+    const anchor = document.querySelector('.browse-section') || els.gridTitle;
+    if (anchor) anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  els.paginationBar.querySelectorAll('[data-page]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = Number(btn.dataset.page);
+      if (!target || target === state.currentPage) return;
+      state.currentPage = target;
+      applyLocalFiltersAndRender();
+      scrollToBrowse();
+    });
+  });
+
+  const prevBtn = els.paginationBar.querySelector('[data-page-nav="prev"]');
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      if (state.currentPage <= 1) return;
+      state.currentPage -= 1;
+      applyLocalFiltersAndRender();
+      scrollToBrowse();
+    });
+  }
+
+  const nextBtn = els.paginationBar.querySelector('[data-page-nav="next"]');
+  if (nextBtn) {
+    nextBtn.addEventListener('click', async () => {
+      if (state.currentPage < totalPages) {
+        state.currentPage += 1;
+        applyLocalFiltersAndRender();
+        scrollToBrowse();
+      } else if (canLoadMoreTv) {
+        state.tvPage += 1;
+        state.currentPage += 1;
+        await loadTvCatalog(true);
+        scrollToBrowse();
+      }
+    });
+  }
+}
+
+function renderCardListIntoGrid(gridEl, items, options = {}) {
+  if (!gridEl) return;
+  const showTrendingRank = Boolean(options.showTrendingRank);
+
+  gridEl.innerHTML = items.map((item, idx) => {
     const savedObj = state.watchlist.find(w => w.id === item.id);
     const isSaved = Boolean(savedObj);
     const isWatched = Boolean(savedObj && savedObj.watched);
     const primaryGenre = (item.genres && item.genres[0]) ? item.genres[0] : (item.media_type === 'tv' ? 'TV' : 'Film');
-    const isEditorsPick = item.id === 'wp-dune-part-two' || (idx === 0 && Boolean(item.featured));
+    const isEditorsPick = !showTrendingRank && (item.id === 'wp-dune-part-two' || (idx === 0 && Boolean(item.featured)));
+    const badgeHtml = showTrendingRank
+      ? `<span class="trending-rank-badge ${idx === 0 ? 'rank-top' : ''}">#${idx + 1}</span>`
+      : (isEditorsPick ? '<span class="editors-pick-badge">Editor\u0027s pick</span>' : '');
     let metaLine = '';
     if (item.media_type === 'tv') {
       const net = (item.platforms && item.platforms[0]) ? item.platforms[0] : 'TV';
@@ -539,7 +654,7 @@ function renderMoviesGrid(items) {
       <article class="movie-card" data-id="${escapeHtml(item.id)}" tabindex="0" role="button" aria-label="Open details for ${escapeHtml(item.title)}">
         <div class="card-poster-wrap">
           ${renderPosterArtHtml(item)}
-          ${isEditorsPick ? '<span class="editors-pick-badge">Editor\u0027s pick</span>' : ''}
+          ${badgeHtml}
           <button type="button" class="card-bookmark-btn ${isSaved ? 'active' : ''}" data-wl-id="${escapeHtml(item.id)}" title="${isSaved ? 'Remove from Watchlist' : 'Save to Watchlist'}" aria-label="${isSaved ? 'Remove from Watchlist' : 'Save to Watchlist'}">${bookmarkSvg}</button>
         </div>
         <div class="card-body">
@@ -555,7 +670,7 @@ function renderMoviesGrid(items) {
     `;
   }).join('');
 
-  els.moviesGrid.querySelectorAll('.movie-card').forEach(card => {
+  gridEl.querySelectorAll('.movie-card').forEach(card => {
     card.addEventListener('click', (e) => {
       const wlBtn = e.target.closest('[data-wl-id]');
       if (wlBtn) {
@@ -580,10 +695,50 @@ function renderMoviesGrid(items) {
         if (found) openMovieModal(found);
       }
     });
+    const thumbImg = card.querySelector('.curated-thumb-img');
+    if (thumbImg) {
+      thumbImg.addEventListener('error', () => {
+        const item = state.displayedItems.find(x => x.id === card.dataset.id);
+        const tid = getTrailerIdForItem(item);
+        if (tid && !thumbImg.dataset.triedMq) {
+          thumbImg.dataset.triedMq = '1';
+          thumbImg.src = `https://i.ytimg.com/vi/${encodeURIComponent(tid)}/mqdefault.jpg`;
+          return;
+        }
+        const thumbCard = thumbImg.closest('.curated-thumb-card');
+        if (thumbCard && item) {
+          thumbCard.outerHTML = renderEditorialPosterFallbackHtml(item);
+        }
+      });
+    }
   });
 }
 
+function renderMoviesGrid(items) {
+  hideMoreMoviesSection();
+  state.displayedItems = items;
+  if (els.gridTitle) els.gridTitle.textContent = buildCatalogHeading();
+  if (els.moviesCount) els.moviesCount.textContent = `Showing ${items.length} title${items.length === 1 ? '' : 's'}`;
+
+  if (!items.length) {
+    els.moviesGrid.innerHTML = `
+      <div class="empty-state" style="grid-column: 1 / -1; text-align: center; padding: 2.5rem 1rem;">
+        <h3 style="margin-bottom: 0.5rem;">No matching titles found</h3>
+        <p style="color: var(--text-muted); margin-bottom: 1rem;">Try switching between Curated Movies &amp; Live TV Series, clearing a filter, or searching another title.</p>
+        <button type="button" class="btn primary-btn" id="resetFiltersBtn">Reset Filters</button>
+      </div>
+    `;
+    const resetBtn = document.getElementById('resetFiltersBtn');
+    if (resetBtn) resetBtn.addEventListener('click', resetAllFilters);
+    return;
+  }
+
+  renderCardListIntoGrid(els.moviesGrid, items, { showTrendingRank: false });
+}
+
 function showLoadingGrid() {
+  hideMoreMoviesSection();
+  hidePaginationBar();
   els.moviesGrid.innerHTML = Array.from({ length: 8 }).map(() => `
     <div class="movie-card skeleton-card" style="opacity: 0.5;">
       <div class="card-poster-wrap" style="background: rgba(255,255,255,0.05);"></div>
@@ -642,6 +797,7 @@ function matchesGenre(item, genreId) {
   if (genreId === 'all') return true;
   const targetName = (GENRE_MAP[genreId] || '').toLowerCase();
   if (Array.isArray(item.genre_ids) && item.genre_ids.includes(Number(genreId))) return true;
+  if (String(genreId) === '10749' && Array.isArray(item.moods) && item.moods.includes('romantic')) return true;
   return (item.genres || []).some(g => {
     const lg = g.toLowerCase();
     if (targetName === 'sci-fi') return lg.includes('sci') || lg.includes('science');
@@ -662,14 +818,58 @@ function applyLocalFiltersAndRender() {
     return true;
   });
 
-  const limit = state.mediaType === 'tv' ? 24 + (state.tvPage * 24) : state.movieLimit;
-  const visible = filtered.slice(0, limit);
-  renderMoviesGrid(visible);
-  if (visible.length && !state.searchQuery) renderHero(visible[0]);
-  if (els.loadMoreBtn) {
-    const canLoadMore = (state.mediaType === 'tv' || state.movieLimit < filtered.length) && !state.searchQuery;
-    els.loadMoreBtn.classList.toggle('hidden', !canLoadMore);
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  state.currentPage = Math.max(1, Math.min(state.currentPage, totalPages));
+
+  const isTrendingMoviesSplit =
+    state.mediaType === 'movie' &&
+    !state.searchQuery &&
+    !state.showingWatchlist &&
+    state.genre === 'all' &&
+    state.language === 'all' &&
+    state.provider === 'all' &&
+    filtered.length > TRENDING_MOVIE_COUNT;
+
+  if (isTrendingMoviesSplit && state.currentPage === 1) {
+    const trendingItems = filtered.slice(0, TRENDING_MOVIE_COUNT);
+    const morePageOne = filtered.slice(TRENDING_MOVIE_COUNT, PAGE_SIZE);
+    state.displayedItems = [...trendingItems, ...morePageOne];
+
+    if (els.gridTitle) els.gridTitle.textContent = 'Trending Movies';
+    if (els.moviesCount) els.moviesCount.textContent = `Top ${trendingItems.length}`;
+    if (els.moviesGrid) els.moviesGrid.classList.add('trending-grid');
+    renderCardListIntoGrid(els.moviesGrid, trendingItems, { showTrendingRank: true });
+
+    if (els.moreMoviesSection) els.moreMoviesSection.classList.remove('hidden');
+    if (els.moreGridTitle) els.moreGridTitle.textContent = 'More Curated Movies';
+    if (els.moreMoviesCount) {
+      const endNum = TRENDING_MOVIE_COUNT + morePageOne.length;
+      els.moreMoviesCount.textContent = `Showing 11\u2013${endNum} of ${filtered.length} titles`;
+    }
+    if (els.moreMoviesGrid) {
+      els.moreMoviesGrid.classList.add('more-grid-5');
+      renderCardListIntoGrid(els.moreMoviesGrid, morePageOne, { showTrendingRank: false });
+    }
+
+    if (trendingItems.length && !state.searchQuery) renderHero(trendingItems[0]);
+    if (els.loadMoreBtn) els.loadMoreBtn.classList.add('hidden');
+    renderPaginationBar(1, totalPages, { canLoadMoreTv: false });
+    return;
   }
+
+  const startIdx = (state.currentPage - 1) * PAGE_SIZE;
+  const pageItems = filtered.slice(startIdx, startIdx + PAGE_SIZE);
+  renderMoviesGrid(pageItems);
+  if (els.moviesCount) {
+    els.moviesCount.textContent = filtered.length
+      ? `Showing ${startIdx + 1}\u2013${startIdx + pageItems.length} of ${filtered.length} titles \u00b7 Page ${state.currentPage} of ${totalPages}`
+      : 'Showing 0 titles';
+  }
+  if (pageItems.length && !state.searchQuery) renderHero(pageItems[0]);
+  if (els.loadMoreBtn) els.loadMoreBtn.classList.add('hidden');
+  renderPaginationBar(state.currentPage, totalPages, {
+    canLoadMoreTv: state.mediaType === 'tv' && state.tvPage < 10
+  });
 }
 
 function renderAutocompleteSuggestions(query, items) {
@@ -1048,7 +1248,8 @@ function toggleWatchlist(item) {
   updateHeroWatchlistBtn();
   updateModalWatchlistBtn();
   if (state.showingWatchlist) renderMoviesGrid(state.watchlist);
-  else renderMoviesGrid(state.displayedItems);
+  else if (state.searchQuery) renderMoviesGrid(state.displayedItems);
+  else applyLocalFiltersAndRender();
 }
 
 function toggleWatchedStatus(id) {
@@ -1242,7 +1443,7 @@ function resetAllFilters() {
   state.searchFilterTab = 'all';
   state.lastSearchResults = [];
   state.showingWatchlist = false;
-  state.movieLimit = 12;
+  state.currentPage = 1;
   if (els.searchInput) els.searchInput.value = '';
   if (els.clearSearchBtn) els.clearSearchBtn.classList.add('hidden');
   if (els.searchDropdown) els.searchDropdown.classList.add('hidden');
@@ -1270,36 +1471,108 @@ function setupQuizOptionGroup(container) {
   });
 }
 
-function runFinderQuiz() {
+function matchesQuizLanguage(item, langPref) {
+  if (!langPref || langPref === 'all') return true;
+  if (langPref === 'hi-ur') return item.language === 'hi' || item.language === 'ur';
+  if (langPref === 'global') return item.language !== 'en';
+  return item.language === langPref;
+}
+
+async function runFinderQuiz() {
   const moodBtn = els.quizMoodOptions && els.quizMoodOptions.querySelector('.selected');
   const runtimeBtn = els.quizRuntimeOptions && els.quizRuntimeOptions.querySelector('.selected');
   const formatBtn = els.quizFormatOptions && els.quizFormatOptions.querySelector('.selected');
+  const langBtn = els.quizLangOptions && els.quizLangOptions.querySelector('.selected');
 
   const genreId = moodBtn ? moodBtn.dataset.genre : '53';
-  const runtimeMode = runtimeBtn ? runtimeBtn.dataset.runtime : 'standard';
+  const runtimeMode = runtimeBtn ? runtimeBtn.dataset.runtime : 'short';
   const format = formatBtn ? formatBtn.dataset.format : 'movie';
+  const langPref = langBtn ? langBtn.dataset.lang : 'all';
 
-  const pool = format === 'tv' ? state.tvShowsCache : state.curatedMovies;
-  let matches = pool.filter(item => matchesGenre(item, genreId));
-  if (format === 'movie') {
-    const rtFiltered = matches.filter(m => {
-      if (runtimeMode === 'short') return m.runtime <= 105;
-      if (runtimeMode === 'epic') return m.runtime >= 130;
-      return m.runtime >= 95 && m.runtime <= 135;
-    });
-    if (rtFiltered.length >= 2) matches = rtFiltered;
+  if (!state.tvShowsCache.length && (format === 'tv' || format === 'both' || format === 'anime' || format === 'miniseries')) {
+    try { await loadTvCatalog(false); } catch (_) {}
   }
-  const top3 = (matches.length ? matches : pool).slice(0, 3);
 
-  els.quizResultsContainer.innerHTML = top3.map(item => `
-    <div class="quiz-result-item" data-quiz-id="${escapeHtml(item.id)}" style="cursor:pointer;padding:0.75rem;border-radius:10px;border:1px solid var(--border-color);background:rgba(255,255,255,0.03);margin-bottom:0.6rem;">
-      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:0.5rem;">
-        <strong>${escapeHtml(item.title)} (${escapeHtml(item.year)})</strong>
-        <span style="color:var(--accent-cyan);font-size:0.82rem;">Rating ${escapeHtml(item.rating)}</span>
+  let pool = [];
+  if (format === 'tv') {
+    pool = state.tvShowsCache.length ? state.tvShowsCache : state.curatedMovies;
+  } else if (format === 'both') {
+    pool = [...state.curatedMovies, ...state.tvShowsCache];
+  } else if (format === 'anime') {
+    const combined = [...state.curatedMovies, ...state.tvShowsCache];
+    const anim = combined.filter(x => (x.genres || []).some(g => /animation|anime/i.test(g)));
+    pool = anim.length ? anim : state.curatedMovies;
+  } else if (format === 'miniseries') {
+    const mini = state.tvShowsCache.filter(x => (x.status || '').toLowerCase() === 'ended' || (Number(x.runtime) || 0) >= 40);
+    pool = mini.length ? mini : (state.tvShowsCache.length ? state.tvShowsCache : state.curatedMovies);
+  } else if (format === 'short-film') {
+    const shortMovies = state.curatedMovies.filter(m => m.runtime > 0 && m.runtime <= 105);
+    pool = shortMovies.length ? shortMovies : state.curatedMovies;
+  } else if (format === 'epic-cinema') {
+    const epicMovies = state.curatedMovies.filter(m => m.runtime >= 130);
+    pool = epicMovies.length ? epicMovies : state.curatedMovies;
+  } else {
+    pool = state.curatedMovies;
+  }
+
+  const matchesRt = (item) => {
+    if (runtimeMode === 'any') return true;
+    const rt = Number(item.runtime) || 0;
+    if (item.media_type === 'tv') {
+      if (runtimeMode === 'short') return rt > 0 && rt <= 42;
+      if (runtimeMode === 'epic') return rt >= 50;
+      return rt >= 40 && rt <= 55;
+    }
+    if (runtimeMode === 'short') return rt > 0 && rt <= 105;
+    if (runtimeMode === 'epic') return rt >= 130;
+    return rt >= 95 && rt <= 135;
+  };
+
+  const scored = pool.map((item, idx) => {
+    const gOk = matchesGenre(item, genreId);
+    const lOk = matchesQuizLanguage(item, langPref);
+    const rOk = matchesRt(item);
+    let score = 0;
+    if (gOk) score += 100;
+    if (lOk) score += 80;
+    if (rOk) score += 40;
+    score += (Number(item.rating) || 7) * 0.5;
+    return { item, gOk, lOk, rOk, score, idx };
+  }).sort((a, b) => (Math.abs(b.score - a.score) > 0.01 ? b.score - a.score : a.idx - b.idx));
+
+  const strict = scored.filter(s => s.gOk && s.lOk && s.rOk);
+  const genreAndLang = scored.filter(s => s.gOk && s.lOk);
+  const langOnly = langPref !== 'all' ? scored.filter(s => s.lOk) : [];
+  const genreOnly = scored.filter(s => s.gOk);
+  const chosen = strict.length ? strict : (genreAndLang.length ? genreAndLang : (langOnly.length ? langOnly : (genreOnly.length ? genreOnly : scored)));
+  const top3 = chosen.slice(0, 3).map(s => s.item);
+
+  const langFallbackNotice = (langPref !== 'all' && !langOnly.length)
+    ? `<p style="font-size:0.8rem;color:var(--eyebrow);margin:0 0 10px;">No titles in that exact language are in the current format pool—showing closest mood matches (try "Movies &amp; TV (Any)" or "Feature Movies").</p>`
+    : '';
+
+  els.quizResultsContainer.innerHTML = langFallbackNotice + top3.map(item => {
+    const thumb = getThumbUrlForItem(item);
+    const thumbHtml = thumb
+      ? `<img src="${escapeHtml(thumb)}" alt="${escapeHtml(item.title)}" loading="lazy">`
+      : '';
+    const langTag = item.languageLabel || LANGUAGE_NAMES[item.language] || 'Global';
+    const rtTag = item.runtime ? (item.media_type === 'tv' ? `~${item.runtime}m / ep` : `${item.runtime} min`) : '';
+    const subMeta = [langTag, rtTag, item.media_type === 'tv' ? 'TV Series' : 'Film'].filter(Boolean).join(' \u00b7 ');
+    return `
+      <div class="quiz-result-item" data-quiz-id="${escapeHtml(item.id)}" style="cursor:pointer;">
+        ${thumbHtml}
+        <div style="flex:1;min-width:0;">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:0.5rem;flex-wrap:wrap;">
+            <strong>${escapeHtml(item.title)} (${escapeHtml(item.year)})</strong>
+            <span style="color:var(--accent-cyan);font-size:0.82rem;">Rating ${escapeHtml(item.rating)}</span>
+          </div>
+          <div style="font-size:0.76rem;color:var(--eyebrow);margin-top:2px;">${escapeHtml(subMeta)}</div>
+          <p style="font-size:0.82rem;color:var(--text-muted);margin:0.35rem 0 0;">${escapeHtml(item.editorial_note || (item.overview || '').slice(0, 130) + '...')}</p>
+        </div>
       </div>
-      <p style="font-size:0.82rem;color:var(--text-muted);margin:0.3rem 0 0;">${escapeHtml(item.editorial_note || item.overview.slice(0, 130) + '...')}</p>
-    </div>
-  `).join('');
+    `;
+  }).join('');
 
   els.quizResultsContainer.querySelectorAll('[data-quiz-id]').forEach(row => {
     row.addEventListener('click', () => {
@@ -1368,6 +1641,7 @@ function setupEventListeners() {
         const nextType = btn.dataset.type;
         if (nextType === state.mediaType && !state.searchQuery) return;
         state.searchQuery = '';
+        state.currentPage = 1;
         if (els.searchInput) els.searchInput.value = '';
         if (els.clearSearchBtn) els.clearSearchBtn.classList.add('hidden');
         if (els.searchResultTabs) els.searchResultTabs.classList.add('hidden');
@@ -1384,7 +1658,7 @@ function setupEventListeners() {
   if (els.languageSelect) {
     els.languageSelect.addEventListener('change', () => {
       state.language = els.languageSelect.value;
-      state.movieLimit = 12;
+      state.currentPage = 1;
       if (els.languageChips) {
         els.languageChips.querySelectorAll('.filter-pill').forEach(c => c.classList.toggle('active', c.dataset.lang === state.language));
       }
@@ -1398,7 +1672,7 @@ function setupEventListeners() {
         els.languageChips.querySelectorAll('.filter-pill').forEach(c => c.classList.remove('active'));
         chip.classList.add('active');
         state.language = chip.dataset.lang;
-        state.movieLimit = 12;
+        state.currentPage = 1;
         if (els.languageSelect) els.languageSelect.value = state.language;
         applyLocalFiltersAndRender();
       });
@@ -1423,6 +1697,7 @@ function setupEventListeners() {
         els.providerChips.querySelectorAll('.provider-chip').forEach(c => c.classList.remove('active'));
         chip.classList.add('active');
         state.provider = chip.dataset.provider;
+        state.currentPage = 1;
         applyLocalFiltersAndRender();
       });
     });
@@ -1434,6 +1709,7 @@ function setupEventListeners() {
         els.genreChips.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
         chip.classList.add('active');
         state.genre = chip.dataset.genre;
+        state.currentPage = 1;
         applyLocalFiltersAndRender();
       });
     });
@@ -1443,9 +1719,10 @@ function setupEventListeners() {
     els.loadMoreBtn.addEventListener('click', () => {
       if (state.mediaType === 'tv') {
         state.tvPage += 1;
+        state.currentPage += 1;
         loadTvCatalog(true);
       } else {
-        state.movieLimit += 18;
+        state.currentPage += 1;
         applyLocalFiltersAndRender();
       }
     });
@@ -1480,6 +1757,7 @@ function setupEventListeners() {
       if (els.watchlistNoticeBanner) els.watchlistNoticeBanner.classList.remove('hidden');
       if (els.searchResultTabs) els.searchResultTabs.classList.add('hidden');
       if (els.loadMoreBtn) els.loadMoreBtn.classList.add('hidden');
+      hidePaginationBar();
       renderMoviesGrid(state.watchlist);
       if (scrollIntoView && els.gridTitle) els.gridTitle.scrollIntoView({ behavior: 'smooth', block: 'start' });
     } else {
@@ -1525,6 +1803,7 @@ function setupEventListeners() {
   setupQuizOptionGroup(els.quizMoodOptions);
   setupQuizOptionGroup(els.quizRuntimeOptions);
   setupQuizOptionGroup(els.quizFormatOptions);
+  setupQuizOptionGroup(els.quizLangOptions);
   if (els.runQuizBtn) els.runQuizBtn.addEventListener('click', runFinderQuiz);
 
   if (els.trailerCloseBtn) els.trailerCloseBtn.addEventListener('click', closeTrailerModal);
@@ -1615,6 +1894,7 @@ async function initApp() {
     state.showingWatchlist = true;
     if (els.watchlistNoticeBanner) els.watchlistNoticeBanner.classList.remove('hidden');
     if (els.loadMoreBtn) els.loadMoreBtn.classList.add('hidden');
+    hidePaginationBar();
     renderMoviesGrid(state.watchlist);
   } else if (urlQuery) {
     if (els.searchInput) els.searchInput.value = urlQuery;

@@ -45,7 +45,7 @@
   <link rel="icon" type="image/png" sizes="96x96" href="/favicon.png">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="apple-touch-icon" href="/favicon.png">
-  <link rel="stylesheet" href="/style.css?v=20261122c">
+  <link rel="stylesheet" href="/style.css?v=20261122f">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;800&display=swap" rel="stylesheet">
@@ -115,7 +115,7 @@
     <div style="margin-bottom: 18px;">
       <span class="focus-eyebrow">STOP SCROLLING &bull; HUMAN-CURATED DECISION SOLVER</span>
       <h1 class="focus-h1" style="margin-bottom: 6px;">What movie or show should you watch <span class="focus-h1-accent">tonight?</span></h1>
-      <p style="color: var(--muted); font-size: 0.92rem;">Answer 4 quick questions across 70 hand-curated films and live TV series&mdash;no sign-up required.</p>
+      <p style="color: var(--muted); font-size: 0.92rem;">Answer 4 quick questions across 165 hand-curated films and live TV series&mdash;no sign-up required.</p>
     </div>
 
     <!-- Mobile Top 4-Segment Progress Bar -->
@@ -181,6 +181,7 @@
           <div class="quiz-options-grid" id="mfMoodOptions">
             <button type="button" class="quiz-opt-btn selected" data-mood="edge-of-seat" data-label="Edge-of-Seat Tension">Edge-of-Seat Tension</button>
             <button type="button" class="quiz-opt-btn" data-mood="mind-bending" data-label="Mind-Bending &amp; Smart">Mind-Bending &amp; Smart</button>
+            <button type="button" class="quiz-opt-btn" data-mood="romantic" data-label="Romantic &amp; Heartfelt">Romantic &amp; Heartfelt</button>
             <button type="button" class="quiz-opt-btn" data-mood="feel-good" data-label="Warm &amp; Stress-Free">Warm &amp; Stress-Free</button>
             <button type="button" class="quiz-opt-btn" data-mood="clever-twist" data-label="Clever Twist &amp; Mystery">Clever Twist &amp; Mystery</button>
             <button type="button" class="quiz-opt-btn" data-mood="adrenaline" data-label="Big Action &amp; Pace">Big Action &amp; Pace</button>
@@ -214,22 +215,48 @@
         <div class="mf-step-panel hidden" data-step-panel="4">
           <span class="focus-eyebrow">STEP 4 OF 4</span>
           <h2 style="font-size:1.55rem;font-weight:800;margin-bottom:6px;">Format &amp; language preference</h2>
-          <p style="color:var(--muted);font-size:0.88rem;margin-bottom:14px;">Choose between our 70 hand-curated movies or live TV series via TVmaze.</p>
+          <p style="color:var(--muted);font-size:0.88rem;margin-bottom:14px;">Choose between our 165 hand-curated movies or live TV series via TVmaze.</p>
 
-          <strong style="font-size:0.84rem;color:var(--eyebrow);display:block;margin-bottom:6px;">Format</strong>
-          <div class="quiz-options-grid" id="mfFormatOptions" style="margin-top:6px;">
-            <button type="button" class="quiz-opt-btn selected" data-format="movie">Curated Movies (70 Picks)</button>
-            <button type="button" class="quiz-opt-btn" data-format="tv">Live TV Series</button>
+          <div class="quiz-field-head">
+            <strong style="font-size:0.84rem;color:var(--eyebrow);">Format</strong>
+            <span class="quiz-scroll-hint">Scroll for more</span>
+          </div>
+          <div class="quiz-options-scroll quiz-scroll-format">
+            <div class="quiz-options-grid" id="mfFormatOptions">
+              <button type="button" class="quiz-opt-btn selected" data-format="movie">Curated Movies (165 Picks)</button>
+              <button type="button" class="quiz-opt-btn" data-format="tv">Live TV Series</button>
+              <button type="button" class="quiz-opt-btn" data-format="both">Movies &amp; TV (Any)</button>
+              <button type="button" class="quiz-opt-btn" data-format="anime">Anime &amp; Animated</button>
+              <button type="button" class="quiz-opt-btn" data-format="miniseries">Mini-Series &amp; Binge TV</button>
+              <button type="button" class="quiz-opt-btn" data-format="short-film">Quick Movies (&le; 105m)</button>
+              <button type="button" class="quiz-opt-btn" data-format="epic-cinema">Epic Cinema (130m+)</button>
+            </div>
           </div>
 
-          <strong style="font-size:0.84rem;color:var(--eyebrow);display:block;margin-bottom:6px;">Language</strong>
-          <div class="quiz-options-grid" id="mfLangOptions" style="margin-top:6px;">
-            <button type="button" class="quiz-opt-btn selected" data-lang="all" data-label="Any Language">Any Language</button>
-            <button type="button" class="quiz-opt-btn" data-lang="en" data-label="English">English</button>
-            <button type="button" class="quiz-opt-btn" data-lang="global" data-label="Global / Non-English">Global / Non-English</button>
-            <button type="button" class="quiz-opt-btn" data-lang="ko" data-label="Korean">Korean</button>
-            <button type="button" class="quiz-opt-btn" data-lang="south-asia" data-label="South Asian">Hindi / Urdu / Malayalam</button>
-            <button type="button" class="quiz-opt-btn" data-lang="ja" data-label="Japanese">Japanese / Anime</button>
+          <div class="quiz-field-head">
+            <strong style="font-size:0.84rem;color:var(--eyebrow);">Language</strong>
+            <span class="quiz-scroll-hint">Scroll for more</span>
+          </div>
+          <div class="quiz-options-scroll quiz-scroll-lang">
+            <div class="quiz-options-grid" id="mfLangOptions">
+              <button type="button" class="quiz-opt-btn selected" data-lang="all" data-label="Any Language">Any Language</button>
+              <button type="button" class="quiz-opt-btn" data-lang="en" data-label="English">English</button>
+              <button type="button" class="quiz-opt-btn" data-lang="hi-ur" data-label="Urdu / Hindi">Urdu / Hindi</button>
+              <button type="button" class="quiz-opt-btn" data-lang="ur" data-label="Urdu (Pakistani)">Urdu (Pakistani)</button>
+              <button type="button" class="quiz-opt-btn" data-lang="hi" data-label="Hindi (Bollywood)">Hindi (Bollywood)</button>
+              <button type="button" class="quiz-opt-btn" data-lang="ko" data-label="Korean">Korean</button>
+              <button type="button" class="quiz-opt-btn" data-lang="ja" data-label="Japanese / Anime">Japanese / Anime</button>
+              <button type="button" class="quiz-opt-btn" data-lang="ml" data-label="Malayalam">Malayalam</button>
+              <button type="button" class="quiz-opt-btn" data-lang="ta" data-label="Tamil">Tamil</button>
+              <button type="button" class="quiz-opt-btn" data-lang="es" data-label="Spanish">Spanish</button>
+              <button type="button" class="quiz-opt-btn" data-lang="fr" data-label="French">French</button>
+              <button type="button" class="quiz-opt-btn" data-lang="de" data-label="German">German</button>
+              <button type="button" class="quiz-opt-btn" data-lang="tr" data-label="Turkish">Turkish</button>
+              <button type="button" class="quiz-opt-btn" data-lang="ar" data-label="Arabic">Arabic</button>
+              <button type="button" class="quiz-opt-btn" data-lang="it" data-label="Italian">Italian</button>
+              <button type="button" class="quiz-opt-btn" data-lang="zh" data-label="Chinese / Mandarin">Chinese / Mandarin</button>
+              <button type="button" class="quiz-opt-btn" data-lang="global" data-label="Global / Non-English">Global / Non-English</button>
+            </div>
           </div>
 
           <div class="mf-step-actions">
@@ -285,7 +312,7 @@
         <div class="seo-faq" style="margin-top: 12px; border-top: none; padding-top: 0;">
           <details open>
             <summary>How does the WatchPulse Movie Finder Quiz choose picks?</summary>
-            <p>For movies, the picker scores WatchPulse's hand-curated 70-film editorial catalog by who is watching, emotional vibe, runtime window, and original language—surfacing either one laser-focused match or your Top 3 with clear editorial reasons. For TV series, it scores live series metadata from TVmaze (CC BY-SA).</p>
+            <p>For movies, the picker scores WatchPulse's hand-curated 165-film editorial catalog by who is watching, emotional vibe, runtime window, and original language—surfacing either one laser-focused match or your Top 3 with clear editorial reasons. For TV series, it scores live series metadata from TVmaze (CC BY-SA).</p>
           </details>
           <details open>
             <summary>Do I need to sign up or install an app to save my picks?</summary>
@@ -347,6 +374,7 @@
       const MOOD_LABELS = {
         'edge-of-seat': 'Edge-of-Seat Tension',
         'mind-bending': 'Mind-Bending & Smart',
+        'romantic': 'Romantic & Heartfelt',
         'feel-good': 'Warm & Stress-Free',
         'clever-twist': 'Clever Twist & Mystery',
         'adrenaline': 'Big Action & Pace',
@@ -363,6 +391,7 @@
       const LEGACY_MOOD_MAP = {
         '53': 'edge-of-seat',
         '878': 'mind-bending',
+        '10749': 'romantic',
         '28': 'adrenaline',
         '35': 'feel-good',
         '16': 'feel-good',
@@ -371,6 +400,7 @@
       };
       const LANG_LABELS = {
         en: 'English',
+        'hi-ur': 'Urdu / Hindi',
         ko: 'Korean',
         hi: 'Hindi',
         ur: 'Urdu',
@@ -379,7 +409,11 @@
         ja: 'Japanese',
         es: 'Spanish',
         fr: 'French',
-        de: 'German'
+        de: 'German',
+        tr: 'Turkish',
+        ar: 'Arabic',
+        it: 'Italian',
+        zh: 'Chinese'
       };
 
       const state = {
@@ -560,7 +594,7 @@
 
       async function loadMovies() {
         if (state.movies.length) return state.movies;
-        const res = await fetch('/data/curated-catalog.json?v=20261122a');
+        const res = await fetch('/data/curated-catalog.json?v=20261122d');
         if (!res.ok) throw new Error('Unable to load curated catalog');
         const raw = await res.json();
         state.movies = (Array.isArray(raw) ? raw : []).map(function (m) {
@@ -602,7 +636,23 @@
           if (!res.ok) throw new Error('TVmaze unavailable');
           raw = await res.json();
         }
-        const langMap = { English: 'en', Korean: 'ko', Hindi: 'hi', Japanese: 'ja', Spanish: 'es', French: 'fr', Urdu: 'ur', German: 'de' };
+        const langMap = {
+          English: 'en',
+          Korean: 'ko',
+          Hindi: 'hi',
+          Japanese: 'ja',
+          Spanish: 'es',
+          French: 'fr',
+          Urdu: 'ur',
+          German: 'de',
+          Malayalam: 'ml',
+          Tamil: 'ta',
+          Turkish: 'tr',
+          Arabic: 'ar',
+          Italian: 'it',
+          Chinese: 'zh',
+          Mandarin: 'zh'
+        };
         state.tvShows = raw
           .filter(function (s) { return s && s.name && s.rating && s.rating.average; })
           .sort(function (a, b) { return (b.weight || 0) - (a.weight || 0); })
@@ -617,6 +667,7 @@
               runtime: s.averageRuntime || s.runtime || 45,
               rating: Number(s.rating.average).toFixed(1),
               genres: genres,
+              status: s.status || '',
               director: '',
               accent: 'indigo',
               moods: [],
@@ -639,6 +690,7 @@
         const g = (item.genres || []).join(' ').toLowerCase();
         if (moodKey === 'edge-of-seat') return /thriller|crime|mystery|suspense|drama/.test(g);
         if (moodKey === 'mind-bending') return /sci-fi|science|mystery|fantasy/.test(g);
+        if (moodKey === 'romantic') return /romance|romantic/.test(g);
         if (moodKey === 'feel-good') return /comedy|family|animation|music/.test(g);
         if (moodKey === 'clever-twist') return /mystery|crime|thriller/.test(g);
         if (moodKey === 'adrenaline') return /action|adventure|sci-fi/.test(g);
@@ -673,7 +725,6 @@
       function matchesLang(item, langPref) {
         if (langPref === 'all') return true;
         if (langPref === 'global') return item.language !== 'en';
-        if (langPref === 'south-asia') return ['hi', 'ur', 'ml', 'ta'].indexOf(item.language) !== -1;
         if (langPref === 'hi-ur') return item.language === 'hi' || item.language === 'ur';
         return item.language === langPref;
       }
@@ -731,16 +782,49 @@
 
         let pool = [];
         let fallbackNote = '';
-        if (sel.format === 'tv') {
+        if (sel.format === 'tv' || sel.format === 'miniseries') {
           try {
-            pool = await loadTvShows();
+            const tvPool = await loadTvShows();
+            if (sel.format === 'miniseries') {
+              const mini = tvPool.filter(function (s) { return (s.status || '').toLowerCase() === 'ended' || (Number(s.runtime) || 0) >= 40; });
+              pool = mini.length ? mini : tvPool;
+            } else {
+              pool = tvPool;
+            }
           } catch (_) {
             pool = await loadMovies();
             fallbackNote = 'Live TV series catalog could not be reached right now, so we matched from WatchPulse curated films instead.';
           }
+        } else if (sel.format === 'both' || sel.format === 'anime') {
+          const settled = await Promise.allSettled([loadMovies(), loadTvShows()]);
+          const mv = settled[0].status === 'fulfilled' ? settled[0].value : [];
+          const tv = settled[1].status === 'fulfilled' ? settled[1].value : [];
+          const combined = mv.concat(tv);
+          if (!combined.length) {
+            resultsEl.innerHTML = '<p style="color:#fca5a5;">Could not load the catalog right now. Please refresh and try again.</p>';
+            statusEl.textContent = '';
+            return;
+          }
+          if (sel.format === 'anime') {
+            const anim = combined.filter(function (x) {
+              return (x.genres || []).some(function (g) { return /animation|anime/i.test(g); });
+            });
+            pool = anim.length ? anim : combined;
+          } else {
+            pool = combined;
+          }
         } else {
           try {
-            pool = await loadMovies();
+            const mvPool = await loadMovies();
+            if (sel.format === 'short-film') {
+              const shortMv = mvPool.filter(function (m) { return m.runtime > 0 && m.runtime <= 105; });
+              pool = shortMv.length ? shortMv : mvPool;
+            } else if (sel.format === 'epic-cinema') {
+              const epicMv = mvPool.filter(function (m) { return m.runtime >= 130; });
+              pool = epicMv.length ? epicMv : mvPool;
+            } else {
+              pool = mvPool;
+            }
           } catch (_) {
             resultsEl.innerHTML = '<p style="color:#fca5a5;">Could not load the catalog right now. Please refresh and try again.</p>';
             statusEl.textContent = '';
@@ -757,7 +841,7 @@
           if (mOk) score += 100;
           if (cOk) score += 60;
           if (tOk) score += 45;
-          if (lOk) score += 35;
+          if (lOk) score += 50;
           score += (Number(item.rating) || 7) * 0.5;
           return { item: item, mOk: mOk, cOk: cOk, tOk: tOk, lOk: lOk, score: score, idx: idx };
         }).sort(function (a, b) {
@@ -768,7 +852,14 @@
         const strictMatches = scored.filter(function (s) { return s.mOk && s.cOk && s.lOk && (sel.time === 'any' || s.tOk); });
         const goodMatches = scored.filter(function (s) { return s.mOk && s.cOk && s.lOk; });
         const moodMatches = scored.filter(function (s) { return s.mOk && s.lOk; });
-        const finalPool = strictMatches.length ? strictMatches : (goodMatches.length ? goodMatches : (moodMatches.length ? moodMatches : scored));
+        const langMatches = sel.lang !== 'all' ? scored.filter(function (s) { return s.lOk; }) : [];
+        const finalPool = strictMatches.length
+          ? strictMatches
+          : (goodMatches.length ? goodMatches : (moodMatches.length ? moodMatches : (langMatches.length ? langMatches : scored)));
+
+        if (!fallbackNote && sel.lang !== 'all' && langMatches.length === 0) {
+          fallbackNote = 'No exact titles in ' + (LANG_LABELS[sel.lang] || sel.lang) + ' found in this format pool \u2014 showing closest mood matches instead (try "Movies & TV (Any)" or "Curated Movies").';
+        }
 
         const moodName = MOOD_LABELS[sel.mood] || 'Curated';
         const companyName = COMPANY_LABELS[sel.company] || 'Anyone';
@@ -957,7 +1048,7 @@
       const pTime = params.get('time');
       const pFormat = params.get('format');
       const pLangRaw = params.get('lang');
-      const pLang = pLangRaw === 'hi-ur' ? 'south-asia' : pLangRaw;
+      const pLang = pLangRaw === 'south-asia' ? 'hi-ur' : pLangRaw;
       const pMode = params.get('mode');
       const pStep = parseInt(params.get('step') || '0', 10);
       const hasSharedFilters = Boolean(pCompany || pMood || pTime || pFormat || pLang || pMode);

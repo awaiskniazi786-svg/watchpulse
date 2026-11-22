@@ -109,7 +109,7 @@
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5022914500809430"
     crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="/style.css?v=20261122c">
+  <link rel="stylesheet" href="/style.css?v=20261122f">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;800&display=swap" rel="stylesheet">
@@ -267,8 +267,8 @@
     <!-- Movies Grid Section -->
     <section class="movies-grid-section">
       <div class="section-header">
-        <h3 id="gridTitle" class="section-title">Curated Editorial Movies</h3>
-        <span id="moviesCount" class="count-tag">Showing 12 titles</span>
+        <h3 id="gridTitle" class="section-title">Trending Movies</h3>
+        <span id="moviesCount" class="count-tag">Top 10</span>
       </div>
 
       <div id="watchlistNoticeBanner" class="watchlist-notice-banner hidden">
@@ -281,9 +281,17 @@
         <!-- Movie Cards rendered via JS -->
       </div>
 
-      <div class="load-more-wrap">
-        <button id="loadMoreBtn" class="focus-load-more-btn" type="button">Load more titles</button>
+      <div id="moreMoviesSection" class="more-movies-section hidden">
+        <div class="section-header more-movies-header">
+          <h3 id="moreGridTitle" class="section-title">More Curated Movies</h3>
+          <span id="moreMoviesCount" class="count-tag"></span>
+        </div>
+        <div id="moreMoviesGrid" class="movies-grid more-grid-5">
+          <!-- Remaining curated movies (#11 onward) rendered via JS -->
+        </div>
       </div>
+
+      <nav id="paginationBar" class="pagination-bar hidden" aria-label="Catalog pages"></nav>
     </section>
 
     <!-- Editorial Guides Section (3-Column Grid) -->
@@ -542,13 +550,14 @@
       <button type="button" id="quizCloseBtn" class="modal-close" aria-label="Close Finder Quiz">&times;</button>
       <span class="pill-badge">30-Second Recommendation Quiz</span>
       <h2 id="quizModalTitle" style="font-size: 1.45rem; margin: 10px 0 6px;">Tonight's Pick Finder</h2>
-      <p style="font-size: 0.88rem; color: var(--muted); margin-bottom: 16px;">Answer 3 quick questions and we'll match 3 top-rated titles with clear reasons why they fit tonight.</p>
+      <p style="font-size: 0.88rem; color: var(--muted); margin-bottom: 16px;">Answer 4 quick questions and we'll match 3 top-rated titles with clear reasons why they fit tonight.</p>
 
       <div>
         <strong style="font-size: 0.85rem;">1. What mood or vibe are you looking for?</strong>
         <div class="quiz-options-grid" id="quizMoodOptions">
           <button type="button" class="quiz-opt-btn selected" data-genre="53" data-label="High-Tension Suspense">High-Tension Thriller</button>
           <button type="button" class="quiz-opt-btn" data-genre="878" data-label="Mind-Bending Sci-Fi">Smart Sci-Fi &amp; Mystery</button>
+          <button type="button" class="quiz-opt-btn" data-genre="10749" data-label="Romantic &amp; Heartfelt">Romantic &amp; Heartfelt</button>
           <button type="button" class="quiz-opt-btn" data-genre="28" data-label="Adrenaline Action">Big Action &amp; Pace</button>
           <button type="button" class="quiz-opt-btn" data-genre="35" data-label="Feel-Good Comedy">Feel-Good Comedy</button>
           <button type="button" class="quiz-opt-btn" data-genre="16" data-label="Family &amp; Animation">Family &amp; Animation</button>
@@ -557,15 +566,52 @@
 
         <strong style="font-size: 0.85rem;">2. How much time do you have tonight?</strong>
         <div class="quiz-options-grid" id="quizRuntimeOptions">
+          <button type="button" class="quiz-opt-btn" data-runtime="any" data-label="Any Length">Any Length</button>
           <button type="button" class="quiz-opt-btn selected" data-runtime="short" data-label="Under 100 min">Quick Watch (&le; 100m)</button>
           <button type="button" class="quiz-opt-btn" data-runtime="standard" data-label="100–130 min">Standard Feature (100–130m)</button>
           <button type="button" class="quiz-opt-btn" data-runtime="epic" data-label="130+ min Epic">Full Epic (130m+ / Binge)</button>
         </div>
 
-        <strong style="font-size: 0.85rem;">3. Preferred Format?</strong>
-        <div class="quiz-options-grid" id="quizFormatOptions">
-          <button type="button" class="quiz-opt-btn selected" data-format="movie">Feature Movies</button>
-          <button type="button" class="quiz-opt-btn" data-format="tv">TV Series</button>
+        <div class="quiz-field-head">
+          <strong style="font-size: 0.85rem;">3. Preferred Format?</strong>
+          <span class="quiz-scroll-hint">Scroll for more</span>
+        </div>
+        <div class="quiz-options-scroll quiz-scroll-format">
+          <div class="quiz-options-grid" id="quizFormatOptions">
+            <button type="button" class="quiz-opt-btn selected" data-format="movie">Feature Movies (165)</button>
+            <button type="button" class="quiz-opt-btn" data-format="tv">Live TV Series</button>
+            <button type="button" class="quiz-opt-btn" data-format="both">Movies &amp; TV (Any)</button>
+            <button type="button" class="quiz-opt-btn" data-format="anime">Anime &amp; Animated</button>
+            <button type="button" class="quiz-opt-btn" data-format="miniseries">Mini-Series &amp; Binge TV</button>
+            <button type="button" class="quiz-opt-btn" data-format="short-film">Quick Movies (&le; 105m)</button>
+            <button type="button" class="quiz-opt-btn" data-format="epic-cinema">Epic Cinema (130m+)</button>
+          </div>
+        </div>
+
+        <div class="quiz-field-head">
+          <strong style="font-size: 0.85rem;">4. Preferred Language?</strong>
+          <span class="quiz-scroll-hint">Scroll for more</span>
+        </div>
+        <div class="quiz-options-scroll quiz-scroll-lang">
+          <div class="quiz-options-grid" id="quizLangOptions">
+            <button type="button" class="quiz-opt-btn selected" data-lang="all">Any Language</button>
+            <button type="button" class="quiz-opt-btn" data-lang="en">English</button>
+            <button type="button" class="quiz-opt-btn" data-lang="hi-ur">Urdu / Hindi</button>
+            <button type="button" class="quiz-opt-btn" data-lang="ur">Urdu (Pakistani)</button>
+            <button type="button" class="quiz-opt-btn" data-lang="hi">Hindi (Bollywood)</button>
+            <button type="button" class="quiz-opt-btn" data-lang="ko">Korean</button>
+            <button type="button" class="quiz-opt-btn" data-lang="ja">Japanese / Anime</button>
+            <button type="button" class="quiz-opt-btn" data-lang="ml">Malayalam</button>
+            <button type="button" class="quiz-opt-btn" data-lang="ta">Tamil</button>
+            <button type="button" class="quiz-opt-btn" data-lang="es">Spanish</button>
+            <button type="button" class="quiz-opt-btn" data-lang="fr">French</button>
+            <button type="button" class="quiz-opt-btn" data-lang="de">German</button>
+            <button type="button" class="quiz-opt-btn" data-lang="tr">Turkish</button>
+            <button type="button" class="quiz-opt-btn" data-lang="ar">Arabic</button>
+            <button type="button" class="quiz-opt-btn" data-lang="it">Italian</button>
+            <button type="button" class="quiz-opt-btn" data-lang="zh">Chinese / Mandarin</button>
+            <button type="button" class="quiz-opt-btn" data-lang="global">Global / Non-English</button>
+          </div>
         </div>
 
         <button id="runQuizBtn" type="button" class="btn primary-btn" style="width: 100%; margin-top: 4px;">Find My 3 Matches</button>
@@ -659,7 +705,7 @@
   </nav>
 
   <script src="/consent-ui.js?v=20261121f" defer></script>
-  <script src="/app.js?v=20261122b"></script>
+  <script src="/app.js?v=20261122e"></script>
 </body>
 
 </html>

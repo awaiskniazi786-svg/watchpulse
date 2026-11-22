@@ -102,6 +102,7 @@ const state = {
   searchFilterTab: 'all', // 'all' | 'movie' | 'tv'
   lastSearchResults: [],
   tvPage: 0,
+  movieLimit: 12,
   curatedMovies: [],
   tvShowsCache: [],
   displayedItems: [],
@@ -120,8 +121,15 @@ const els = {
   quizNavBtn: document.getElementById('quizNavBtn'),
   surpriseNavBtn: document.getElementById('surpriseNavBtn'),
   compassQuickPickBtn: document.getElementById('compassQuickPickBtn'),
+  heroCompanyOptions: document.getElementById('heroCompanyOptions'),
+  heroQuizContinueBtn: document.getElementById('heroQuizContinueBtn'),
+  languageChips: document.getElementById('languageChips'),
   watchlistNavBtn: document.getElementById('watchlistNavBtn'),
   watchlistCount: document.getElementById('watchlistCount'),
+  watchlistStripCount: document.getElementById('watchlistStripCount'),
+  openWatchlistStripBtn: document.getElementById('openWatchlistStripBtn'),
+  mobileHeaderWatchlistBtn: document.getElementById('mobileHeaderWatchlistBtn'),
+  mobileHeaderWatchlistCount: document.getElementById('mobileHeaderWatchlistCount'),
   heroBackdrop: document.getElementById('heroBackdrop'),
   heroTitle: document.getElementById('heroTitle'),
   heroRating: document.getElementById('heroRating'),
@@ -257,9 +265,12 @@ function saveWatchlist() {
 }
 
 function updateWatchlistBadge() {
-  if (els.watchlistCount) els.watchlistCount.textContent = String(state.watchlist.length);
+  const count = String(state.watchlist.length);
+  if (els.watchlistCount) els.watchlistCount.textContent = count;
+  if (els.watchlistStripCount) els.watchlistStripCount.textContent = count;
+  if (els.mobileHeaderWatchlistCount) els.mobileHeaderWatchlistCount.textContent = count;
   if (els.mobileWatchlistBadge) {
-    els.mobileWatchlistBadge.textContent = String(state.watchlist.length);
+    els.mobileWatchlistBadge.textContent = count;
     els.mobileWatchlistBadge.classList.toggle('hidden', state.watchlist.length === 0);
   }
 }
@@ -382,29 +393,24 @@ function normalizeCuratedMovie(m) {
 
 function renderPosterArtHtml(item) {
   const isYtThumb = Boolean(item.poster && item.poster.includes('i.ytimg.com'));
-  // 1. Real vertical poster (TVmaze shows OR Wikipedia/Wikidata movie posters)
   if (item.poster && !isYtThumb) {
-    return `<img src="${escapeHtml(item.poster)}" alt="${escapeHtml(item.title)} poster" class="card-poster" loading="lazy" referrerpolicy="no-referrer">`;
+    return `<img src="${escapeHtml(item.poster)}" alt="${escapeHtml(item.title)} poster" class="card-poster" width="220" height="330" loading="lazy" referrerpolicy="no-referrer">`;
   }
-  // 2. Curated or searched movie with verified HD YouTube trailer thumbnail
   const thumb = getThumbUrlForItem(item);
   if (thumb) {
-    const rt = item.runtime ? `⏱️ ${item.runtime}m` : '▶ Trailer';
     return `
       <div class="curated-thumb-card">
-        <img src="${escapeHtml(thumb)}" alt="${escapeHtml(item.title)} official trailer preview" class="curated-thumb-img" loading="lazy">
+        <img src="${escapeHtml(thumb)}" alt="${escapeHtml(item.title)} official trailer preview" class="curated-thumb-img" width="220" height="330" loading="lazy">
         <div class="curated-thumb-scrim"></div>
-        <div class="curated-thumb-play" aria-hidden="true">▶</div>
-        <div class="curated-thumb-footer">
-          <span>${escapeHtml(rt)}</span>
+        <div class="curated-thumb-play" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
         </div>
       </div>
     `;
   }
-  // 3. Clean typographic fallback when no poster or trailer exists
-  const accent = escapeHtml(item.accent || 'teal');
-  const tag = item.source === 'Wikipedia & Wikidata' ? 'OPEN FILM DATA' : 'WATCHPULSE PICK';
-  const sub = item.director ? `Dir. ${escapeHtml(item.director)}` : escapeHtml((item.genres || []).slice(0, 2).join(' • '));
+  const accent = escapeHtml(item.accent || 'violet');
+  const tag = item.source === 'Wikipedia & Wikidata' ? 'OPEN DATA' : 'CURATED';
+  const sub = item.director ? `Dir. ${escapeHtml(item.director)}` : escapeHtml((item.genres || []).slice(0, 2).join(' \u00b7 '));
   return `
     <div class="editorial-poster-art accent-${accent}">
       <div class="ep-top">
@@ -416,7 +422,7 @@ function renderPosterArtHtml(item) {
         <div class="ep-sub">${sub}</div>
       </div>
       <div class="ep-bottom">
-        <span>⏱️ ${item.runtime ? item.runtime + 'm' : 'Feature'}</span>
+        <span>${item.runtime ? item.runtime + ' min' : 'Feature'}</span>
         <span>${escapeHtml((item.genres || ['Film'])[0])}</span>
       </div>
     </div>
@@ -431,17 +437,17 @@ function renderHero(item) {
     if (bg) {
       els.heroBackdrop.style.backgroundImage = `url('${bg}')`;
     } else {
-      els.heroBackdrop.style.backgroundImage = 'linear-gradient(135deg, #0b132b 0%, #1c2541 55%, #0f766e 100%)';
+      els.heroBackdrop.style.backgroundImage = 'linear-gradient(135deg, #2B1B5C 0%, #14131D 55%, #0C0B12 100%)';
     }
   }
   if (els.heroTitle) els.heroTitle.textContent = item.title;
-  if (els.heroRating) els.heroRating.textContent = `⭐ ${item.rating}`;
+  if (els.heroRating) els.heroRating.textContent = `Rating ${item.rating}`;
   if (els.heroYear) els.heroYear.textContent = item.year;
   if (els.heroGenre) els.heroGenre.textContent = (item.genres || []).slice(0, 2).join(' / ');
   if (els.heroDuration) {
     els.heroDuration.textContent = item.media_type === 'tv'
-      ? `📺 ${item.platforms[0] || 'TV Series'}`
-      : (item.runtime ? `⏱️ ${item.runtime} min` : '🎬 Feature Film');
+      ? (item.platforms[0] || 'TV Series')
+      : (item.runtime ? `${item.runtime} min` : 'Feature Film');
   }
   if (els.heroOverview) els.heroOverview.textContent = item.editorial_note || item.overview;
   updateHeroWatchlistBtn();
@@ -450,11 +456,11 @@ function renderHero(item) {
 function updateHeroWatchlistBtn() {
   if (!els.heroWatchlistBtn || !state.currentHero) return;
   const inList = state.watchlist.some(w => w.id === state.currentHero.id);
-  els.heroWatchlistBtn.textContent = inList ? '✓ Saved in Watchlist' : '🔖 Add to Watchlist';
+  els.heroWatchlistBtn.textContent = inList ? 'Saved in watchlist' : 'Add to watchlist';
 }
 
 function buildCatalogHeading() {
-  if (state.showingWatchlist) return '🔖 Your Private Watchlist';
+  if (state.showingWatchlist) return 'Your Private Watchlist';
   if (state.searchQuery) return `Search Results for "${state.searchQuery}"`;
   const typeLabel = state.mediaType === 'tv' ? 'Popular TV Series (Live via TVmaze)' : 'Curated Editorial Movies';
   const parts = [];
@@ -477,9 +483,9 @@ function renderSearchResultTabs() {
 
   els.searchResultTabs.classList.remove('hidden');
   els.searchResultTabs.innerHTML = `
-    <button type="button" class="search-tab-btn ${state.searchFilterTab === 'all' ? 'active' : ''}" data-stab="all">✨ All (${allCount})</button>
-    <button type="button" class="search-tab-btn ${state.searchFilterTab === 'movie' ? 'active' : ''}" data-stab="movie">🎬 Movies (${movieCount})</button>
-    <button type="button" class="search-tab-btn ${state.searchFilterTab === 'tv' ? 'active' : ''}" data-stab="tv">📺 TV Series (${tvCount})</button>
+    <button type="button" class="search-tab-btn ${state.searchFilterTab === 'all' ? 'active' : ''}" data-stab="all">All (${allCount})</button>
+    <button type="button" class="search-tab-btn ${state.searchFilterTab === 'movie' ? 'active' : ''}" data-stab="movie">Movies (${movieCount})</button>
+    <button type="button" class="search-tab-btn ${state.searchFilterTab === 'tv' ? 'active' : ''}" data-stab="tv">TV Series (${tvCount})</button>
   `;
   els.searchResultTabs.querySelectorAll('[data-stab]').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -512,29 +518,36 @@ function renderMoviesGrid(items) {
     return;
   }
 
-  els.moviesGrid.innerHTML = items.map(item => {
+  els.moviesGrid.innerHTML = items.map((item, idx) => {
     const savedObj = state.watchlist.find(w => w.id === item.id);
     const isSaved = Boolean(savedObj);
     const isWatched = Boolean(savedObj && savedObj.watched);
-    const ratingText = typeof item.rating === 'number' ? `⭐ ${item.rating}` : (item.runtime ? `⏱️ ${item.runtime}m` : '🎬 Film');
-    const primaryPlatform = (item.platforms && item.platforms[0]) ? item.platforms[0] : (item.media_type === 'tv' ? 'TV Series' : (item.director ? `Dir. ${item.director}` : 'Curated'));
+    const primaryGenre = (item.genres && item.genres[0]) ? item.genres[0] : (item.media_type === 'tv' ? 'TV' : 'Film');
+    const isEditorsPick = item.id === 'wp-dune-part-two' || (idx === 0 && Boolean(item.featured));
+    let metaLine = '';
+    if (item.media_type === 'tv') {
+      const net = (item.platforms && item.platforms[0]) ? item.platforms[0] : 'TV';
+      metaLine = [item.year, primaryGenre, net].filter(Boolean).join(' \u00b7 ');
+    } else if (item.language && item.language !== 'en' && item.languageLabel) {
+      metaLine = [item.year, item.languageLabel, primaryGenre].filter(Boolean).join(' \u00b7 ');
+    } else {
+      const rt = item.runtime ? `${item.runtime} min` : '';
+      metaLine = [item.year, primaryGenre, rt].filter(Boolean).join(' \u00b7 ');
+    }
+    const bookmarkSvg = `<svg width="14" height="14" viewBox="0 0 24 24" fill="${isSaved ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>`;
     return `
       <article class="movie-card" data-id="${escapeHtml(item.id)}" tabindex="0" role="button" aria-label="Open details for ${escapeHtml(item.title)}">
         <div class="card-poster-wrap">
           ${renderPosterArtHtml(item)}
-          <span class="card-rating">${escapeHtml(ratingText)}</span>
-          <span class="card-type-pill">${item.media_type === 'tv' ? '📺 TV' : '🎬 Film'}</span>
-          <button type="button" class="card-bookmark-btn ${isSaved ? 'active' : ''}" data-wl-id="${escapeHtml(item.id)}" title="${isSaved ? 'Remove from Watchlist' : 'Save to Watchlist'}" aria-label="Toggle Watchlist">${isSaved ? '✓' : '🔖'}</button>
+          ${isEditorsPick ? '<span class="editors-pick-badge">Editor\u0027s pick</span>' : ''}
+          <button type="button" class="card-bookmark-btn ${isSaved ? 'active' : ''}" data-wl-id="${escapeHtml(item.id)}" title="${isSaved ? 'Remove from Watchlist' : 'Save to Watchlist'}" aria-label="${isSaved ? 'Remove from Watchlist' : 'Save to Watchlist'}">${bookmarkSvg}</button>
         </div>
         <div class="card-body">
           <h3 class="card-title" title="${escapeHtml(item.title)}">${escapeHtml(item.title)}</h3>
-          <div class="card-meta">
-            <span>${escapeHtml(item.year)}</span>
-            <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:65%;">${escapeHtml(primaryPlatform)}</span>
-          </div>
+          <div class="card-meta">${escapeHtml(metaLine)}</div>
           ${state.showingWatchlist ? `
-            <button type="button" class="watched-toggle-btn ${isWatched ? 'is-watched' : ''}" data-watched-id="${escapeHtml(item.id)}" style="margin-top:0.5rem;width:100%;padding:0.35rem;border-radius:6px;border:1px solid var(--border-color);background:rgba(255,255,255,0.04);color:var(--text-main);font-size:0.78rem;cursor:pointer;">
-              ${isWatched ? '✓ Watched' : '○ Mark as Watched'}
+            <button type="button" class="watched-toggle-btn ${isWatched ? 'is-watched' : ''}" data-watched-id="${escapeHtml(item.id)}">
+              ${isWatched ? 'Watched' : 'Mark as watched'}
             </button>
           ` : ''}
         </div>
@@ -560,6 +573,13 @@ function renderMoviesGrid(items) {
       const found = state.displayedItems.find(x => x.id === card.dataset.id);
       if (found) openMovieModal(found);
     });
+    card.addEventListener('keydown', (e) => {
+      if ((e.key === 'Enter' || e.key === ' ') && e.target === card) {
+        e.preventDefault();
+        const found = state.displayedItems.find(x => x.id === card.dataset.id);
+        if (found) openMovieModal(found);
+      }
+    });
   });
 }
 
@@ -582,7 +602,7 @@ async function loadCuratedMovies() {
 }
 
 async function loadTvCatalog(append = false) {
-  if (!append) showLoadingGrid();
+  if (!append && state.mediaType === 'tv') showLoadingGrid();
   try {
     const rawShows = await fetchCatalogApi('tv-popular', { page: state.tvPage });
     const normalized = rawShows
@@ -598,7 +618,7 @@ async function loadTvCatalog(append = false) {
       state.tvShowsCache = normalized;
     }
 
-    if (!state.searchQuery) applyLocalFiltersAndRender();
+    if (!state.searchQuery && !state.showingWatchlist && state.mediaType === 'tv') applyLocalFiltersAndRender();
   } catch (err) {
     if (state.mediaType === 'tv') {
       els.moviesGrid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:2rem;color:var(--text-muted);">Could not reach TVmaze API right now. Try switching to Curated Movies or retrying.</div>`;
@@ -642,20 +662,22 @@ function applyLocalFiltersAndRender() {
     return true;
   });
 
-  const limit = state.mediaType === 'tv' ? 24 + (state.tvPage * 24) : filtered.length;
+  const limit = state.mediaType === 'tv' ? 24 + (state.tvPage * 24) : state.movieLimit;
   const visible = filtered.slice(0, limit);
   renderMoviesGrid(visible);
   if (visible.length && !state.searchQuery) renderHero(visible[0]);
   if (els.loadMoreBtn) {
-    els.loadMoreBtn.classList.toggle('hidden', state.mediaType !== 'tv' || Boolean(state.searchQuery));
+    const canLoadMore = (state.mediaType === 'tv' || state.movieLimit < filtered.length) && !state.searchQuery;
+    els.loadMoreBtn.classList.toggle('hidden', !canLoadMore);
   }
 }
 
 function renderAutocompleteSuggestions(query, items) {
   if (!els.searchDropdown) return;
   if (!query) {
+    const acSearchSvg = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;color:var(--muted);" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>';
     els.searchDropdown.innerHTML = `<div class="dropdown-section-title" style="padding:0.5rem 0.8rem;">Popular Quick Searches</div>` +
-      TRENDING_KEYWORDS.map(k => `<button type="button" class="ac-row" data-kw="${escapeHtml(k)}"><span>🔍</span><span class="ac-title">${escapeHtml(k)}</span></button>`).join('');
+      TRENDING_KEYWORDS.map(k => `<button type="button" class="ac-row" data-kw="${escapeHtml(k)}">${acSearchSvg}<span class="ac-title">${escapeHtml(k)}</span></button>`).join('');
     els.searchDropdown.classList.remove('hidden');
     els.searchDropdown.querySelectorAll('[data-kw]').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -678,13 +700,13 @@ function renderAutocompleteSuggestions(query, items) {
       const thumb = getThumbUrlForItem(item);
       const thumbHtml = thumb
         ? `<img src="${escapeHtml(thumb)}" alt="" class="ac-thumb" loading="lazy">`
-        : `<div class="ac-thumb" style="display:flex;align-items:center;justify-content:center;font-size:0.85rem;">${item.media_type === 'tv' ? '📺' : '🎬'}</div>`;
+        : `<div class="ac-thumb" style="display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700;color:var(--accent-3);">${item.media_type === 'tv' ? 'TV' : 'Film'}</div>`;
       return `
         <button type="button" class="ac-row" data-ac-id="${escapeHtml(item.id)}">
           ${thumbHtml}
           <div class="ac-meta">
             <span class="ac-title">${escapeHtml(item.title)}</span>
-            <span class="ac-sub">${escapeHtml(item.year)} • ⭐ ${escapeHtml(item.rating)} • ${escapeHtml((item.platforms && item.platforms[0]) || item.source)}</span>
+            <span class="ac-sub">${escapeHtml(item.year)} \u00b7 Rating ${escapeHtml(item.rating)} \u00b7 ${escapeHtml((item.platforms && item.platforms[0]) || item.source)}</span>
           </div>
           <span class="ac-type-pill">${item.media_type === 'tv' ? 'TV' : 'Film'}</span>
         </button>
@@ -839,7 +861,7 @@ function populateMovieModalContent(detailed, isLoadingDetails = false) {
     const bg = detailed.backdrop || thumb;
     els.modalBackdrop.style.backgroundImage = bg
       ? `url('${bg}')`
-      : 'linear-gradient(135deg, #0b132b 0%, #1c2541 60%, #0f766e 100%)';
+      : 'linear-gradient(135deg, #2B1B5C 0%, #14131D 60%, #0C0B12 100%)';
   }
   if (els.modalPoster) {
     if (thumb) {
@@ -854,8 +876,8 @@ function populateMovieModalContent(detailed, isLoadingDetails = false) {
   if (els.modalTitle) els.modalTitle.textContent = detailed.title;
   if (els.modalRating) {
     els.modalRating.textContent = typeof detailed.rating === 'number'
-      ? `⭐ ${detailed.rating}`
-      : (detailed.country ? `🌍 ${detailed.country}` : '🎬 Feature Film');
+      ? `Rating ${detailed.rating}`
+      : (detailed.country ? `${detailed.country}` : 'Feature Film');
   }
   if (els.modalYear) els.modalYear.textContent = detailed.year || 'Film';
   if (els.modalRuntime) {
@@ -887,7 +909,7 @@ function populateMovieModalContent(detailed, isLoadingDetails = false) {
       ? `<a href="https://www.imdb.com/title/${encodeURIComponent(detailed.imdb_id)}/" target="_blank" rel="noopener noreferrer" class="provider-pill" style="border-color: #f5c518; color: #f5c518; text-decoration: none;">IMDb Profile ↗</a>`
       : '';
     const guideBtn = detailed.guide_url
-      ? `<a href="${escapeHtml(detailed.guide_url.replace(/\.html$/i, ''))}" class="provider-pill" style="border-color: var(--accent-cyan); color: var(--accent-cyan); text-decoration: none;">📚 Read: ${escapeHtml(detailed.guide_title)} →</a>`
+      ? `<a href="${escapeHtml(detailed.guide_url.replace(/\.html$/i, ''))}" class="provider-pill" style="border-color: var(--accent-cyan); color: var(--accent-cyan); text-decoration: none;">Read: ${escapeHtml(detailed.guide_title)} →</a>`
       : '';
     els.watchProvidersList.innerHTML = `<div class="provider-tier-group"><div class="provider-tier-pills">${pills}${imdbBtn}${guideBtn}</div></div>`;
   }
@@ -915,10 +937,10 @@ function populateMovieModalContent(detailed, isLoadingDetails = false) {
 
   if (els.modalCastList) {
     if (isLoadingDetails && (!detailed.cast || !detailed.cast.length)) {
-      els.modalCastList.innerHTML = `<span class="cast-pill" style="opacity:0.75;">⏳ Loading full cast, director &amp; details...</span>`;
+      els.modalCastList.innerHTML = `<span class="cast-pill" style="opacity:0.75;">Loading full cast, director &amp; details...</span>`;
     } else {
       const chips = [];
-      if (detailed.director) chips.push(`<span class="cast-pill" style="border-color:var(--accent-cyan);color:var(--accent-cyan);">🎬 Dir. ${escapeHtml(detailed.director)}</span>`);
+      if (detailed.director) chips.push(`<span class="cast-pill" style="border-color:var(--accent-cyan);color:var(--accent-cyan);">Dir. ${escapeHtml(detailed.director)}</span>`);
       if (detailed.cast && detailed.cast.length) {
         detailed.cast.forEach(name => chips.push(`<span class="cast-pill">${escapeHtml(name)}</span>`));
       }
@@ -1013,7 +1035,9 @@ function closeMovieModal() {
 function updateModalWatchlistBtn() {
   if (!els.modalWatchlistBtn || !state.currentModalItem) return;
   const inList = state.watchlist.some(w => w.id === state.currentModalItem.id);
-  els.modalWatchlistBtn.textContent = inList ? '✓ Saved in Watchlist' : '🔖 Bookmark to Watchlist';
+  const labelSpan = els.modalWatchlistBtn.querySelector('span');
+  if (labelSpan) labelSpan.textContent = inList ? 'Saved in Watchlist' : 'Bookmark to Watchlist';
+  else els.modalWatchlistBtn.textContent = inList ? 'Saved in Watchlist' : 'Bookmark to Watchlist';
 }
 
 function toggleWatchlist(item) {
@@ -1054,7 +1078,7 @@ function renderEmbeddedTrailerId(videoId, title) {
   }
   if (els.trailerStatusLabel) {
     const pos = trailerPlayerState.ids.length > 1 ? ` (Source ${trailerPlayerState.idx + 1}/${trailerPlayerState.ids.length})` : '';
-    els.trailerStatusLabel.textContent = `▶ Playing "${title}" official trailer on WatchPulse${pos}`;
+    els.trailerStatusLabel.textContent = `Playing "${title}" official trailer on WatchPulse${pos}`;
   }
   if (els.switchTrailerBtn) {
     els.switchTrailerBtn.classList.toggle('hidden', trailerPlayerState.ids.length <= 1);
@@ -1070,7 +1094,7 @@ function showTrailerOverlayBox(html) {
   if (!box && videoWrap) {
     box = document.createElement('div');
     box.id = 'trailerNoEmbedCard';
-    box.style.cssText = 'position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.85rem;padding:1.5rem;text-align:center;background:radial-gradient(circle at top,#134e4a 0%,#0b0f17 75%);color:#f8fafc;';
+    box.style.cssText = 'position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.85rem;padding:1.5rem;text-align:center;background:radial-gradient(circle at top,#2B1B5C 0%,#0C0B12 75%);color:#F3F4F7;';
     videoWrap.appendChild(box);
   }
   if (box) {
@@ -1124,11 +1148,10 @@ async function openTrailerForItem(item) {
   }
 
   // No pre-cached trailer ID yet -> resolve live on Cloudflare Edge & embed directly inside WatchPulse!
-  if (els.trailerStatusLabel) els.trailerStatusLabel.textContent = `⏳ Loading official trailer for "${item.title}"...`;
+  if (els.trailerStatusLabel) els.trailerStatusLabel.textContent = `Loading official trailer for "${item.title}"...`;
   showTrailerOverlayBox(`
-    <span style="font-size:2rem;">🎬</span>
     <h3 style="margin:0;font-size:1.1rem;">Finding Official HD Trailer...</h3>
-    <p style="margin:0;max-width:400px;font-size:0.85rem;color:#cbd5e1;">Loading "${escapeHtml(item.title)}" directly inside WatchPulse.</p>
+    <p style="margin:0;max-width:400px;font-size:0.85rem;color:var(--muted);">Loading "${escapeHtml(item.title)}" directly inside WatchPulse.</p>
   `);
 
   try {
@@ -1151,10 +1174,9 @@ async function openTrailerForItem(item) {
   // Official-channel verification fallback: if no verified studio/network trailer was found, link cleanly to YouTube
   if (els.trailerStatusLabel) els.trailerStatusLabel.textContent = `No verified official studio channel embed found for "${item.title}"`;
   showTrailerOverlayBox(`
-    <span style="font-size:2rem;">🎬</span>
     <h3 style="margin:0;font-size:1.15rem;">Official Trailer: ${escapeHtml(item.title)}</h3>
-    <p style="margin:0;max-width:420px;font-size:0.86rem;color:#cbd5e1;">WatchPulse only embeds trailers from verified studio and network channels. Open YouTube to view official uploads:</p>
-    <a href="${escapeHtml(ytSearchUrl)}" target="_blank" rel="noopener noreferrer" class="btn primary-btn" style="text-decoration:none;">▶ Search Official Trailer on YouTube ↗</a>
+    <p style="margin:0;max-width:420px;font-size:0.86rem;color:var(--muted);">WatchPulse only embeds trailers from verified studio and network channels. Open YouTube to view official uploads:</p>
+    <a href="${escapeHtml(ytSearchUrl)}" target="_blank" rel="noopener noreferrer" class="btn primary-btn" style="text-decoration:none;">Search Official Trailer on YouTube ↗</a>
   `);
   trackEvent('watchpulse_trailer_click', { title: item.title, embedded: false });
 }
@@ -1220,11 +1242,15 @@ function resetAllFilters() {
   state.searchFilterTab = 'all';
   state.lastSearchResults = [];
   state.showingWatchlist = false;
+  state.movieLimit = 12;
   if (els.searchInput) els.searchInput.value = '';
   if (els.clearSearchBtn) els.clearSearchBtn.classList.add('hidden');
   if (els.searchDropdown) els.searchDropdown.classList.add('hidden');
   if (els.searchResultTabs) els.searchResultTabs.classList.add('hidden');
   if (els.languageSelect) els.languageSelect.value = 'all';
+  if (els.languageChips) {
+    els.languageChips.querySelectorAll('.filter-pill').forEach(c => c.classList.toggle('active', c.dataset.lang === 'all'));
+  }
   if (els.providerChips) {
     els.providerChips.querySelectorAll('.provider-chip').forEach(c => c.classList.toggle('active', c.dataset.provider === 'all'));
   }
@@ -1269,7 +1295,7 @@ function runFinderQuiz() {
     <div class="quiz-result-item" data-quiz-id="${escapeHtml(item.id)}" style="cursor:pointer;padding:0.75rem;border-radius:10px;border:1px solid var(--border-color);background:rgba(255,255,255,0.03);margin-bottom:0.6rem;">
       <div style="display:flex;justify-content:space-between;align-items:baseline;gap:0.5rem;">
         <strong>${escapeHtml(item.title)} (${escapeHtml(item.year)})</strong>
-        <span style="color:var(--accent-cyan);font-size:0.82rem;">⭐ ${escapeHtml(item.rating)}</span>
+        <span style="color:var(--accent-cyan);font-size:0.82rem;">Rating ${escapeHtml(item.rating)}</span>
       </div>
       <p style="font-size:0.82rem;color:var(--text-muted);margin:0.3rem 0 0;">${escapeHtml(item.editorial_note || item.overview.slice(0, 130) + '...')}</p>
     </div>
@@ -1358,7 +1384,36 @@ function setupEventListeners() {
   if (els.languageSelect) {
     els.languageSelect.addEventListener('change', () => {
       state.language = els.languageSelect.value;
+      state.movieLimit = 12;
+      if (els.languageChips) {
+        els.languageChips.querySelectorAll('.filter-pill').forEach(c => c.classList.toggle('active', c.dataset.lang === state.language));
+      }
       applyLocalFiltersAndRender();
+    });
+  }
+
+  if (els.languageChips) {
+    els.languageChips.querySelectorAll('.filter-pill').forEach(chip => {
+      chip.addEventListener('click', () => {
+        els.languageChips.querySelectorAll('.filter-pill').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        state.language = chip.dataset.lang;
+        state.movieLimit = 12;
+        if (els.languageSelect) els.languageSelect.value = state.language;
+        applyLocalFiltersAndRender();
+      });
+    });
+  }
+
+  if (els.heroCompanyOptions) {
+    els.heroCompanyOptions.querySelectorAll('.focus-opt-card').forEach(card => {
+      card.addEventListener('click', () => {
+        els.heroCompanyOptions.querySelectorAll('.focus-opt-card').forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        if (els.heroQuizContinueBtn) {
+          els.heroQuizContinueBtn.href = `/movie-finder?company=${encodeURIComponent(card.dataset.company || 'date-night')}&step=2&mode=one`;
+        }
+      });
     });
   }
 
@@ -1386,8 +1441,13 @@ function setupEventListeners() {
 
   if (els.loadMoreBtn) {
     els.loadMoreBtn.addEventListener('click', () => {
-      state.tvPage += 1;
-      loadTvCatalog(true);
+      if (state.mediaType === 'tv') {
+        state.tvPage += 1;
+        loadTvCatalog(true);
+      } else {
+        state.movieLimit += 18;
+        applyLocalFiltersAndRender();
+      }
     });
   }
 
@@ -1405,25 +1465,31 @@ function setupEventListeners() {
       const shareUrl = `${window.location.origin}/?type=${state.currentModalItem.media_type}&q=${encodeURIComponent(state.currentModalItem.title)}`;
       try {
         await navigator.clipboard.writeText(shareUrl);
-        els.modalShareBtn.textContent = '✓ Link Copied!';
-        setTimeout(() => { els.modalShareBtn.textContent = '🔗 Share Link'; }, 1800);
+        const shareSpan = els.modalShareBtn.querySelector('span');
+        if (shareSpan) shareSpan.textContent = 'Link Copied!'; else els.modalShareBtn.textContent = 'Link Copied!';
+        setTimeout(() => {
+          if (shareSpan) shareSpan.textContent = 'Share Link'; else els.modalShareBtn.textContent = 'Share Link';
+        }, 1800);
       } catch (_) {}
     });
   }
 
-  if (els.watchlistNavBtn) {
-    els.watchlistNavBtn.addEventListener('click', () => {
-      state.showingWatchlist = !state.showingWatchlist;
-      if (state.showingWatchlist) {
-        if (els.watchlistNoticeBanner) els.watchlistNoticeBanner.classList.remove('hidden');
-        if (els.searchResultTabs) els.searchResultTabs.classList.add('hidden');
-        if (els.loadMoreBtn) els.loadMoreBtn.classList.add('hidden');
-        renderMoviesGrid(state.watchlist);
-      } else {
-        applyLocalFiltersAndRender();
-      }
-    });
-  }
+  const openWatchlistView = (scrollIntoView = false) => {
+    state.showingWatchlist = scrollIntoView ? true : !state.showingWatchlist;
+    if (state.showingWatchlist) {
+      if (els.watchlistNoticeBanner) els.watchlistNoticeBanner.classList.remove('hidden');
+      if (els.searchResultTabs) els.searchResultTabs.classList.add('hidden');
+      if (els.loadMoreBtn) els.loadMoreBtn.classList.add('hidden');
+      renderMoviesGrid(state.watchlist);
+      if (scrollIntoView && els.gridTitle) els.gridTitle.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      applyLocalFiltersAndRender();
+    }
+  };
+
+  if (els.watchlistNavBtn) els.watchlistNavBtn.addEventListener('click', () => openWatchlistView(false));
+  if (els.openWatchlistStripBtn) els.openWatchlistStripBtn.addEventListener('click', () => openWatchlistView(true));
+  if (els.mobileHeaderWatchlistBtn) els.mobileHeaderWatchlistBtn.addEventListener('click', () => openWatchlistView(true));
 
   if (els.surpriseNavBtn) {
     els.surpriseNavBtn.addEventListener('click', () => {
@@ -1468,20 +1534,31 @@ function setupEventListeners() {
     });
   }
 
+  const setActiveMobileNav = (activeEl) => {
+    [els.mobileNavHome, els.mobileNavSurprise, els.mobileNavWatchlist].forEach(el => {
+      if (el) el.classList.toggle('active', el === activeEl);
+    });
+  };
+
   if (els.mobileNavHome) {
     els.mobileNavHome.addEventListener('click', () => {
+      setActiveMobileNav(els.mobileNavHome);
       resetAllFilters();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   }
   if (els.mobileNavSurprise && els.quizModal) {
     els.mobileNavSurprise.addEventListener('click', () => {
+      setActiveMobileNav(els.mobileNavSurprise);
       els.quizModal.classList.remove('hidden');
       document.body.style.overflow = 'hidden';
     });
   }
-  if (els.mobileNavWatchlist && els.watchlistNavBtn) {
-    els.mobileNavWatchlist.addEventListener('click', () => els.watchlistNavBtn.click());
+  if (els.mobileNavWatchlist) {
+    els.mobileNavWatchlist.addEventListener('click', () => {
+      setActiveMobileNav(els.mobileNavWatchlist);
+      openWatchlistView(true);
+    });
   }
   if (els.mobileNavTop) {
     els.mobileNavTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
@@ -1511,8 +1588,7 @@ async function initApp() {
   const urlQuery = params.get('q');
 
   if (urlType === 'movie' || urlType === 'tv') state.mediaType = urlType;
-  else if (urlQuery || urlLang) state.mediaType = 'movie';
-  else state.mediaType = 'tv';
+  else state.mediaType = 'movie';
 
   setMediaTypeUI(state.mediaType);
 
@@ -1528,11 +1604,19 @@ async function initApp() {
   if (urlLang && LANGUAGE_NAMES[urlLang]) {
     state.language = urlLang;
     if (els.languageSelect) els.languageSelect.value = urlLang;
+    if (els.languageChips) {
+      els.languageChips.querySelectorAll('.filter-pill').forEach(c => c.classList.toggle('active', c.dataset.lang === urlLang));
+    }
   }
 
   await Promise.allSettled([loadCuratedMovies(), loadTvCatalog(false)]);
 
-  if (urlQuery) {
+  if (params.get('watchlist') === '1') {
+    state.showingWatchlist = true;
+    if (els.watchlistNoticeBanner) els.watchlistNoticeBanner.classList.remove('hidden');
+    if (els.loadMoreBtn) els.loadMoreBtn.classList.add('hidden');
+    renderMoviesGrid(state.watchlist);
+  } else if (urlQuery) {
     if (els.searchInput) els.searchInput.value = urlQuery;
     if (els.clearSearchBtn) els.clearSearchBtn.classList.remove('hidden');
     await searchTitlesLive(urlQuery, false);

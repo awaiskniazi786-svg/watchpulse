@@ -388,13 +388,14 @@ async function fetchCatalogApi(action, params = {}) {
     const pTerm = pMap[params.platform] || '';
     const offsetNum = Number(params.offset) || 0;
     const gsrOffset = offsetNum * 12;
-    const qStr = [lTerm, pTerm, gTerm, 'film'].filter(Boolean).join(' ');
+    const qStr = ['hastemplate:"Infobox film"', lTerm, pTerm, gTerm, 'film'].filter(Boolean).join(' ');
     const res = await fetch(`https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=${encodeURIComponent(qStr)}&gsrlimit=12&gsroffset=${gsrOffset}&prop=pageimages|extracts|pageprops&piprop=thumbnail&pithumbsize=500&pilicense=any&exintro=1&explaintext=1&exsentences=3&format=json&origin=*`);
     if (!res.ok) throw new Error('Wikipedia discover unavailable');
     const data = await res.json();
     const pages = (data && data.query && data.query.pages) ? Object.values(data.query.pages) : [];
     const results = pages
-      .filter(p => p && p.title && !/\b(in film|filmography|list of|disambiguation|franchise|character|soundtrack)\b/i.test(p.title))
+      .filter(p => p && p.title && !/\b(in film|filmography|list of|disambiguation|franchise|character|soundtrack|actress|actor|politician|singer|musician|director|producer|cricketer|journalist|biography)\b/i.test(p.title))
+      .filter(p => Boolean((p.thumbnail && p.thumbnail.source) || VERIFIED_TRAILER_IDS[p.title.replace(/\s*\([^)]*film[^)]*\)/i, '').trim().toLowerCase()]))
       .sort((a, b) => (a.index || 99) - (b.index || 99))
       .map(p => {
         const cleanTitle = p.title.replace(/\s*\([^)]*film[^)]*\)/i, '').replace(/\s*\(\d{4}\s+[^)]*\)/i, '').trim();
@@ -775,74 +776,14 @@ function getPaginationNumbers(currentPage, totalPages) {
   return pages;
 }
 
-function renderPaginationBar(currentPage, totalPages, options = {}) {
-  if (!els.paginationBar) return;
-  const canLoadMoreTv = Boolean(options.canLoadMoreTv);
-  if (totalPages <= 1 && !canLoadMoreTv) {
-    hidePaginationBar();
-    return;
-  }
-
-  const pageTokens = getPaginationNumbers(currentPage, totalPages);
-  const pageButtonsHtml = pageTokens.map(tok => {
-    if (tok === '...') {
-      return '<span class="page-status-pill" aria-hidden="true">&hellip;</span>';
-    }
-    return `<button type="button" class="page-btn ${tok === currentPage ? 'active' : ''}" data-page="${tok}" aria-label="Page ${tok}" ${tok === currentPage ? 'aria-current="page"' : ''}>${tok}</button>`;
-  }).join('');
-
-  els.paginationBar.innerHTML = `
-    <button type="button" class="page-btn" data-page-nav="prev" ${currentPage <= 1 ? 'disabled' : ''}>&larr; Prev</button>
-    ${pageButtonsHtml}
-    <button type="button" class="page-btn" data-page-nav="next" ${(currentPage >= totalPages && !canLoadMoreTv) ? 'disabled' : ''}>Next &rarr;</button>
-    <span class="page-status-pill">Page ${currentPage} of ${totalPages}</span>
-  `;
-  els.paginationBar.classList.remove('hidden');
-
-  const scrollToBrowse = () => {
-    const anchor = document.querySelector('.browse-section') || els.gridTitle;
-    if (anchor) anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  };
-
-  els.paginationBar.querySelectorAll('[data-page]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const target = Number(btn.dataset.page);
-      if (!target || target === state.currentPage) return;
-      state.currentPage = target;
-      applyLocalFiltersAndRender();
-      scrollToBrowse();
-    });
-  });
-
-  const prevBtn = els.paginationBar.querySelector('[data-page-nav="prev"]');
-  if (prevBtn) {
-    prevBtn.addEventListener('click', () => {
-      if (state.currentPage <= 1) return;
-      state.currentPage -= 1;
-      applyLocalFiltersAndRender();
-      scrollToBrowse();
-    });
-  }
-
-  const nextBtn = els.paginationBar.querySelector('[data-page-nav="next"]');
-  if (nextBtn) {
-    nextBtn.addEventListener('click', async () => {
-      if (state.currentPage < totalPages) {
-        state.currentPage += 1;
-        applyLocalFiltersAndRender();
-        scrollToBrowse();
-      } else if (canLoadMoreTv) {
-        await loadMoreCategoryTitles(true);
-        scrollToBrowse();
-      }
-    });
-  }
+function renderPaginationBar() {
+  hidePaginationBar();
 }
 
 function renderCardListIntoGrid(gridEl, items, options = {}) {
   if (!gridEl) return;
   const showTrendingRank = Boolean(options.showTrendingRank);
-  const hasTrailerCards = items.length > 0 && items.every(it => Boolean((it.poster && it.poster.includes('i.ytimg.com')) || (!it.poster && getTrailerIdForItem(it))));
+  const hasTrailerCards = items.length > 0 && items.every(it => it.media_type === 'movie' || Boolean((it.poster && it.poster.includes('i.ytimg.com')) || (!it.poster && getTrailerIdForItem(it))));
   gridEl.classList.toggle('has-trailer-thumbs', hasTrailerCards);
 
   gridEl.innerHTML = items.map((item, idx) => {
@@ -851,7 +792,7 @@ function renderCardListIntoGrid(gridEl, items, options = {}) {
     const isWatched = Boolean(savedObj && savedObj.watched);
     const primaryGenre = (item.genres && item.genres[0]) ? item.genres[0] : (item.media_type === 'tv' ? 'TV' : 'Film');
     const isEditorsPick = !showTrendingRank && (item.id === 'wp-dune-part-two' || (idx === 0 && Boolean(item.featured)));
-    const isYtCard = Boolean((item.poster && item.poster.includes('i.ytimg.com')) || (!item.poster && getTrailerIdForItem(item)));
+    const isYtCard = item.media_type === 'movie' || Boolean((item.poster && item.poster.includes('i.ytimg.com')) || (!item.poster && getTrailerIdForItem(item)));
     const badgeHtml = showTrendingRank
       ? `<span class="trending-rank-badge ${idx === 0 ? 'rank-top' : ''}">#${idx + 1}</span>`
       : (isEditorsPick ? '<span class="editors-pick-badge">Editor\u0027s pick</span>' : '');
@@ -913,10 +854,10 @@ function renderCardListIntoGrid(gridEl, items, options = {}) {
     });
     const thumbImg = card.querySelector('.curated-thumb-img');
     if (thumbImg) {
-      thumbImg.addEventListener('error', () => {
+      const handleBrokenOrPlaceholderThumb = () => {
         const item = state.displayedItems.find(x => x.id === card.dataset.id);
         const tid = getTrailerIdForItem(item);
-        if (tid && !thumbImg.dataset.triedMq) {
+        if (tid && !thumbImg.dataset.triedMq && !thumbImg.src.includes('/mqdefault.jpg')) {
           thumbImg.dataset.triedMq = '1';
           thumbImg.src = `https://i.ytimg.com/vi/${encodeURIComponent(tid)}/mqdefault.jpg`;
           return;
@@ -924,6 +865,13 @@ function renderCardListIntoGrid(gridEl, items, options = {}) {
         const thumbCard = thumbImg.closest('.curated-thumb-card');
         if (thumbCard && item) {
           thumbCard.outerHTML = renderEditorialPosterFallbackHtml(item);
+        }
+      };
+      thumbImg.addEventListener('error', handleBrokenOrPlaceholderThumb);
+      thumbImg.addEventListener('load', () => {
+        // YouTube's gray 3-dots placeholder image has naturalWidth === 120 and naturalHeight === 90
+        if (thumbImg.naturalWidth > 0 && thumbImg.naturalWidth <= 120) {
+          handleBrokenOrPlaceholderThumb();
         }
       });
     }
@@ -1215,10 +1163,21 @@ function updateInfiniteLoadBarUI() {
   }
 }
 
-async function loadMoreCategoryTitles(jumpToNextPage = true) {
+async function loadMoreCategoryTitles(increaseVisibleLimit = true) {
   if (state.isLoadingMore) return;
-  state.isLoadingMore = true;
+  if (increaseVisibleLimit) {
+    state.currentPage += 1;
+  }
+  const neededCount = state.currentPage * PAGE_SIZE;
+  const currentFiltered = filterAndSortCatalogPool();
 
+  // If we already have enough local titles buffered to show the next +30 batch, render immediately and only fetch API if running low
+  if (increaseVisibleLimit && currentFiltered.length >= neededCount) {
+    applyLocalFiltersAndRender();
+    return;
+  }
+
+  state.isLoadingMore = true;
   if (els.infiniteLoadMoreBtn) els.infiniteLoadMoreBtn.disabled = true;
   if (els.infiniteLoadBtnText) els.infiniteLoadBtnText.textContent = 'Loading more verified titles...';
 
@@ -1230,9 +1189,6 @@ async function loadMoreCategoryTitles(jumpToNextPage = true) {
     const primaryLang = lList[0] || 'all';
     const primaryPlatform = pList[0] || 'all';
     const sig = getFilterSignature();
-
-    const prevFilteredCount = filterAndSortCatalogPool().length;
-    const prevTotalPages = Math.max(1, Math.ceil(prevFilteredCount / PAGE_SIZE));
 
     if (state.mediaType === 'tv') {
       const existingIds = new Set(state.tvShowsCache.map(x => x.id));
@@ -1316,11 +1272,13 @@ async function loadMoreCategoryTitles(jumpToNextPage = true) {
       rawResults.forEach(w => {
         const normTitle = normalizeForFuzzy(w.title);
         if (!w || !w.title || !normTitle || existingTitles.has(normTitle)) return;
-        existingTitles.add(normTitle);
+        if (/\b(actress|actor|politician|singer|musician|cricketer|journalist|biography)\b/i.test(w.title + ' ' + (w.overview || '').slice(0, 120))) return;
 
         const tid = w.trailer_id || VERIFIED_TRAILER_IDS[(w.title || '').toLowerCase()] || '';
-        const ytThumb = tid ? getYtThumbUrl(tid, 'maxresdefault') : '';
-        const poster = ytThumb || w.poster || '';
+        const poster = w.poster || (tid ? getYtThumbUrl(tid, 'mqdefault') : '');
+        if (!poster && !tid) return;
+
+        existingTitles.add(normTitle);
 
         state.curatedMovies.push({
           id: `discover-${w.pageid || w.qid || normTitle.replace(/\s+/g, '-')}`,
@@ -1354,14 +1312,6 @@ async function loadMoreCategoryTitles(jumpToNextPage = true) {
         });
       });
     }
-
-    const newFilteredCount = filterAndSortCatalogPool().length;
-    const newTotalPages = Math.max(1, Math.ceil(newFilteredCount / PAGE_SIZE));
-    if (jumpToNextPage && newTotalPages > prevTotalPages) {
-      state.currentPage = prevTotalPages + 1;
-    } else if (jumpToNextPage && state.currentPage < newTotalPages) {
-      state.currentPage += 1;
-    }
   } catch (_) {
   } finally {
     state.isLoadingMore = false;
@@ -1385,8 +1335,8 @@ function applyLocalFiltersAndRender() {
     loadMoreCategoryTitles(false);
   }
 
-  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
-  state.currentPage = Math.max(1, Math.min(state.currentPage, totalPages));
+  state.currentPage = Math.max(1, state.currentPage);
+  const visibleLimit = state.currentPage * PAGE_SIZE;
 
   const hasActiveFilters =
     getActiveGenresList().length > 0 ||
@@ -1401,10 +1351,10 @@ function applyLocalFiltersAndRender() {
     !hasActiveFilters &&
     filtered.length > TRENDING_MOVIE_COUNT;
 
-  if (isTrendingMoviesSplit && state.currentPage === 1) {
+  if (isTrendingMoviesSplit) {
     const trendingItems = filtered.slice(0, TRENDING_MOVIE_COUNT);
-    const morePageOne = filtered.slice(TRENDING_MOVIE_COUNT, PAGE_SIZE);
-    state.displayedItems = [...trendingItems, ...morePageOne];
+    const moreVisibleItems = filtered.slice(TRENDING_MOVIE_COUNT, visibleLimit);
+    state.displayedItems = [...trendingItems, ...moreVisibleItems];
 
     if (els.gridTitle) els.gridTitle.textContent = 'Trending Movies';
     if (els.moviesCount) {
@@ -1418,33 +1368,30 @@ function applyLocalFiltersAndRender() {
     if (els.moreMoviesSection) els.moreMoviesSection.classList.remove('hidden');
     if (els.moreGridTitle) els.moreGridTitle.textContent = 'More Curated Movies';
     if (els.moreMoviesCount) {
-      const endNum = TRENDING_MOVIE_COUNT + morePageOne.length;
+      const endNum = TRENDING_MOVIE_COUNT + moreVisibleItems.length;
       els.moreMoviesCount.textContent = `Showing 11\u2013${endNum} of ${filtered.length} titles`;
     }
     if (els.moreMoviesGrid) {
       els.moreMoviesGrid.classList.add('more-grid-5');
-      renderCardListIntoGrid(els.moreMoviesGrid, morePageOne, { showTrendingRank: false });
+      renderCardListIntoGrid(els.moreMoviesGrid, moreVisibleItems, { showTrendingRank: false });
     }
 
     if (trendingItems.length && !state.searchQuery) renderHero(trendingItems[0]);
     if (els.loadMoreBtn) els.loadMoreBtn.classList.add('hidden');
-    renderPaginationBar(1, totalPages, { canLoadMoreTv: true });
+    hidePaginationBar();
     return;
   }
 
-  const startIdx = (state.currentPage - 1) * PAGE_SIZE;
-  const pageItems = filtered.slice(startIdx, startIdx + PAGE_SIZE);
-  renderMoviesGrid(pageItems);
+  const visibleItems = filtered.slice(0, visibleLimit);
+  renderMoviesGrid(visibleItems);
   if (els.moviesCount) {
     els.moviesCount.textContent = filtered.length
-      ? `Showing ${startIdx + 1}\u2013${startIdx + pageItems.length} of ${filtered.length} titles \u00b7 Page ${state.currentPage} of ${totalPages}`
+      ? `Showing 1\u2013${visibleItems.length} of ${filtered.length} titles`
       : 'Showing 0 titles';
   }
-  if (pageItems.length && !state.searchQuery) renderHero(pageItems[0]);
+  if (visibleItems.length && !state.searchQuery) renderHero(visibleItems[0]);
   if (els.loadMoreBtn) els.loadMoreBtn.classList.add('hidden');
-  renderPaginationBar(state.currentPage, totalPages, {
-    canLoadMoreTv: true
-  });
+  hidePaginationBar();
 }
 
 function renderAutocompleteSuggestions(query, items) {

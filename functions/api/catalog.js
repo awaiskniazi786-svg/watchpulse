@@ -22,7 +22,8 @@ const FILM_INSTANCE_IDS = new Set([
   'Q229390'    // 3D film
 ]);
 
-const NON_FILM_TITLE_RE = /\b(in film|filmography|discography|soundtrack|list of|disambiguation|franchise|character|comics|video game|fictional)\b/i;
+const NON_FILM_TITLE_RE = /\b(in film|filmography|discography|soundtrack|list of|disambiguation|franchise|character|comics|video game|fictional|actress|actor|politician|singer|musician|director|producer|cricketer|journalist|biography)\b/i;
+const PERSON_DESC_RE = /\b(actress|actor|politician|singer|musician|filmmaker|screenwriter|journalist|socialite|cricketer|born \d{4}|is a pakistani|is an indian|is an american|is a british)\b/i;
 
 function jsonResponse(status, body, extraHeaders = {}) {
   const headers = {
@@ -209,7 +210,29 @@ const DISCOVER_PLATFORM_TERMS = {
   '1899': { term: 'HBO Max Warner Bros', label: 'HBO Max' }
 };
 
-async function resolveQuickTrailerId(movieTitle, year) {
+async function verifyYoutubeThumbUrl(vid) {
+  if (!vid || vid.length !== 11) return '';
+  try {
+    const maxUrl = `https://i.ytimg.com/vi/${vid}/maxresdefault.jpg`;
+    const maxRes = await fetch(maxUrl, { cf: { cacheTtl: 86400, cacheEverything: true } });
+    if (maxRes.ok) {
+      const buf = await maxRes.arrayBuffer();
+      if (buf && buf.byteLength > 3500) return maxUrl;
+    }
+  } catch (_) {}
+  try {
+    const mqUrl = `https://i.ytimg.com/vi/${vid}/mqdefault.jpg`;
+    const mqRes = await fetch(mqUrl, { cf: { cacheTtl: 86400, cacheEverything: true } });
+    if (mqRes.ok) {
+      const buf = await mqRes.arrayBuffer();
+      // YouTube's gray 120x90 3-dots placeholder is ~1097 bytes; valid 320x180 16:9 thumbs are > 2500 bytes
+      if (buf && buf.byteLength > 2500) return mqUrl;
+    }
+  } catch (_) {}
+  return '';
+}
+
+async function resolveQuickTrailer(movieTitle, year) {
   try {
     const q = `${movieTitle} ${year && year !== 'Film' ? year : ''} official trailer`.trim();
     const ytUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(q)}&sp=EgIQAQ%253D%253D`;
@@ -220,12 +243,12 @@ async function resolveQuickTrailerId(movieTitle, year) {
       },
       cf: { cacheTtl: 86400, cacheEverything: true }
     });
-    if (!res.ok) return '';
+    if (!res.ok) return null;
     const html = await res.text();
     const re = /"videoId":"([A-Za-z0-9_-]{11})"/g;
     const candidates = [];
     let m;
-    while ((m = re.exec(html)) !== null && candidates.length < 3) {
+    while ((m = re.exec(html)) !== null && candidates.length < 5) {
       if (m[1] !== 'ASSCNBSAxm0' && !candidates.includes(m[1])) candidates.push(m[1]);
     }
     for (const vid of candidates) {
@@ -237,10 +260,12 @@ async function resolveQuickTrailerId(movieTitle, year) {
       const author = String(info.author_name || '');
       const title = String(info.title || '');
       if (UNOFFICIAL_TRAILER_RE.test(author) || UNOFFICIAL_TRAILER_RE.test(title)) continue;
-      return vid;
+      const verifiedThumb = await verifyYoutubeThumbUrl(vid);
+      if (!verifiedThumb) continue;
+      return { id: vid, thumbUrl: verifiedThumb };
     }
   } catch (_) {}
-  return '';
+  return null;
 }
 
 async function handleMovieDiscover(genreKey, langKey, platformKey, offsetNum) {
@@ -248,18 +273,18 @@ async function handleMovieDiscover(genreKey, langKey, platformKey, offsetNum) {
   const lCfg = DISCOVER_LANG_TERMS[langKey] || DISCOVER_LANG_TERMS.all;
   const pCfg = DISCOVER_PLATFORM_TERMS[platformKey] || DISCOVER_PLATFORM_TERMS.all;
 
-  const queryParts = [lCfg.term, pCfg.term, gCfg.term, 'film'].filter(Boolean);
+  const queryParts = ['hastemplate:"Infobox film"', lCfg.term, pCfg.term, gCfg.term, 'film'].filter(Boolean);
   const searchTerm = queryParts.join(' ');
-  const gsrOffset = Math.max(0, offsetNum * 12);
+  const gsrOffset = Math.max(0, offsetNum * 14);
 
-  const wikiUrl = `https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=${encodeURIComponent(searchTerm)}&gsrlimit=14&gsroffset=${gsrOffset}&prop=pageimages|extracts|pageprops&piprop=thumbnail&pithumbsize=500&pilicense=any&exintro=1&explaintext=1&exsentences=3&format=json&origin=*`;
+  const wikiUrl = `https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=${encodeURIComponent(searchTerm)}&gsrlimit=16&gsroffset=${gsrOffset}&prop=pageimages|extracts|pageprops&piprop=thumbnail&pithumbsize=500&pilicense=any&exintro=1&explaintext=1&exsentences=3&format=json&origin=*`;
   const data = await fetchJson(wikiUrl);
   let pages = (data && data.query && data.query.pages) ? Object.values(data.query.pages) : [];
 
   pages = pages
     .filter(p => p && p.title && !NON_FILM_TITLE_RE.test(p.title))
     .sort((a, b) => (a.index || 99) - (b.index || 99))
-    .slice(0, 10);
+    .slice(0, 12);
 
   const qids = pages.map(p => p.pageprops && p.pageprops.wikibase_item).filter(Boolean);
   let entities = {};
@@ -277,17 +302,21 @@ async function handleMovieDiscover(genreKey, langKey, platformKey, offsetNum) {
     const ent = qid ? entities[qid] : null;
     const claims = (ent && ent.claims) || {};
     const desc = (ent && ent.descriptions && ent.descriptions.en && ent.descriptions.en.value) || '';
-    const instanceIds = getClaimEntityIds(claims, 'P31', 5);
-    const isFilmEntity = instanceIds.some(id => FILM_INSTANCE_IDS.has(id)) || /\bfilm\b/i.test(desc) || /\bfilm\b/i.test(p.title);
-    if (instanceIds.length && !isFilmEntity) continue;
+    const extractText = (p.extract || '').trim();
+    const instanceIds = getClaimEntityIds(claims, 'P31', 6);
+
+    // Strictly reject human/person biographies (Q5) or non-film entities
+    if (instanceIds.includes('Q5') || PERSON_DESC_RE.test(desc) || PERSON_DESC_RE.test(extractText.slice(0, 180))) continue;
+    const isConfirmedFilm = instanceIds.some(id => FILM_INSTANCE_IDS.has(id)) || /\b\d{4}\s+.*film\b/i.test(desc) || /\bis a \d{4} .*film\b/i.test(extractText);
+    if (!isConfirmedFilm) continue;
 
     const cleanTitle = p.title.replace(/\s*\([^)]*film[^)]*\)/i, '').replace(/\s*\(\d{4}\s+[^)]*\)/i, '').trim();
     if (!cleanTitle || NON_FILM_TITLE_RE.test(cleanTitle)) continue;
 
     const yearFromWd = getClaimYear(claims, 'P577');
-    const yearFromText = ((p.title || '') + ' ' + desc + ' ' + (p.extract || '')).match(/\b(19\d{2}|20\d{2})\b/);
+    const yearFromText = ((p.title || '') + ' ' + desc + ' ' + extractText).match(/\b(19\d{2}|20\d{2})\b/);
     const year = yearFromWd || (yearFromText ? yearFromText[1] : '2024');
-    const runtime = getClaimRuntime(claims) || 115;
+    const runtime = getClaimRuntime(claims) || 118;
     const trailerId = getClaimString(claims, 'P1651');
     const imdbId = getClaimString(claims, 'P345');
     const wikiThumb = (p.thumbnail && p.thumbnail.source) ? p.thumbnail.source.split('?')[0] : '';
@@ -301,9 +330,10 @@ async function handleMovieDiscover(genreKey, langKey, platformKey, offsetNum) {
       year,
       runtime,
       director: directorMatch ? directorMatch[1].trim() : '',
-      overview: (p.extract || desc || 'Discovered via WatchPulse Live Catalog (Wikipedia & Wikidata).').trim(),
+      overview: (extractText || desc || 'Discovered via WatchPulse Live Catalog (Wikipedia & Wikidata).').trim(),
       wikiThumb,
       trailer_id: trailerId,
+      thumbUrl: '',
       imdb_id: imdbId,
       genres: [gCfg.label],
       genre_ids: [gCfg.id],
@@ -314,21 +344,31 @@ async function handleMovieDiscover(genreKey, langKey, platformKey, offsetNum) {
     });
   }
 
-  // Resolve verified YouTube trailer IDs in parallel for up to 6 items missing P1651 so cards get 16:9 trailer previews
-  await Promise.all(rawItems.slice(0, 6).map(async (item) => {
-    if (!item.trailer_id) {
-      item.trailer_id = await resolveQuickTrailerId(item.title, item.year);
+  // Verify or resolve official 16:9 YouTube trailer thumbnails (> 2500 bytes, never gray 120x90 placeholder) for all items
+  await Promise.all(rawItems.map(async (item) => {
+    if (item.trailer_id) {
+      const checkedUrl = await verifyYoutubeThumbUrl(item.trailer_id);
+      if (checkedUrl) {
+        item.thumbUrl = checkedUrl;
+        return;
+      }
+      item.trailer_id = '';
+    }
+    const resolved = await resolveQuickTrailer(`${item.title} ${item.languageLabel !== 'English' ? item.languageLabel : ''}`.trim(), item.year);
+    if (resolved) {
+      item.trailer_id = resolved.id;
+      item.thumbUrl = resolved.thumbUrl;
     }
   }));
 
-  const results = rawItems.map(item => {
-    const ytThumb = item.trailer_id ? `https://i.ytimg.com/vi/${item.trailer_id}/maxresdefault.jpg` : '';
-    return {
+  // Only return items with a verified non-placeholder 16:9 trailer thumbnail so cards never show gray 3-dot boxes or mismatched heights
+  const results = rawItems
+    .filter(item => Boolean(item.trailer_id && item.thumbUrl))
+    .map(item => ({
       ...item,
-      poster: ytThumb || item.wikiThumb || '',
-      backdrop: ytThumb || item.wikiThumb || ''
-    };
-  });
+      poster: item.thumbUrl,
+      backdrop: item.thumbUrl
+    }));
 
   return jsonResponse(200, {
     results,
@@ -476,16 +516,22 @@ async function handleLiveTrendingMovies() {
 
   const topItems = combined.slice(0, 12);
 
-  // Resolve official 16:9 YouTube trailer IDs in parallel on the Cloudflare Edge
+  // Resolve official 16:9 YouTube trailer IDs and verify non-placeholder thumbnails in parallel on the Cloudflare Edge
   await Promise.all(topItems.map(async (item) => {
     if (!item.trailer_id) {
-      item.trailer_id = await resolveQuickTrailerId(`${item.title} ${item.languageLabel !== 'English' ? item.languageLabel : ''}`.trim(), item.year);
+      const resolved = await resolveQuickTrailer(`${item.title} ${item.languageLabel !== 'English' ? item.languageLabel : ''}`.trim(), item.year);
+      if (resolved) {
+        item.trailer_id = resolved.id;
+        item.thumbUrl = resolved.thumbUrl;
+      }
+    } else {
+      item.thumbUrl = await verifyYoutubeThumbUrl(item.trailer_id);
     }
   }));
 
-  const results = topItems.map((item, idx) => {
-    const ytThumb = item.trailer_id ? `https://i.ytimg.com/vi/${item.trailer_id}/maxresdefault.jpg` : '';
-    return {
+  const results = topItems
+    .filter(item => Boolean(item.trailer_id && item.thumbUrl))
+    .map((item, idx) => ({
       id: `live-trend-${item.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`,
       qid: item.qid || '',
       wikiTitle: item.wikiTitle || item.title,
@@ -503,11 +549,10 @@ async function handleLiveTrendingMovies() {
       language: item.language,
       languageLabel: item.languageLabel,
       platforms: item.platforms,
-      trailer_id: item.trailer_id || '',
-      poster: ytThumb || item.itunesPoster || '',
-      backdrop: ytThumb || item.itunesPoster || ''
-    };
-  });
+      trailer_id: item.trailer_id,
+      poster: item.thumbUrl,
+      backdrop: item.thumbUrl
+    }));
 
   return jsonResponse(200, {
     updatedAt: new Date().toISOString(),

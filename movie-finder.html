@@ -45,7 +45,7 @@
   <link rel="icon" type="image/png" sizes="96x96" href="/favicon.png">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="apple-touch-icon" href="/favicon.png">
-  <link rel="stylesheet" href="/style.css?v=20261122f">
+  <link rel="stylesheet" href="/style.css?v=20261122g">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;800&display=swap" rel="stylesheet">
@@ -598,7 +598,7 @@
         if (!res.ok) throw new Error('Unable to load curated catalog');
         const raw = await res.json();
         state.movies = (Array.isArray(raw) ? raw : []).map(function (m) {
-          const thumb = m.poster || (m.trailer_id ? 'https://i.ytimg.com/vi/' + encodeURIComponent(m.trailer_id) + '/hqdefault.jpg' : '');
+          const thumb = m.poster || (m.trailer_id ? 'https://i.ytimg.com/vi/' + encodeURIComponent(m.trailer_id) + '/maxresdefault.jpg' : '');
           return {
             id: m.id,
             media_type: 'movie',
@@ -731,6 +731,18 @@
 
       function renderPosterMarkup(it) {
         if (it.poster) {
+          const isYt = it.poster.indexOf('i.ytimg.com') !== -1;
+          if (isYt) {
+            const mqFallback = it.trailer_id ? ('https://i.ytimg.com/vi/' + encodeURIComponent(it.trailer_id) + '/mqdefault.jpg') : '';
+            return (
+              '<div class="mf-trailer-thumb-wrap">' +
+                '<img src="' + escapeHtml(it.poster) + '" alt="' + escapeHtml(it.title) + ' official trailer preview" loading="lazy"' + (mqFallback ? ' data-mq-fallback="' + escapeHtml(mqFallback) + '"' : '') + '>' +
+                '<div class="mf-trailer-scrim"></div>' +
+                '<span class="mf-trailer-pill">Official Trailer</span>' +
+                '<span class="mf-trailer-play" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg></span>' +
+              '</div>'
+            );
+          }
           return '<img src="' + escapeHtml(it.poster) + '" alt="' + escapeHtml(it.title) + ' poster" loading="lazy">';
         }
         const accent = escapeHtml(it.accent || 'violet');
@@ -742,6 +754,18 @@
             '<div class="ep-bottom"><span>' + (it.runtime ? it.runtime + ' min' : 'Film') + '</span><span>' + escapeHtml((it.genres || ['Film'])[0]) + '</span></div>' +
           '</div>'
         );
+      }
+
+      function attachTrailerImgFallbacks(container) {
+        if (!container) return;
+        container.querySelectorAll('img[data-mq-fallback]').forEach(function (img) {
+          img.addEventListener('error', function () {
+            if (!img.dataset.triedMq && img.dataset.mqFallback) {
+              img.dataset.triedMq = '1';
+              img.src = img.dataset.mqFallback;
+            }
+          });
+        });
       }
 
       function openTrailerForItem(item) {
@@ -892,9 +916,11 @@
           if (rtText) pills.push(rtText);
           pills.push(langText);
 
+          const isYtThumb = Boolean(it.poster && it.poster.indexOf('i.ytimg.com') !== -1);
+
           resultsEl.innerHTML =
-            '<div class="mf-single-card">' +
-              '<div class="mf-single-poster">' + renderPosterMarkup(it) + '</div>' +
+            '<div class="mf-single-card' + (isYtThumb ? ' is-trailer-card' : '') + '">' +
+              '<div class="mf-single-poster' + (isYtThumb ? ' is-trailer-thumb' : '') + '" id="mfSinglePosterTrigger" role="button" tabindex="0" aria-label="Watch trailer for ' + escapeHtml(it.title) + '">' + renderPosterMarkup(it) + '</div>' +
               '<div>' +
                 '<div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;">' +
                   '<h3 style="font-size:1.55rem;font-weight:800;margin:0;color:var(--text);">' + escapeHtml(it.title) + (it.year ? ' (' + escapeHtml(it.year) + ')' : '') + '</h3>' +
@@ -918,6 +944,14 @@
               '</div>' +
             '</div>';
 
+          attachTrailerImgFallbacks(resultsEl);
+          const posterTrigger = document.getElementById('mfSinglePosterTrigger');
+          if (posterTrigger) {
+            posterTrigger.addEventListener('click', function () { openTrailerForItem(it); });
+            posterTrigger.addEventListener('keydown', function (e) {
+              if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openTrailerForItem(it); }
+            });
+          }
           const wtBtn = document.getElementById('mfWatchTrailerBtn');
           if (wtBtn) wtBtn.addEventListener('click', function () { openTrailerForItem(it); });
           const skipBtn = document.getElementById('mfSkipNextBtn');
@@ -933,10 +967,11 @@
             const rtText = it.runtime ? (it.media_type === 'tv' ? '~' + it.runtime + 'm / ep' : it.runtime + ' min') : '';
             const detailUrl = '/?type=' + encodeURIComponent(it.media_type) + '&q=' + encodeURIComponent(it.title);
             const saved = isSavedInWatchlist(it.id);
+            const isYtThumb = Boolean(it.poster && it.poster.indexOf('i.ytimg.com') !== -1);
 
             return (
               '<article class="mf-top3-card">' +
-                '<div class="mf-top3-poster">' + renderPosterMarkup(it) + '</div>' +
+                '<div class="mf-top3-poster' + (isYtThumb ? ' is-trailer-thumb' : '') + '" data-trailer-idx="' + idx + '" role="button" tabindex="0" aria-label="Watch trailer for ' + escapeHtml(it.title) + '">' + renderPosterMarkup(it) + '</div>' +
                 '<div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;">' +
                   '<strong style="font-size:0.98rem;color:var(--text);">' + escapeHtml(it.title) + '</strong>' +
                   (it.rating ? '<span style="color:var(--accent-3);font-size:0.8rem;font-weight:600;">' + escapeHtml(it.rating) + '</span>' : '') +
@@ -952,11 +987,21 @@
             );
           }).join('') + '</div>';
 
-          resultsEl.querySelectorAll('[data-trailer-idx]').forEach(function (btn) {
-            btn.addEventListener('click', function () {
-              const target = state.currentPicks[Number(btn.dataset.trailerIdx)];
+          attachTrailerImgFallbacks(resultsEl);
+          resultsEl.querySelectorAll('[data-trailer-idx]').forEach(function (el) {
+            el.addEventListener('click', function () {
+              const target = state.currentPicks[Number(el.dataset.trailerIdx)];
               if (target) openTrailerForItem(target);
             });
+            if (el.tagName !== 'BUTTON') {
+              el.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  const target = state.currentPicks[Number(el.dataset.trailerIdx)];
+                  if (target) openTrailerForItem(target);
+                }
+              });
+            }
           });
           resultsEl.querySelectorAll('[data-wl-idx]').forEach(function (btn) {
             btn.addEventListener('click', function () {

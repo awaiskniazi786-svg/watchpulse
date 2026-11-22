@@ -331,11 +331,21 @@ function getTrailerIdForItem(item) {
   return VERIFIED_TRAILER_IDS[(item.title || '').toLowerCase().trim()] || '';
 }
 
+function getYtThumbUrl(tid, variant = 'maxresdefault') {
+  return tid ? `https://i.ytimg.com/vi/${encodeURIComponent(tid)}/${variant}.jpg` : '';
+}
+
+function getYtBackdropCss(tid) {
+  return tid
+    ? `url('${getYtThumbUrl(tid, 'maxresdefault')}'), url('${getYtThumbUrl(tid, 'mqdefault')}')`
+    : '';
+}
+
 function getThumbUrlForItem(item) {
   if (!item) return '';
   if (item.poster) return item.poster;
   const tid = getTrailerIdForItem(item);
-  if (tid) return `https://i.ytimg.com/vi/${tid}/hqdefault.jpg`;
+  if (tid) return getYtThumbUrl(tid, 'maxresdefault');
   return '';
 }
 
@@ -381,7 +391,7 @@ function normalizeTvMazeShow(show) {
     language: langCode,
     languageLabel: show.language || 'English',
     poster: show.image ? (show.image.medium || show.image.original) : '',
-    backdrop: show.image ? (show.image.original || show.image.medium) : (tid ? `https://i.ytimg.com/vi/${tid}/hqdefault.jpg` : ''),
+    backdrop: show.image ? (show.image.original || show.image.medium) : getYtThumbUrl(tid, 'maxresdefault'),
     trailer_id: tid,
     overview: stripHtmlTags(show.summary) || 'Explore episode schedule, primary streaming network details, and official trailers on WatchPulse.',
     platforms: [networkName],
@@ -393,7 +403,7 @@ function normalizeTvMazeShow(show) {
 
 function normalizeCuratedMovie(m) {
   const tid = m.trailer_id || VERIFIED_TRAILER_IDS[(m.title || '').toLowerCase().trim()] || '';
-  const thumb = tid ? `https://i.ytimg.com/vi/${tid}/hqdefault.jpg` : '';
+  const thumb = getYtThumbUrl(tid, 'maxresdefault');
   return {
     id: m.id,
     media_type: 'movie',
@@ -452,7 +462,7 @@ function renderPosterArtHtml(item) {
   if (thumb) {
     return `
       <div class="curated-thumb-card">
-        <img src="${escapeHtml(thumb)}" alt="${escapeHtml(item.title)} official trailer preview" class="curated-thumb-img" width="220" height="330" loading="lazy">
+        <img src="${escapeHtml(thumb)}" alt="${escapeHtml(item.title)} official trailer preview" class="curated-thumb-img" width="320" height="180" loading="lazy">
         <div class="curated-thumb-scrim"></div>
         <div class="curated-thumb-play" aria-hidden="true">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
@@ -467,11 +477,17 @@ function renderHero(item) {
   if (!item) return;
   state.currentHero = item;
   if (els.heroBackdrop) {
-    const bg = item.backdrop || getThumbUrlForItem(item);
-    if (bg) {
-      els.heroBackdrop.style.backgroundImage = `url('${bg}')`;
+    const tid = getTrailerIdForItem(item);
+    const hasCustomBackdrop = Boolean(item.backdrop && !item.backdrop.includes('i.ytimg.com'));
+    if (hasCustomBackdrop) {
+      els.heroBackdrop.style.backgroundImage = `url('${item.backdrop}')`;
+    } else if (tid) {
+      els.heroBackdrop.style.backgroundImage = getYtBackdropCss(tid);
     } else {
-      els.heroBackdrop.style.backgroundImage = 'linear-gradient(135deg, #2B1B5C 0%, #14131D 55%, #0C0B12 100%)';
+      const bg = item.backdrop || getThumbUrlForItem(item);
+      els.heroBackdrop.style.backgroundImage = bg
+        ? `url('${bg}')`
+        : 'linear-gradient(135deg, #2B1B5C 0%, #14131D 55%, #0C0B12 100%)';
     }
   }
   if (els.heroTitle) els.heroTitle.textContent = item.title;
@@ -629,6 +645,8 @@ function renderPaginationBar(currentPage, totalPages, options = {}) {
 function renderCardListIntoGrid(gridEl, items, options = {}) {
   if (!gridEl) return;
   const showTrendingRank = Boolean(options.showTrendingRank);
+  const hasTrailerCards = items.length > 0 && items.every(it => Boolean((it.poster && it.poster.includes('i.ytimg.com')) || (!it.poster && getTrailerIdForItem(it))));
+  gridEl.classList.toggle('has-trailer-thumbs', hasTrailerCards);
 
   gridEl.innerHTML = items.map((item, idx) => {
     const savedObj = state.watchlist.find(w => w.id === item.id);
@@ -636,6 +654,7 @@ function renderCardListIntoGrid(gridEl, items, options = {}) {
     const isWatched = Boolean(savedObj && savedObj.watched);
     const primaryGenre = (item.genres && item.genres[0]) ? item.genres[0] : (item.media_type === 'tv' ? 'TV' : 'Film');
     const isEditorsPick = !showTrendingRank && (item.id === 'wp-dune-part-two' || (idx === 0 && Boolean(item.featured)));
+    const isYtCard = Boolean((item.poster && item.poster.includes('i.ytimg.com')) || (!item.poster && getTrailerIdForItem(item)));
     const badgeHtml = showTrendingRank
       ? `<span class="trending-rank-badge ${idx === 0 ? 'rank-top' : ''}">#${idx + 1}</span>`
       : (isEditorsPick ? '<span class="editors-pick-badge">Editor\u0027s pick</span>' : '');
@@ -652,7 +671,7 @@ function renderCardListIntoGrid(gridEl, items, options = {}) {
     const bookmarkSvg = `<svg width="14" height="14" viewBox="0 0 24 24" fill="${isSaved ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>`;
     return `
       <article class="movie-card" data-id="${escapeHtml(item.id)}" tabindex="0" role="button" aria-label="Open details for ${escapeHtml(item.title)}">
-        <div class="card-poster-wrap">
+        <div class="card-poster-wrap ${isYtCard ? 'is-trailer-thumb' : ''}">
           ${renderPosterArtHtml(item)}
           ${badgeHtml}
           <button type="button" class="card-bookmark-btn ${isSaved ? 'active' : ''}" data-wl-id="${escapeHtml(item.id)}" title="${isSaved ? 'Remove from Watchlist' : 'Save to Watchlist'}" aria-label="${isSaved ? 'Remove from Watchlist' : 'Save to Watchlist'}">${bookmarkSvg}</button>
@@ -1057,14 +1076,31 @@ async function searchTitlesLive(query, scrollToGrid = false) {
 
 function populateMovieModalContent(detailed, isLoadingDetails = false) {
   const thumb = getThumbUrlForItem(detailed);
+  const tid = getTrailerIdForItem(detailed);
   if (els.modalBackdrop) {
-    const bg = detailed.backdrop || thumb;
-    els.modalBackdrop.style.backgroundImage = bg
-      ? `url('${bg}')`
-      : 'linear-gradient(135deg, #2B1B5C 0%, #14131D 60%, #0C0B12 100%)';
+    const hasCustomBackdrop = Boolean(detailed.backdrop && !detailed.backdrop.includes('i.ytimg.com'));
+    if (hasCustomBackdrop) {
+      els.modalBackdrop.style.backgroundImage = `url('${detailed.backdrop}')`;
+    } else if (tid) {
+      els.modalBackdrop.style.backgroundImage = getYtBackdropCss(tid);
+    } else {
+      const bg = detailed.backdrop || thumb;
+      els.modalBackdrop.style.backgroundImage = bg
+        ? `url('${bg}')`
+        : 'linear-gradient(135deg, #2B1B5C 0%, #14131D 60%, #0C0B12 100%)';
+    }
   }
   if (els.modalPoster) {
     if (thumb) {
+      const isYt = thumb.includes('i.ytimg.com');
+      els.modalPoster.classList.toggle('is-trailer-thumb', isYt);
+      els.modalPoster.dataset.triedMq = '';
+      els.modalPoster.onerror = () => {
+        if (tid && !els.modalPoster.dataset.triedMq) {
+          els.modalPoster.dataset.triedMq = '1';
+          els.modalPoster.src = getYtThumbUrl(tid, 'mqdefault');
+        }
+      };
       els.modalPoster.referrerPolicy = 'no-referrer';
       els.modalPoster.src = thumb;
       els.modalPoster.style.display = 'block';
@@ -1553,8 +1589,11 @@ async function runFinderQuiz() {
 
   els.quizResultsContainer.innerHTML = langFallbackNotice + top3.map(item => {
     const thumb = getThumbUrlForItem(item);
+    const tid = getTrailerIdForItem(item);
+    const isYt = Boolean(thumb && thumb.includes('i.ytimg.com'));
+    const mqFallback = isYt && tid ? getYtThumbUrl(tid, 'mqdefault') : '';
     const thumbHtml = thumb
-      ? `<img src="${escapeHtml(thumb)}" alt="${escapeHtml(item.title)}" loading="lazy">`
+      ? `<img src="${escapeHtml(thumb)}" alt="${escapeHtml(item.title)}" class="${isYt ? 'is-trailer-thumb' : ''}" loading="lazy"${mqFallback ? ` data-mq-fallback="${escapeHtml(mqFallback)}"` : ''}>`
       : '';
     const langTag = item.languageLabel || LANGUAGE_NAMES[item.language] || 'Global';
     const rtTag = item.runtime ? (item.media_type === 'tv' ? `~${item.runtime}m / ep` : `${item.runtime} min`) : '';
@@ -1574,6 +1613,15 @@ async function runFinderQuiz() {
     `;
   }).join('');
 
+  els.quizResultsContainer.querySelectorAll('img[data-mq-fallback]').forEach(img => {
+    img.addEventListener('error', () => {
+      if (!img.dataset.triedMq && img.dataset.mqFallback) {
+        img.dataset.triedMq = '1';
+        img.src = img.dataset.mqFallback;
+      }
+    });
+  });
+
   els.quizResultsContainer.querySelectorAll('[data-quiz-id]').forEach(row => {
     row.addEventListener('click', () => {
       const picked = top3.find(x => x.id === row.dataset.quizId);
@@ -1590,7 +1638,35 @@ function initCookieConsent() {
   // Delegated to shared /consent-ui.js so every page shares identical single-banner + Privacy Settings behavior
 }
 
+function setupFilterSliders() {
+  const wraps = document.querySelectorAll('.filter-slider-wrap');
+  wraps.forEach(wrap => {
+    const row = wrap.querySelector('.pill-filter-row');
+    const prevBtn = wrap.querySelector('.slider-prev');
+    const nextBtn = wrap.querySelector('.slider-next');
+    if (!row || !prevBtn || !nextBtn) return;
+
+    const updateArrows = () => {
+      const maxScroll = row.scrollWidth - row.clientWidth;
+      prevBtn.disabled = row.scrollLeft <= 2;
+      nextBtn.disabled = maxScroll <= 2 || row.scrollLeft >= maxScroll - 2;
+    };
+
+    prevBtn.addEventListener('click', () => {
+      row.scrollBy({ left: -210, behavior: 'smooth' });
+    });
+    nextBtn.addEventListener('click', () => {
+      row.scrollBy({ left: 210, behavior: 'smooth' });
+    });
+
+    row.addEventListener('scroll', updateArrows, { passive: true });
+    window.addEventListener('resize', updateArrows);
+    setTimeout(updateArrows, 60);
+  });
+}
+
 function setupEventListeners() {
+  setupFilterSliders();
   if (els.brandLogo) els.brandLogo.addEventListener('click', () => { resetAllFilters(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
 
   let searchTimer = null;
@@ -1674,6 +1750,7 @@ function setupEventListeners() {
         state.language = chip.dataset.lang;
         state.currentPage = 1;
         if (els.languageSelect) els.languageSelect.value = state.language;
+        chip.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
         applyLocalFiltersAndRender();
       });
     });
@@ -1698,6 +1775,7 @@ function setupEventListeners() {
         chip.classList.add('active');
         state.provider = chip.dataset.provider;
         state.currentPage = 1;
+        chip.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
         applyLocalFiltersAndRender();
       });
     });
@@ -1710,6 +1788,7 @@ function setupEventListeners() {
         chip.classList.add('active');
         state.genre = chip.dataset.genre;
         state.currentPage = 1;
+        chip.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
         applyLocalFiltersAndRender();
       });
     });

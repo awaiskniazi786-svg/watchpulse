@@ -109,7 +109,7 @@
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5022914500809430"
     crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="/style.css?v=20261122f">
+  <link rel="stylesheet" href="/style.css?v=20261122g">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;800&display=swap" rel="stylesheet">
@@ -215,14 +215,18 @@
 
       <div class="browse-filters-stack">
         <div class="filter-clusters-line">
-          <div class="pill-filter-row" id="languageChips" role="group" aria-label="Filter by Original Language">
-            <button type="button" class="filter-pill active" data-lang="all">All languages</button>
-            <button type="button" class="filter-pill" data-lang="en">English</button>
-            <button type="button" class="filter-pill" data-lang="ko">Korean</button>
-            <button type="button" class="filter-pill" data-lang="hi">Hindi</button>
-            <button type="button" class="filter-pill" data-lang="ur">Urdu</button>
-            <button type="button" class="filter-pill" data-lang="ja">Japanese</button>
-            <button type="button" class="filter-pill" data-lang="tr">Turkish</button>
+          <div class="filter-slider-wrap">
+            <button type="button" class="slider-arrow-btn slider-prev" aria-label="Scroll languages left">&lsaquo;</button>
+            <div class="pill-filter-row" id="languageChips" role="group" aria-label="Filter by Original Language">
+              <button type="button" class="filter-pill active" data-lang="all">All languages</button>
+              <button type="button" class="filter-pill" data-lang="en">English</button>
+              <button type="button" class="filter-pill" data-lang="ko">Korean</button>
+              <button type="button" class="filter-pill" data-lang="hi">Hindi</button>
+              <button type="button" class="filter-pill" data-lang="ur">Urdu</button>
+              <button type="button" class="filter-pill" data-lang="ja">Japanese</button>
+              <button type="button" class="filter-pill" data-lang="tr">Turkish</button>
+            </div>
+            <button type="button" class="slider-arrow-btn slider-next" aria-label="Scroll languages right">&rsaquo;</button>
           </div>
 
           <select id="languageSelect" class="sr-only-select" aria-label="Filter by Original Language">
@@ -241,25 +245,33 @@
             <option value="ar">Arabic</option>
           </select>
 
-          <div class="pill-filter-row" id="providerChips" role="group" aria-label="Filter by Network or Brand Tag">
-            <button type="button" class="provider-chip active" data-provider="all">All</button>
-            <button type="button" class="provider-chip" data-provider="8">Netflix</button>
-            <button type="button" class="provider-chip" data-provider="9">Prime Video</button>
-            <button type="button" class="provider-chip" data-provider="337">Disney+</button>
-            <button type="button" class="provider-chip" data-provider="350">Apple TV+</button>
-            <button type="button" class="provider-chip" data-provider="1899">HBO Max</button>
+          <div class="filter-slider-wrap">
+            <button type="button" class="slider-arrow-btn slider-prev" aria-label="Scroll platforms left">&lsaquo;</button>
+            <div class="pill-filter-row" id="providerChips" role="group" aria-label="Filter by Network or Brand Tag">
+              <button type="button" class="provider-chip active" data-provider="all">All</button>
+              <button type="button" class="provider-chip" data-provider="8">Netflix</button>
+              <button type="button" class="provider-chip" data-provider="9">Prime Video</button>
+              <button type="button" class="provider-chip" data-provider="337">Disney+</button>
+              <button type="button" class="provider-chip" data-provider="350">Apple TV+</button>
+              <button type="button" class="provider-chip" data-provider="1899">HBO Max</button>
+            </div>
+            <button type="button" class="slider-arrow-btn slider-next" aria-label="Scroll platforms right">&rsaquo;</button>
           </div>
         </div>
 
-        <div class="pill-filter-row" id="genreChips" role="group" aria-label="Filter by Genre">
-          <button type="button" class="chip active" data-genre="all">Trending</button>
-          <button type="button" class="chip" data-genre="28">Action</button>
-          <button type="button" class="chip" data-genre="878">Sci-Fi</button>
-          <button type="button" class="chip" data-genre="18">Drama</button>
-          <button type="button" class="chip" data-genre="35">Comedy</button>
-          <button type="button" class="chip" data-genre="27">Horror</button>
-          <button type="button" class="chip" data-genre="53">Thriller</button>
-          <button type="button" class="chip" data-genre="16">Animation</button>
+        <div class="filter-slider-wrap">
+          <button type="button" class="slider-arrow-btn slider-prev" aria-label="Scroll genres left">&lsaquo;</button>
+          <div class="pill-filter-row" id="genreChips" role="group" aria-label="Filter by Genre">
+            <button type="button" class="chip active" data-genre="all">Trending</button>
+            <button type="button" class="chip" data-genre="28">Action</button>
+            <button type="button" class="chip" data-genre="878">Sci-Fi</button>
+            <button type="button" class="chip" data-genre="18">Drama</button>
+            <button type="button" class="chip" data-genre="35">Comedy</button>
+            <button type="button" class="chip" data-genre="27">Horror</button>
+            <button type="button" class="chip" data-genre="53">Thriller</button>
+            <button type="button" class="chip" data-genre="16">Animation</button>
+          </div>
+          <button type="button" class="slider-arrow-btn slider-next" aria-label="Scroll genres right">&rsaquo;</button>
         </div>
       </div>
     </section>
@@ -397,7 +409,7 @@
 
     <!-- Compact Editorial Spotlight (keeps all #heroSection IDs active) -->
     <section id="heroSection" class="hero-section" aria-label="WatchPulse Editorial Spotlight">
-      <div class="hero-backdrop" id="heroBackdrop" style="background-image: url('https://i.ytimg.com/vi/Way9Dexny3w/hqdefault.jpg');"></div>
+      <div class="hero-backdrop" id="heroBackdrop" style="background-image: url('https://i.ytimg.com/vi/Way9Dexny3w/maxresdefault.jpg'), url('https://i.ytimg.com/vi/Way9Dexny3w/mqdefault.jpg');"></div>
       <div class="hero-overlay"></div>
       <div class="hero-content">
         <div class="hero-badge">EDITOR'S SPOTLIGHT</div>
@@ -705,7 +717,7 @@
   </nav>
 
   <script src="/consent-ui.js?v=20261121f" defer></script>
-  <script src="/app.js?v=20261122e"></script>
+  <script src="/app.js?v=20261122f"></script>
 </body>
 
 </html>

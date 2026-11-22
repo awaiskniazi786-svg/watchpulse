@@ -45,7 +45,7 @@
   <link rel="icon" type="image/png" sizes="96x96" href="/favicon.png">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="apple-touch-icon" href="/favicon.png">
-  <link rel="stylesheet" href="/style.css?v=20261122g">
+  <link rel="stylesheet" href="/style.css?v=20261122h">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;800&display=swap" rel="stylesheet">
@@ -115,7 +115,7 @@
     <div style="margin-bottom: 18px;">
       <span class="focus-eyebrow">STOP SCROLLING &bull; HUMAN-CURATED DECISION SOLVER</span>
       <h1 class="focus-h1" style="margin-bottom: 6px;">What movie or show should you watch <span class="focus-h1-accent">tonight?</span></h1>
-      <p style="color: var(--muted); font-size: 0.92rem;">Answer 4 quick questions across 165 hand-curated films and live TV series&mdash;no sign-up required.</p>
+      <p style="color: var(--muted); font-size: 0.92rem;">Answer 4 quick questions across 185 hand-curated films and live TV series&mdash;no sign-up required.</p>
     </div>
 
     <!-- Mobile Top 4-Segment Progress Bar -->
@@ -215,7 +215,7 @@
         <div class="mf-step-panel hidden" data-step-panel="4">
           <span class="focus-eyebrow">STEP 4 OF 4</span>
           <h2 style="font-size:1.55rem;font-weight:800;margin-bottom:6px;">Format &amp; language preference</h2>
-          <p style="color:var(--muted);font-size:0.88rem;margin-bottom:14px;">Choose between our 165 hand-curated movies or live TV series via TVmaze.</p>
+          <p style="color:var(--muted);font-size:0.88rem;margin-bottom:14px;">Choose between our 185 hand-curated movies or live TV series via TVmaze.</p>
 
           <div class="quiz-field-head">
             <strong style="font-size:0.84rem;color:var(--eyebrow);">Format</strong>
@@ -223,7 +223,7 @@
           </div>
           <div class="quiz-options-scroll quiz-scroll-format">
             <div class="quiz-options-grid" id="mfFormatOptions">
-              <button type="button" class="quiz-opt-btn selected" data-format="movie">Curated Movies (165 Picks)</button>
+              <button type="button" class="quiz-opt-btn selected" data-format="movie">Curated Movies (185 Picks)</button>
               <button type="button" class="quiz-opt-btn" data-format="tv">Live TV Series</button>
               <button type="button" class="quiz-opt-btn" data-format="both">Movies &amp; TV (Any)</button>
               <button type="button" class="quiz-opt-btn" data-format="anime">Anime &amp; Animated</button>
@@ -312,7 +312,7 @@
         <div class="seo-faq" style="margin-top: 12px; border-top: none; padding-top: 0;">
           <details open>
             <summary>How does the WatchPulse Movie Finder Quiz choose picks?</summary>
-            <p>For movies, the picker scores WatchPulse's hand-curated 165-film editorial catalog by who is watching, emotional vibe, runtime window, and original language—surfacing either one laser-focused match or your Top 3 with clear editorial reasons. For TV series, it scores live series metadata from TVmaze (CC BY-SA).</p>
+            <p>For movies, the picker scores WatchPulse's hand-curated 185-film editorial catalog by who is watching, emotional vibe, runtime window, and original language—surfacing either one laser-focused match or your Top 3 with clear editorial reasons. For TV series, it scores live series metadata from TVmaze (CC BY-SA).</p>
           </details>
           <details open>
             <summary>Do I need to sign up or install an app to save my picks?</summary>
@@ -594,7 +594,7 @@
 
       async function loadMovies() {
         if (state.movies.length) return state.movies;
-        const res = await fetch('/data/curated-catalog.json?v=20261122d');
+        const res = await fetch('/data/curated-catalog.json?v=20261122e');
         if (!res.ok) throw new Error('Unable to load curated catalog');
         const raw = await res.json();
         state.movies = (Array.isArray(raw) ? raw : []).map(function (m) {

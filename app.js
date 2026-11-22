@@ -7,7 +7,7 @@
  */
 
 const CATALOG_PROXY_URL = '/api/catalog';
-const CURATED_CATALOG_URL = '/data/curated-catalog.json?v=20261122d';
+const CURATED_CATALOG_URL = '/data/curated-catalog.json?v=20261122e';
 const TRENDING_MOVIE_COUNT = 10;
 const PAGE_SIZE = 30;
 
@@ -60,6 +60,13 @@ const LANGUAGE_NAMES = {
   zh: 'Chinese'
 };
 
+const SORT_LABELS = {
+  trending: 'Trending',
+  rating: 'Highest Rated',
+  newest: 'Newest',
+  runtime: 'Shortest Runtime'
+};
+
 const TRENDING_KEYWORDS = [
   'Dune: Part Two',
   'Severance',
@@ -105,6 +112,11 @@ const state = {
   language: 'all',
   provider: 'all',
   genre: 'all',
+  languages: [],
+  providers: [],
+  genres: [],
+  sortBy: 'trending',
+  openDropdown: null,
   searchQuery: '',
   searchFilterTab: 'all', // 'all' | 'movie' | 'tv'
   lastSearchResults: [],
@@ -131,6 +143,34 @@ const els = {
   heroCompanyOptions: document.getElementById('heroCompanyOptions'),
   heroQuizContinueBtn: document.getElementById('heroQuizContinueBtn'),
   languageChips: document.getElementById('languageChips'),
+  compactFilterSystem: document.getElementById('compactFilterSystem'),
+  langDropdownBtn: document.getElementById('langDropdownBtn'),
+  langBtnValue: document.getElementById('langBtnValue'),
+  langPopover: document.getElementById('langPopover'),
+  langSearchInput: document.getElementById('langSearchInput'),
+  langOptionsList: document.getElementById('langOptionsList'),
+  langApplyBtn: document.getElementById('langApplyBtn'),
+  platformDropdownBtn: document.getElementById('platformDropdownBtn'),
+  platformBtnValue: document.getElementById('platformBtnValue'),
+  platformPopover: document.getElementById('platformPopover'),
+  platformSearchInput: document.getElementById('platformSearchInput'),
+  platformOptionsList: document.getElementById('platformOptionsList'),
+  platformApplyBtn: document.getElementById('platformApplyBtn'),
+  genreDropdownBtn: document.getElementById('genreDropdownBtn'),
+  genreBtnValue: document.getElementById('genreBtnValue'),
+  genrePopover: document.getElementById('genrePopover'),
+  genreSearchInput: document.getElementById('genreSearchInput'),
+  genreOptionsList: document.getElementById('genreOptionsList'),
+  genreApplyBtn: document.getElementById('genreApplyBtn'),
+  sortDropdownBtn: document.getElementById('sortDropdownBtn'),
+  sortBtnValue: document.getElementById('sortBtnValue'),
+  sortPopover: document.getElementById('sortPopover'),
+  sortOptionsList: document.getElementById('sortOptionsList'),
+  sortApplyBtn: document.getElementById('sortApplyBtn'),
+  activeFiltersBar: document.getElementById('activeFiltersBar'),
+  activeFiltersList: document.getElementById('activeFiltersList'),
+  compactTitlesCount: document.getElementById('compactTitlesCount'),
+  filterSheetBackdrop: document.getElementById('filterSheetBackdrop'),
   watchlistNavBtn: document.getElementById('watchlistNavBtn'),
   watchlistCount: document.getElementById('watchlistCount'),
   watchlistStripCount: document.getElementById('watchlistStripCount'),
@@ -509,14 +549,35 @@ function updateHeroWatchlistBtn() {
   els.heroWatchlistBtn.textContent = inList ? 'Saved in watchlist' : 'Add to watchlist';
 }
 
+function getActiveGenresList() {
+  if (Array.isArray(state.genres) && state.genres.length) return state.genres;
+  return state.genre && state.genre !== 'all' ? [String(state.genre)] : [];
+}
+
+function getActiveProvidersList() {
+  if (Array.isArray(state.providers) && state.providers.length) return state.providers;
+  return state.provider && state.provider !== 'all' ? [String(state.provider)] : [];
+}
+
+function getActiveLanguagesList() {
+  if (Array.isArray(state.languages) && state.languages.length) return state.languages;
+  return state.language && state.language !== 'all' ? [String(state.language)] : [];
+}
+
 function buildCatalogHeading() {
   if (state.showingWatchlist) return 'Your Private Watchlist';
   if (state.searchQuery) return `Search Results for "${state.searchQuery}"`;
   const typeLabel = state.mediaType === 'tv' ? 'Popular TV Series (Live via TVmaze)' : 'Curated Editorial Movies';
   const parts = [];
-  if (state.genre !== 'all' && GENRE_MAP[state.genre]) parts.push(GENRE_MAP[state.genre]);
-  if (state.provider !== 'all' && PROVIDER_NAMES[state.provider]) parts.push(`on ${PROVIDER_NAMES[state.provider]}`);
-  if (state.language !== 'all' && LANGUAGE_NAMES[state.language]) parts.push(LANGUAGE_NAMES[state.language]);
+  const gList = getActiveGenresList().map(g => GENRE_MAP[g]).filter(Boolean);
+  const pList = getActiveProvidersList().map(p => PROVIDER_NAMES[p]).filter(Boolean);
+  const lList = getActiveLanguagesList().map(l => LANGUAGE_NAMES[l]).filter(Boolean);
+  if (gList.length) parts.push(gList.join(', '));
+  if (pList.length) parts.push(`on ${pList.join(', ')}`);
+  if (lList.length) parts.push(lList.join(', '));
+  if (state.sortBy && state.sortBy !== 'trending' && SORT_LABELS[state.sortBy]) {
+    parts.push(SORT_LABELS[state.sortBy]);
+  }
   return parts.length ? `${parts.join(' • ')} — ${typeLabel}` : typeLabel;
 }
 
@@ -824,29 +885,195 @@ function matchesGenre(item, genreId) {
   });
 }
 
+function filterAndSortCatalogPool() {
+  const pool = state.mediaType === 'tv' ? state.tvShowsCache : state.curatedMovies;
+  const gList = getActiveGenresList();
+  const pList = getActiveProvidersList();
+  const lList = getActiveLanguagesList();
+
+  const filtered = pool.filter(item => {
+    if (gList.length && !gList.some(g => matchesGenre(item, g))) return false;
+    if (pList.length && !pList.some(p => matchesProvider(item, p))) return false;
+    if (lList.length && !lList.includes(item.language)) return false;
+    return true;
+  });
+
+  if (state.sortBy === 'rating') {
+    return [...filtered].sort((a, b) => (Number(b.rating) || 0) - (Number(a.rating) || 0));
+  }
+  if (state.sortBy === 'newest') {
+    return [...filtered].sort((a, b) => {
+      const yDiff = (parseInt(b.year, 10) || 0) - (parseInt(a.year, 10) || 0);
+      return yDiff !== 0 ? yDiff : ((Number(b.rating) || 0) - (Number(a.rating) || 0));
+    });
+  }
+  if (state.sortBy === 'runtime') {
+    return [...filtered].sort((a, b) => (Number(a.runtime) || 999) - (Number(b.runtime) || 999));
+  }
+  return filtered;
+}
+
+function formatTriggerSummary(labels, emptyText, allowTwoNames = false) {
+  if (!labels.length) return emptyText;
+  if (labels.length === 1) return labels[0];
+  if (labels.length === 2 && allowTwoNames) return `${labels[0]}, ${labels[1]}`;
+  return `${labels[0]}, +${labels.length - 1}`;
+}
+
+function syncCompactFilterUI(matchingCount = 0) {
+  const lList = getActiveLanguagesList();
+  const pList = getActiveProvidersList();
+  const gList = getActiveGenresList();
+
+  state.language = lList.length === 1 ? lList[0] : (lList.length ? lList[0] : 'all');
+  state.provider = pList.length === 1 ? pList[0] : (pList.length ? pList[0] : 'all');
+  state.genre = gList.length === 1 ? gList[0] : (gList.length ? gList[0] : 'all');
+  if (els.languageSelect) els.languageSelect.value = lList.length ? lList[0] : 'all';
+
+  const langLabels = lList.map(code => LANGUAGE_NAMES[code]).filter(Boolean);
+  const provLabels = pList.map(id => PROVIDER_NAMES[id]).filter(Boolean);
+  const genreLabels = gList.map(id => GENRE_MAP[id]).filter(Boolean);
+
+  if (els.langBtnValue) els.langBtnValue.textContent = formatTriggerSummary(langLabels, 'All', true);
+  if (els.langDropdownBtn) {
+    els.langDropdownBtn.classList.toggle('is-default', lList.length === 0);
+    els.langDropdownBtn.classList.toggle('has-active', lList.length > 0);
+  }
+
+  if (els.platformBtnValue) els.platformBtnValue.textContent = formatTriggerSummary(provLabels, 'All', false);
+  if (els.platformDropdownBtn) {
+    els.platformDropdownBtn.classList.toggle('is-default', pList.length === 0);
+    els.platformDropdownBtn.classList.toggle('has-active', pList.length > 0);
+  }
+
+  if (els.genreBtnValue) els.genreBtnValue.textContent = formatTriggerSummary(genreLabels, 'All genres', false);
+  if (els.genreDropdownBtn) {
+    els.genreDropdownBtn.classList.toggle('is-default', gList.length === 0);
+    els.genreDropdownBtn.classList.toggle('has-active', gList.length > 0);
+  }
+
+  if (els.sortBtnValue) els.sortBtnValue.textContent = SORT_LABELS[state.sortBy] || 'Trending';
+  if (els.sortDropdownBtn) {
+    els.sortDropdownBtn.classList.toggle('is-default', state.sortBy === 'trending');
+    els.sortDropdownBtn.classList.toggle('has-active', state.sortBy !== 'trending');
+  }
+
+  if (els.langOptionsList) {
+    els.langOptionsList.querySelectorAll('.filter-check-row').forEach(row => {
+      const val = row.dataset.val;
+      const isChecked = val === 'all' ? lList.length === 0 : lList.includes(val);
+      row.classList.toggle('checked', isChecked);
+      row.setAttribute('aria-pressed', isChecked ? 'true' : 'false');
+    });
+  }
+
+  if (els.platformOptionsList) {
+    els.platformOptionsList.querySelectorAll('.filter-check-row').forEach(row => {
+      const val = row.dataset.val;
+      const isChecked = val === 'all' ? pList.length === 0 : pList.includes(val);
+      row.classList.toggle('checked', isChecked);
+      row.setAttribute('aria-pressed', isChecked ? 'true' : 'false');
+    });
+  }
+
+  if (els.genreOptionsList) {
+    els.genreOptionsList.querySelectorAll('.filter-check-row').forEach(row => {
+      const val = row.dataset.val;
+      const isChecked = val === 'all' ? gList.length === 0 : gList.includes(val);
+      row.classList.toggle('checked', isChecked);
+      row.setAttribute('aria-pressed', isChecked ? 'true' : 'false');
+    });
+  }
+
+  if (els.sortOptionsList) {
+    els.sortOptionsList.querySelectorAll('.filter-check-row').forEach(row => {
+      const val = row.dataset.val;
+      const isChecked = val === state.sortBy;
+      row.classList.toggle('checked', isChecked);
+      row.setAttribute('aria-pressed', isChecked ? 'true' : 'false');
+    });
+  }
+
+  const countText = `Show ${matchingCount} title${matchingCount === 1 ? '' : 's'}`;
+  [els.langApplyBtn, els.platformApplyBtn, els.genreApplyBtn, els.sortApplyBtn].forEach(btn => {
+    if (btn) btn.textContent = countText;
+  });
+
+  if (els.compactTitlesCount) {
+    els.compactTitlesCount.textContent = `${matchingCount} title${matchingCount === 1 ? '' : 's'}`;
+  }
+
+  if (els.activeFiltersBar && els.activeFiltersList) {
+    const activeChips = [];
+    lList.forEach(code => {
+      if (LANGUAGE_NAMES[code]) activeChips.push({ group: 'language', val: code, label: LANGUAGE_NAMES[code] });
+    });
+    pList.forEach(id => {
+      if (PROVIDER_NAMES[id]) activeChips.push({ group: 'platform', val: id, label: PROVIDER_NAMES[id] });
+    });
+    gList.forEach(id => {
+      if (GENRE_MAP[id]) activeChips.push({ group: 'genre', val: id, label: GENRE_MAP[id] });
+    });
+    if (state.sortBy !== 'trending' && SORT_LABELS[state.sortBy]) {
+      activeChips.push({ group: 'sort', val: state.sortBy, label: `Sort: ${SORT_LABELS[state.sortBy]}` });
+    }
+
+    if (activeChips.length > 0) {
+      els.activeFiltersBar.classList.remove('hidden');
+      els.activeFiltersList.innerHTML =
+        `<span class="active-filters-label">Active:</span>` +
+        activeChips.map(c => `
+          <button type="button" class="active-filter-chip" data-remove-group="${escapeHtml(c.group)}" data-remove-val="${escapeHtml(c.val)}" aria-label="Remove ${escapeHtml(c.label)} filter">
+            <span>${escapeHtml(c.label)}</span>
+            <span class="chip-x" aria-hidden="true">&times;</span>
+          </button>
+        `).join('') +
+        `<button type="button" class="clear-all-filters-btn" id="clearAllFiltersBtn">Clear all</button>`;
+
+      els.activeFiltersList.querySelectorAll('[data-remove-group]').forEach(chip => {
+        chip.addEventListener('click', () => {
+          const grp = chip.dataset.removeGroup;
+          const val = chip.dataset.removeVal;
+          if (grp === 'language') state.languages = state.languages.filter(x => x !== val);
+          else if (grp === 'platform') state.providers = state.providers.filter(x => x !== val);
+          else if (grp === 'genre') state.genres = state.genres.filter(x => x !== val);
+          else if (grp === 'sort') state.sortBy = 'trending';
+          state.currentPage = 1;
+          applyLocalFiltersAndRender();
+        });
+      });
+
+      const clearAllBtn = document.getElementById('clearAllFiltersBtn');
+      if (clearAllBtn) clearAllBtn.addEventListener('click', resetAllFilters);
+    } else {
+      els.activeFiltersBar.classList.add('hidden');
+      els.activeFiltersList.innerHTML = '';
+    }
+  }
+}
+
 function applyLocalFiltersAndRender() {
   state.showingWatchlist = false;
   if (els.watchlistNoticeBanner) els.watchlistNoticeBanner.classList.add('hidden');
   if (els.searchResultTabs) els.searchResultTabs.classList.add('hidden');
 
-  const pool = state.mediaType === 'tv' ? state.tvShowsCache : state.curatedMovies;
-  const filtered = pool.filter(item => {
-    if (!matchesGenre(item, state.genre)) return false;
-    if (!matchesProvider(item, state.provider)) return false;
-    if (state.language !== 'all' && item.language !== state.language) return false;
-    return true;
-  });
+  const filtered = filterAndSortCatalogPool();
+  syncCompactFilterUI(filtered.length);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   state.currentPage = Math.max(1, Math.min(state.currentPage, totalPages));
+
+  const hasActiveFilters =
+    getActiveGenresList().length > 0 ||
+    getActiveProvidersList().length > 0 ||
+    getActiveLanguagesList().length > 0 ||
+    state.sortBy !== 'trending';
 
   const isTrendingMoviesSplit =
     state.mediaType === 'movie' &&
     !state.searchQuery &&
     !state.showingWatchlist &&
-    state.genre === 'all' &&
-    state.language === 'all' &&
-    state.provider === 'all' &&
+    !hasActiveFilters &&
     filtered.length > TRENDING_MOVIE_COUNT;
 
   if (isTrendingMoviesSplit && state.currentPage === 1) {
@@ -1471,15 +1698,43 @@ function setMediaTypeUI(type) {
   });
 }
 
+function closeAllFilterDropdowns() {
+  state.openDropdown = null;
+  [
+    [els.langDropdownBtn, els.langPopover, els.langSearchInput, els.langOptionsList],
+    [els.platformDropdownBtn, els.platformPopover, els.platformSearchInput, els.platformOptionsList],
+    [els.genreDropdownBtn, els.genrePopover, els.genreSearchInput, els.genreOptionsList],
+    [els.sortDropdownBtn, els.sortPopover, null, els.sortOptionsList]
+  ].forEach(([btn, pop, searchInput, listEl]) => {
+    if (btn) {
+      btn.classList.remove('is-open');
+      btn.setAttribute('aria-expanded', 'false');
+    }
+    if (pop) pop.classList.add('hidden');
+    if (searchInput && searchInput.value) {
+      searchInput.value = '';
+      if (listEl) {
+        listEl.querySelectorAll('.filter-check-row').forEach(r => { r.style.display = ''; });
+      }
+    }
+  });
+  if (els.filterSheetBackdrop) els.filterSheetBackdrop.classList.add('hidden');
+}
+
 function resetAllFilters() {
   state.genre = 'all';
   state.provider = 'all';
   state.language = 'all';
+  state.genres = [];
+  state.providers = [];
+  state.languages = [];
+  state.sortBy = 'trending';
   state.searchQuery = '';
   state.searchFilterTab = 'all';
   state.lastSearchResults = [];
   state.showingWatchlist = false;
   state.currentPage = 1;
+  closeAllFilterDropdowns();
   if (els.searchInput) els.searchInput.value = '';
   if (els.clearSearchBtn) els.clearSearchBtn.classList.add('hidden');
   if (els.searchDropdown) els.searchDropdown.classList.add('hidden');
@@ -1638,35 +1893,130 @@ function initCookieConsent() {
   // Delegated to shared /consent-ui.js so every page shares identical single-banner + Privacy Settings behavior
 }
 
-function setupFilterSliders() {
-  const wraps = document.querySelectorAll('.filter-slider-wrap');
-  wraps.forEach(wrap => {
-    const row = wrap.querySelector('.pill-filter-row');
-    const prevBtn = wrap.querySelector('.slider-prev');
-    const nextBtn = wrap.querySelector('.slider-next');
-    if (!row || !prevBtn || !nextBtn) return;
+function setupCompactFilterDropdowns() {
+  const dropdownMap = {
+    language: { btn: els.langDropdownBtn, pop: els.langPopover, search: els.langSearchInput, list: els.langOptionsList },
+    platform: { btn: els.platformDropdownBtn, pop: els.platformPopover, search: els.platformSearchInput, list: els.platformOptionsList },
+    genre: { btn: els.genreDropdownBtn, pop: els.genrePopover, search: els.genreSearchInput, list: els.genreOptionsList },
+    sort: { btn: els.sortDropdownBtn, pop: els.sortPopover, search: null, list: els.sortOptionsList }
+  };
 
-    const updateArrows = () => {
-      const maxScroll = row.scrollWidth - row.clientWidth;
-      prevBtn.disabled = row.scrollLeft <= 2;
-      nextBtn.disabled = maxScroll <= 2 || row.scrollLeft >= maxScroll - 2;
-    };
+  Object.entries(dropdownMap).forEach(([key, cfg]) => {
+    if (!cfg.btn || !cfg.pop) return;
 
-    prevBtn.addEventListener('click', () => {
-      row.scrollBy({ left: -210, behavior: 'smooth' });
+    cfg.btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const wasOpen = state.openDropdown === key;
+      closeAllFilterDropdowns();
+      if (!wasOpen) {
+        state.openDropdown = key;
+        cfg.btn.classList.add('is-open');
+        cfg.btn.setAttribute('aria-expanded', 'true');
+        cfg.pop.classList.remove('hidden');
+        if (window.innerWidth <= 768 && els.filterSheetBackdrop) {
+          els.filterSheetBackdrop.classList.remove('hidden');
+        }
+        if (cfg.search && window.innerWidth > 768) {
+          setTimeout(() => cfg.search.focus(), 40);
+        }
+      }
     });
-    nextBtn.addEventListener('click', () => {
-      row.scrollBy({ left: 210, behavior: 'smooth' });
+
+    cfg.pop.addEventListener('click', (e) => {
+      e.stopPropagation();
     });
 
-    row.addEventListener('scroll', updateArrows, { passive: true });
-    window.addEventListener('resize', updateArrows);
-    setTimeout(updateArrows, 60);
+    if (cfg.search && cfg.list) {
+      cfg.search.addEventListener('input', () => {
+        const q = cfg.search.value.trim().toLowerCase();
+        cfg.list.querySelectorAll('.filter-check-row').forEach(row => {
+          const label = (row.dataset.label || row.textContent || '').toLowerCase();
+          row.style.display = (!q || label.includes(q)) ? '' : 'none';
+        });
+      });
+    }
+  });
+
+  if (els.filterSheetBackdrop) {
+    els.filterSheetBackdrop.addEventListener('click', () => {
+      closeAllFilterDropdowns();
+    });
+  }
+
+  document.querySelectorAll('.filter-check-row[data-filter-group]').forEach(row => {
+    row.addEventListener('click', () => {
+      const grp = row.dataset.filterGroup;
+      const val = row.dataset.val;
+      state.searchQuery = '';
+      state.currentPage = 1;
+      if (els.searchInput) els.searchInput.value = '';
+      if (els.clearSearchBtn) els.clearSearchBtn.classList.add('hidden');
+
+      if (grp === 'language') {
+        if (val === 'all') {
+          state.languages = [];
+        } else {
+          if (state.languages.includes(val)) {
+            state.languages = state.languages.filter(x => x !== val);
+          } else {
+            state.languages = [...state.languages, val];
+          }
+        }
+      } else if (grp === 'platform') {
+        if (val === 'all') {
+          state.providers = [];
+        } else {
+          if (state.providers.includes(val)) {
+            state.providers = state.providers.filter(x => x !== val);
+          } else {
+            state.providers = [...state.providers, val];
+          }
+        }
+      } else if (grp === 'genre') {
+        if (val === 'all') {
+          state.genres = [];
+        } else {
+          if (state.genres.includes(val)) {
+            state.genres = state.genres.filter(x => x !== val);
+          } else {
+            state.genres = [...state.genres, val];
+          }
+        }
+      } else if (grp === 'sort') {
+        state.sortBy = val || 'trending';
+      }
+
+      applyLocalFiltersAndRender();
+    });
+  });
+
+  document.querySelectorAll('[data-reset-filter]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const grp = btn.dataset.resetFilter;
+      if (grp === 'language') state.languages = [];
+      else if (grp === 'platform') state.providers = [];
+      else if (grp === 'genre') state.genres = [];
+      else if (grp === 'sort') state.sortBy = 'trending';
+      state.currentPage = 1;
+      applyLocalFiltersAndRender();
+    });
+  });
+
+  document.querySelectorAll('[data-apply-filter]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      closeAllFilterDropdowns();
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (state.openDropdown && !e.target.closest('.filter-dropdown-wrap')) {
+      closeAllFilterDropdowns();
+    }
   });
 }
 
 function setupEventListeners() {
-  setupFilterSliders();
+  setupCompactFilterDropdowns();
   if (els.brandLogo) els.brandLogo.addEventListener('click', () => { resetAllFilters(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
 
   let searchTimer = null;
@@ -1733,11 +2083,10 @@ function setupEventListeners() {
 
   if (els.languageSelect) {
     els.languageSelect.addEventListener('change', () => {
-      state.language = els.languageSelect.value;
+      const val = els.languageSelect.value;
+      state.language = val;
+      state.languages = (!val || val === 'all') ? [] : [val];
       state.currentPage = 1;
-      if (els.languageChips) {
-        els.languageChips.querySelectorAll('.filter-pill').forEach(c => c.classList.toggle('active', c.dataset.lang === state.language));
-      }
       applyLocalFiltersAndRender();
     });
   }
@@ -1926,6 +2275,7 @@ function setupEventListeners() {
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
+      closeAllFilterDropdowns();
       closeTrailerModal();
       closeMovieModal();
       if (els.quizModal) els.quizModal.classList.add('hidden');
@@ -1954,17 +2304,13 @@ async function initApp() {
     const mapped = GENRE_SLUG_MAP[urlGenre.toLowerCase()] || urlGenre;
     if (GENRE_MAP[mapped]) {
       state.genre = mapped;
-      if (els.genreChips) {
-        els.genreChips.querySelectorAll('.chip').forEach(c => c.classList.toggle('active', c.dataset.genre === mapped));
-      }
+      state.genres = [String(mapped)];
     }
   }
   if (urlLang && LANGUAGE_NAMES[urlLang]) {
     state.language = urlLang;
+    state.languages = [urlLang];
     if (els.languageSelect) els.languageSelect.value = urlLang;
-    if (els.languageChips) {
-      els.languageChips.querySelectorAll('.filter-pill').forEach(c => c.classList.toggle('active', c.dataset.lang === urlLang));
-    }
   }
 
   await Promise.allSettled([loadCuratedMovies(), loadTvCatalog(false)]);

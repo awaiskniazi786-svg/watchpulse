@@ -492,6 +492,54 @@
                     ]
     },
     {
+        "id":  "wp-your-name",
+        "media_type":  "movie",
+        "title":  "Your Name (Kimi no Na wa)",
+        "year":  "2016",
+        "runtime":  106,
+        "rating":  8.9,
+        "genres":  [
+                       "Animation",
+                       "Drama",
+                       "Sci-Fi",
+                       "Romance"
+                   ],
+        "genre_ids":  [
+                          16,
+                          18,
+                          878,
+                          10749
+                      ],
+        "language":  "ja",
+        "director":  "Makoto Shinkai",
+        "cast":  [
+                     "Ryunosuke Kamiki",
+                     "Mone Kamishiraishi"
+                 ],
+        "platforms":  [
+                          "Crunchyroll",
+                          "Netflix",
+                          "Apple TV"
+                      ],
+        "overview":  "A Tokyo boy and a rural mountain girl begin inexplicably swapping bodies—until a breathtaking mid-film revelation turns comedy into urgent survival drama.",
+        "editorial_note":  "The #1 gateway standalone anime film for live-action movie fans.",
+        "guide_url":  "/guide-beginner-guide-to-anime-movies-beyond-ghibli",
+        "guide_title":  "8 Essential Anime Films Beyond Studio Ghibli",
+        "accent":  "cyan",
+        "trailer_id":  "xU47nhruN-Q",
+        "moods":  [
+                      "emotional",
+                      "mind-bending",
+                      "feel-good",
+                      "romantic"
+                  ],
+        "company":  [
+                        "date-night",
+                        "family",
+                        "solo"
+                    ]
+    },
+    {
         "id":  "wp-drishyam",
         "media_type":  "movie",
         "title":  "Drishyam",
@@ -537,6 +585,53 @@
                     ]
     },
     {
+        "id":  "wp-parasite",
+        "media_type":  "movie",
+        "title":  "Parasite",
+        "year":  "2019",
+        "runtime":  132,
+        "rating":  9.2,
+        "genres":  [
+                       "Thriller",
+                       "Drama",
+                       "Comedy"
+                   ],
+        "genre_ids":  [
+                          53,
+                          18,
+                          35
+                      ],
+        "language":  "ko",
+        "director":  "Bong Joon-ho",
+        "cast":  [
+                     "Song Kang-ho",
+                     "Lee Sun-kyun",
+                     "Cho Yeo-jeong",
+                     "Park So-dam"
+                 ],
+        "platforms":  [
+                          "Prime Video",
+                          "HBO Max",
+                          "Apple TV"
+                      ],
+        "overview":  "A struggling Seoul family schemes their way one by one into the jobs and mansion of a wealthy household until an unexpected secret surfaces.",
+        "editorial_note":  "Darkly funny class satire that mutates effortlessly into an unforgettable thriller.",
+        "guide_url":  "/guide-hidden-gem-korean-and-international-thrillers",
+        "guide_title":  "7 Essential Korean \u0026 International Thrillers",
+        "accent":  "teal",
+        "moods":  [
+                      "clever-twist",
+                      "edge-of-seat",
+                      "dark-atmospheric"
+                  ],
+        "company":  [
+                        "solo",
+                        "date-night",
+                        "friends"
+                    ],
+        "trailer_id":  "isOGD_7hNIY"
+    },
+    {
         "id":  "wp-tumbbad",
         "media_type":  "movie",
         "title":  "Tumbbad",
@@ -576,6 +671,53 @@
         "company":  [
                         "solo",
                         "friends"
+                    ]
+    },
+    {
+        "id":  "wp-train-to-busan",
+        "media_type":  "movie",
+        "title":  "Train to Busan",
+        "year":  "2016",
+        "runtime":  118,
+        "rating":  8.6,
+        "genres":  [
+                       "Horror",
+                       "Action",
+                       "Thriller"
+                   ],
+        "genre_ids":  [
+                          27,
+                          28,
+                          53
+                      ],
+        "language":  "ko",
+        "director":  "Yeon Sang-ho",
+        "cast":  [
+                     "Gong Yoo",
+                     "Jung Yu-mi",
+                     "Ma Dong-seok",
+                     "Kim Su-an"
+                 ],
+        "platforms":  [
+                          "Netflix",
+                          "Prime Video",
+                          "Tubi"
+                      ],
+        "overview":  "A workaholic father and his young daughter board a bullet train from Seoul to Busan at the exact moment a zombie outbreak sweeps the country.",
+        "editorial_note":  "High-velocity train suspense with unexpected emotional weight.",
+        "guide_url":  "/guide-hidden-gem-korean-and-international-thrillers",
+        "guide_title":  "Essential Korean Thrillers",
+        "accent":  "cyan",
+        "trailer_id":  "1ovgxN2VWNc",
+        "moods":  [
+                      "adrenaline",
+                      "edge-of-seat",
+                      "emotional"
+                  ],
+        "company":  [
+                        "friends",
+                        "solo",
+                        "date-night"
                     ]
     },
     {
@@ -622,6 +764,46 @@
                     ]
     },
     {
+        "id":  "wp-winter-sleep",
+        "media_type":  "movie",
+        "title":  "Winter Sleep",
+        "year":  "2014",
+        "runtime":  196,
+        "rating":  8.1,
+        "genres":  [
+                       "Drama"
+                   ],
+        "genre_ids":  [
+                          18
+                      ],
+        "language":  "tr",
+        "director":  "Nuri Bilge Ceylan",
+        "cast":  [
+                     "Haluk Bilginer",
+                     "Melisa Sozen",
+                     "Demet Akbag"
+                 ],
+        "platforms":  [
+                          "Prime Video",
+                          "Apple TV+"
+                      ],
+        "overview":  "A retired actor running a small hotel in central Anatolia confronts the deep moral divide between himself, his young wife, and his tenants as winter snows lock them in.",
+        "editorial_note":  "Palme d\u0027Or winner at Cannes 2014. Nuri Bilge Ceylan turns Chekhovian dialogue and Cappadocian winter landscapes into an unforgettable literary examination of pride and conscience.",
+        "guide_url":  "/guides",
+        "guide_title":  "WatchPulse Global Cinema Guide",
+        "accent":  "amber",
+        "featured":  false,
+        "trailer_id":  "F2_H9b0H4d0",
+        "moods":  [
+                      "emotional",
+                      "mind-bending"
+                  ],
+        "company":  [
+                        "solo",
+                        "date-night"
+                    ]
+    },
+    {
         "id":  "wp-kahaani",
         "media_type":  "movie",
         "title":  "Kahaani",
@@ -664,6 +846,46 @@
                     ]
     },
     {
+        "id":  "wp-miracle-in-cell-no-7",
+        "media_type":  "movie",
+        "title":  "Miracle in Cell No. 7",
+        "year":  "2019",
+        "runtime":  132,
+        "rating":  8.2,
+        "genres":  [
+                       "Drama"
+                   ],
+        "genre_ids":  [
+                          18
+                      ],
+        "language":  "tr",
+        "director":  "Mehmet Ada Oztekin",
+        "cast":  [
+                     "Aras Bulut Iynemli",
+                     "Nisa Sofiya Aksongur",
+                     "Deniz Baysal"
+                 ],
+        "platforms":  [
+                          "Netflix"
+                      ],
+        "overview":  "Wrongfully accused of murder in 1983, a loving father with an intellectual disability fights to reunite with his young daughter with the help of his fellow prison inmates.",
+        "editorial_note":  "Anchored by a towering performance from Aras Bulut Iynemli, this Turkish adaptation became an international streaming phenomenon for its devastating emotional honesty.",
+        "guide_url":  "/guides",
+        "guide_title":  "WatchPulse Global Cinema Guide",
+        "accent":  "violet",
+        "featured":  false,
+        "trailer_id":  "G2wPoBy2JQI",
+        "moods":  [
+                      "emotional",
+                      "feel-good"
+                  ],
+        "company":  [
+                        "family",
+                        "date-night",
+                        "solo"
+                    ]
+    },
+    {
         "id":  "wp-memories-of-murder",
         "media_type":  "movie",
         "title":  "Memories of Murder",
@@ -701,6 +923,48 @@
                       "edge-of-seat"
                   ],
         "company":  [
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-vikram",
+        "media_type":  "movie",
+        "title":  "Vikram",
+        "year":  "2022",
+        "runtime":  174,
+        "rating":  8.3,
+        "genres":  [
+                       "Action",
+                       "Thriller"
+                   ],
+        "genre_ids":  [
+                          28,
+                          53
+                      ],
+        "language":  "ta",
+        "director":  "Lokesh Kanagaraj",
+        "cast":  [
+                     "Kamal Haasan",
+                     "Vijay Sethupathi",
+                     "Fahadh Faasil"
+                 ],
+        "platforms":  [
+                          "Prime Video",
+                          "Disney+"
+                      ],
+        "overview":  "A special investigator tracking a masked vigilante squad uncovers a massive narcotics syndicate and a retired black-ops ghost with a personal vendetta.",
+        "editorial_note":  "Three powerhouse Tamil cinema leads collide over Anirudh Ravichander\u0027s thunderous score in Lokesh Kanagaraj\u0027s kinetic night-world action thriller.",
+        "guide_url":  "/guides",
+        "guide_title":  "WatchPulse Global Cinema Guide",
+        "accent":  "amber",
+        "featured":  false,
+        "trailer_id":  "OKBMCL-frPU",
+        "moods":  [
+                      "adrenaline",
+                      "edge-of-seat"
+                  ],
+        "company":  [
+                        "friends",
                         "solo"
                     ]
     },
@@ -746,6 +1010,48 @@
         "company":  [
                         "solo",
                         "date-night"
+                    ]
+    },
+    {
+        "id":  "wp-kamli",
+        "media_type":  "movie",
+        "title":  "Kamli",
+        "year":  "2022",
+        "runtime":  127,
+        "rating":  8.1,
+        "genres":  [
+                       "Drama",
+                       "Romance"
+                   ],
+        "genre_ids":  [
+                          18,
+                          10749
+                      ],
+        "language":  "ur",
+        "director":  "Sarmad Khoosat",
+        "cast":  [
+                     "Saba Qamar",
+                     "Sania Saeed",
+                     "Nimra Bucha",
+                     "Hamza Khawaja"
+                 ],
+        "platforms":  [
+                          "Prime Video"
+                      ],
+        "overview":  "Living in quiet isolation beside a forest lake with her blind sister-in-law while awaiting a husband missing for eight years, a woman\u0027s world is upended by the arrival of a mysterious stranger.",
+        "editorial_note":  "Sarmad Khoosat crafts a haunting, painterly folk fable of longing and grief in the Soon Valley, powered by incandescent performances from Saba Qamar and Sania Saeed.",
+        "guide_url":  "/guides",
+        "guide_title":  "WatchPulse Global Cinema Guide",
+        "accent":  "violet",
+        "featured":  false,
+        "trailer_id":  "dcAGTOf3REQ",
+        "moods":  [
+                      "romantic",
+                      "emotional"
+                  ],
+        "company":  [
+                        "date-night",
+                        "solo"
                     ]
     },
     {
@@ -1626,54 +1932,6 @@
                         "friends",
                         "family",
                         "date-night",
-                        "solo"
-                    ]
-    },
-    {
-        "id":  "wp-your-name",
-        "media_type":  "movie",
-        "title":  "Your Name (Kimi no Na wa)",
-        "year":  "2016",
-        "runtime":  106,
-        "rating":  8.9,
-        "genres":  [
-                       "Animation",
-                       "Drama",
-                       "Sci-Fi",
-                       "Romance"
-                   ],
-        "genre_ids":  [
-                          16,
-                          18,
-                          878,
-                          10749
-                      ],
-        "language":  "ja",
-        "director":  "Makoto Shinkai",
-        "cast":  [
-                     "Ryunosuke Kamiki",
-                     "Mone Kamishiraishi"
-                 ],
-        "platforms":  [
-                          "Crunchyroll",
-                          "Netflix",
-                          "Apple TV"
-                      ],
-        "overview":  "A Tokyo boy and a rural mountain girl begin inexplicably swapping bodies—until a breathtaking mid-film revelation turns comedy into urgent survival drama.",
-        "editorial_note":  "The #1 gateway standalone anime film for live-action movie fans.",
-        "guide_url":  "/guide-beginner-guide-to-anime-movies-beyond-ghibli",
-        "guide_title":  "8 Essential Anime Films Beyond Studio Ghibli",
-        "accent":  "cyan",
-        "trailer_id":  "xU47nhruN-Q",
-        "moods":  [
-                      "emotional",
-                      "mind-bending",
-                      "feel-good",
-                      "romantic"
-                  ],
-        "company":  [
-                        "date-night",
-                        "family",
                         "solo"
                     ]
     },
@@ -2819,53 +3077,6 @@
                         "solo"
                     ],
         "trailer_id":  "bpXfcTF6iVk"
-    },
-    {
-        "id":  "wp-parasite",
-        "media_type":  "movie",
-        "title":  "Parasite",
-        "year":  "2019",
-        "runtime":  132,
-        "rating":  9.2,
-        "genres":  [
-                       "Thriller",
-                       "Drama",
-                       "Comedy"
-                   ],
-        "genre_ids":  [
-                          53,
-                          18,
-                          35
-                      ],
-        "language":  "ko",
-        "director":  "Bong Joon-ho",
-        "cast":  [
-                     "Song Kang-ho",
-                     "Lee Sun-kyun",
-                     "Cho Yeo-jeong",
-                     "Park So-dam"
-                 ],
-        "platforms":  [
-                          "Prime Video",
-                          "HBO Max",
-                          "Apple TV"
-                      ],
-        "overview":  "A struggling Seoul family schemes their way one by one into the jobs and mansion of a wealthy household until an unexpected secret surfaces.",
-        "editorial_note":  "Darkly funny class satire that mutates effortlessly into an unforgettable thriller.",
-        "guide_url":  "/guide-hidden-gem-korean-and-international-thrillers",
-        "guide_title":  "7 Essential Korean \u0026 International Thrillers",
-        "accent":  "teal",
-        "moods":  [
-                      "clever-twist",
-                      "edge-of-seat",
-                      "dark-atmospheric"
-                  ],
-        "company":  [
-                        "solo",
-                        "date-night",
-                        "friends"
-                    ],
-        "trailer_id":  "isOGD_7hNIY"
     },
     {
         "id":  "wp-oldboy",
@@ -5015,53 +5226,6 @@
                   ],
         "company":  [
                         "solo"
-                    ]
-    },
-    {
-        "id":  "wp-train-to-busan",
-        "media_type":  "movie",
-        "title":  "Train to Busan",
-        "year":  "2016",
-        "runtime":  118,
-        "rating":  8.6,
-        "genres":  [
-                       "Horror",
-                       "Action",
-                       "Thriller"
-                   ],
-        "genre_ids":  [
-                          27,
-                          28,
-                          53
-                      ],
-        "language":  "ko",
-        "director":  "Yeon Sang-ho",
-        "cast":  [
-                     "Gong Yoo",
-                     "Jung Yu-mi",
-                     "Ma Dong-seok",
-                     "Kim Su-an"
-                 ],
-        "platforms":  [
-                          "Netflix",
-                          "Prime Video",
-                          "Tubi"
-                      ],
-        "overview":  "A workaholic father and his young daughter board a bullet train from Seoul to Busan at the exact moment a zombie outbreak sweeps the country.",
-        "editorial_note":  "High-velocity train suspense with unexpected emotional weight.",
-        "guide_url":  "/guide-hidden-gem-korean-and-international-thrillers",
-        "guide_title":  "Essential Korean Thrillers",
-        "accent":  "cyan",
-        "trailer_id":  "1ovgxN2VWNc",
-        "moods":  [
-                      "adrenaline",
-                      "edge-of-seat",
-                      "emotional"
-                  ],
-        "company":  [
-                        "friends",
-                        "solo",
-                        "date-night"
                     ]
     },
     {
@@ -7267,6 +7431,688 @@
         "company":  [
                         "solo",
                         "date-night"
+                    ]
+    },
+    {
+        "id":  "wp-once-upon-a-time-in-anatolia",
+        "media_type":  "movie",
+        "title":  "Once Upon a Time in Anatolia",
+        "year":  "2011",
+        "runtime":  157,
+        "rating":  7.8,
+        "genres":  [
+                       "Drama",
+                       "Thriller"
+                   ],
+        "genre_ids":  [
+                          18,
+                          53
+                      ],
+        "language":  "tr",
+        "director":  "Nuri Bilge Ceylan",
+        "cast":  [
+                     "Muhammet Uzuner",
+                     "Yilmaz Erdogan",
+                     "Taner Birsel"
+                 ],
+        "platforms":  [
+                          "Prime Video",
+                          "Apple TV+"
+                      ],
+        "overview":  "Over one long night on the Anatolian steppes, a doctor, a prosecutor, and a police commissar accompany a murder suspect searching for the field where he buried a body.",
+        "editorial_note":  "A hypnotic midnight procedural where the investigation slowly shifts from finding a grave to uncovering the quiet moral weight carried by the men searching for it.",
+        "guide_url":  "/guides",
+        "guide_title":  "WatchPulse Global Cinema Guide",
+        "accent":  "teal",
+        "featured":  false,
+        "trailer_id":  "oMxDtfN2U_0",
+        "moods":  [
+                      "edge-of-seat",
+                      "mind-bending",
+                      "emotional"
+                  ],
+        "company":  [
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-mustang",
+        "media_type":  "movie",
+        "title":  "Mustang",
+        "year":  "2015",
+        "runtime":  97,
+        "rating":  7.6,
+        "genres":  [
+                       "Drama"
+                   ],
+        "genre_ids":  [
+                          18
+                      ],
+        "language":  "tr",
+        "director":  "Deniz Gamze Erguven",
+        "cast":  [
+                     "Gunes Sensoy",
+                     "Doga Doguslu",
+                     "Tugba Sunguroglu"
+                 ],
+        "platforms":  [
+                          "Prime Video",
+                          "Apple TV+"
+                      ],
+        "overview":  "In a coastal Turkish village, five orphaned sisters fiercely resist their conservative guardians after an innocent afternoon at the beach sparks a household lockdown.",
+        "editorial_note":  "Academy Award nominee for Best Foreign Language Film. Sun-drenched, defiant, and tender, balancing claustrophobic tension with fierce sisterly solidarity.",
+        "guide_url":  "/guides",
+        "guide_title":  "WatchPulse Global Cinema Guide",
+        "accent":  "amber",
+        "featured":  false,
+        "trailer_id":  "td_ksayX4tU",
+        "moods":  [
+                      "emotional",
+                      "feel-good"
+                  ],
+        "company":  [
+                        "friends",
+                        "solo",
+                        "family"
+                    ]
+    },
+    {
+        "id":  "wp-kaithi",
+        "media_type":  "movie",
+        "title":  "Kaithi",
+        "year":  "2019",
+        "runtime":  145,
+        "rating":  8.4,
+        "genres":  [
+                       "Action",
+                       "Thriller"
+                   ],
+        "genre_ids":  [
+                          28,
+                          53
+                      ],
+        "language":  "ta",
+        "director":  "Lokesh Kanagaraj",
+        "cast":  [
+                     "Karthi",
+                     "Narain",
+                     "Arjun Das"
+                 ],
+        "platforms":  [
+                          "Prime Video"
+                      ],
+        "overview":  "Freshly paroled and racing to meet his ten-year-old daughter for the first time, a former prisoner agrees to drive a truckload of poisoned police officers through a night of cartel ambushes.",
+        "editorial_note":  "Unfolding across a single relentless night with zero musical numbers, Kaithi is a masterclass in siege-thriller pacing and practical highway stunt work.",
+        "guide_url":  "/guides",
+        "guide_title":  "WatchPulse Global Cinema Guide",
+        "accent":  "teal",
+        "featured":  false,
+        "trailer_id":  "g79CvhHaj5I",
+        "moods":  [
+                      "adrenaline",
+                      "edge-of-seat"
+                  ],
+        "company":  [
+                        "friends",
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-jai-bhim",
+        "media_type":  "movie",
+        "title":  "Jai Bhim",
+        "year":  "2021",
+        "runtime":  164,
+        "rating":  8.7,
+        "genres":  [
+                       "Drama",
+                       "Thriller"
+                   ],
+        "genre_ids":  [
+                          18,
+                          53
+                      ],
+        "language":  "ta",
+        "director":  "T. J. Gnanavel",
+        "cast":  [
+                     "Suriya",
+                     "Lijomol Jose",
+                     "Manikandan"
+                 ],
+        "platforms":  [
+                          "Prime Video"
+                      ],
+        "overview":  "When a tribal man vanishes from police custody in 1990s Tamil Nadu, a fearless human-rights advocate files a habeas corpus petition that exposes systemic brutality.",
+        "editorial_note":  "Inspired by landmark real-life courtroom battles fought by Justice K. Chandru, combining gripping legal investigation with fierce moral clarity.",
+        "guide_url":  "/guides",
+        "guide_title":  "WatchPulse Global Cinema Guide",
+        "accent":  "violet",
+        "featured":  false,
+        "trailer_id":  "Gc6dEDnL8JA",
+        "moods":  [
+                      "emotional",
+                      "edge-of-seat"
+                  ],
+        "company":  [
+                        "family",
+                        "solo",
+                        "friends"
+                    ]
+    },
+    {
+        "id":  "wp-super-deluxe",
+        "media_type":  "movie",
+        "title":  "Super Deluxe",
+        "year":  "2019",
+        "runtime":  176,
+        "rating":  8.3,
+        "genres":  [
+                       "Drama",
+                       "Comedy",
+                       "Thriller"
+                   ],
+        "genre_ids":  [
+                          18,
+                          35,
+                          53
+                      ],
+        "language":  "ta",
+        "director":  "Thiagarajan Kumararaja",
+        "cast":  [
+                     "Vijay Sethupathi",
+                     "Fahadh Faasil",
+                     "Samantha Ruth Prabhu",
+                     "Ramya Krishnan"
+                 ],
+        "platforms":  [
+                          "Netflix"
+                      ],
+        "overview":  "Four wildly contrasting Chennai storylines—an unfaithful couple hiding a corpse, an estranged parent returning home, a disillusioned teenager, and a desperate mother—intersect over one chaotic day.",
+        "editorial_note":  "Boldly shot, darkly hilarious, and philosophically audacious, Super Deluxe rewrote the grammar of modern Tamil anthology storytelling.",
+        "guide_url":  "/guides",
+        "guide_title":  "WatchPulse Global Cinema Guide",
+        "accent":  "emerald",
+        "featured":  false,
+        "trailer_id":  "3-Xq_Zz3nPA",
+        "moods":  [
+                      "mind-bending",
+                      "edge-of-seat",
+                      "emotional"
+                  ],
+        "company":  [
+                        "friends",
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-capernaum",
+        "media_type":  "movie",
+        "title":  "Capernaum",
+        "year":  "2018",
+        "runtime":  126,
+        "rating":  8.4,
+        "genres":  [
+                       "Drama"
+                   ],
+        "genre_ids":  [
+                          18
+                      ],
+        "language":  "ar",
+        "director":  "Nadine Labaki",
+        "cast":  [
+                     "Zain Al Rafeea",
+                     "Yordanos Shiferaw",
+                     "Boluwatife Treasure Bankole"
+                 ],
+        "platforms":  [
+                          "Prime Video",
+                          "Apple TV+"
+                      ],
+        "overview":  "While serving a prison sentence in Beirut, a street-wise twelve-year-old boy sues his own parents for giving him life in a world of relentless neglect.",
+        "editorial_note":  "Winner of the Cannes Jury Prize. Led by non-professional actors living realities close to their characters, Capernaum achieves staggering documentary immediacy.",
+        "guide_url":  "/guides",
+        "guide_title":  "WatchPulse Global Cinema Guide",
+        "accent":  "amber",
+        "featured":  false,
+        "trailer_id":  "ULUo0048xZE",
+        "moods":  [
+                      "emotional"
+                  ],
+        "company":  [
+                        "solo",
+                        "date-night"
+                    ]
+    },
+    {
+        "id":  "wp-wadjda",
+        "media_type":  "movie",
+        "title":  "Wadjda",
+        "year":  "2012",
+        "runtime":  98,
+        "rating":  7.5,
+        "genres":  [
+                       "Drama",
+                       "Comedy"
+                   ],
+        "genre_ids":  [
+                          18,
+                          35
+                      ],
+        "language":  "ar",
+        "director":  "Haifaa al-Mansour",
+        "cast":  [
+                     "Waad Mohammed",
+                     "Reem Abdullah",
+                     "Abdullrahman Al Gohani"
+                 ],
+        "platforms":  [
+                          "Prime Video",
+                          "Apple TV+"
+                      ],
+        "overview":  "Determined to buy a green bicycle so she can race her neighborhood friend, an enterprising ten-year-old girl in Riyadh enters her school\u0027s Quran recitation contest for the cash prize.",
+        "editorial_note":  "The first feature film shot entirely in Saudi Arabia and directed by a Saudi woman—warm, witty, and quietly subversive.",
+        "guide_url":  "/guides",
+        "guide_title":  "WatchPulse Global Cinema Guide",
+        "accent":  "emerald",
+        "featured":  false,
+        "trailer_id":  "s2Q2JvhWjyE",
+        "moods":  [
+                      "feel-good",
+                      "emotional"
+                  ],
+        "company":  [
+                        "family",
+                        "solo",
+                        "friends"
+                    ]
+    },
+    {
+        "id":  "wp-theeb",
+        "media_type":  "movie",
+        "title":  "Theeb",
+        "year":  "2014",
+        "runtime":  100,
+        "rating":  7.2,
+        "genres":  [
+                       "Drama",
+                       "Thriller"
+                   ],
+        "genre_ids":  [
+                          18,
+                          53
+                      ],
+        "language":  "ar",
+        "director":  "Naji Abu Nowar",
+        "cast":  [
+                     "Jacir Eid Al-Hwietat",
+                     "Hussein Salameh Al-Sweilhiyeen",
+                     "Hassan Mutlag Al-Maraiyeh"
+                 ],
+        "platforms":  [
+                          "Prime Video",
+                          "Apple TV+"
+                      ],
+        "overview":  "In the Ottoman province of Hijaz during World War I, a young Bedouin boy follows his older brother to guide a British officer across a desert canyon haunted by raiders.",
+        "editorial_note":  "Academy Award nominee for Best Foreign Language Film. A razor-taut desert Western acted by members of the local Bedouin tribe in Wadi Rum.",
+        "guide_url":  "/guides",
+        "guide_title":  "WatchPulse Global Cinema Guide",
+        "accent":  "amber",
+        "featured":  false,
+        "trailer_id":  "gqkWiWvxoGk",
+        "moods":  [
+                      "edge-of-seat",
+                      "adrenaline"
+                  ],
+        "company":  [
+                        "solo",
+                        "friends"
+                    ]
+    },
+    {
+        "id":  "wp-joyland",
+        "media_type":  "movie",
+        "title":  "Joyland",
+        "year":  "2022",
+        "runtime":  126,
+        "rating":  7.7,
+        "genres":  [
+                       "Drama",
+                       "Romance"
+                   ],
+        "genre_ids":  [
+                          18,
+                          10749
+                      ],
+        "language":  "ur",
+        "director":  "Saim Sadiq",
+        "cast":  [
+                     "Ali Junejo",
+                     "Rasti Farooq",
+                     "Alina Khan",
+                     "Sarwat Gilani"
+                 ],
+        "platforms":  [
+                          "Prime Video",
+                          "Apple TV+"
+                      ],
+        "overview":  "In a traditional multi-generational Lahore household, the youngest son secretly takes a job as a backup dancer in an erotic theater troupe and falls for its charismatic director.",
+        "editorial_note":  "Winner of the Un Certain Regard Jury Prize at Cannes 2022. Empathetic toward every member of its fractured family, balancing wry domestic humor with quiet heartbreak.",
+        "guide_url":  "/guides",
+        "guide_title":  "WatchPulse Global Cinema Guide",
+        "accent":  "amber",
+        "featured":  false,
+        "trailer_id":  "InT99AHc8q4",
+        "moods":  [
+                      "romantic",
+                      "emotional"
+                  ],
+        "company":  [
+                        "date-night",
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-manjummel-boys",
+        "media_type":  "movie",
+        "title":  "Manjummel Boys",
+        "year":  "2024",
+        "runtime":  135,
+        "rating":  8.2,
+        "genres":  [
+                       "Thriller",
+                       "Drama"
+                   ],
+        "genre_ids":  [
+                          53,
+                          18
+                      ],
+        "language":  "ml",
+        "director":  "Chidambaram",
+        "cast":  [
+                     "Soubin Shahir",
+                     "Sreenath Bhasi",
+                     "Balu Varghese",
+                     "Ganapathi S. Poduval"
+                 ],
+        "platforms":  [
+                          "Disney+"
+                      ],
+        "overview":  "A carefree holiday to Kodaikanal turns into a desperate survival mission when one member of a close-knit Kochi friend group falls into the abyssal Guna Caves.",
+        "editorial_note":  "Based on a remarkable 2006 real-life rescue, Chidambaram\u0027s survival thriller pairs bone-chilling claustrophobia with an unforgettable tribute to unconditional friendship.",
+        "guide_url":  "/guides",
+        "guide_title":  "WatchPulse Global Cinema Guide",
+        "accent":  "teal",
+        "featured":  false,
+        "trailer_id":  "id848Ww1YLo",
+        "moods":  [
+                      "edge-of-seat",
+                      "emotional"
+                  ],
+        "company":  [
+                        "friends",
+                        "family"
+                    ]
+    },
+    {
+        "id":  "wp-joji",
+        "media_type":  "movie",
+        "title":  "Joji",
+        "year":  "2021",
+        "runtime":  113,
+        "rating":  7.8,
+        "genres":  [
+                       "Drama",
+                       "Thriller"
+                   ],
+        "genre_ids":  [
+                          18,
+                          53
+                      ],
+        "language":  "ml",
+        "director":  "Dileesh Pothan",
+        "cast":  [
+                     "Fahadh Faasil",
+                     "Baburaj",
+                     "Shammi Thilakan",
+                     "Unnimaya Prasad"
+                 ],
+        "platforms":  [
+                          "Prime Video"
+                      ],
+        "overview":  "After his tyrannical father suffers a debilitating stroke on their lush Kerala rubber estate, an ambitious engineering dropout plots to accelerate his inheritance.",
+        "editorial_note":  "A razor-sharp Malayalam reimagining of Shakespeare\u0027s Macbeth where greed festers silently behind monsoon rain and polite family dinners.",
+        "guide_url":  "/guides",
+        "guide_title":  "WatchPulse Global Cinema Guide",
+        "accent":  "emerald",
+        "featured":  false,
+        "trailer_id":  "9yULZ8y1J-s",
+        "moods":  [
+                      "edge-of-seat",
+                      "mind-bending"
+                  ],
+        "company":  [
+                        "solo",
+                        "friends"
+                    ]
+    },
+    {
+        "id":  "wp-the-lives-of-others",
+        "media_type":  "movie",
+        "title":  "The Lives of Others",
+        "year":  "2006",
+        "runtime":  137,
+        "rating":  8.4,
+        "genres":  [
+                       "Drama",
+                       "Thriller"
+                   ],
+        "genre_ids":  [
+                          18,
+                          53
+                      ],
+        "language":  "de",
+        "director":  "Florian Henckel von Donnersmarck",
+        "cast":  [
+                     "Ulrich Muhe",
+                     "Martina Gedeck",
+                     "Sebastian Koch",
+                     "Ulrich Tukur"
+                 ],
+        "platforms":  [
+                          "Prime Video",
+                          "Apple TV+"
+                      ],
+        "overview":  "In 1984 East Berlin, a dedicated Stasi captain assigned to wiretap the apartment of a prominent playwright and his actress lover becomes invisibly entangled in their lives.",
+        "editorial_note":  "Academy Award winner for Best Foreign Language Film, featuring one of cinema\u0027s finest final lines and an unforgettable central turn by Ulrich Muhe.",
+        "guide_url":  "/guides",
+        "guide_title":  "WatchPulse Global Cinema Guide",
+        "accent":  "teal",
+        "featured":  false,
+        "trailer_id":  "YsShZNHmpGE",
+        "moods":  [
+                      "edge-of-seat",
+                      "emotional"
+                  ],
+        "company":  [
+                        "solo",
+                        "date-night"
+                    ]
+    },
+    {
+        "id":  "wp-all-quiet-western-front",
+        "media_type":  "movie",
+        "title":  "All Quiet on the Western Front",
+        "year":  "2022",
+        "runtime":  148,
+        "rating":  7.8,
+        "genres":  [
+                       "Drama",
+                       "Action"
+                   ],
+        "genre_ids":  [
+                          18,
+                          28
+                      ],
+        "language":  "de",
+        "director":  "Edward Berger",
+        "cast":  [
+                     "Felix Kammerer",
+                     "Albrecht Schuch",
+                     "Aaron Hilmer",
+                     "Daniel Bruhl"
+                 ],
+        "platforms":  [
+                          "Netflix"
+                      ],
+        "overview":  "In 1917 Germany, an idealistic seventeen-year-old enlists alongside his schoolmates, only to see patriotic euphoria shattered in the mud and steel of the French trenches.",
+        "editorial_note":  "Winner of four Academy Awards including Best International Feature and Best Cinematography. Visceral, unsparing, and hauntingly scored.",
+        "guide_url":  "/guides",
+        "guide_title":  "WatchPulse Global Cinema Guide",
+        "accent":  "amber",
+        "featured":  false,
+        "trailer_id":  "hf8EYbVxtCY",
+        "moods":  [
+                      "emotional",
+                      "adrenaline"
+                  ],
+        "company":  [
+                        "solo",
+                        "friends"
+                    ]
+    },
+    {
+        "id":  "wp-pans-labyrinth",
+        "media_type":  "movie",
+        "title":  "Pan\u0027s Labyrinth",
+        "year":  "2006",
+        "runtime":  118,
+        "rating":  8.2,
+        "genres":  [
+                       "Drama",
+                       "Sci-Fi",
+                       "Thriller"
+                   ],
+        "genre_ids":  [
+                          18,
+                          878,
+                          53
+                      ],
+        "language":  "es",
+        "director":  "Guillermo del Toro",
+        "cast":  [
+                     "Ivana Baquero",
+                     "Sergi Lopez",
+                     "Maribel Verdu",
+                     "Doug Jones"
+                 ],
+        "platforms":  [
+                          "Prime Video",
+                          "Apple TV+"
+                      ],
+        "overview":  "In 1944 Francoist Spain, the bookish young stepdaughter of a sadistic army captain discovers an ancient stone labyrinth governed by a mysterious faun.",
+        "editorial_note":  "Guillermo del Toro\u0027s dark fairy-tale masterpiece weaves creature design and historical tragedy into an allegory of disobedience and courage.",
+        "guide_url":  "/guides",
+        "guide_title":  "WatchPulse Global Cinema Guide",
+        "accent":  "violet",
+        "featured":  false,
+        "trailer_id":  "EqYiSlkvRuw",
+        "moods":  [
+                      "mind-bending",
+                      "emotional",
+                      "edge-of-seat"
+                  ],
+        "company":  [
+                        "solo",
+                        "date-night"
+                    ]
+    },
+    {
+        "id":  "wp-secret-in-their-eyes",
+        "media_type":  "movie",
+        "title":  "The Secret in Their Eyes",
+        "year":  "2009",
+        "runtime":  129,
+        "rating":  8.2,
+        "genres":  [
+                       "Drama",
+                       "Thriller",
+                       "Romance"
+                   ],
+        "genre_ids":  [
+                          18,
+                          53,
+                          10749
+                      ],
+        "language":  "es",
+        "director":  "Juan Jose Campanella",
+        "cast":  [
+                     "Ricardo Darin",
+                     "Soledad Villamil",
+                     "Pablo Rago",
+                     "Guillermo Francella"
+                 ],
+        "platforms":  [
+                          "Prime Video",
+                          "Apple TV+"
+                      ],
+        "overview":  "A retired Buenos Aires court investigator begins writing a novel about an unresolved 1974 murder case—and his decades-long unspoken love for his former superior.",
+        "editorial_note":  "Academy Award winner for Best Foreign Language Film, famous for its single-take stadium pursuit and deeply romantic final act.",
+        "guide_url":  "/guides",
+        "guide_title":  "WatchPulse Global Cinema Guide",
+        "accent":  "amber",
+        "featured":  false,
+        "trailer_id":  "hKa8U-8vsfU",
+        "moods":  [
+                      "edge-of-seat",
+                      "romantic",
+                      "emotional"
+                  ],
+        "company":  [
+                        "date-night",
+                        "solo"
+                    ]
+    },
+    {
+        "id":  "wp-portrait-of-a-lady-on-fire",
+        "media_type":  "movie",
+        "title":  "Portrait of a Lady on Fire",
+        "year":  "2019",
+        "runtime":  122,
+        "rating":  8.1,
+        "genres":  [
+                       "Drama",
+                       "Romance"
+                   ],
+        "genre_ids":  [
+                          18,
+                          10749
+                      ],
+        "language":  "fr",
+        "director":  "Celine Sciamma",
+        "cast":  [
+                     "Noemie Merlant",
+                     "Adele Haenel",
+                     "Luana Bajrami",
+                     "Valeria Golino"
+                 ],
+        "platforms":  [
+                          "Prime Video",
+                          "Apple TV+"
+                      ],
+        "overview":  "On an isolated island in Brittany at the end of the eighteenth century, a female painter is commissioned to paint a wedding portrait of a young woman in secret.",
+        "editorial_note":  "Winner of Best Screenplay at Cannes 2019. Every frame feels hand-lit by candlelight, building to an unforgettable concert-hall finale set to Vivaldi.",
+        "guide_url":  "/guides",
+        "guide_title":  "WatchPulse Global Cinema Guide",
+        "accent":  "violet",
+        "featured":  false,
+        "trailer_id":  "R-fQPTwma9o",
+        "moods":  [
+                      "romantic",
+                      "emotional"
+                  ],
+        "company":  [
+                        "date-night",
+                        "solo"
                     ]
     }
 ]

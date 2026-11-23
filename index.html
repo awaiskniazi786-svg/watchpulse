@@ -107,7 +107,7 @@
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5022914500809430"
     crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="/style.css?v=20261123e">
+  <link rel="stylesheet" href="/style.css?v=20261123f">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;800&display=swap" rel="stylesheet">
@@ -257,289 +257,270 @@
       </div>
     </section>
 
-    <!-- 6 Mood & Constraint Shortcuts -->
-    <div class="focus-shortcuts-row" aria-label="Instant Mood and Time Shortcuts">
-      <span class="focus-shortcuts-label">Quick moods:</span>
-      <a href="/movie-finder?time=short&amp;mood=edge-of-seat&amp;mode=one" class="focus-shortcut-chip">
-        <span class="chip-icon" aria-hidden="true">&#9201;</span>
-        <span>Under 100 min</span>
-      </a>
-      <a href="/movie-finder?mood=mind-bending&amp;mode=one" class="focus-shortcut-chip">
-        <span class="chip-icon" aria-hidden="true">&#127744;</span>
-        <span>Mind-bending</span>
-      </a>
-      <a href="/movie-finder?mood=feel-good&amp;time=short&amp;mode=one" class="focus-shortcut-chip">
-        <span class="chip-icon" aria-hidden="true">&#128715;</span>
-        <span>Exhausted, easy</span>
-      </a>
-      <a href="/movie-finder?company=date-night&amp;mode=one" class="focus-shortcut-chip">
-        <span class="chip-icon" aria-hidden="true">&#10024;</span>
-        <span>Date night</span>
-      </a>
-      <a href="/movie-finder?company=family&amp;mode=one" class="focus-shortcut-chip">
-        <span class="chip-icon" aria-hidden="true">&#128737;</span>
-        <span>Family-safe</span>
-      </a>
-      <a href="/movie-finder?lang=global&amp;mode=one" class="focus-shortcut-chip">
-        <span class="chip-icon" aria-hidden="true">&#127759;</span>
-        <span>Global &amp; South Asia</span>
-      </a>
-    </div>
-
-    <!-- Browse Header & Compact Filter Bar -->
+    <!-- Single-Line Cinema Command Bar + Right-Side Slide-Out Filter & Mood Drawer -->
     <section class="browse-section" aria-label="Browse Movies and TV Series">
-      <div class="browse-head-row">
-        <h2 class="browse-heading">Browse</h2>
-        <div class="media-type-toggle" id="mediaTypeToggle" role="tablist" aria-label="Content format">
-          <button type="button" class="media-type-btn active" data-type="movie"><span class="mt-desktop-label">Curated movies</span><span class="mt-mobile-label">Movies</span></button>
-          <button type="button" class="media-type-btn" data-type="tv">Live TV series</button>
+      <div class="cinema-command-bar">
+        <div class="cinema-bar-left">
+          <h2 id="gridTitle" class="section-title">Trending Movies</h2>
+          <div class="media-type-toggle" id="mediaTypeToggle" role="tablist" aria-label="Content format">
+            <button type="button" class="media-type-btn active" data-type="movie"><span class="mt-desktop-label">Curated movies</span><span class="mt-mobile-label">Movies</span></button>
+            <button type="button" class="media-type-btn" data-type="tv">Live TV series</button>
+          </div>
+          <span id="moviesCount" class="count-tag">Top 8 &middot; Live Today</span>
+        </div>
+
+        <div class="cinema-bar-right">
+          <div class="cinema-quick-pills" aria-label="Quick category shortcuts">
+            <a href="/movie-finder?time=short&amp;mood=edge-of-seat&amp;mode=one" class="focus-shortcut-chip">
+              <span class="chip-icon" aria-hidden="true">&#9201;</span>
+              <span>Under 100m</span>
+            </a>
+            <a href="/movie-finder?mood=mind-bending&amp;mode=one" class="focus-shortcut-chip">
+              <span class="chip-icon" aria-hidden="true">&#127744;</span>
+              <span>Mind-bending</span>
+            </a>
+            <a href="/movie-finder?lang=global&amp;mode=one" class="focus-shortcut-chip">
+              <span class="chip-icon" aria-hidden="true">&#127759;</span>
+              <span>Global &amp; South Asia</span>
+            </a>
+          </div>
+
+          <button type="button" id="openFilterDrawerBtn" class="filter-drawer-trigger-btn" aria-expanded="false" aria-controls="rightFilterDrawer">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg>
+            <span>Filters &amp; Sort</span>
+            <span id="drawerFilterCountBadge" class="drawer-filter-badge hidden">0</span>
+          </button>
         </div>
       </div>
 
-      <div class="compact-filter-system" id="compactFilterSystem">
-        <div class="compact-filter-bar" role="toolbar" aria-label="Catalog filters">
-          <div class="compact-filter-triggers">
-            <!-- Language Filter Dropdown -->
-            <div class="filter-dropdown-wrap" data-dropdown="language">
-              <button type="button" class="filter-dropdown-btn is-default" id="langDropdownBtn" aria-expanded="false" aria-haspopup="dialog">
-                <span class="dd-prefix">Language<span class="dd-colon">:</span></span>
-                <strong class="dd-value" id="langBtnValue">All</strong>
-                <span class="dd-caret" aria-hidden="true">&#9662;</span>
-              </button>
+      <!-- Active Filter Chips Row (Only visible when filters are active) -->
+      <div class="active-filters-bar hidden" id="activeFiltersBar" aria-live="polite">
+        <div class="active-filters-list" id="activeFiltersList"></div>
+        <span class="compact-titles-count" id="compactTitlesCount">185 titles</span>
+      </div>
 
-              <div class="filter-popover hidden" id="langPopover" role="dialog" aria-label="Filter by language">
-                <div class="sheet-drag-handle" aria-hidden="true"></div>
-                <div class="sheet-mobile-header">
-                  <span class="sheet-mobile-title">Language</span>
-                  <button type="button" class="popover-reset-btn" data-reset-filter="language">Reset</button>
-                </div>
-                <div class="popover-search-wrap">
-                  <input type="text" class="popover-search-input" id="langSearchInput" placeholder="Find a language" aria-label="Find a language" autocomplete="off">
-                </div>
-                <div class="popover-options-grid cols-2" id="langOptionsList" role="group" aria-label="Languages">
-                  <button type="button" class="filter-check-row" data-filter-group="language" data-val="all" data-label="All languages">
-                    <span class="filter-checkbox" aria-hidden="true"></span>
-                    <span class="filter-opt-label">All languages</span>
-                  </button>
-                  <button type="button" class="filter-check-row" data-filter-group="language" data-val="en" data-label="English">
-                    <span class="filter-checkbox" aria-hidden="true"></span>
-                    <span class="filter-opt-label">English</span>
-                  </button>
-                  <button type="button" class="filter-check-row" data-filter-group="language" data-val="ko" data-label="Korean">
-                    <span class="filter-checkbox" aria-hidden="true"></span>
-                    <span class="filter-opt-label">Korean</span>
-                  </button>
-                  <button type="button" class="filter-check-row" data-filter-group="language" data-val="hi" data-label="Hindi">
-                    <span class="filter-checkbox" aria-hidden="true"></span>
-                    <span class="filter-opt-label">Hindi</span>
-                  </button>
-                  <button type="button" class="filter-check-row" data-filter-group="language" data-val="ur" data-label="Urdu">
-                    <span class="filter-checkbox" aria-hidden="true"></span>
-                    <span class="filter-opt-label">Urdu</span>
-                  </button>
-                  <button type="button" class="filter-check-row" data-filter-group="language" data-val="ja" data-label="Japanese">
-                    <span class="filter-checkbox" aria-hidden="true"></span>
-                    <span class="filter-opt-label">Japanese</span>
-                  </button>
-                  <button type="button" class="filter-check-row" data-filter-group="language" data-val="tr" data-label="Turkish">
-                    <span class="filter-checkbox" aria-hidden="true"></span>
-                    <span class="filter-opt-label">Turkish</span>
-                  </button>
-                  <button type="button" class="filter-check-row" data-filter-group="language" data-val="ta" data-label="Tamil">
-                    <span class="filter-checkbox" aria-hidden="true"></span>
-                    <span class="filter-opt-label">Tamil</span>
-                  </button>
-                  <button type="button" class="filter-check-row" data-filter-group="language" data-val="ml" data-label="Malayalam">
-                    <span class="filter-checkbox" aria-hidden="true"></span>
-                    <span class="filter-opt-label">Malayalam</span>
-                  </button>
-                  <button type="button" class="filter-check-row" data-filter-group="language" data-val="de" data-label="German">
-                    <span class="filter-checkbox" aria-hidden="true"></span>
-                    <span class="filter-opt-label">German</span>
-                  </button>
-                  <button type="button" class="filter-check-row" data-filter-group="language" data-val="es" data-label="Spanish">
-                    <span class="filter-checkbox" aria-hidden="true"></span>
-                    <span class="filter-opt-label">Spanish</span>
-                  </button>
-                  <button type="button" class="filter-check-row" data-filter-group="language" data-val="fr" data-label="French">
-                    <span class="filter-checkbox" aria-hidden="true"></span>
-                    <span class="filter-opt-label">French</span>
-                  </button>
-                  <button type="button" class="filter-check-row" data-filter-group="language" data-val="ar" data-label="Arabic">
-                    <span class="filter-checkbox" aria-hidden="true"></span>
-                    <span class="filter-opt-label">Arabic</span>
-                  </button>
-                </div>
-                <div class="popover-footer">
-                  <button type="button" class="popover-reset-btn desktop-reset-btn" data-reset-filter="language">Reset</button>
-                  <button type="button" class="popover-apply-btn" data-apply-filter="language" id="langApplyBtn">Show 185 titles</button>
-                </div>
-              </div>
+      <!-- Right-Side Slide-Out Filter & Mood Drawer -->
+      <div class="filter-sheet-backdrop hidden" id="filterSheetBackdrop"></div>
+
+      <aside class="right-filter-drawer hidden" id="rightFilterDrawer" role="dialog" aria-modal="true" aria-labelledby="rightFilterDrawerTitle">
+        <div class="rfd-header">
+          <div>
+            <span class="rfd-eyebrow">EXPLORE &amp; REFINE CATALOG</span>
+            <h3 id="rightFilterDrawerTitle" class="rfd-title">Filters, Moods &amp; Sort</h3>
+          </div>
+          <button type="button" id="closeFilterDrawerBtn" class="rfd-close-btn" aria-label="Close filter drawer">&times;</button>
+        </div>
+
+        <div class="rfd-body">
+          <!-- 1. Instant Mood & Time Shortcuts -->
+          <div class="rfd-section">
+            <div class="rfd-section-head">
+              <span class="rfd-section-title">Instant Mood &amp; Time Picks</span>
             </div>
-
-            <!-- Platform Filter Dropdown -->
-            <div class="filter-dropdown-wrap" data-dropdown="platform">
-              <button type="button" class="filter-dropdown-btn is-default" id="platformDropdownBtn" aria-expanded="false" aria-haspopup="dialog">
-                <span class="dd-prefix">Platform<span class="dd-colon">:</span></span>
-                <strong class="dd-value" id="platformBtnValue">All</strong>
-                <span class="dd-caret" aria-hidden="true">&#9662;</span>
-              </button>
-
-              <div class="filter-popover hidden" id="platformPopover" role="dialog" aria-label="Filter by platform">
-                <div class="sheet-drag-handle" aria-hidden="true"></div>
-                <div class="sheet-mobile-header">
-                  <span class="sheet-mobile-title">Platform</span>
-                  <button type="button" class="popover-reset-btn" data-reset-filter="platform">Reset</button>
-                </div>
-                <div class="popover-search-wrap">
-                  <input type="text" class="popover-search-input" id="platformSearchInput" placeholder="Find a platform" aria-label="Find a platform" autocomplete="off">
-                </div>
-                <div class="popover-options-grid cols-1" id="platformOptionsList" role="group" aria-label="Platforms">
-                  <button type="button" class="filter-check-row" data-filter-group="platform" data-val="all" data-label="All platforms">
-                    <span class="filter-checkbox" aria-hidden="true"></span>
-                    <span class="filter-opt-label">All platforms</span>
-                  </button>
-                  <button type="button" class="filter-check-row" data-filter-group="platform" data-val="8" data-label="Netflix">
-                    <span class="filter-checkbox" aria-hidden="true"></span>
-                    <span class="filter-opt-label">Netflix</span>
-                  </button>
-                  <button type="button" class="filter-check-row" data-filter-group="platform" data-val="9" data-label="Prime Video">
-                    <span class="filter-checkbox" aria-hidden="true"></span>
-                    <span class="filter-opt-label">Prime Video</span>
-                  </button>
-                  <button type="button" class="filter-check-row" data-filter-group="platform" data-val="337" data-label="Disney+">
-                    <span class="filter-checkbox" aria-hidden="true"></span>
-                    <span class="filter-opt-label">Disney+</span>
-                  </button>
-                  <button type="button" class="filter-check-row" data-filter-group="platform" data-val="350" data-label="Apple TV+">
-                    <span class="filter-checkbox" aria-hidden="true"></span>
-                    <span class="filter-opt-label">Apple TV+</span>
-                  </button>
-                  <button type="button" class="filter-check-row" data-filter-group="platform" data-val="1899" data-label="HBO Max">
-                    <span class="filter-checkbox" aria-hidden="true"></span>
-                    <span class="filter-opt-label">HBO Max</span>
-                  </button>
-                </div>
-                <div class="popover-footer">
-                  <button type="button" class="popover-reset-btn desktop-reset-btn" data-reset-filter="platform">Reset</button>
-                  <button type="button" class="popover-apply-btn" data-apply-filter="platform" id="platformApplyBtn">Show 185 titles</button>
-                </div>
-              </div>
-            </div>
-
-            <!-- Genre Filter Dropdown -->
-            <div class="filter-dropdown-wrap" data-dropdown="genre">
-              <button type="button" class="filter-dropdown-btn is-default" id="genreDropdownBtn" aria-expanded="false" aria-haspopup="dialog">
-                <span class="dd-prefix">Genre<span class="dd-colon">:</span></span>
-                <strong class="dd-value" id="genreBtnValue">All genres</strong>
-                <span class="dd-caret" aria-hidden="true">&#9662;</span>
-              </button>
-
-              <div class="filter-popover hidden" id="genrePopover" role="dialog" aria-label="Filter by genre">
-                <div class="sheet-drag-handle" aria-hidden="true"></div>
-                <div class="sheet-mobile-header">
-                  <span class="sheet-mobile-title">Genre</span>
-                  <button type="button" class="popover-reset-btn" data-reset-filter="genre">Reset</button>
-                </div>
-                <div class="popover-search-wrap">
-                  <input type="text" class="popover-search-input" id="genreSearchInput" placeholder="Find a genre" aria-label="Find a genre" autocomplete="off">
-                </div>
-                <div class="popover-options-grid cols-2" id="genreOptionsList" role="group" aria-label="Genres">
-                  <button type="button" class="filter-check-row" data-filter-group="genre" data-val="all" data-label="All genres">
-                    <span class="filter-checkbox" aria-hidden="true"></span>
-                    <span class="filter-opt-label">All genres</span>
-                  </button>
-                  <button type="button" class="filter-check-row" data-filter-group="genre" data-val="28" data-label="Action">
-                    <span class="filter-checkbox" aria-hidden="true"></span>
-                    <span class="filter-opt-label">Action</span>
-                  </button>
-                  <button type="button" class="filter-check-row" data-filter-group="genre" data-val="878" data-label="Sci-Fi">
-                    <span class="filter-checkbox" aria-hidden="true"></span>
-                    <span class="filter-opt-label">Sci-Fi</span>
-                  </button>
-                  <button type="button" class="filter-check-row" data-filter-group="genre" data-val="18" data-label="Drama">
-                    <span class="filter-checkbox" aria-hidden="true"></span>
-                    <span class="filter-opt-label">Drama</span>
-                  </button>
-                  <button type="button" class="filter-check-row" data-filter-group="genre" data-val="35" data-label="Comedy">
-                    <span class="filter-checkbox" aria-hidden="true"></span>
-                    <span class="filter-opt-label">Comedy</span>
-                  </button>
-                  <button type="button" class="filter-check-row" data-filter-group="genre" data-val="27" data-label="Horror">
-                    <span class="filter-checkbox" aria-hidden="true"></span>
-                    <span class="filter-opt-label">Horror</span>
-                  </button>
-                  <button type="button" class="filter-check-row" data-filter-group="genre" data-val="53" data-label="Thriller">
-                    <span class="filter-checkbox" aria-hidden="true"></span>
-                    <span class="filter-opt-label">Thriller</span>
-                  </button>
-                  <button type="button" class="filter-check-row" data-filter-group="genre" data-val="16" data-label="Animation">
-                    <span class="filter-checkbox" aria-hidden="true"></span>
-                    <span class="filter-opt-label">Animation</span>
-                  </button>
-                  <button type="button" class="filter-check-row" data-filter-group="genre" data-val="10749" data-label="Romance">
-                    <span class="filter-checkbox" aria-hidden="true"></span>
-                    <span class="filter-opt-label">Romance</span>
-                  </button>
-                </div>
-                <div class="popover-footer">
-                  <button type="button" class="popover-reset-btn desktop-reset-btn" data-reset-filter="genre">Reset</button>
-                  <button type="button" class="popover-apply-btn" data-apply-filter="genre" id="genreApplyBtn">Show 185 titles</button>
-                </div>
-              </div>
+            <div class="rfd-moods-grid">
+              <a href="/movie-finder?time=short&amp;mood=edge-of-seat&amp;mode=one" class="focus-shortcut-chip">
+                <span class="chip-icon" aria-hidden="true">&#9201;</span>
+                <span>Under 100 min</span>
+              </a>
+              <a href="/movie-finder?mood=mind-bending&amp;mode=one" class="focus-shortcut-chip">
+                <span class="chip-icon" aria-hidden="true">&#127744;</span>
+                <span>Mind-bending</span>
+              </a>
+              <a href="/movie-finder?mood=feel-good&amp;time=short&amp;mode=one" class="focus-shortcut-chip">
+                <span class="chip-icon" aria-hidden="true">&#128715;</span>
+                <span>Exhausted, easy</span>
+              </a>
+              <a href="/movie-finder?company=date-night&amp;mode=one" class="focus-shortcut-chip">
+                <span class="chip-icon" aria-hidden="true">&#10024;</span>
+                <span>Date night</span>
+              </a>
+              <a href="/movie-finder?company=family&amp;mode=one" class="focus-shortcut-chip">
+                <span class="chip-icon" aria-hidden="true">&#128737;</span>
+                <span>Family-safe</span>
+              </a>
+              <a href="/movie-finder?lang=global&amp;mode=one" class="focus-shortcut-chip">
+                <span class="chip-icon" aria-hidden="true">&#127759;</span>
+                <span>Global &amp; South Asia</span>
+              </a>
             </div>
           </div>
 
-          <!-- Sort Dropdown -->
-          <div class="compact-sort-wrap">
-            <div class="filter-dropdown-wrap" data-dropdown="sort">
-              <button type="button" class="filter-dropdown-btn is-default" id="sortDropdownBtn" aria-expanded="false" aria-haspopup="dialog">
-                <span class="dd-prefix">Sort<span class="dd-colon">:</span></span>
-                <strong class="dd-value" id="sortBtnValue">Trending</strong>
-                <span class="dd-caret" aria-hidden="true">&#9662;</span>
+          <!-- 2. Sort Order -->
+          <div class="rfd-section" id="sortPopover">
+            <div class="rfd-section-head">
+              <span class="rfd-section-title">Sort Order (<strong id="sortBtnValue">Trending</strong>)</span>
+              <button type="button" class="popover-reset-btn" data-reset-filter="sort">Reset</button>
+            </div>
+            <div class="rfd-options-grid cols-2" id="sortOptionsList" role="group" aria-label="Sort order">
+              <button type="button" class="filter-check-row checked" data-filter-group="sort" data-val="trending" data-label="Trending">
+                <span class="filter-checkbox" aria-hidden="true"></span>
+                <span class="filter-opt-label">Trending</span>
               </button>
+              <button type="button" class="filter-check-row" data-filter-group="sort" data-val="rating" data-label="Highest Rated">
+                <span class="filter-checkbox" aria-hidden="true"></span>
+                <span class="filter-opt-label">Highest Rated</span>
+              </button>
+              <button type="button" class="filter-check-row" data-filter-group="sort" data-val="newest" data-label="Newest">
+                <span class="filter-checkbox" aria-hidden="true"></span>
+                <span class="filter-opt-label">Newest</span>
+              </button>
+              <button type="button" class="filter-check-row" data-filter-group="sort" data-val="runtime" data-label="Shortest Runtime">
+                <span class="filter-checkbox" aria-hidden="true"></span>
+                <span class="filter-opt-label">Shortest Runtime</span>
+              </button>
+            </div>
+          </div>
 
-              <div class="filter-popover sort-popover hidden" id="sortPopover" role="dialog" aria-label="Sort titles">
-                <div class="sheet-drag-handle" aria-hidden="true"></div>
-                <div class="sheet-mobile-header">
-                  <span class="sheet-mobile-title">Sort</span>
-                  <button type="button" class="popover-reset-btn" data-reset-filter="sort">Reset</button>
-                </div>
-                <div class="popover-options-grid cols-1" id="sortOptionsList" role="group" aria-label="Sort order">
-                  <button type="button" class="filter-check-row checked" data-filter-group="sort" data-val="trending" data-label="Trending">
-                    <span class="filter-checkbox" aria-hidden="true"></span>
-                    <span class="filter-opt-label">Trending</span>
-                  </button>
-                  <button type="button" class="filter-check-row" data-filter-group="sort" data-val="rating" data-label="Highest Rated">
-                    <span class="filter-checkbox" aria-hidden="true"></span>
-                    <span class="filter-opt-label">Highest Rated</span>
-                  </button>
-                  <button type="button" class="filter-check-row" data-filter-group="sort" data-val="newest" data-label="Newest">
-                    <span class="filter-checkbox" aria-hidden="true"></span>
-                    <span class="filter-opt-label">Newest</span>
-                  </button>
-                  <button type="button" class="filter-check-row" data-filter-group="sort" data-val="runtime" data-label="Shortest Runtime">
-                    <span class="filter-checkbox" aria-hidden="true"></span>
-                    <span class="filter-opt-label">Shortest Runtime</span>
-                  </button>
-                </div>
-                <div class="popover-footer">
-                  <button type="button" class="popover-reset-btn desktop-reset-btn" data-reset-filter="sort">Reset</button>
-                  <button type="button" class="popover-apply-btn" data-apply-filter="sort" id="sortApplyBtn">Show 185 titles</button>
-                </div>
-              </div>
+          <!-- 3. Streaming Platform -->
+          <div class="rfd-section" id="platformPopover">
+            <div class="rfd-section-head">
+              <span class="rfd-section-title">Streaming Platform (<strong id="platformBtnValue">All</strong>)</span>
+              <button type="button" class="popover-reset-btn" data-reset-filter="platform">Reset</button>
+            </div>
+            <div class="rfd-options-grid cols-2" id="platformOptionsList" role="group" aria-label="Platforms">
+              <button type="button" class="filter-check-row" data-filter-group="platform" data-val="all" data-label="All platforms">
+                <span class="filter-checkbox" aria-hidden="true"></span>
+                <span class="filter-opt-label">All platforms</span>
+              </button>
+              <button type="button" class="filter-check-row" data-filter-group="platform" data-val="8" data-label="Netflix">
+                <span class="filter-checkbox" aria-hidden="true"></span>
+                <span class="filter-opt-label">Netflix</span>
+              </button>
+              <button type="button" class="filter-check-row" data-filter-group="platform" data-val="9" data-label="Prime Video">
+                <span class="filter-checkbox" aria-hidden="true"></span>
+                <span class="filter-opt-label">Prime Video</span>
+              </button>
+              <button type="button" class="filter-check-row" data-filter-group="platform" data-val="337" data-label="Disney+">
+                <span class="filter-checkbox" aria-hidden="true"></span>
+                <span class="filter-opt-label">Disney+</span>
+              </button>
+              <button type="button" class="filter-check-row" data-filter-group="platform" data-val="350" data-label="Apple TV+">
+                <span class="filter-checkbox" aria-hidden="true"></span>
+                <span class="filter-opt-label">Apple TV+</span>
+              </button>
+              <button type="button" class="filter-check-row" data-filter-group="platform" data-val="1899" data-label="HBO Max">
+                <span class="filter-checkbox" aria-hidden="true"></span>
+                <span class="filter-opt-label">HBO Max</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 4. Genre -->
+          <div class="rfd-section" id="genrePopover">
+            <div class="rfd-section-head">
+              <span class="rfd-section-title">Genre (<strong id="genreBtnValue">All genres</strong>)</span>
+              <button type="button" class="popover-reset-btn" data-reset-filter="genre">Reset</button>
+            </div>
+            <div class="rfd-options-grid cols-2" id="genreOptionsList" role="group" aria-label="Genres">
+              <button type="button" class="filter-check-row" data-filter-group="genre" data-val="all" data-label="All genres">
+                <span class="filter-checkbox" aria-hidden="true"></span>
+                <span class="filter-opt-label">All genres</span>
+              </button>
+              <button type="button" class="filter-check-row" data-filter-group="genre" data-val="28" data-label="Action">
+                <span class="filter-checkbox" aria-hidden="true"></span>
+                <span class="filter-opt-label">Action</span>
+              </button>
+              <button type="button" class="filter-check-row" data-filter-group="genre" data-val="878" data-label="Sci-Fi">
+                <span class="filter-checkbox" aria-hidden="true"></span>
+                <span class="filter-opt-label">Sci-Fi</span>
+              </button>
+              <button type="button" class="filter-check-row" data-filter-group="genre" data-val="18" data-label="Drama">
+                <span class="filter-checkbox" aria-hidden="true"></span>
+                <span class="filter-opt-label">Drama</span>
+              </button>
+              <button type="button" class="filter-check-row" data-filter-group="genre" data-val="35" data-label="Comedy">
+                <span class="filter-checkbox" aria-hidden="true"></span>
+                <span class="filter-opt-label">Comedy</span>
+              </button>
+              <button type="button" class="filter-check-row" data-filter-group="genre" data-val="27" data-label="Horror">
+                <span class="filter-checkbox" aria-hidden="true"></span>
+                <span class="filter-opt-label">Horror</span>
+              </button>
+              <button type="button" class="filter-check-row" data-filter-group="genre" data-val="53" data-label="Thriller">
+                <span class="filter-checkbox" aria-hidden="true"></span>
+                <span class="filter-opt-label">Thriller</span>
+              </button>
+              <button type="button" class="filter-check-row" data-filter-group="genre" data-val="16" data-label="Animation">
+                <span class="filter-checkbox" aria-hidden="true"></span>
+                <span class="filter-opt-label">Animation</span>
+              </button>
+              <button type="button" class="filter-check-row" data-filter-group="genre" data-val="10749" data-label="Romance">
+                <span class="filter-checkbox" aria-hidden="true"></span>
+                <span class="filter-opt-label">Romance</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 5. Language -->
+          <div class="rfd-section" id="langPopover">
+            <div class="rfd-section-head">
+              <span class="rfd-section-title">Language (<strong id="langBtnValue">All</strong>)</span>
+              <button type="button" class="popover-reset-btn" data-reset-filter="language">Reset</button>
+            </div>
+            <div class="popover-search-wrap">
+              <input type="text" class="popover-search-input" id="langSearchInput" placeholder="Find a language (e.g. Korean, Hindi, Urdu...)" aria-label="Find a language" autocomplete="off">
+            </div>
+            <div class="rfd-options-grid cols-2" id="langOptionsList" role="group" aria-label="Languages">
+              <button type="button" class="filter-check-row" data-filter-group="language" data-val="all" data-label="All languages">
+                <span class="filter-checkbox" aria-hidden="true"></span>
+                <span class="filter-opt-label">All languages</span>
+              </button>
+              <button type="button" class="filter-check-row" data-filter-group="language" data-val="en" data-label="English">
+                <span class="filter-checkbox" aria-hidden="true"></span>
+                <span class="filter-opt-label">English</span>
+              </button>
+              <button type="button" class="filter-check-row" data-filter-group="language" data-val="ko" data-label="Korean">
+                <span class="filter-checkbox" aria-hidden="true"></span>
+                <span class="filter-opt-label">Korean</span>
+              </button>
+              <button type="button" class="filter-check-row" data-filter-group="language" data-val="hi" data-label="Hindi">
+                <span class="filter-checkbox" aria-hidden="true"></span>
+                <span class="filter-opt-label">Hindi</span>
+              </button>
+              <button type="button" class="filter-check-row" data-filter-group="language" data-val="ur" data-label="Urdu">
+                <span class="filter-checkbox" aria-hidden="true"></span>
+                <span class="filter-opt-label">Urdu</span>
+              </button>
+              <button type="button" class="filter-check-row" data-filter-group="language" data-val="ja" data-label="Japanese">
+                <span class="filter-checkbox" aria-hidden="true"></span>
+                <span class="filter-opt-label">Japanese</span>
+              </button>
+              <button type="button" class="filter-check-row" data-filter-group="language" data-val="tr" data-label="Turkish">
+                <span class="filter-checkbox" aria-hidden="true"></span>
+                <span class="filter-opt-label">Turkish</span>
+              </button>
+              <button type="button" class="filter-check-row" data-filter-group="language" data-val="ta" data-label="Tamil">
+                <span class="filter-checkbox" aria-hidden="true"></span>
+                <span class="filter-opt-label">Tamil</span>
+              </button>
+              <button type="button" class="filter-check-row" data-filter-group="language" data-val="ml" data-label="Malayalam">
+                <span class="filter-checkbox" aria-hidden="true"></span>
+                <span class="filter-opt-label">Malayalam</span>
+              </button>
+              <button type="button" class="filter-check-row" data-filter-group="language" data-val="de" data-label="German">
+                <span class="filter-checkbox" aria-hidden="true"></span>
+                <span class="filter-opt-label">German</span>
+              </button>
+              <button type="button" class="filter-check-row" data-filter-group="language" data-val="es" data-label="Spanish">
+                <span class="filter-checkbox" aria-hidden="true"></span>
+                <span class="filter-opt-label">Spanish</span>
+              </button>
+              <button type="button" class="filter-check-row" data-filter-group="language" data-val="fr" data-label="French">
+                <span class="filter-checkbox" aria-hidden="true"></span>
+                <span class="filter-opt-label">French</span>
+              </button>
+              <button type="button" class="filter-check-row" data-filter-group="language" data-val="ar" data-label="Arabic">
+                <span class="filter-checkbox" aria-hidden="true"></span>
+                <span class="filter-opt-label">Arabic</span>
+              </button>
             </div>
           </div>
         </div>
 
-        <!-- Active Filter Chips & Total Titles Row -->
-        <div class="active-filters-bar hidden" id="activeFiltersBar" aria-live="polite">
-          <div class="active-filters-list" id="activeFiltersList"></div>
-          <span class="compact-titles-count" id="compactTitlesCount">185 titles</span>
+        <div class="rfd-footer">
+          <button type="button" id="drawerResetAllBtn" class="popover-reset-btn">Reset all filters</button>
+          <button type="button" id="langApplyBtn" class="popover-apply-btn" data-apply-filter="all">Show 185 titles</button>
         </div>
-
-        <!-- Mobile Bottom Sheet Scrim -->
-        <div class="filter-sheet-backdrop hidden" id="filterSheetBackdrop"></div>
 
         <select id="languageSelect" class="sr-only-select" aria-label="Filter by Original Language">
           <option value="all">All Languages</option>
@@ -556,15 +537,11 @@
           <option value="tr">Turkish</option>
           <option value="ar">Arabic</option>
         </select>
-      </div>
+      </aside>
     </section>
 
     <!-- Movies Grid Section -->
     <section class="movies-grid-section">
-      <div class="section-header">
-        <h3 id="gridTitle" class="section-title">Trending Movies</h3>
-        <span id="moviesCount" class="count-tag">Top 10</span>
-      </div>
 
       <div id="watchlistNoticeBanner" class="watchlist-notice-banner hidden">
         <span><strong>Private Local Watchlist:</strong> Your saved titles and "Watched" statuses are stored locally in your browser (<code>localStorage</code>) — no sign-in required.</span>
@@ -1005,7 +982,7 @@
   </nav>
 
   <script src="/consent-ui.js?v=20261121f" defer></script>
-  <script src="/app.js?v=20261123d"></script>
+  <script src="/app.js?v=20261123f"></script>
 </body>
 
 </html>

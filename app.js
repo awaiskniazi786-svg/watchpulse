@@ -1127,6 +1127,17 @@ function syncCompactFilterUI(matchingCount = 0) {
     });
   }
 
+  const totalActiveCount = lList.length + pList.length + gList.length + (state.sortBy !== 'trending' ? 1 : 0);
+  const drawerBadgeEl = document.getElementById('drawerFilterCountBadge');
+  const openDrawerBtnEl = document.getElementById('openFilterDrawerBtn');
+  if (drawerBadgeEl) {
+    drawerBadgeEl.textContent = String(totalActiveCount);
+    drawerBadgeEl.classList.toggle('hidden', totalActiveCount === 0);
+  }
+  if (openDrawerBtnEl) {
+    openDrawerBtnEl.classList.toggle('has-active', totalActiveCount > 0);
+  }
+
   const countText = `Show ${matchingCount} title${matchingCount === 1 ? '' : 's'}`;
   [els.langApplyBtn, els.platformApplyBtn, els.genreApplyBtn, els.sortApplyBtn].forEach(btn => {
     if (btn) btn.textContent = countText;
@@ -2221,51 +2232,63 @@ function initCookieConsent() {
 }
 
 function setupCompactFilterDropdowns() {
-  const dropdownMap = {
-    language: { btn: els.langDropdownBtn, pop: els.langPopover, search: els.langSearchInput, list: els.langOptionsList },
-    platform: { btn: els.platformDropdownBtn, pop: els.platformPopover, search: els.platformSearchInput, list: els.platformOptionsList },
-    genre: { btn: els.genreDropdownBtn, pop: els.genrePopover, search: els.genreSearchInput, list: els.genreOptionsList },
-    sort: { btn: els.sortDropdownBtn, pop: els.sortPopover, search: null, list: els.sortOptionsList }
+  const openDrawerBtn = document.getElementById('openFilterDrawerBtn');
+  const closeDrawerBtn = document.getElementById('closeFilterDrawerBtn');
+  const rightDrawer = document.getElementById('rightFilterDrawer');
+  const drawerResetAllBtn = document.getElementById('drawerResetAllBtn');
+
+  const openRightFilterDrawer = () => {
+    if (!rightDrawer) return;
+    rightDrawer.classList.remove('hidden');
+    if (els.filterSheetBackdrop) els.filterSheetBackdrop.classList.remove('hidden');
+    if (openDrawerBtn) openDrawerBtn.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
   };
 
-  Object.entries(dropdownMap).forEach(([key, cfg]) => {
-    if (!cfg.btn || !cfg.pop) return;
+  const closeRightFilterDrawer = () => {
+    if (!rightDrawer) return;
+    rightDrawer.classList.add('hidden');
+    if (els.filterSheetBackdrop) els.filterSheetBackdrop.classList.add('hidden');
+    if (openDrawerBtn) openDrawerBtn.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  };
 
-    cfg.btn.addEventListener('click', (e) => {
+  window.closeWatchPulseFilterDrawer = closeRightFilterDrawer;
+
+  if (openDrawerBtn) {
+    openDrawerBtn.addEventListener('click', (e) => {
       e.stopPropagation();
-      const wasOpen = state.openDropdown === key;
-      closeAllFilterDropdowns();
-      if (!wasOpen) {
-        state.openDropdown = key;
-        cfg.btn.classList.add('is-open');
-        cfg.btn.setAttribute('aria-expanded', 'true');
-        cfg.pop.classList.remove('hidden');
-        if (window.innerWidth <= 768 && els.filterSheetBackdrop) {
-          els.filterSheetBackdrop.classList.remove('hidden');
-        }
-        if (cfg.search && window.innerWidth > 768) {
-          setTimeout(() => cfg.search.focus(), 40);
-        }
+      if (rightDrawer && !rightDrawer.classList.contains('hidden')) {
+        closeRightFilterDrawer();
+      } else {
+        openRightFilterDrawer();
       }
     });
+  }
 
-    cfg.pop.addEventListener('click', (e) => {
-      e.stopPropagation();
+  if (closeDrawerBtn) {
+    closeDrawerBtn.addEventListener('click', closeRightFilterDrawer);
+  }
+
+  if (drawerResetAllBtn) {
+    drawerResetAllBtn.addEventListener('click', () => {
+      resetAllFilters();
     });
+  }
 
-    if (cfg.search && cfg.list) {
-      cfg.search.addEventListener('input', () => {
-        const q = cfg.search.value.trim().toLowerCase();
-        cfg.list.querySelectorAll('.filter-check-row').forEach(row => {
-          const label = (row.dataset.label || row.textContent || '').toLowerCase();
-          row.style.display = (!q || label.includes(q)) ? '' : 'none';
-        });
+  if (els.langSearchInput && els.langOptionsList) {
+    els.langSearchInput.addEventListener('input', () => {
+      const q = els.langSearchInput.value.trim().toLowerCase();
+      els.langOptionsList.querySelectorAll('.filter-check-row').forEach(row => {
+        const label = (row.dataset.label || row.textContent || '').toLowerCase();
+        row.style.display = (!q || label.includes(q)) ? '' : 'none';
       });
-    }
-  });
+    });
+  }
 
   if (els.filterSheetBackdrop) {
     els.filterSheetBackdrop.addEventListener('click', () => {
+      closeRightFilterDrawer();
       closeAllFilterDropdowns();
     });
   }
@@ -2331,14 +2354,9 @@ function setupCompactFilterDropdowns() {
 
   document.querySelectorAll('[data-apply-filter]').forEach(btn => {
     btn.addEventListener('click', () => {
+      closeRightFilterDrawer();
       closeAllFilterDropdowns();
     });
-  });
-
-  document.addEventListener('click', (e) => {
-    if (state.openDropdown && !e.target.closest('.filter-dropdown-wrap')) {
-      closeAllFilterDropdowns();
-    }
   });
 }
 
@@ -2631,6 +2649,7 @@ function setupEventListeners() {
       return;
     }
     if (e.key === 'Escape') {
+      if (typeof window.closeWatchPulseFilterDrawer === 'function') window.closeWatchPulseFilterDrawer();
       closeAllFilterDropdowns();
       closeTrailerModal();
       closeMovieModal();

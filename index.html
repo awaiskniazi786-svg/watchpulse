@@ -154,7 +154,7 @@
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5022914500809430"
     crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="/style.css?v=20261123p">
+  <link rel="stylesheet" href="/style.css?v=20261123q">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
@@ -214,88 +214,173 @@
     <section class="focus-quiz-card" aria-label="Movie and TV Decision Finder">
       <div class="focus-quiz-left">
         <div class="focus-eyebrow-row">
-          <span class="focus-eyebrow"><span class="focus-live-dot" aria-hidden="true"></span>WHO'S WATCHING TONIGHT?</span>
+          <span class="focus-eyebrow"><span class="focus-live-dot" aria-hidden="true"></span><span id="heroStepEyebrowText">WHO'S WATCHING TONIGHT?</span></span>
           <span class="focus-catalog-pill">200+ Curated Picks &amp; Live TV</span>
         </div>
         <h1 class="focus-h1">Stop scrolling. Find something <span class="focus-h1-accent">worth watching.</span></h1>
-        <p class="focus-step-meta">Step 1 of 4 &middot; takes about 30 seconds</p>
-        <div class="focus-progress-4" aria-hidden="true">
-          <div class="focus-progress-item active">
+        <p class="focus-step-meta" id="heroStepMeta">Step 1 of 4 &middot; Choose your company</p>
+        <div class="focus-progress-4" id="heroProgressBar" role="tablist" aria-label="Finder progress">
+          <button type="button" class="focus-progress-item active" data-goto-step="1">
             <span class="focus-progress-seg active"></span>
             <span class="focus-progress-label">1. Company</span>
-          </div>
-          <div class="focus-progress-item">
+          </button>
+          <button type="button" class="focus-progress-item" data-goto-step="2">
             <span class="focus-progress-seg"></span>
             <span class="focus-progress-label">2. Mood</span>
-          </div>
-          <div class="focus-progress-item">
+          </button>
+          <button type="button" class="focus-progress-item" data-goto-step="3">
             <span class="focus-progress-seg"></span>
             <span class="focus-progress-label">3. Time</span>
-          </div>
-          <div class="focus-progress-item">
+          </button>
+          <button type="button" class="focus-progress-item" data-goto-step="4">
             <span class="focus-progress-seg"></span>
             <span class="focus-progress-label">4. Match</span>
-          </div>
+          </button>
         </div>
       </div>
 
       <div class="focus-quiz-right">
-        <div class="focus-opt-grid" id="heroCompanyOptions" role="group" aria-label="Who is watching?">
-          <button type="button" class="focus-opt-card" data-company="solo">
-            <span class="focus-opt-icon" aria-hidden="true">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
-            </span>
-            <span class="focus-opt-copy">
-              <span class="focus-opt-title">Solo</span>
-              <span class="focus-opt-sub">Headphones on &bull; deep focus</span>
-            </span>
-            <span class="focus-opt-check" aria-hidden="true">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            </span>
-          </button>
-          <button type="button" class="focus-opt-card selected" data-company="date-night">
-            <span class="focus-opt-icon" aria-hidden="true">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 16.8l-6.2 4.5 2.4-7.4L2 9.4h7.6z"></path></svg>
-            </span>
-            <span class="focus-opt-copy">
-              <span class="focus-opt-title">Date night</span>
-              <span class="focus-opt-sub">Easy to discuss &bull; great chemistry</span>
-            </span>
-            <span class="focus-opt-check" aria-hidden="true">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            </span>
-          </button>
-          <button type="button" class="focus-opt-card" data-company="friends">
-            <span class="focus-opt-icon" aria-hidden="true">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-            </span>
-            <span class="focus-opt-copy">
-              <span class="focus-opt-title">Friends</span>
-              <span class="focus-opt-sub">Loud and fun &bull; zero slow filler</span>
-            </span>
-            <span class="focus-opt-check" aria-hidden="true">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            </span>
-          </button>
-          <button type="button" class="focus-opt-card" data-company="family">
-            <span class="focus-opt-icon" aria-hidden="true">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-            </span>
-            <span class="focus-opt-copy">
-              <span class="focus-opt-title">Family</span>
-              <span class="focus-opt-sub">Safe for all &bull; all-ages crowdpleasers</span>
-            </span>
-            <span class="focus-opt-check" aria-hidden="true">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            </span>
-          </button>
+        <!-- Step 1: Company -->
+        <div class="hero-step-panel" id="heroStep1">
+          <div class="focus-opt-grid" id="heroCompanyOptions" role="group" aria-label="Who is watching?">
+            <button type="button" class="focus-opt-card" data-company="solo">
+              <span class="focus-opt-copy">
+                <span class="focus-opt-title">Solo</span>
+                <span class="focus-opt-sub">Headphones on &bull; deep focus</span>
+              </span>
+              <span class="focus-opt-check" aria-hidden="true">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </span>
+            </button>
+            <button type="button" class="focus-opt-card selected" data-company="date-night">
+              <span class="focus-opt-copy">
+                <span class="focus-opt-title">Date night</span>
+                <span class="focus-opt-sub">Easy to discuss &bull; great chemistry</span>
+              </span>
+              <span class="focus-opt-check" aria-hidden="true">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </span>
+            </button>
+            <button type="button" class="focus-opt-card" data-company="friends">
+              <span class="focus-opt-copy">
+                <span class="focus-opt-title">Friends</span>
+                <span class="focus-opt-sub">Loud and fun &bull; zero slow filler</span>
+              </span>
+              <span class="focus-opt-check" aria-hidden="true">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </span>
+            </button>
+            <button type="button" class="focus-opt-card" data-company="family">
+              <span class="focus-opt-copy">
+                <span class="focus-opt-title">Family</span>
+                <span class="focus-opt-sub">Safe for all &bull; all-ages crowdpleasers</span>
+              </span>
+              <span class="focus-opt-check" aria-hidden="true">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 2: Mood -->
+        <div class="hero-step-panel hidden" id="heroStep2">
+          <div class="focus-opt-grid" id="heroMoodOptions" role="group" aria-label="What mood are you in?">
+            <button type="button" class="focus-opt-card selected" data-mood="thriller">
+              <span class="focus-opt-copy">
+                <span class="focus-opt-title">Edge-of-seat thriller</span>
+                <span class="focus-opt-sub">Tight pacing &bull; twists &amp; suspense</span>
+              </span>
+              <span class="focus-opt-check" aria-hidden="true">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </span>
+            </button>
+            <button type="button" class="focus-opt-card" data-mood="mind-bending">
+              <span class="focus-opt-copy">
+                <span class="focus-opt-title">Mind-bending sci-fi</span>
+                <span class="focus-opt-sub">Smart concepts &bull; unforgettable worlds</span>
+              </span>
+              <span class="focus-opt-check" aria-hidden="true">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </span>
+            </button>
+            <button type="button" class="focus-opt-card" data-mood="feel-good">
+              <span class="focus-opt-copy">
+                <span class="focus-opt-title">Feel-good &amp; funny</span>
+                <span class="focus-opt-sub">Warm laughs &bull; zero stress</span>
+              </span>
+              <span class="focus-opt-check" aria-hidden="true">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </span>
+            </button>
+            <button type="button" class="focus-opt-card" data-mood="epic">
+              <span class="focus-opt-copy">
+                <span class="focus-opt-title">Epic action &amp; drama</span>
+                <span class="focus-opt-sub">Big cinema scale &bull; acclaimed stories</span>
+              </span>
+              <span class="focus-opt-check" aria-hidden="true">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 3: Time & Format -->
+        <div class="hero-step-panel hidden" id="heroStep3">
+          <div class="focus-opt-grid" id="heroTimeOptions" role="group" aria-label="How much time do you have?">
+            <button type="button" class="focus-opt-card" data-time="short">
+              <span class="focus-opt-copy">
+                <span class="focus-opt-title">Under 105 min</span>
+                <span class="focus-opt-sub">Lean &amp; tight &bull; finishes early</span>
+              </span>
+              <span class="focus-opt-check" aria-hidden="true">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </span>
+            </button>
+            <button type="button" class="focus-opt-card selected" data-time="standard">
+              <span class="focus-opt-copy">
+                <span class="focus-opt-title">Standard (~2 hrs)</span>
+                <span class="focus-opt-sub">Classic movie night sweet spot</span>
+              </span>
+              <span class="focus-opt-check" aria-hidden="true">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </span>
+            </button>
+            <button type="button" class="focus-opt-card" data-time="epic">
+              <span class="focus-opt-copy">
+                <span class="focus-opt-title">Cinema epic (2h 15m+)</span>
+                <span class="focus-opt-sub">Immersive event films &bull; IMAX scale</span>
+              </span>
+              <span class="focus-opt-check" aria-hidden="true">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </span>
+            </button>
+            <button type="button" class="focus-opt-card" data-time="tv">
+              <span class="focus-opt-copy">
+                <span class="focus-opt-title">Bingeable TV series</span>
+                <span class="focus-opt-sub">Top-rated shows &bull; live TVmaze picks</span>
+              </span>
+              <span class="focus-opt-check" aria-hidden="true">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 4: Inline Top-3 Matches -->
+        <div class="hero-step-panel hidden" id="heroStep4">
+          <div class="hero-inline-results" id="heroInlineResults" aria-live="polite"></div>
         </div>
 
         <div class="focus-card-actions">
-          <a id="heroQuizContinueBtn" href="/movie-finder?company=date-night&amp;step=2&amp;mode=one" class="btn focus-primary-btn">
-            <span>Continue</span>
+          <button type="button" id="heroQuizBackBtn" class="btn secondary-btn hidden" style="height:44px;padding:0 16px;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            <span>Back</span>
+          </button>
+          <button type="button" id="heroQuizContinueBtn" class="btn focus-primary-btn">
+            <span id="heroQuizContinueText">Continue</span>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-          </a>
+          </button>
+          <button type="button" id="heroQuizResetBtn" class="btn ghost-btn hidden" style="height:44px;padding:0 16px;">Start over</button>
           <button type="button" id="compassQuickPickBtn" class="focus-instant-btn">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
             <span id="compassQuickPickText">1 instant Date night pick</span>
@@ -1064,7 +1149,7 @@
   </nav>
 
   <script src="/consent-ui.js?v=20261123h" defer></script>
-  <script src="/app.js?v=20261123p"></script>
+  <script src="/app.js?v=20261123q"></script>
 </body>
 
 </html>

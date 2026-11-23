@@ -2738,6 +2738,7 @@ function setupEventListeners() {
     });
   }
 
+  // Inline 4-Step Hero Decision Engine (Runs completely inside Homepage Hero Card — zero page reload)
   if (els.heroCompanyOptions) {
     const companyLabels = {
       'solo': 'Solo',
@@ -2745,20 +2746,260 @@ function setupEventListeners() {
       'friends': 'Friends',
       'family': 'Family'
     };
+    const moodLabels = {
+      'thriller': 'Edge-of-seat thriller',
+      'mind-bending': 'Mind-bending sci-fi',
+      'feel-good': 'Feel-good & funny',
+      'epic': 'Epic action & drama'
+    };
+    const timeLabels = {
+      'short': 'Under 105 min',
+      'standard': 'Standard (~2 hrs)',
+      'epic': 'Cinema epic (2h 15m+)',
+      'tv': 'Bingeable TV series'
+    };
+
+    const heroFinderState = {
+      step: 1,
+      company: 'date-night',
+      mood: 'thriller',
+      time: 'standard',
+      offset: 0,
+      scored: []
+    };
+
+    const stepPanels = [
+      null,
+      document.getElementById('heroStep1'),
+      document.getElementById('heroStep2'),
+      document.getElementById('heroStep3'),
+      document.getElementById('heroStep4')
+    ];
+    const eyebrowEl = document.getElementById('heroStepEyebrowText');
+    const stepMetaEl = document.getElementById('heroStepMeta');
+    const progressBarEl = document.getElementById('heroProgressBar');
+    const backBtn = document.getElementById('heroQuizBackBtn');
+    const continueBtn = els.heroQuizContinueBtn;
+    const continueTextEl = document.getElementById('heroQuizContinueText');
+    const resetBtn = document.getElementById('heroQuizResetBtn');
+    const quickPickBtn = els.compassQuickPickBtn;
     const quickPickTextEl = document.getElementById('compassQuickPickText');
-    els.heroCompanyOptions.querySelectorAll('.focus-opt-card').forEach(card => {
-      card.addEventListener('click', () => {
-        els.heroCompanyOptions.querySelectorAll('.focus-opt-card').forEach(c => c.classList.remove('selected'));
-        card.classList.add('selected');
-        const companyKey = card.dataset.company || 'date-night';
-        if (els.heroQuizContinueBtn) {
-          els.heroQuizContinueBtn.href = `/movie-finder?company=${encodeURIComponent(companyKey)}&step=2&mode=one`;
-        }
-        if (quickPickTextEl) {
-          quickPickTextEl.textContent = `1 instant ${companyLabels[companyKey] || ''} pick`.trim();
+    const resultsWrap = document.getElementById('heroInlineResults');
+
+    const stepEyebrows = {
+      1: "WHO'S WATCHING TONIGHT?",
+      2: 'PICK YOUR MOOD',
+      3: 'TIME & FORMAT',
+      4: 'YOUR TOP 3 MATCHES'
+    };
+    const stepMetaCopy = {
+      1: 'Step 1 of 4 \u00b7 Choose your company',
+      2: 'Step 2 of 4 \u00b7 What vibe are you in the mood for?',
+      3: 'Step 3 of 4 \u00b7 How much time do you have tonight?',
+      4: 'Step 4 of 4 \u00b7 Hand-matched from WatchPulse catalog'
+    };
+
+    const computeHeroMatches = async () => {
+      if (heroFinderState.time === 'tv' && !state.tvShowsCache.length) {
+        try { await loadTvCatalog(false); } catch (_) {}
+      }
+      const pool = heroFinderState.time === 'tv'
+        ? (state.tvShowsCache.length ? state.tvShowsCache : state.curatedMovies)
+        : (state.curatedMovies.length ? state.curatedMovies : state.displayedItems);
+
+      const moodGenreMap = {
+        'thriller': [53, 27, 80, 9648],
+        'mind-bending': [878, 53, 9648],
+        'feel-good': [35, 16, 10749, 10751],
+        'epic': [28, 18, 12, 878]
+      };
+      const companyGenreMap = {
+        'solo': [878, 53, 18, 27],
+        'date-night': [10749, 35, 18, 53],
+        'friends': [28, 35, 27, 53],
+        'family': [16, 35, 12]
+      };
+      const targetMoodGenres = moodGenreMap[heroFinderState.mood] || [53, 18];
+      const targetCompGenres = companyGenreMap[heroFinderState.company] || [18, 53];
+
+      heroFinderState.scored = pool.map((item, idx) => {
+        let score = (Number(item.rating) || 7.2) * 3;
+        const gIds = Array.isArray(item.genre_ids) ? item.genre_ids : [];
+        const gNames = (item.genres || []).join(' ').toLowerCase();
+        if (gIds.some(id => targetMoodGenres.includes(id))) score += 45;
+        else if (
+          (heroFinderState.mood === 'thriller' && /thriller|crime|mystery|horror/.test(gNames)) ||
+          (heroFinderState.mood === 'mind-bending' && /sci|mystery|thriller/.test(gNames)) ||
+          (heroFinderState.mood === 'feel-good' && /comedy|anim|family|romanc/.test(gNames)) ||
+          (heroFinderState.mood === 'epic' && /action|drama|adventure|war|history/.test(gNames))
+        ) score += 38;
+
+        if (Array.isArray(item.company) && item.company.includes(heroFinderState.company)) score += 35;
+        else if (gIds.some(id => targetCompGenres.includes(id))) score += 20;
+
+        const rt = Number(item.runtime) || 0;
+        if (heroFinderState.time === 'short' && rt > 0 && rt <= 108) score += 30;
+        if (heroFinderState.time === 'standard' && rt >= 100 && rt <= 138) score += 28;
+        if (heroFinderState.time === 'epic' && rt >= 135) score += 32;
+        if (heroFinderState.time === 'tv' && item.media_type === 'tv') score += 40;
+        if (getTrailerIdForItem(item)) score += 16;
+        if (item.source === 'WatchPulse Curated') score += 10;
+
+        return { item, score, idx };
+      }).sort((a, b) => (b.score !== a.score ? b.score - a.score : a.idx - b.idx))
+        .map(x => x.item);
+
+      heroFinderState.offset = 0;
+    };
+
+    const renderHeroInlineResults = () => {
+      if (!resultsWrap) return;
+      const list = heroFinderState.scored;
+      if (!list.length) {
+        resultsWrap.innerHTML = `<p style="font-size:0.84rem;color:var(--muted);">Loading matches...</p>`;
+        return;
+      }
+      const start = heroFinderState.offset % Math.max(1, list.length);
+      const batch = [];
+      for (let i = 0; i < Math.min(3, list.length); i++) {
+        batch.push(list[(start + i) % list.length]);
+      }
+
+      resultsWrap.innerHTML = batch.map(it => {
+        const thumb = getThumbUrlForItem(it) || it.poster || '';
+        const rNum = Number(it.rating);
+        const rText = (!Number.isNaN(rNum) && rNum > 0) ? `\u2605 ${rNum.toFixed(1)}` : 'Pick';
+        const rtText = it.runtime ? (it.media_type === 'tv' ? `~${it.runtime}m/ep` : `${it.runtime}m`) : (it.year || '');
+        const metaLine = [it.year, rtText, (it.genres && it.genres[0]) || ''].filter(Boolean).join(' \u00b7 ');
+        const hasTid = Boolean(getTrailerIdForItem(it));
+        return `
+          <article class="hero-match-card" data-hero-match-id="${escapeHtml(it.id)}" tabindex="0" role="button">
+            <div class="hero-match-thumb-wrap">
+              ${thumb ? `<img src="${escapeHtml(thumb)}" alt="${escapeHtml(it.title)}" class="hero-match-thumb" loading="lazy" referrerpolicy="no-referrer">` : ''}
+              <span class="hero-match-rating">${escapeHtml(rText)}</span>
+            </div>
+            <div class="hero-match-body">
+              <div class="hero-match-title" title="${escapeHtml(it.title)}">${escapeHtml(it.title)}</div>
+              <div class="hero-match-meta">${escapeHtml(metaLine)}</div>
+              <div class="hero-match-actions">
+                ${hasTid ? `<button type="button" class="hero-match-trailer-btn" data-hero-match-trailer="${escapeHtml(it.id)}">&#9654; Trailer</button>` : `<span class="hero-match-details-lbl">Details &rarr;</span>`}
+                <span class="hero-match-details-lbl">Open &rarr;</span>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('');
+
+      resultsWrap.querySelectorAll('[data-hero-match-id]').forEach(card => {
+        card.addEventListener('click', (e) => {
+          const tBtn = e.target.closest('[data-hero-match-trailer]');
+          const found = batch.find(x => x.id === card.dataset.heroMatchId);
+          if (!found) return;
+          if (tBtn) {
+            e.stopPropagation();
+            openTrailerForItem(found);
+          } else {
+            openMovieModal(found);
+          }
+        });
+      });
+    };
+
+    const setHeroStep = async (nextStep) => {
+      heroFinderState.step = Math.max(1, Math.min(4, nextStep));
+      const s = heroFinderState.step;
+
+      stepPanels.forEach((panel, idx) => {
+        if (panel) panel.classList.toggle('hidden', idx !== s);
+      });
+
+      if (eyebrowEl) eyebrowEl.textContent = stepEyebrows[s];
+      if (stepMetaEl) {
+        stepMetaEl.textContent = s === 4
+          ? `${companyLabels[heroFinderState.company]} \u00b7 ${moodLabels[heroFinderState.mood]} \u00b7 ${timeLabels[heroFinderState.time]}`
+          : stepMetaCopy[s];
+      }
+
+      if (progressBarEl) {
+        progressBarEl.querySelectorAll('.focus-progress-item').forEach(btn => {
+          const bStep = Number(btn.dataset.gotoStep) || 1;
+          btn.classList.toggle('active', bStep <= s);
+          const seg = btn.querySelector('.focus-progress-seg');
+          if (seg) seg.classList.toggle('active', bStep <= s);
+        });
+      }
+
+      if (backBtn) backBtn.classList.toggle('hidden', s === 1);
+      if (resetBtn) resetBtn.classList.toggle('hidden', s !== 4);
+      if (quickPickBtn) quickPickBtn.classList.toggle('hidden', s === 4);
+
+      if (continueTextEl) {
+        if (s === 1 || s === 2) continueTextEl.textContent = 'Continue';
+        else if (s === 3) continueTextEl.textContent = 'Find My 3 Matches';
+        else continueTextEl.textContent = 'Show Next 3 Picks';
+      }
+
+      if (s === 4) {
+        await computeHeroMatches();
+        renderHeroInlineResults();
+        trackEvent('watchpulse_inline_finder_complete', {
+          company: heroFinderState.company,
+          mood: heroFinderState.mood,
+          time: heroFinderState.time
+        });
+      }
+    };
+
+    const bindOptionGroup = (groupId, dataAttr, stateKey, onChange) => {
+      const container = document.getElementById(groupId);
+      if (!container) return;
+      container.querySelectorAll('.focus-opt-card').forEach(card => {
+        card.addEventListener('click', () => {
+          container.querySelectorAll('.focus-opt-card').forEach(c => c.classList.remove('selected'));
+          card.classList.add('selected');
+          heroFinderState[stateKey] = card.dataset[dataAttr] || heroFinderState[stateKey];
+          if (onChange) onChange(heroFinderState[stateKey]);
+        });
+      });
+    };
+
+    bindOptionGroup('heroCompanyOptions', 'company', 'company', (companyKey) => {
+      if (quickPickTextEl) {
+        quickPickTextEl.textContent = `1 instant ${companyLabels[companyKey] || ''} pick`.trim();
+      }
+    });
+    bindOptionGroup('heroMoodOptions', 'mood', 'mood');
+    bindOptionGroup('heroTimeOptions', 'time', 'time');
+
+    if (continueBtn) {
+      continueBtn.addEventListener('click', () => {
+        if (heroFinderState.step < 4) {
+          setHeroStep(heroFinderState.step + 1);
+        } else {
+          heroFinderState.offset += 3;
+          renderHeroInlineResults();
         }
       });
-    });
+    }
+
+    if (backBtn) {
+      backBtn.addEventListener('click', () => setHeroStep(heroFinderState.step - 1));
+    }
+
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => setHeroStep(1));
+    }
+
+    if (progressBarEl) {
+      progressBarEl.querySelectorAll('.focus-progress-item').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const target = Number(btn.dataset.gotoStep) || 1;
+          if (target <= heroFinderState.step || target <= 3) {
+            setHeroStep(target);
+          }
+        });
+      });
+    }
   }
 
   if (els.providerChips) {

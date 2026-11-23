@@ -45,7 +45,7 @@
   <link rel="icon" type="image/png" sizes="96x96" href="/favicon.png">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="apple-touch-icon" href="/favicon.png">
-  <link rel="stylesheet" href="/style.css?v=20261123c">
+  <link rel="stylesheet" href="/style.css?v=20261123d">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;800&display=swap" rel="stylesheet">
@@ -751,37 +751,44 @@
       function renderPosterMarkup(it) {
         if (it.poster) {
           const isYt = it.poster.indexOf('i.ytimg.com') !== -1;
-          if (isYt) {
-            const mqFallback = it.trailer_id ? ('https://i.ytimg.com/vi/' + encodeURIComponent(it.trailer_id) + '/mqdefault.jpg') : '';
-            return (
-              '<div class="mf-trailer-thumb-wrap">' +
-                '<img src="' + escapeHtml(it.poster) + '" alt="' + escapeHtml(it.title) + ' official trailer preview" loading="lazy"' + (mqFallback ? ' data-mq-fallback="' + escapeHtml(mqFallback) + '"' : '') + '>' +
-                '<div class="mf-trailer-scrim"></div>' +
-                '<span class="mf-trailer-pill">Official Trailer</span>' +
-                '<span class="mf-trailer-play" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg></span>' +
-              '</div>'
-            );
-          }
-          return '<img src="' + escapeHtml(it.poster) + '" alt="' + escapeHtml(it.title) + ' poster" loading="lazy">';
+          const mqFallback = (isYt && it.trailer_id) ? ('https://i.ytimg.com/vi/' + encodeURIComponent(it.trailer_id) + '/mqdefault.jpg') : '';
+          return (
+            '<div class="curated-thumb-card">' +
+              '<img src="' + escapeHtml(it.poster) + '" alt="" class="curated-thumb-backdrop" aria-hidden="true" loading="lazy">' +
+              '<img src="' + escapeHtml(it.poster) + '" alt="' + escapeHtml(it.title) + ' preview" class="curated-thumb-img" loading="lazy"' + (mqFallback ? ' data-mq-fallback="' + escapeHtml(mqFallback) + '"' : '') + '>' +
+              '<div class="curated-thumb-scrim"></div>' +
+              (it.trailer_id ? '<span class="mf-trailer-pill">Official Trailer</span><span class="mf-trailer-play" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg></span>' : '') +
+            '</div>'
+          );
         }
         const accent = escapeHtml(it.accent || 'violet');
-        const sub = it.director ? 'Dir. ' + it.director : (it.genres || []).slice(0, 2).join(' / ');
+        const typeTag = it.media_type === 'tv' ? 'TV SERIES' : 'FEATURE FILM';
+        const genreTag = escapeHtml((it.genres && it.genres[0]) || 'Cinema');
         return (
           '<div class="editorial-poster-art accent-' + accent + '" style="height:100%;">' +
-            '<div class="ep-top"><span class="ep-badge">CURATED PICK</span><span>' + escapeHtml(it.year) + '</span></div>' +
-            '<div class="ep-center"><div class="ep-title">' + escapeHtml(it.title) + '</div><div class="ep-sub">' + escapeHtml(sub) + '</div></div>' +
-            '<div class="ep-bottom"><span>' + (it.runtime ? it.runtime + ' min' : 'Film') + '</span><span>' + escapeHtml((it.genres || ['Film'])[0]) + '</span></div>' +
+            '<div class="ep-center">' +
+              '<span class="ep-icon-ring" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line></svg></span>' +
+              '<span class="ep-type-kicker">' + typeTag + ' &bull; ' + genreTag + '</span>' +
+            '</div>' +
           '</div>'
         );
       }
 
       function attachTrailerImgFallbacks(container) {
         if (!container) return;
-        container.querySelectorAll('img[data-mq-fallback]').forEach(function (img) {
+        container.querySelectorAll('.curated-thumb-img').forEach(function (img) {
+          const backdrop = img.parentElement ? img.parentElement.querySelector('.curated-thumb-backdrop') : null;
           img.addEventListener('error', function () {
             if (!img.dataset.triedMq && img.dataset.mqFallback) {
               img.dataset.triedMq = '1';
               img.src = img.dataset.mqFallback;
+              if (backdrop) backdrop.src = img.dataset.mqFallback;
+            }
+          });
+          img.addEventListener('load', function () {
+            if (img.naturalHeight > img.naturalWidth * 1.05) {
+              img.classList.add('is-portrait-fit');
+              if (backdrop) backdrop.classList.add('is-active');
             }
           });
         });

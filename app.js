@@ -612,40 +612,34 @@ function normalizeCuratedMovie(m) {
 
 function renderEditorialPosterFallbackHtml(item) {
   const accent = escapeHtml(item.accent || 'violet');
-  const tag = item.source === 'Wikipedia & Wikidata' ? 'OPEN DATA' : 'CURATED';
-  const sub = item.director ? `Dir. ${escapeHtml(item.director)}` : escapeHtml((item.genres || []).slice(0, 2).join(' \u00b7 '));
+  const typeTag = item.media_type === 'tv' ? 'TV SERIES' : 'FEATURE FILM';
+  const genreTag = escapeHtml((item.genres && item.genres[0]) || 'Cinema');
   return `
     <div class="editorial-poster-art accent-${accent}">
-      <div class="ep-top">
-        <span class="ep-badge">${tag}</span>
-        <span class="ep-year">${escapeHtml(item.year)}</span>
-      </div>
       <div class="ep-center">
-        <div class="ep-title">${escapeHtml(item.title)}</div>
-        <div class="ep-sub">${sub}</div>
-      </div>
-      <div class="ep-bottom">
-        <span>${item.runtime ? item.runtime + ' min' : 'Feature'}</span>
-        <span>${escapeHtml((item.genres || ['Film'])[0])}</span>
+        <span class="ep-icon-ring" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line></svg>
+        </span>
+        <span class="ep-type-kicker">${typeTag} &bull; ${genreTag}</span>
       </div>
     </div>
   `;
 }
 
 function renderPosterArtHtml(item) {
-  const isYtThumb = Boolean(item.poster && item.poster.includes('i.ytimg.com'));
-  if (item.poster && !isYtThumb) {
-    return `<img src="${escapeHtml(item.poster)}" alt="${escapeHtml(item.title)} poster" class="card-poster" width="220" height="330" loading="lazy" referrerpolicy="no-referrer">`;
-  }
-  const thumb = getThumbUrlForItem(item);
+  const thumb = getThumbUrlForItem(item) || item.poster || '';
+  const hasTrailer = Boolean(getTrailerIdForItem(item));
   if (thumb) {
     return `
       <div class="curated-thumb-card">
-        <img src="${escapeHtml(thumb)}" alt="${escapeHtml(item.title)} official trailer preview" class="curated-thumb-img" width="320" height="180" loading="lazy">
+        <img src="${escapeHtml(thumb)}" alt="" class="curated-thumb-backdrop" aria-hidden="true" loading="lazy" referrerpolicy="no-referrer">
+        <img src="${escapeHtml(thumb)}" alt="${escapeHtml(item.title)} preview" class="curated-thumb-img" width="320" height="180" loading="lazy" referrerpolicy="no-referrer">
         <div class="curated-thumb-scrim"></div>
-        <div class="curated-thumb-play" aria-hidden="true">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-        </div>
+        ${hasTrailer ? `
+          <div class="curated-thumb-play" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          </div>
+        ` : ''}
       </div>
     `;
   }
@@ -783,32 +777,30 @@ function renderPaginationBar() {
 function renderCardListIntoGrid(gridEl, items, options = {}) {
   if (!gridEl) return;
   const showTrendingRank = Boolean(options.showTrendingRank);
-  const hasTrailerCards = items.length > 0 && items.every(it => it.media_type === 'movie' || Boolean((it.poster && it.poster.includes('i.ytimg.com')) || (!it.poster && getTrailerIdForItem(it))));
-  gridEl.classList.toggle('has-trailer-thumbs', hasTrailerCards);
+  gridEl.classList.add('has-trailer-thumbs');
 
   gridEl.innerHTML = items.map((item, idx) => {
     const savedObj = state.watchlist.find(w => w.id === item.id);
     const isSaved = Boolean(savedObj);
     const isWatched = Boolean(savedObj && savedObj.watched);
-    const primaryGenre = (item.genres && item.genres[0]) ? item.genres[0] : (item.media_type === 'tv' ? 'TV' : 'Film');
+    const primaryGenre = (item.genres && item.genres[0]) ? item.genres[0] : (item.media_type === 'tv' ? 'TV Series' : 'Feature Film');
     const secondaryGenre = (item.genres && item.genres[1]) ? item.genres[1] : '';
     const genrePair = [primaryGenre, secondaryGenre].filter(Boolean).join(' / ');
     const isEditorsPick = !showTrendingRank && (item.id === 'wp-dune-part-two' || (idx === 0 && Boolean(item.featured)));
-    const isYtCard = item.media_type === 'movie' || Boolean((item.poster && item.poster.includes('i.ytimg.com')) || (!item.poster && getTrailerIdForItem(item)));
     const tid = getTrailerIdForItem(item);
 
     const badgeHtml = showTrendingRank
       ? `<span class="trending-rank-badge ${idx < 3 ? 'rank-top' : ''}">#${idx + 1} Trending</span>`
-      : (isEditorsPick ? '<span class="editors-pick-badge">Editor\u0027s Pick</span>' : '');
+      : (isEditorsPick ? '<span class="editors-pick-badge">Editor\u0027s Pick</span>' : `<span class="card-format-badge">${item.media_type === 'tv' ? 'TV Series' : 'Movie'}</span>`);
 
     const numRating = Number(item.rating);
     const ratingChipHtml = (!Number.isNaN(numRating) && numRating > 0)
       ? `<span class="card-rating-pill"><span class="star-glyph" aria-hidden="true">&#9733;</span> ${numRating.toFixed(1)}</span>`
-      : `<span class="card-rating-pill">HD</span>`;
+      : `<span class="card-rating-pill">${item.media_type === 'tv' ? 'TV' : 'HD'}</span>`;
 
     const durationOrTypeText = item.media_type === 'tv'
-      ? (item.runtime ? `~${item.runtime}m/ep` : 'TV Series')
-      : (item.runtime ? `${item.runtime}m` : 'Film');
+      ? (item.runtime ? `~${item.runtime}m/ep` : 'Series')
+      : (item.runtime ? `${item.runtime}m` : 'Feature');
 
     const langBadgeHtml = (item.language && item.language !== 'en' && item.languageLabel)
       ? `<span class="card-overlay-pill card-lang-pill">${escapeHtml(item.languageLabel)}</span>`
@@ -816,21 +808,26 @@ function renderCardListIntoGrid(gridEl, items, options = {}) {
 
     const primaryPlatform = (item.platforms && item.platforms[0])
       ? item.platforms[0].replace(/^Check Local Apps$/i, 'Streaming')
-      : (item.media_type === 'tv' ? 'TV Network' : 'Theatrical / VOD');
+      : (item.media_type === 'tv' ? 'TV Network' : 'Streaming');
 
     const extraPlatformCount = (item.platforms && item.platforms.length > 1)
       ? ` +${item.platforms.length - 1}`
       : '';
 
-    const snippetRaw = (item.editorial_note || item.overview || '').replace(/<[^>]*>/g, '').trim();
-    const snippetText = snippetRaw.length > 120 ? `${snippetRaw.slice(0, 117).trim()}...` : snippetRaw;
+    const snippetRaw = (item.editorial_note || item.overview || 'Explore cast, runtime, official trailer, and reference details on WatchPulse.').replace(/<[^>]*>/g, '').trim();
+    const snippetText = snippetRaw.length > 130 ? `${snippetRaw.slice(0, 127).trim()}...` : snippetRaw;
 
     const bookmarkSvg = `<svg width="14" height="14" viewBox="0 0 24 24" fill="${isSaved ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>`;
     const playSvg = `<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>`;
+    const infoSvg = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>`;
+
+    const actionPillHtml = tid
+      ? `<button type="button" class="card-quick-trailer-btn" data-trailer-id="${escapeHtml(item.id)}" title="Watch official trailer for ${escapeHtml(item.title)}" aria-label="Watch trailer for ${escapeHtml(item.title)}">${playSvg}<span>Trailer</span></button>`
+      : `<span class="card-quick-details-pill">${infoSvg}<span>Details</span></span>`;
 
     return `
       <article class="movie-card" style="--card-idx: ${Math.min(idx, 15)};" data-id="${escapeHtml(item.id)}" tabindex="0" role="button" aria-label="Open details for ${escapeHtml(item.title)}">
-        <div class="card-poster-wrap ${isYtCard ? 'is-trailer-thumb' : ''}">
+        <div class="card-poster-wrap is-trailer-thumb">
           ${renderPosterArtHtml(item)}
           ${badgeHtml}
           <button type="button" class="card-bookmark-btn ${isSaved ? 'active' : ''}" data-wl-id="${escapeHtml(item.id)}" title="${isSaved ? 'Remove from Watchlist' : 'Save to Watchlist'}" aria-label="${isSaved ? 'Remove from Watchlist' : 'Save to Watchlist'}">${bookmarkSvg}</button>
@@ -840,7 +837,7 @@ function renderCardListIntoGrid(gridEl, items, options = {}) {
               <span class="card-overlay-pill">${escapeHtml(durationOrTypeText)}</span>
               ${langBadgeHtml}
             </div>
-            ${tid ? `<button type="button" class="card-quick-trailer-btn" data-trailer-id="${escapeHtml(item.id)}" title="Watch official trailer for ${escapeHtml(item.title)}" aria-label="Watch trailer for ${escapeHtml(item.title)}">${playSvg}<span>Trailer</span></button>` : ''}
+            ${actionPillHtml}
           </div>
         </div>
         <div class="card-body">
@@ -852,7 +849,7 @@ function renderCardListIntoGrid(gridEl, items, options = {}) {
             <span class="card-platform-tag">${escapeHtml(primaryPlatform)}${escapeHtml(extraPlatformCount)}</span>
             <span class="card-genre-tag">${escapeHtml(genrePair)}</span>
           </div>
-          ${snippetText ? `<p class="card-synopsis">${escapeHtml(snippetText)}</p>` : ''}
+          <p class="card-synopsis">${escapeHtml(snippetText)}</p>
           ${state.showingWatchlist ? `
             <button type="button" class="watched-toggle-btn ${isWatched ? 'is-watched' : ''}" data-watched-id="${escapeHtml(item.id)}">
               ${isWatched ? 'Watched' : 'Mark as watched'}
@@ -896,13 +893,16 @@ function renderCardListIntoGrid(gridEl, items, options = {}) {
       }
     });
     const thumbImg = card.querySelector('.curated-thumb-img');
+    const backdropImg = card.querySelector('.curated-thumb-backdrop');
     if (thumbImg) {
       const handleBrokenOrPlaceholderThumb = () => {
         const item = state.displayedItems.find(x => x.id === card.dataset.id);
         const tid = getTrailerIdForItem(item);
         if (tid && !thumbImg.dataset.triedMq && !thumbImg.src.includes('/mqdefault.jpg')) {
           thumbImg.dataset.triedMq = '1';
-          thumbImg.src = `https://i.ytimg.com/vi/${encodeURIComponent(tid)}/mqdefault.jpg`;
+          const mqUrl = `https://i.ytimg.com/vi/${encodeURIComponent(tid)}/mqdefault.jpg`;
+          thumbImg.src = mqUrl;
+          if (backdropImg) backdropImg.src = mqUrl;
           return;
         }
         const thumbCard = thumbImg.closest('.curated-thumb-card');
@@ -915,6 +915,12 @@ function renderCardListIntoGrid(gridEl, items, options = {}) {
         // YouTube's gray 3-dots placeholder image has naturalWidth === 120 and naturalHeight === 90
         if (thumbImg.naturalWidth > 0 && thumbImg.naturalWidth <= 120) {
           handleBrokenOrPlaceholderThumb();
+          return;
+        }
+        // If portrait poster (e.g. TVmaze or Wikipedia portrait), fit cleanly inside 16:9 frame over blurred backdrop
+        if (thumbImg.naturalHeight > thumbImg.naturalWidth * 1.05) {
+          thumbImg.classList.add('is-portrait-fit');
+          if (backdropImg) backdropImg.classList.add('is-active');
         }
       });
     }

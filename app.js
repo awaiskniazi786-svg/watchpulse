@@ -1707,7 +1707,7 @@ function populateMovieModalContent(detailed, isLoadingDetails = false) {
   if (els.watchProvidersList) {
     const pills = (detailed.platforms || []).map(p => `<span class="provider-pill">${escapeHtml(p)}</span>`).join('');
     const imdbBtn = detailed.imdb_id
-      ? `<a href="https://www.imdb.com/title/${encodeURIComponent(detailed.imdb_id)}/" target="_blank" rel="noopener noreferrer" class="provider-pill" style="border-color: #f5c518; color: #f5c518; text-decoration: none;">IMDb Profile ↗</a>`
+      ? `<a href="https://www.imdb.com/title/${encodeURIComponent(detailed.imdb_id)}/" target="_blank" rel="noopener noreferrer" class="provider-pill imdb-pill" style="text-decoration: none;">IMDb Profile ↗</a>`
       : '';
     const guideBtn = detailed.guide_url
       ? `<a href="${escapeHtml(detailed.guide_url.replace(/\.html$/i, ''))}" class="provider-pill" style="border-color: var(--accent-cyan); color: var(--accent-cyan); text-decoration: none;">Read: ${escapeHtml(detailed.guide_title)} →</a>`
@@ -1759,7 +1759,7 @@ function populateMovieModalContent(detailed, isLoadingDetails = false) {
     if (similar.length) {
       els.modalSimilarSection.classList.remove('hidden');
       els.modalSimilarList.innerHTML = similar.map(s => `
-        <button type="button" class="similar-chip" data-sim-id="${escapeHtml(s.id)}" style="padding:0.45rem 0.7rem;border-radius:8px;border:1px solid var(--border-color);background:rgba(255,255,255,0.04);color:var(--text-main);cursor:pointer;font-size:0.8rem;text-align:left;">
+        <button type="button" class="similar-chip" data-sim-id="${escapeHtml(s.id)}" style="padding:0.5rem 0.8rem;border-radius:8px;border:1px solid var(--border-color);background:var(--card-inset-bg);color:var(--text-main);cursor:pointer;font-size:0.8rem;text-align:left;">
           <strong>${escapeHtml(s.title)}</strong> (${escapeHtml(s.year)})
         </button>
       `).join('');

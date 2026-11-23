@@ -3620,6 +3620,10 @@ html[data-theme="light"] .provider-pill.imdb-pill {
   border: none;
 }
 
+.mobile-bottom-nav {
+  display: none;
+}
+
 .footer-link {
   color: var(--muted);
   font-size: 0.82rem;

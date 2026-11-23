@@ -176,9 +176,7 @@ textarea {
 }
 
 .wp-pulse-trace {
-  stroke-dasharray: 90;
-  stroke-dashoffset: 0;
-  filter: drop-shadow(0 0 4px rgba(167, 139, 250, 0.8));
+  filter: drop-shadow(0 0 4px rgba(167, 139, 250, 0.85));
   animation: wpPulseGlow 3.6s ease-in-out infinite;
 }
 

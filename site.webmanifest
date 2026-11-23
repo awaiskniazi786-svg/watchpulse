@@ -1,0 +1,32 @@
+{
+  "name": "WatchPulse — Ratings, Trailers & Where to Watch Movies & TV",
+  "short_name": "WatchPulse",
+  "description": "WatchPulse is the premier movie and TV discovery platform. Watch official HD trailers, compare ratings and runtimes, take the 30-second Movie Finder Quiz, and explore 20+ original streaming guides.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0C0B12",
+  "theme_color": "#7C3AED",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/favicon.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

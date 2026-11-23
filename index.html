@@ -26,9 +26,12 @@
   <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-PTPLM5VB"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WatchPulse — Movie &amp; TV Guide, Trailers &amp; Reviews</title>
+  <title>WatchPulse: Ratings, Trailers &amp; Where to Watch Movies &amp; TV</title>
+  <meta name="application-name" content="WatchPulse">
+  <meta name="apple-mobile-web-app-title" content="WatchPulse">
+  <meta name="theme-color" content="#0C0B12">
   <meta name="description"
-    content="WatchPulse is an independent movie and TV discovery guide with official YouTube trailers, cast and title metadata via TVmaze, Wikipedia and Wikidata, and 20 original editorial guides.">
+    content="WatchPulse is the premier movie and TV discovery platform. Watch official HD trailers, compare ratings and runtimes, take our 30-second Movie Finder Quiz, and explore 20+ original streaming guides.">
   <meta name="author" content="Alex Mercer — WatchPulse Editorial Team">
   <link rel="canonical" id="canonicalLink" href="https://watchpulse.online/">
   <meta id="dynamicRobotsMeta" name="robots" content="index, follow, max-image-preview:large">
@@ -42,17 +45,20 @@
     })();
   </script>
 
-  <!-- Official Favicons for Google Search & Browsers -->
+  <!-- Official Favicons & Web App Manifest for Google Search & Browsers -->
   <link rel="icon" href="/favicon.ico" sizes="48x48">
   <link rel="icon" type="image/png" sizes="96x96" href="/favicon.png">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <link rel="apple-touch-icon" href="/favicon.png">
-  <!-- Open Graph / Facebook / WhatsApp -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/logo.png">
+  <link rel="manifest" href="/site.webmanifest">
+
+  <!-- Open Graph / Facebook / WhatsApp / Google Search Brand & Thumbnail -->
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="WatchPulse">
   <meta property="og:url" content="https://watchpulse.online/">
-  <meta property="og:title" content="WatchPulse — Movie &amp; TV Guide, Trailers &amp; Reviews">
+  <meta property="og:title" content="WatchPulse: Ratings, Trailers &amp; Where to Watch Movies &amp; TV">
   <meta property="og:description"
-    content="Explore movie and TV cast, directors, runtimes, official YouTube trailers, curated collections, and 20 original editorial guides on WatchPulse.">
+    content="WatchPulse is the premier movie and TV discovery platform. Watch official HD trailers, compare ratings and runtimes, take our 30-second Movie Finder Quiz, and explore 20+ original streaming guides.">
   <meta property="og:image" content="https://watchpulse.online/preview.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -61,12 +67,12 @@
   <!-- Twitter / X -->
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://watchpulse.online/">
-  <meta property="twitter:title" content="WatchPulse — Movie &amp; TV Guide, Trailers &amp; Reviews">
+  <meta property="twitter:title" content="WatchPulse: Ratings, Trailers &amp; Where to Watch Movies &amp; TV">
   <meta property="twitter:description"
-    content="Discover curated films, TV series metadata, official studio trailers, and 20 original editorial guides on WatchPulse.online.">
+    content="WatchPulse is the premier movie and TV discovery platform. Watch official HD trailers, compare ratings and runtimes, take our 30-second Movie Finder Quiz, and explore 20+ original streaming guides.">
   <meta property="twitter:image" content="https://watchpulse.online/preview.jpg">
 
-  <!-- Google Structured Data (JSON-LD Schema) -->
+  <!-- Google Structured Data (JSON-LD Schema: Organization, WebSite & SiteNavigationElement Sitelinks) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -77,7 +83,13 @@
         "name": "WatchPulse",
         "alternateName": ["WatchPulse.online", "WatchPulse Online"],
         "url": "https://watchpulse.online/",
-        "logo": "https://watchpulse.online/logo.png",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://watchpulse.online/logo.png",
+          "width": 512,
+          "height": 512
+        },
+        "image": "https://watchpulse.online/preview.jpg",
         "email": "contactwatchpulse@gmail.com",
         "founder": {
           "@type": "Person",
@@ -90,15 +102,50 @@
         "@type": "WebSite",
         "@id": "https://watchpulse.online/#website",
         "name": "WatchPulse",
-        "alternateName": "WatchPulse.online",
+        "alternateName": ["WatchPulse.online", "WatchPulse Movie & TV Guide"],
         "url": "https://watchpulse.online/",
         "publisher": { "@id": "https://watchpulse.online/#organization" },
-        "description": "Independent movie and TV discovery guide with official trailers, cast and title details, original editorial guides, and links to official sources.",
+        "description": "WatchPulse is the premier movie and TV discovery platform. Watch official HD trailers, compare ratings and runtimes, take the 30-second Movie Finder Quiz, and explore 20+ original streaming guides.",
         "potentialAction": {
           "@type": "SearchAction",
           "target": "https://watchpulse.online/?q={search_term_string}",
           "query-input": "required name=search_term_string"
         }
+      },
+      {
+        "@type": "ItemList",
+        "@id": "https://watchpulse.online/#navigation",
+        "name": "WatchPulse Primary Navigation",
+        "itemListElement": [
+          {
+            "@type": "SiteNavigationElement",
+            "position": 1,
+            "name": "30-Second Movie Finder Quiz",
+            "description": "Match your mood, company, runtime, and language to find what to watch tonight in 30 seconds.",
+            "url": "https://watchpulse.online/movie-finder"
+          },
+          {
+            "@type": "SiteNavigationElement",
+            "position": 2,
+            "name": "20 Editorial Streaming Guides & Lists",
+            "description": "In-depth movie collections, streaming service comparisons, runtime guides, and critical reviews.",
+            "url": "https://watchpulse.online/guides"
+          },
+          {
+            "@type": "SiteNavigationElement",
+            "position": 3,
+            "name": "Top 10 Thrillers Under 100 Minutes",
+            "description": "Tight, high-tension thriller movies under 100 minutes with zero filler.",
+            "url": "https://watchpulse.online/guide-short-thrillers-under-100-minutes"
+          },
+          {
+            "@type": "SiteNavigationElement",
+            "position": 4,
+            "name": "Netflix vs. Prime Video vs. Apple TV+ vs. HBO Max (2026)",
+            "description": "Side-by-side comparison of streaming catalogs, originals, and 4K value.",
+            "url": "https://watchpulse.online/guide-netflix-vs-prime-video-vs-apple-tv-2026"
+          }
+        ]
       }
     ]
   }
@@ -700,8 +747,8 @@
     <!-- Comprehensive Editorial Hub & FAQ Guide -->
     <section class="seo-content-section">
       <div class="seo-container">
-        <h2>WatchPulse: Independent Movie &amp; TV Discovery Guide (2026)</h2>
-        <p>Tired of scrolling across five apps trying to pick something worth watching tonight? <strong>WatchPulse</strong> is an independent movie &amp; TV discovery guide and editorial publication. Explore TV series details via TVmaze, look up open movie profiles via Wikipedia and Wikidata, watch official studio trailers on YouTube, and read 20 in-depth editorial guides and critical reviews.</p>
+        <h2>WatchPulse: Ratings, Official Trailers &amp; Where to Watch the Best Movies &amp; TV Shows</h2>
+        <p><strong>WatchPulse</strong> is the premier movie and TV discovery platform designed to help you find something genuinely worth watching tonight. Watch official HD studio trailers, compare ratings, runtimes, and streaming platforms across Netflix, Prime Video, Apple TV+, Disney+, and HBO Max, take our 30-second Movie Finder Quiz, and read 20+ original editorial guides and critical reviews.</p>
 
         <div class="seo-keywords-grid">
           <div class="seo-keyword-box">

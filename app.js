@@ -8,8 +8,8 @@
 
 const CATALOG_PROXY_URL = '/api/catalog';
 const CURATED_CATALOG_URL = '/data/curated-catalog.json?v=20261122f';
-const TRENDING_MOVIE_COUNT = 10;
-const PAGE_SIZE = 30;
+const TRENDING_MOVIE_COUNT = 8;
+const PAGE_SIZE = 32;
 
 const GENRE_MAP = {
   28: 'Action',
@@ -791,32 +791,68 @@ function renderCardListIntoGrid(gridEl, items, options = {}) {
     const isSaved = Boolean(savedObj);
     const isWatched = Boolean(savedObj && savedObj.watched);
     const primaryGenre = (item.genres && item.genres[0]) ? item.genres[0] : (item.media_type === 'tv' ? 'TV' : 'Film');
+    const secondaryGenre = (item.genres && item.genres[1]) ? item.genres[1] : '';
+    const genrePair = [primaryGenre, secondaryGenre].filter(Boolean).join(' / ');
     const isEditorsPick = !showTrendingRank && (item.id === 'wp-dune-part-two' || (idx === 0 && Boolean(item.featured)));
     const isYtCard = item.media_type === 'movie' || Boolean((item.poster && item.poster.includes('i.ytimg.com')) || (!item.poster && getTrailerIdForItem(item)));
+    const tid = getTrailerIdForItem(item);
+
     const badgeHtml = showTrendingRank
-      ? `<span class="trending-rank-badge ${idx === 0 ? 'rank-top' : ''}">#${idx + 1}</span>`
-      : (isEditorsPick ? '<span class="editors-pick-badge">Editor\u0027s pick</span>' : '');
-    let metaLine = '';
-    if (item.media_type === 'tv') {
-      const net = (item.platforms && item.platforms[0]) ? item.platforms[0] : 'TV';
-      metaLine = [item.year, primaryGenre, net].filter(Boolean).join(' \u00b7 ');
-    } else if (item.language && item.language !== 'en' && item.languageLabel) {
-      metaLine = [item.year, item.languageLabel, primaryGenre].filter(Boolean).join(' \u00b7 ');
-    } else {
-      const rt = item.runtime ? `${item.runtime} min` : '';
-      metaLine = [item.year, primaryGenre, rt].filter(Boolean).join(' \u00b7 ');
-    }
+      ? `<span class="trending-rank-badge ${idx < 3 ? 'rank-top' : ''}">#${idx + 1} Trending</span>`
+      : (isEditorsPick ? '<span class="editors-pick-badge">Editor\u0027s Pick</span>' : '');
+
+    const numRating = Number(item.rating);
+    const ratingChipHtml = (!Number.isNaN(numRating) && numRating > 0)
+      ? `<span class="card-rating-pill"><span class="star-glyph" aria-hidden="true">&#9733;</span> ${numRating.toFixed(1)}</span>`
+      : `<span class="card-rating-pill">HD</span>`;
+
+    const durationOrTypeText = item.media_type === 'tv'
+      ? (item.runtime ? `~${item.runtime}m/ep` : 'TV Series')
+      : (item.runtime ? `${item.runtime}m` : 'Film');
+
+    const langBadgeHtml = (item.language && item.language !== 'en' && item.languageLabel)
+      ? `<span class="card-overlay-pill card-lang-pill">${escapeHtml(item.languageLabel)}</span>`
+      : '';
+
+    const primaryPlatform = (item.platforms && item.platforms[0])
+      ? item.platforms[0].replace(/^Check Local Apps$/i, 'Streaming')
+      : (item.media_type === 'tv' ? 'TV Network' : 'Theatrical / VOD');
+
+    const extraPlatformCount = (item.platforms && item.platforms.length > 1)
+      ? ` +${item.platforms.length - 1}`
+      : '';
+
+    const snippetRaw = (item.editorial_note || item.overview || '').replace(/<[^>]*>/g, '').trim();
+    const snippetText = snippetRaw.length > 120 ? `${snippetRaw.slice(0, 117).trim()}...` : snippetRaw;
+
     const bookmarkSvg = `<svg width="14" height="14" viewBox="0 0 24 24" fill="${isSaved ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>`;
+    const playSvg = `<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>`;
+
     return `
       <article class="movie-card" data-id="${escapeHtml(item.id)}" tabindex="0" role="button" aria-label="Open details for ${escapeHtml(item.title)}">
         <div class="card-poster-wrap ${isYtCard ? 'is-trailer-thumb' : ''}">
           ${renderPosterArtHtml(item)}
           ${badgeHtml}
           <button type="button" class="card-bookmark-btn ${isSaved ? 'active' : ''}" data-wl-id="${escapeHtml(item.id)}" title="${isSaved ? 'Remove from Watchlist' : 'Save to Watchlist'}" aria-label="${isSaved ? 'Remove from Watchlist' : 'Save to Watchlist'}">${bookmarkSvg}</button>
+          <div class="card-poster-bottom-bar">
+            <div class="card-poster-pills">
+              ${ratingChipHtml}
+              <span class="card-overlay-pill">${escapeHtml(durationOrTypeText)}</span>
+              ${langBadgeHtml}
+            </div>
+            ${tid ? `<button type="button" class="card-quick-trailer-btn" data-trailer-id="${escapeHtml(item.id)}" title="Watch official trailer for ${escapeHtml(item.title)}" aria-label="Watch trailer for ${escapeHtml(item.title)}">${playSvg}<span>Trailer</span></button>` : ''}
+          </div>
         </div>
         <div class="card-body">
-          <h3 class="card-title" title="${escapeHtml(item.title)}">${escapeHtml(item.title)}</h3>
-          <div class="card-meta">${escapeHtml(metaLine)}</div>
+          <div class="card-header-line">
+            <h3 class="card-title" title="${escapeHtml(item.title)}">${escapeHtml(item.title)}</h3>
+            <span class="card-year-badge">${escapeHtml(item.year || '')}</span>
+          </div>
+          <div class="card-tags-row">
+            <span class="card-platform-tag">${escapeHtml(primaryPlatform)}${escapeHtml(extraPlatformCount)}</span>
+            <span class="card-genre-tag">${escapeHtml(genrePair)}</span>
+          </div>
+          ${snippetText ? `<p class="card-synopsis">${escapeHtml(snippetText)}</p>` : ''}
           ${state.showingWatchlist ? `
             <button type="button" class="watched-toggle-btn ${isWatched ? 'is-watched' : ''}" data-watched-id="${escapeHtml(item.id)}">
               ${isWatched ? 'Watched' : 'Mark as watched'}
@@ -834,6 +870,13 @@ function renderCardListIntoGrid(gridEl, items, options = {}) {
         e.stopPropagation();
         const found = state.displayedItems.find(x => x.id === wlBtn.dataset.wlId);
         if (found) toggleWatchlist(found);
+        return;
+      }
+      const trailerBtn = e.target.closest('[data-trailer-id]');
+      if (trailerBtn) {
+        e.stopPropagation();
+        const found = state.displayedItems.find(x => x.id === trailerBtn.dataset.trailerId);
+        if (found) openTrailerForItem(found);
         return;
       }
       const watchedBtn = e.target.closest('[data-watched-id]');
@@ -1368,8 +1411,9 @@ function applyLocalFiltersAndRender() {
     if (els.moreMoviesSection) els.moreMoviesSection.classList.remove('hidden');
     if (els.moreGridTitle) els.moreGridTitle.textContent = 'More Curated Movies';
     if (els.moreMoviesCount) {
+      const startNum = TRENDING_MOVIE_COUNT + 1;
       const endNum = TRENDING_MOVIE_COUNT + moreVisibleItems.length;
-      els.moreMoviesCount.textContent = `Showing 11\u2013${endNum} of ${filtered.length} titles`;
+      els.moreMoviesCount.textContent = `Showing ${startNum}\u2013${endNum} of ${filtered.length} titles`;
     }
     if (els.moreMoviesGrid) {
       els.moreMoviesGrid.classList.add('more-grid-5');
@@ -2383,12 +2427,23 @@ function setupEventListeners() {
   }
 
   if (els.heroCompanyOptions) {
+    const companyLabels = {
+      'solo': 'Solo',
+      'date-night': 'Date night',
+      'friends': 'Friends',
+      'family': 'Family'
+    };
+    const quickPickTextEl = document.getElementById('compassQuickPickText');
     els.heroCompanyOptions.querySelectorAll('.focus-opt-card').forEach(card => {
       card.addEventListener('click', () => {
         els.heroCompanyOptions.querySelectorAll('.focus-opt-card').forEach(c => c.classList.remove('selected'));
         card.classList.add('selected');
+        const companyKey = card.dataset.company || 'date-night';
         if (els.heroQuizContinueBtn) {
-          els.heroQuizContinueBtn.href = `/movie-finder?company=${encodeURIComponent(card.dataset.company || 'date-night')}&step=2&mode=one`;
+          els.heroQuizContinueBtn.href = `/movie-finder?company=${encodeURIComponent(companyKey)}&step=2&mode=one`;
+        }
+        if (quickPickTextEl) {
+          quickPickTextEl.textContent = `1 instant ${companyLabels[companyKey] || ''} pick`.trim();
         }
       });
     });
@@ -2485,11 +2540,24 @@ function setupEventListeners() {
 
   if (els.compassQuickPickBtn) {
     els.compassQuickPickBtn.addEventListener('click', () => {
-      const pool = state.curatedMovies.length ? state.curatedMovies : state.displayedItems;
-      if (!pool.length) return;
+      const selectedCard = els.heroCompanyOptions ? els.heroCompanyOptions.querySelector('.focus-opt-card.selected') : null;
+      const company = selectedCard ? selectedCard.dataset.company : 'date-night';
+      const basePool = state.curatedMovies.length ? state.curatedMovies : state.displayedItems;
+      if (!basePool.length) return;
+      let filtered = basePool;
+      if (company === 'family') {
+        filtered = basePool.filter(m => (m.genre_ids || []).includes(16) || (m.genres || []).some(g => /animation|family/i.test(g)));
+      } else if (company === 'date-night') {
+        filtered = basePool.filter(m => (m.genre_ids || []).some(id => [10749, 35, 18, 53].includes(id)));
+      } else if (company === 'friends') {
+        filtered = basePool.filter(m => (m.genre_ids || []).some(id => [28, 35, 27, 53].includes(id)));
+      } else if (company === 'solo') {
+        filtered = basePool.filter(m => (m.genre_ids || []).some(id => [878, 53, 18, 27].includes(id)));
+      }
+      const pool = filtered.length ? filtered : basePool;
       const pick = pool[Math.floor(Math.random() * pool.length)];
       openMovieModal(pick);
-      trackEvent('watchpulse_quick_pick', { title: pick.title });
+      trackEvent('watchpulse_quick_pick', { title: pick.title, company });
     });
   }
 
@@ -2551,6 +2619,11 @@ function setupEventListeners() {
   setupVoiceSearch();
 
   document.addEventListener('keydown', (e) => {
+    if (e.key === '/' && els.searchInput && document.activeElement !== els.searchInput && !['INPUT', 'TEXTAREA', 'SELECT'].includes((document.activeElement && document.activeElement.tagName) || '')) {
+      e.preventDefault();
+      els.searchInput.focus();
+      return;
+    }
     if (e.key === 'Escape') {
       closeAllFilterDropdowns();
       closeTrailerModal();

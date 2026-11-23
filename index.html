@@ -154,7 +154,7 @@
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5022914500809430"
     crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="/style.css?v=20261123i">
+  <link rel="stylesheet" href="/style.css?v=20261123j">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
@@ -710,36 +710,101 @@
       <button type="button" id="openWatchlistStripBtn" class="focus-outline-btn">Open watchlist</button>
     </section>
 
-    <!-- Compact Editorial Spotlight (keeps all #heroSection IDs active) -->
+    <!-- 2-Column Interactive Editor's Spotlight Deck (Locked to 5 Verified Curated Masterpieces) -->
     <section id="heroSection" class="hero-section" aria-label="WatchPulse Editorial Spotlight">
       <div class="hero-backdrop" id="heroBackdrop" style="background-image: url('https://i.ytimg.com/vi/Way9Dexny3w/maxresdefault.jpg'), url('https://i.ytimg.com/vi/Way9Dexny3w/mqdefault.jpg');"></div>
       <div class="hero-overlay"></div>
-      <div class="hero-content">
-        <div class="hero-badge">EDITOR'S SPOTLIGHT</div>
-        <h2 id="heroTitle" class="hero-title">Dune: Part Two</h2>
-        <div class="hero-meta">
-          <span id="heroRating" class="rating-pill">9.2</span>
-          <span id="heroYear">2024</span>
-          <span id="heroGenre" class="genre-pill">Sci-Fi / Action</span>
-          <span id="heroDuration">166 min</span>
+
+      <div class="hero-split-grid">
+        <div class="hero-content">
+          <div class="hero-spotlight-header">
+            <span class="hero-badge">EDITOR'S SPOTLIGHT</span>
+            <div class="hero-spotlight-tabs" id="heroSpotlightTabs" role="tablist" aria-label="Editor's Top 5 Picks">
+              <button type="button" class="hero-spot-tab active" data-spot-idx="0" role="tab" aria-selected="true">01 &middot; Dune: Part Two</button>
+              <button type="button" class="hero-spot-tab" data-spot-idx="1" role="tab" aria-selected="false">02 &middot; Oppenheimer</button>
+              <button type="button" class="hero-spot-tab" data-spot-idx="2" role="tab" aria-selected="false">03 &middot; The Wild Robot</button>
+              <button type="button" class="hero-spot-tab" data-spot-idx="3" role="tab" aria-selected="false">04 &middot; Interstellar</button>
+              <button type="button" class="hero-spot-tab" data-spot-idx="4" role="tab" aria-selected="false">05 &middot; Arrival</button>
+            </div>
+          </div>
+
+          <h2 id="heroTitle" class="hero-title">Dune: Part Two</h2>
+
+          <div class="hero-meta">
+            <span id="heroRating" class="rating-pill">&#9733; 9.2</span>
+            <span id="heroYear" class="hero-meta-item">2024</span>
+            <span id="heroGenre" class="genre-pill">Sci-Fi / Action</span>
+            <span id="heroDuration" class="hero-meta-item">166 min</span>
+            <span id="heroDirector" class="hero-meta-item">Dir. Denis Villeneuve</span>
+          </div>
+
+          <p id="heroOverview" class="hero-overview">WatchPulse Pick: Denis Villeneuve's desert epic stands out at home for its tactile world-building, monochrome Giedi Prime photography, and thunderous Hans Zimmer sound mix—worth watching with dialogue clarity tuned.</p>
+
+          <div class="hero-actions">
+            <button type="button" id="heroTrailerBtn" class="btn primary-btn" style="height:44px;padding:0 22px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+              <span>Watch official trailer</span>
+            </button>
+            <button type="button" id="heroDetailsBtn" class="btn secondary-btn" style="height:44px;">Full details &amp; cast</button>
+            <button type="button" id="heroWatchlistBtn" class="btn ghost-btn" style="height:44px;">Add to watchlist</button>
+          </div>
         </div>
-        <p id="heroOverview" class="hero-overview">WatchPulse Pick: Denis Villeneuve's desert epic stands out at home for its tactile world-building, monochrome Giedi Prime photography, and thunderous Hans Zimmer sound mix—worth watching with dialogue clarity tuned.</p>
-        <div class="hero-actions">
-          <button type="button" id="heroTrailerBtn" class="btn primary-btn" style="height:44px;padding:0 22px;">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-            <span>Watch trailer</span>
+
+        <div class="hero-preview-col">
+          <button type="button" id="heroPreviewCardBtn" class="hero-preview-frame" aria-label="Play official trailer for Dune: Part Two">
+            <img id="heroPreviewImg" src="https://i.ytimg.com/vi/Way9Dexny3w/maxresdefault.jpg" alt="Dune: Part Two HD Trailer Frame" class="hero-preview-img" loading="lazy">
+            <div class="hero-preview-scrim"></div>
+            <div class="hero-preview-play">
+              <span class="hero-preview-play-circle">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+              </span>
+              <span class="hero-preview-play-label">Play Official Studio Trailer (HD)</span>
+            </div>
           </button>
-          <button type="button" id="heroDetailsBtn" class="btn secondary-btn" style="height:44px;">Full details</button>
-          <button type="button" id="heroWatchlistBtn" class="btn ghost-btn" style="height:44px;">Add to watchlist</button>
         </div>
       </div>
     </section>
 
-    <!-- Comprehensive Editorial Hub & FAQ Guide -->
+    <!-- Comprehensive Editorial Hub & FAQ Guide (Smooth Tapered Horizon + 2-Column Bento Split) -->
     <section class="seo-content-section">
       <div class="seo-container">
-        <h2>WatchPulse: Ratings, Official Trailers &amp; Where to Watch the Best Movies &amp; TV Shows</h2>
-        <p><strong>WatchPulse</strong> is the premier movie and TV discovery platform designed to help you find something genuinely worth watching tonight. Watch official HD studio trailers, compare ratings, runtimes, and streaming platforms across Netflix, Prime Video, Apple TV+, Disney+, and HBO Max, take our 30-second Movie Finder Quiz, and read 20+ original editorial guides and critical reviews.</p>
+        <div class="seo-bento-top">
+          <div class="seo-intro-col">
+            <span class="seo-eyebrow-kicker">ABOUT WATCHPULSE EDITORIAL</span>
+            <h2>WatchPulse: Ratings, Official Trailers &amp; Where to Watch the Best Movies &amp; TV Shows</h2>
+            <p><strong>WatchPulse</strong> is the premier movie and TV discovery platform designed to help you find something genuinely worth watching tonight. Watch official HD studio trailers, compare ratings, runtimes, and streaming platforms across Netflix, Prime Video, Apple TV+, Disney+, and HBO Max, take our 30-second Movie Finder Quiz, and read 20+ original editorial guides and critical reviews.</p>
+
+            <!-- Official Legal & Attribution Disclosure -->
+            <div class="legal-compliance-card">
+              <h3>Independent Informational Guide &amp; Open Data Attribution</h3>
+              <p><strong>WatchPulse is strictly an informational discovery guide and editorial publication.</strong></p>
+              <ul>
+                <li>WatchPulse <strong>does not host, stream, upload, or store</strong> any movie, television, or media files on its servers.</li>
+                <li>WatchPulse is not affiliated with, endorsed by, or sponsored by Netflix, Amazon Prime Video, Disney+, Apple TV+, HBO Max, or any other streaming platform mentioned in our editorial guides.</li>
+                <li>Official trailers are embedded via YouTube's privacy-enhanced player (<code>youtube-nocookie.com</code>) or linked directly to YouTube.</li>
+                <li>TV series metadata, cast lists, and posters are provided by <a href="https://www.tvmaze.com" target="_blank" rel="noopener noreferrer">TVmaze API</a> (CC BY-SA). Open film profiles and metadata are provided by <a href="https://en.wikipedia.org" target="_blank" rel="noopener noreferrer">Wikipedia</a> (CC BY-SA) and <a href="https://www.wikidata.org" target="_blank" rel="noopener noreferrer">Wikidata</a> (CC0 Public Domain).</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Frequently Asked Questions -->
+          <div class="seo-faq">
+            <span class="seo-eyebrow-kicker">COMMON QUESTIONS</span>
+            <h3>Frequently Asked Questions About WatchPulse</h3>
+            <details open>
+              <summary>How does WatchPulse source movie and TV details?</summary>
+              <p>WatchPulse combines TV series data from the TVmaze API (CC BY-SA), open film metadata from Wikipedia (CC BY-SA) and Wikidata (CC0 Public Domain), our own hand-curated movie notes, and 20 original editorial guides. WatchPulse does not track live per-country streaming availability, so always confirm current playback inside your local streaming app.</p>
+            </details>
+            <details open>
+              <summary>Can I watch official trailers on WatchPulse?</summary>
+              <p>Yes! Clicking Watch Trailer plays verified official studio and network trailers inside our privacy-enhanced YouTube modal (<code>youtube-nocookie.com</code>), or links directly to YouTube when an official channel embed cannot be confirmed.</p>
+            </details>
+            <details open>
+              <summary>How can I save movies and shows to watch later?</summary>
+              <p>Click the Bookmark icon on any card or inside the details modal to add it to your personal Watchlist. Your watchlist and watched status are saved locally in your browser via <code>localStorage</code> with no account required.</p>
+            </details>
+          </div>
+        </div>
 
         <div class="seo-keywords-grid">
           <div class="seo-keyword-box">
@@ -754,37 +819,6 @@
             <h3>Curated Picks by Mood, Company &amp; Runtime</h3>
             <p>Filter by mood, company, language, or genre to find standout <strong>Sci-Fi</strong>, <strong>Action</strong>, <strong>Horror</strong>, <strong>Comedy</strong>, <strong>Thriller</strong>, and <strong>Drama</strong> picks—paired with TVmaze series ratings and original WatchPulse editorial commentary.</p>
           </div>
-        </div>
-
-        <!-- Frequently Asked Questions -->
-        <div class="seo-faq">
-          <h3>Frequently Asked Questions About WatchPulse</h3>
-          <details open>
-            <summary>How does WatchPulse source movie and TV details?</summary>
-            <p>WatchPulse combines TV series data from the TVmaze API (CC BY-SA), open film metadata from Wikipedia (CC BY-SA) and Wikidata (CC0 Public Domain), our own hand-curated movie notes, and 20 original editorial guides. WatchPulse does not track live per-country streaming availability, so always confirm current playback inside your local streaming app.</p>
-          </details>
-          <details open>
-            <summary>Can I watch official trailers on WatchPulse?</summary>
-            <p>Yes! Clicking Watch Trailer plays verified official studio and network trailers inside our privacy-enhanced YouTube modal (<code>youtube-nocookie.com</code>), or links directly to YouTube when an official channel embed cannot be confirmed.</p>
-          </details>
-          <details open>
-            <summary>How can I save movies and shows to watch later?</summary>
-            <p>Click the Bookmark icon on any card or inside the details modal to add it to your personal Watchlist. Your watchlist and watched status are saved locally in your browser via <code>localStorage</code> with no account required.</p>
-          </details>
-        </div>
-
-        <!-- Official Legal & Attribution Disclosure -->
-        <div class="legal-compliance-card">
-          <h3 style="color: var(--eyebrow); font-size: 0.98rem; margin-bottom: 8px;">Independent Informational Guide &amp; Open Data Attribution</h3>
-          <p style="font-size: 0.86rem; line-height: 1.6; color: var(--muted); margin-bottom: 8px;">
-            <strong>WatchPulse is strictly an informational discovery guide and editorial publication.</strong>
-          </p>
-          <ul style="font-size: 0.82rem; line-height: 1.6; color: var(--muted); padding-left: 18px; display: flex; flex-direction: column; gap: 5px;">
-            <li>WatchPulse <strong>does not host, stream, upload, or store</strong> any movie, television, or media files on its servers.</li>
-            <li>WatchPulse is not affiliated with, endorsed by, or sponsored by Netflix, Amazon Prime Video, Disney+, Apple TV+, HBO Max, or any other streaming platform mentioned in our editorial guides.</li>
-            <li>Official trailers are embedded via YouTube's privacy-enhanced player (<code>youtube-nocookie.com</code>) or linked directly to YouTube.</li>
-            <li>TV series metadata, cast lists, and posters are provided by <a href="https://www.tvmaze.com" target="_blank" rel="noopener noreferrer">TVmaze API</a> (CC BY-SA). Open film profiles and metadata are provided by <a href="https://en.wikipedia.org" target="_blank" rel="noopener noreferrer">Wikipedia</a> (CC BY-SA) and <a href="https://www.wikidata.org" target="_blank" rel="noopener noreferrer">Wikidata</a> (CC0 Public Domain).</li>
-          </ul>
         </div>
       </div>
     </section>
@@ -1020,7 +1054,7 @@
   </nav>
 
   <script src="/consent-ui.js?v=20261123h" defer></script>
-  <script src="/app.js?v=20261123i"></script>
+  <script src="/app.js?v=20261123j"></script>
 </body>
 
 </html>

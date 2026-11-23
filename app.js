@@ -646,33 +646,204 @@ function renderPosterArtHtml(item) {
   return renderEditorialPosterFallbackHtml(item);
 }
 
-function renderHero(item) {
-  if (!item) return;
-  state.currentHero = item;
+const EDITORS_SPOTLIGHT_PICKS = [
+  {
+    id: 'wp-dune-part-two',
+    media_type: 'movie',
+    source: 'WatchPulse Curated',
+    title: 'Dune: Part Two',
+    year: '2024',
+    rating: 9.2,
+    runtime: 166,
+    director: 'Denis Villeneuve',
+    genres: ['Sci-Fi', 'Action'],
+    platforms: ['HBO Max', 'Prime Video', 'Apple TV+'],
+    trailer_id: 'Way9Dexny3w',
+    guide_url: '/dune-part-two-sci-fi-epics-review',
+    guide_title: 'Dune: Part Two & Modern Sci-Fi Epics Review',
+    editorial_note: "WatchPulse Pick: Denis Villeneuve's desert epic stands out at home for its tactile world-building, monochrome Giedi Prime photography, and thunderous Hans Zimmer sound mix—worth watching with dialogue clarity tuned.",
+    overview: "Paul Atreides unites with Chani and the Fremen while on a warpath of revenge against the conspirators who destroyed his family."
+  },
+  {
+    id: 'wp-oppenheimer',
+    media_type: 'movie',
+    source: 'WatchPulse Curated',
+    title: 'Oppenheimer',
+    year: '2023',
+    rating: 9.0,
+    runtime: 180,
+    director: 'Christopher Nolan',
+    genres: ['Drama', 'History'],
+    platforms: ['Prime Video', 'Apple TV+'],
+    trailer_id: 'uYPbbksJxIg',
+    guide_url: '/oppenheimer-interstellar-nolan-guide',
+    guide_title: 'Christopher Nolan Cinema Guide',
+    editorial_note: "WatchPulse Pick: Shot on 65mm IMAX film and propelled by Ludwig Göransson's relentless violin score, Nolan turns a three-hour historical biography into a palm-sweating psychological thriller.",
+    overview: "The story of American scientist J. Robert Oppenheimer and his role in the development of the atomic bomb during World War II."
+  },
+  {
+    id: 'wp-the-wild-robot',
+    media_type: 'movie',
+    source: 'WatchPulse Curated',
+    title: 'The Wild Robot',
+    year: '2024',
+    rating: 8.9,
+    runtime: 102,
+    director: 'Chris Sanders',
+    genres: ['Animation', 'Family'],
+    platforms: ['Prime Video', 'Apple TV+', 'Netflix'],
+    trailer_id: '67vbA5ZJdKQ',
+    guide_url: '/the-wild-robot-family-animation-guide',
+    guide_title: 'The Wild Robot & Modern Animation Guide',
+    editorial_note: "WatchPulse Pick: Hand-painted impressionist backgrounds meet soaring emotional storytelling—an unforgettable all-ages triumph that rivals The Iron Giant and WALL-E.",
+    overview: "After a shipwreck, an intelligent robot called Roz is stranded on an uninhabited island and must learn to adapt to the harsh surroundings and become the adoptive parent of an orphaned gosling."
+  },
+  {
+    id: 'wp-interstellar',
+    media_type: 'movie',
+    source: 'WatchPulse Curated',
+    title: 'Interstellar',
+    year: '2014',
+    rating: 9.1,
+    runtime: 169,
+    director: 'Christopher Nolan',
+    genres: ['Sci-Fi', 'Drama'],
+    platforms: ['Prime Video', 'Netflix', 'Apple TV+'],
+    trailer_id: 'zSWdZVtXT7E',
+    guide_url: '/oppenheimer-interstellar-nolan-guide',
+    guide_title: 'Christopher Nolan Cinema Guide',
+    editorial_note: "WatchPulse Pick: A towering blend of hard relativistic astrophysics and raw father-daughter emotion, anchored by Hans Zimmer's cathedral organ score and Hoyte van Hoytema's 70mm vistas.",
+    overview: "When Earth becomes uninhabitable in the future, a farmer and ex-NASA pilot, Joseph Cooper, is tasked to pilot a spacecraft, along with a team of researchers, to find a new planet for humankind."
+  },
+  {
+    id: 'wp-arrival',
+    media_type: 'movie',
+    source: 'WatchPulse Curated',
+    title: 'Arrival',
+    year: '2016',
+    rating: 8.7,
+    runtime: 116,
+    director: 'Denis Villeneuve',
+    genres: ['Sci-Fi', 'Thriller'],
+    platforms: ['Prime Video', 'Apple TV+'],
+    trailer_id: 'tFMo3UJ4B4g',
+    guide_url: '/mind-bending-sci-fi-thrillers-guide',
+    guide_title: 'Mind-Bending Sci-Fi Thrillers Guide',
+    editorial_note: "WatchPulse Pick: Smart, deeply moving first-contact cinema that replaces laser battles with linguistics, memory, and one of the finest twist structures of the 21st century.",
+    overview: "A linguist works with the military to communicate with alien lifeforms after twelve mysterious spacecraft appear around the world."
+  }
+];
+
+let currentSpotlightPicks = [...EDITORS_SPOTLIGHT_PICKS];
+
+function syncSpotlightWithTrending(trendingPool) {
+  const verifiedTrending = (Array.isArray(trendingPool) ? trendingPool : []).filter(item =>
+    item && item.title && (getTrailerIdForItem(item) || (item.poster && item.source === 'WatchPulse Curated'))
+  );
+
+  const picked = [];
+  const seen = new Set();
+  const pushUnique = (it) => {
+    if (!it || !it.title) return;
+    const key = normalizeForFuzzy(it.title);
+    if (!key || seen.has(key)) return;
+    seen.add(key);
+    picked.push(it);
+  };
+
+  verifiedTrending.slice(0, 5).forEach(pushUnique);
+  EDITORS_SPOTLIGHT_PICKS.forEach(p => {
+    if (picked.length < 5) pushUnique(p);
+  });
+
+  currentSpotlightPicks = picked.slice(0, 5);
+
+  const tabsWrap = document.getElementById('heroSpotlightTabs');
+  if (tabsWrap && currentSpotlightPicks.length) {
+    tabsWrap.innerHTML = currentSpotlightPicks.map((it, idx) => {
+      const shortTitle = it.title.length > 22 ? `${it.title.slice(0, 20).trim()}…` : it.title;
+      return `<button type="button" class="hero-spot-tab ${idx === 0 ? 'active' : ''}" data-spot-idx="${idx}" role="tab" aria-selected="${idx === 0 ? 'true' : 'false'}">0${idx + 1} &middot; ${escapeHtml(shortTitle)}</button>`;
+    }).join('');
+
+    tabsWrap.querySelectorAll('.hero-spot-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        const idx = Number(tab.dataset.spotIdx) || 0;
+        tabsWrap.querySelectorAll('.hero-spot-tab').forEach(t => {
+          const isMatch = t === tab;
+          t.classList.toggle('active', isMatch);
+          t.setAttribute('aria-selected', isMatch ? 'true' : 'false');
+        });
+        renderHero(currentSpotlightPicks[idx] || currentSpotlightPicks[0], idx + 1);
+      });
+    });
+  }
+
+  renderHero(currentSpotlightPicks[0], 1);
+}
+
+function renderHero(item, rankNum = 1) {
+  const target = item || currentSpotlightPicks[0] || EDITORS_SPOTLIGHT_PICKS[0];
+  if (!target) return;
+  // Merge with full curated catalog entry if available so cast & details modal are complete
+  const fullCurated = state.curatedMovies.find(m => m.id === target.id || normalizeForFuzzy(m.title) === normalizeForFuzzy(target.title));
+  const resolved = fullCurated ? { ...fullCurated, ...target, cast: (fullCurated.cast && fullCurated.cast.length) ? fullCurated.cast : (target.cast || []) } : target;
+  state.currentHero = resolved;
+
+  const badgeEl = document.querySelector('#heroSection .hero-badge');
+  if (badgeEl) {
+    badgeEl.textContent = rankNum === 1 ? '#1 TRENDING SPOTLIGHT' : `TRENDING SPOTLIGHT #${rankNum}`;
+  }
+
+  const tid = getTrailerIdForItem(resolved);
+  const thumbFallback = getThumbUrlForItem(resolved) || resolved.backdrop || resolved.poster || '';
   if (els.heroBackdrop) {
-    const tid = getTrailerIdForItem(item);
-    const hasCustomBackdrop = Boolean(item.backdrop && !item.backdrop.includes('i.ytimg.com'));
-    if (hasCustomBackdrop) {
-      els.heroBackdrop.style.backgroundImage = `url('${item.backdrop}')`;
-    } else if (tid) {
+    if (tid) {
       els.heroBackdrop.style.backgroundImage = getYtBackdropCss(tid);
+    } else if (thumbFallback) {
+      els.heroBackdrop.style.backgroundImage = `url('${thumbFallback}')`;
     } else {
-      const bg = item.backdrop || getThumbUrlForItem(item);
-      els.heroBackdrop.style.backgroundImage = bg
-        ? `url('${bg}')`
-        : 'linear-gradient(135deg, #2B1B5C 0%, #14131D 55%, #0C0B12 100%)';
+      els.heroBackdrop.style.backgroundImage = 'linear-gradient(135deg, #2B1B5C 0%, #14131D 55%, #0C0B12 100%)';
     }
   }
-  if (els.heroTitle) els.heroTitle.textContent = item.title;
-  if (els.heroRating) els.heroRating.textContent = `Rating ${item.rating}`;
-  if (els.heroYear) els.heroYear.textContent = item.year;
-  if (els.heroGenre) els.heroGenre.textContent = (item.genres || []).slice(0, 2).join(' / ');
-  if (els.heroDuration) {
-    els.heroDuration.textContent = item.media_type === 'tv'
-      ? (item.platforms[0] || 'TV Series')
-      : (item.runtime ? `${item.runtime} min` : 'Feature Film');
+  if (els.heroTitle) els.heroTitle.textContent = resolved.title;
+  if (els.heroRating) {
+    const rNum = Number(resolved.rating);
+    els.heroRating.innerHTML = (!Number.isNaN(rNum) && rNum > 0)
+      ? `&#9733; ${rNum.toFixed(1)}`
+      : `&#9733; Trending`;
   }
-  if (els.heroOverview) els.heroOverview.textContent = item.editorial_note || item.overview;
+  if (els.heroYear) els.heroYear.textContent = resolved.year || '2026';
+  if (els.heroGenre) els.heroGenre.textContent = (resolved.genres || ['Cinema']).slice(0, 2).join(' / ');
+  if (els.heroDuration) {
+    els.heroDuration.textContent = resolved.media_type === 'tv'
+      ? ((resolved.platforms && resolved.platforms[0]) || 'TV Series')
+      : (resolved.runtime ? `${resolved.runtime} min` : 'Feature Film');
+  }
+  const heroDirectorEl = document.getElementById('heroDirector');
+  if (heroDirectorEl) {
+    heroDirectorEl.textContent = resolved.director
+      ? `Dir. ${resolved.director}`
+      : (resolved.platforms && resolved.platforms[0] ? resolved.platforms[0] : 'WatchPulse Verified');
+  }
+  if (els.heroOverview) els.heroOverview.textContent = resolved.editorial_note || resolved.overview;
+
+  const heroPreviewImg = document.getElementById('heroPreviewImg');
+  const heroPreviewCardBtn = document.getElementById('heroPreviewCardBtn');
+  if (heroPreviewImg) {
+    heroPreviewImg.dataset.triedMq = '';
+    heroPreviewImg.onerror = () => {
+      if (tid && !heroPreviewImg.dataset.triedMq) {
+        heroPreviewImg.dataset.triedMq = '1';
+        heroPreviewImg.src = getYtThumbUrl(tid, 'mqdefault');
+      }
+    };
+    heroPreviewImg.src = tid ? getYtThumbUrl(tid, 'maxresdefault') : thumbFallback;
+    heroPreviewImg.alt = `${resolved.title} Official Trailer Frame`;
+  }
+  if (heroPreviewCardBtn) {
+    heroPreviewCardBtn.setAttribute('aria-label', `Play official trailer for ${resolved.title}`);
+  }
+
   updateHeroWatchlistBtn();
 }
 
@@ -1437,7 +1608,7 @@ function applyLocalFiltersAndRender() {
       renderCardListIntoGrid(els.moreMoviesGrid, moreVisibleItems, { showTrendingRank: false });
     }
 
-    if (trendingItems.length && !state.searchQuery) renderHero(trendingItems[0]);
+    syncSpotlightWithTrending(trendingItems);
     if (els.loadMoreBtn) els.loadMoreBtn.classList.add('hidden');
     hidePaginationBar();
     return;
@@ -1450,7 +1621,7 @@ function applyLocalFiltersAndRender() {
       ? `Showing 1\u2013${visibleItems.length} of ${filtered.length} titles`
       : 'Showing 0 titles';
   }
-  if (visibleItems.length && !state.searchQuery) renderHero(visibleItems[0]);
+  if (!state.searchQuery && visibleItems.length) syncSpotlightWithTrending(visibleItems);
   if (els.loadMoreBtn) els.loadMoreBtn.classList.add('hidden');
   hidePaginationBar();
 }
@@ -2514,6 +2685,26 @@ function setupEventListeners() {
   if (els.heroTrailerBtn) els.heroTrailerBtn.addEventListener('click', () => openTrailerForItem(state.currentHero));
   if (els.heroDetailsBtn) els.heroDetailsBtn.addEventListener('click', () => { if (state.currentHero) openMovieModal(state.currentHero); });
   if (els.heroWatchlistBtn) els.heroWatchlistBtn.addEventListener('click', () => { if (state.currentHero) toggleWatchlist(state.currentHero); });
+
+  const heroPreviewCardBtn = document.getElementById('heroPreviewCardBtn');
+  if (heroPreviewCardBtn) {
+    heroPreviewCardBtn.addEventListener('click', () => openTrailerForItem(state.currentHero));
+  }
+
+  const heroSpotlightTabs = document.getElementById('heroSpotlightTabs');
+  if (heroSpotlightTabs) {
+    heroSpotlightTabs.querySelectorAll('.hero-spot-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        const idx = Number(tab.dataset.spotIdx) || 0;
+        heroSpotlightTabs.querySelectorAll('.hero-spot-tab').forEach(t => {
+          const isMatch = t === tab;
+          t.classList.toggle('active', isMatch);
+          t.setAttribute('aria-selected', isMatch ? 'true' : 'false');
+        });
+        renderHero(EDITORS_SPOTLIGHT_PICKS[idx] || EDITORS_SPOTLIGHT_PICKS[0]);
+      });
+    });
+  }
 
   if (els.modalCloseBtn) els.modalCloseBtn.addEventListener('click', closeMovieModal);
   if (els.movieModal) els.movieModal.addEventListener('click', (e) => { if (e.target === els.movieModal) closeMovieModal(); });

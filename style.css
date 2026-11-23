@@ -5151,7 +5151,48 @@ html[data-theme="light"] .guide-preview-card:hover {
   .movies-grid.more-grid-5,
   .movies-grid.has-trailer-thumbs {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 14px;
+    gap: 12px;
+  }
+
+  .movie-card:active {
+    transform: scale(0.98);
+  }
+
+  .card-poster-wrap .card-bookmark-btn {
+    width: 28px;
+    height: 28px;
+    top: 7px;
+    left: 7px;
+    border-radius: 7px;
+  }
+
+  .card-poster-wrap .trending-rank-badge,
+  .card-poster-wrap .editors-pick-badge,
+  .card-poster-wrap .card-format-badge {
+    top: 7px;
+    right: 7px;
+    font-size: 0.62rem;
+    padding: 2px 6px;
+  }
+
+  .card-poster-bottom-bar {
+    padding: 18px 8px 6px;
+    gap: 4px;
+  }
+
+  .card-poster-pills {
+    gap: 4px;
+    flex-wrap: nowrap;
+    overflow: hidden;
+  }
+
+  .card-body {
+    padding: 10px 10px 12px;
+  }
+
+  .card-title {
+    font-size: 0.88rem;
+    line-height: 1.25;
   }
 
   .focus-guides-grid {

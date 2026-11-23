@@ -844,6 +844,16 @@ function renderHero(item, rankNum = 1) {
     heroPreviewCardBtn.setAttribute('aria-label', `Play official trailer for ${resolved.title}`);
   }
 
+  // Trigger crisp editorial crossfade when switching tabs
+  const heroContentEl = document.querySelector('#heroSection .hero-content');
+  if (heroContentEl && heroPreviewCardBtn) {
+    [heroContentEl, heroPreviewCardBtn].forEach(el => {
+      el.classList.remove('is-switching');
+      void el.offsetWidth;
+      el.classList.add('is-switching');
+    });
+  }
+
   updateHeroWatchlistBtn();
 }
 
@@ -997,7 +1007,7 @@ function renderCardListIntoGrid(gridEl, items, options = {}) {
       : `<span class="card-quick-details-pill">${infoSvg}<span>Details</span></span>`;
 
     return `
-      <article class="movie-card" style="--card-idx: ${Math.min(idx, 15)};" data-id="${escapeHtml(item.id)}" tabindex="0" role="button" aria-label="Open details for ${escapeHtml(item.title)}">
+      <article class="movie-card" style="--card-col: ${idx % 4};" data-id="${escapeHtml(item.id)}" tabindex="0" role="button" aria-label="Open details for ${escapeHtml(item.title)}">
         <div class="card-poster-wrap is-trailer-thumb">
           ${renderPosterArtHtml(item)}
           ${badgeHtml}
@@ -1094,6 +1104,43 @@ function renderCardListIntoGrid(gridEl, items, options = {}) {
           if (backdropImg) backdropImg.classList.add('is-active');
         }
       });
+    }
+  });
+
+  observeMovieCardsWave(gridEl);
+}
+
+let cardWaveObserver = null;
+function observeMovieCardsWave(gridEl) {
+  if (!gridEl) return;
+  const cards = Array.from(gridEl.querySelectorAll('.movie-card'));
+  if (!cards.length) return;
+
+  const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReduced || typeof IntersectionObserver === 'undefined') {
+    return;
+  }
+
+  if (!cardWaveObserver) {
+    cardWaveObserver = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.remove('card-wave-ready');
+          entry.target.classList.add('card-wave-in');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.04, rootMargin: '0px 0px -16px 0px' });
+  }
+
+  const vh = window.innerHeight || 900;
+  cards.forEach(card => {
+    const rect = card.getBoundingClientRect();
+    if (rect.top < vh * 0.96) {
+      card.classList.add('card-wave-in');
+    } else {
+      card.classList.add('card-wave-ready');
+      cardWaveObserver.observe(card);
     }
   });
 }
@@ -2977,8 +3024,47 @@ async function initApp() {
 }
 
 function initScrollRevealAnimations() {
-  if (typeof IntersectionObserver === 'undefined') return;
-  const targets = document.querySelectorAll('.focus-guides-section, .watchlist-strip, .hero-section, .seo-content-section, .focus-guide-card');
+  // 1. Sticky Navbar Scrolled State + Fallback Scroll Progress Hairline (passive rAF)
+  const navbarEl = document.querySelector('.navbar');
+  const supportsCssScrollTimeline = typeof CSS !== 'undefined' && CSS.supports && CSS.supports('animation-timeline', 'scroll()');
+  if (navbarEl) {
+    let scrollTicking = false;
+    const updateScrollState = () => {
+      scrollTicking = false;
+      const y = window.scrollY || window.pageYOffset || 0;
+      navbarEl.classList.toggle('is-scrolled', y > 24);
+      if (!supportsCssScrollTimeline) {
+        const docH = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+        navbarEl.style.setProperty('--wp-scroll-progress', String(Math.min(1, Math.max(0, y / docH))));
+      }
+    };
+    window.addEventListener('scroll', () => {
+      if (!scrollTicking) {
+        scrollTicking = true;
+        window.requestAnimationFrame(updateScrollState);
+      }
+    }, { passive: true });
+    updateScrollState();
+  }
+
+  // 2. Below-the-Fold Scroll Choreography (Zero LCP Penalty, GPU-Only)
+  const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReduced || typeof IntersectionObserver === 'undefined') return;
+
+  // Assign clean rhythmic column stagger indices
+  document.querySelectorAll('.focus-guide-card').forEach((card, i) => {
+    card.style.setProperty('--stagger-idx', String(i % 3));
+  });
+  document.querySelectorAll('.seo-keyword-box').forEach((box, i) => {
+    box.style.setProperty('--stagger-idx', String(i % 3));
+  });
+  const seoFaqEl = document.querySelector('.seo-faq');
+  if (seoFaqEl) seoFaqEl.style.setProperty('--stagger-idx', '1');
+
+  const targets = document.querySelectorAll(
+    '.focus-guides-section, .focus-guide-card, .watchlist-strip, .hero-section, .hero-preview-col, .seo-content-section, .seo-intro-col, .seo-faq, .seo-keyword-box, .app-footer'
+  );
+
   const observer = new IntersectionObserver((entries, obs) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -2986,11 +3072,12 @@ function initScrollRevealAnimations() {
         obs.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+  }, { threshold: 0.06, rootMargin: '0px 0px -24px 0px' });
 
+  const vh = window.innerHeight || 900;
   targets.forEach(el => {
     const rect = el.getBoundingClientRect();
-    if (rect.top > window.innerHeight * 0.92) {
+    if (rect.top > vh * 0.94) {
       el.classList.add('reveal-on-scroll');
       observer.observe(el);
     }

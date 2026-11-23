@@ -4013,10 +4013,10 @@ html[data-theme="light"] .similar-chip-rating {
 }
 
 .page-container {
-  max-width: 1180px;
+  max-width: 1840px;
   width: 100%;
-  margin: 32px auto 64px;
-  padding: 0 24px;
+  margin: 28px auto 64px;
+  padding: 0 clamp(20px, 2.2vw, 40px);
 }
 
 .breadcrumb-nav {
@@ -4033,14 +4033,14 @@ html[data-theme="light"] .similar-chip-rating {
 .legal-card {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 36px 40px;
+  border-radius: 18px;
+  padding: clamp(24px, 2.8vw, 42px);
   box-shadow: var(--shadow-card);
 }
 
 .legal-card h1 {
-  font-size: 2rem;
-  font-weight: 700;
+  font-size: clamp(1.7rem, 2.4vw, 2.25rem);
+  font-weight: 800;
   letter-spacing: -0.025em;
   color: var(--text);
   margin: 10px 0 8px;
@@ -4053,10 +4053,10 @@ html[data-theme="light"] .similar-chip-rating {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--muted);
-  background: rgba(255, 255, 255, 0.04);
+  color: var(--eyebrow);
+  background: var(--card-inset-bg);
   border: 1px solid var(--border);
-  padding: 3px 10px;
+  padding: 4px 11px;
   border-radius: 6px;
 }
 
@@ -4069,15 +4069,15 @@ html[data-theme="light"] .similar-chip-rating {
 }
 
 .legal-section {
-  margin-bottom: 28px;
+  margin-bottom: 34px;
 }
 
 .legal-section h2 {
-  font-size: 1.24rem;
+  font-size: 1.32rem;
   font-weight: 700;
   letter-spacing: -0.015em;
   color: var(--text);
-  margin-bottom: 12px;
+  margin-bottom: 16px;
 }
 
 .legal-section p,
@@ -4086,35 +4086,87 @@ html[data-theme="light"] .similar-chip-rating {
   line-height: 1.72;
   margin-bottom: 12px;
   font-size: 0.94rem;
+  max-width: 960px;
+}
+
+/* Edge-to-Edge Widescreen Editorial Guides Grid (4-Col Desktop -> 3-Col -> 2-Col -> 1-Col) */
+.editorial-guides-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+}
+
+@media (max-width: 1400px) {
+  .editorial-guides-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 960px) {
+  .editorial-guides-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .editorial-guides-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .guide-preview-card {
   position: relative;
   overflow: hidden;
-  background: #0D0D11;
+  background: var(--card-inset-bg);
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: 14px;
   padding: 18px;
   display: flex;
   flex-direction: column;
   gap: 8px;
   cursor: pointer;
-  transition: var(--transition);
+  background-clip: padding-box;
+  isolation: isolate;
+  transition: transform 0.24s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.22s ease, box-shadow 0.24s ease, background 0.22s ease;
 }
 
 .guide-preview-card:hover {
-  border-color: rgba(255, 255, 255, 0.22);
+  border-color: var(--accent-2);
   background: var(--surface-elevated);
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-card);
+}
+
+html[data-theme="light"] .guide-preview-card {
+  background: #FFFFFF;
+  border-color: rgba(19, 17, 28, 0.07);
+  box-shadow: 0 2px 10px rgba(19, 17, 28, 0.04);
+}
+
+html[data-theme="light"] .guide-preview-card:hover {
+  background: #FFFFFF;
+  border-color: rgba(109, 40, 217, 0.28);
+  box-shadow: 0 12px 28px rgba(19, 17, 28, 0.09);
+}
+
+.guide-preview-card p {
+  font-size: 0.84rem;
+  line-height: 1.58;
+  margin-bottom: 6px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .guide-card-cover {
   position: relative;
-  margin: -18px -18px 8px -18px;
+  margin: -18px -18px 10px -18px;
   width: calc(100% + 36px);
-  height: 148px;
+  aspect-ratio: 16 / 9;
+  height: auto;
   overflow: hidden;
-  background: var(--selected-bg);
+  background: #141220;
   flex-shrink: 0;
 }
 
@@ -4122,7 +4174,7 @@ html[data-theme="light"] .similar-chip-rating {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(12, 11, 18, 0.06) 0%, rgba(12, 11, 18, 0.7) 100%);
+  background: linear-gradient(180deg, rgba(12, 11, 18, 0.04) 0%, rgba(12, 11, 18, 0.62) 100%);
   pointer-events: none;
 }
 
@@ -4132,12 +4184,12 @@ html[data-theme="light"] .similar-chip-rating {
   object-fit: cover;
   object-position: center;
   display: block;
-  transform: scale(1.18);
-  transition: transform 0.35s ease;
+  transform: scale(1.06);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .guide-preview-card:hover .guide-card-img {
-  transform: scale(1.24);
+  transform: scale(1.12);
 }
 
 .guide-category-tag {

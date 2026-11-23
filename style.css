@@ -1953,9 +1953,9 @@ html[data-theme="light"] .skeleton-card .card-poster-wrap {
   top: 10px;
   right: 10px;
   z-index: 3;
-  background: rgba(9, 9, 11, 0.88);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  color: var(--text);
+  background: rgba(12, 10, 22, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  color: #FFFFFF;
   font-size: 0.68rem;
   font-weight: 600;
   padding: 3px 8px;
@@ -1969,9 +1969,9 @@ html[data-theme="light"] .skeleton-card .card-poster-wrap {
   top: 10px;
   right: 10px;
   z-index: 3;
-  background: rgba(9, 9, 11, 0.88);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  color: var(--text);
+  background: rgba(12, 10, 22, 0.86);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #F4F3FA;
   font-size: 0.69rem;
   font-weight: 600;
   font-variant-numeric: tabular-nums;
@@ -1983,9 +1983,9 @@ html[data-theme="light"] .skeleton-card .card-poster-wrap {
 }
 
 .trending-rank-badge.rank-top {
-  background: rgba(9, 9, 11, 0.92);
-  border-color: rgba(167, 139, 250, 0.45);
-  color: var(--accent-3);
+  background: rgba(124, 58, 237, 0.92);
+  border-color: rgba(221, 214, 254, 0.45);
+  color: #FFFFFF;
 }
 
 .card-bookmark-btn {
@@ -1996,21 +1996,22 @@ html[data-theme="light"] .skeleton-card .card-poster-wrap {
   width: 32px;
   height: 32px;
   border-radius: 8px;
-  background: rgba(9, 9, 11, 0.82);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  color: var(--text);
+  background: rgba(12, 10, 22, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  color: #FFFFFF;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  opacity: 0.92;
+  opacity: 0.94;
   transition: var(--transition);
   backdrop-filter: blur(6px);
 }
 
 .card-bookmark-btn:hover {
-  border-color: rgba(255, 255, 255, 0.35);
-  background: rgba(18, 18, 22, 0.95);
+  border-color: rgba(255, 255, 255, 0.45);
+  background: rgba(22, 18, 36, 0.95);
+  color: #FFFFFF;
   opacity: 1;
 }
 

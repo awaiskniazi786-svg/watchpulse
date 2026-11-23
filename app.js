@@ -829,7 +829,7 @@ function renderCardListIntoGrid(gridEl, items, options = {}) {
     const playSvg = `<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>`;
 
     return `
-      <article class="movie-card" data-id="${escapeHtml(item.id)}" tabindex="0" role="button" aria-label="Open details for ${escapeHtml(item.title)}">
+      <article class="movie-card" style="--card-idx: ${Math.min(idx, 15)};" data-id="${escapeHtml(item.id)}" tabindex="0" role="button" aria-label="Open details for ${escapeHtml(item.title)}">
         <div class="card-poster-wrap ${isYtCard ? 'is-trailer-thumb' : ''}">
           ${renderPosterArtHtml(item)}
           ${badgeHtml}
@@ -2757,6 +2757,28 @@ async function initApp() {
 
   // Auto-sync live daily global & multi-language trending movies in background
   syncLiveTrendingMovies();
+  initScrollRevealAnimations();
+}
+
+function initScrollRevealAnimations() {
+  if (typeof IntersectionObserver === 'undefined') return;
+  const targets = document.querySelectorAll('.focus-guides-section, .watchlist-strip, .hero-section, .seo-content-section, .focus-guide-card');
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+
+  targets.forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top > window.innerHeight * 0.92) {
+      el.classList.add('reveal-on-scroll');
+      observer.observe(el);
+    }
+  });
 }
 
 document.addEventListener('DOMContentLoaded', initApp);

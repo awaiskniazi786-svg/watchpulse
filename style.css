@@ -148,16 +148,49 @@ textarea {
 }
 
 .brand-pulse-mark {
-  width: 34px;
-  height: 34px;
-  border-radius: 10px;
-  background: linear-gradient(135deg, rgba(124, 58, 237, 0.28), rgba(167, 139, 250, 0.12));
-  border: 1px solid rgba(167, 139, 250, 0.38);
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+  background: linear-gradient(145deg, #241748 0%, #131022 60%, #0C0A14 100%);
+  border: 1px solid rgba(196, 181, 253, 0.42);
   color: var(--accent-3);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 16px rgba(124, 58, 237, 0.28);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 6px 18px rgba(124, 58, 237, 0.36);
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+.brand:hover .brand-pulse-mark,
+.logo:hover .brand-pulse-mark {
+  transform: scale(1.06) rotate(-2deg);
+  border-color: rgba(196, 181, 253, 0.78);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    0 8px 24px rgba(124, 58, 237, 0.55);
+}
+
+.wp-pulse-trace {
+  stroke-dasharray: 90;
+  stroke-dashoffset: 0;
+  filter: drop-shadow(0 0 4px rgba(167, 139, 250, 0.8));
+  animation: wpPulseGlow 3.6s ease-in-out infinite;
+}
+
+@keyframes wpPulseGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 3px rgba(167, 139, 250, 0.65));
+    opacity: 0.92;
+  }
+  50% {
+    filter: drop-shadow(0 0 7px rgba(125, 211, 252, 0.95));
+    opacity: 1;
+  }
 }
 
 .brand-name {
@@ -3988,4 +4021,196 @@ textarea {
   .legal-card h1 {
     font-size: 1.65rem;
   }
+}
+
+/* ==========================================================================
+   Option A: Apple TV+ / Linear Cinema Motion System (GPU-Accelerated)
+   ========================================================================== */
+
+/* 1. Breathing Live Dot & Hero Ambient Aurora */
+.focus-live-dot {
+  animation: liveDotPulse 2.4s ease-in-out infinite;
+}
+
+@keyframes liveDotPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 8px #A78BFA, 0 0 0 0 rgba(167, 139, 250, 0.55);
+  }
+  50% {
+    transform: scale(1.18);
+    box-shadow: 0 0 14px #DDD6FE, 0 0 0 6px rgba(167, 139, 250, 0);
+  }
+}
+
+.focus-quiz-card::before {
+  content: "";
+  position: absolute;
+  top: -35%;
+  right: -10%;
+  width: 440px;
+  height: 440px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.2) 0%, rgba(56, 189, 248, 0.06) 45%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+  animation: heroAuroraDrift 12s ease-in-out infinite alternate;
+}
+
+.focus-quiz-left,
+.focus-quiz-right {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes heroAuroraDrift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  100% {
+    transform: translate3d(-36px, 22px, 0) scale(1.12);
+  }
+}
+
+/* 2. Spring Pop on Hero Option Selection & Primary CTA Sheen */
+.focus-opt-card.selected .focus-opt-check {
+  animation: checkSpringPop 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.focus-opt-card.selected .focus-opt-icon {
+  animation: iconSpringPop 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes checkSpringPop {
+  0% { transform: scale(0.4); opacity: 0.4; }
+  65% { transform: scale(1.18); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes iconSpringPop {
+  0% { transform: scale(0.86); }
+  60% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+.focus-primary-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.focus-primary-btn::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 65%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.24), transparent);
+  transform: skewX(-22deg);
+  animation: ctaLightSweep 5.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.focus-primary-btn svg {
+  transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.focus-primary-btn:hover svg {
+  transform: translateX(4px);
+}
+
+@keyframes ctaLightSweep {
+  0%, 72% { left: -120%; }
+  100% { left: 160%; }
+}
+
+/* 3. Staggered Cascade Entrance for Movie & TV Cards */
+.movie-card {
+  animation: cardCascadeIn 0.48s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(var(--card-idx, 0) * 38ms);
+}
+
+@keyframes cardCascadeIn {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0) scale(0.975);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+/* 4. Trailer Play Ripple & Shimmer Skeleton Loader */
+.movie-card:hover .curated-thumb-play {
+  box-shadow: 0 0 0 0 rgba(167, 139, 250, 0.7);
+  animation: trailerPlayRipple 1.6s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+@keyframes trailerPlayRipple {
+  0% {
+    box-shadow: 0 0 0 0 rgba(167, 139, 250, 0.72);
+  }
+  75% {
+    box-shadow: 0 0 0 14px rgba(167, 139, 250, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(167, 139, 250, 0);
+  }
+}
+
+.skeleton-card .card-poster-wrap {
+  background: linear-gradient(110deg, rgba(26, 24, 38, 0.75) 25%, rgba(64, 48, 108, 0.38) 50%, rgba(26, 24, 38, 0.75) 75%) !important;
+  background-size: 220% 100% !important;
+  animation: skeletonWave 1.5s linear infinite;
+}
+
+@keyframes skeletonWave {
+  0% { background-position: 200% 0; }
+  100% { background-position: -20% 0; }
+}
+
+/* 5. Watchlist Bookmark Elastic Bounce & Badge Pop */
+.card-bookmark-btn.active {
+  animation: bookmarkBounce 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes bookmarkBounce {
+  0% { transform: scale(0.75); }
+  55% { transform: scale(1.24); }
+  100% { transform: scale(1); }
+}
+
+.badge-pop {
+  animation: bookmarkBounce 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 6. Modal Cinema Curtain Spring Entrance */
+.modal-backdrop:not(.hidden) .modal-card,
+.modal-backdrop:not(.hidden) .quiz-card,
+.trailer-modal-backdrop:not(.hidden) .trailer-container {
+  animation: modalSpringIn 0.34s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes modalSpringIn {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 16px, 0) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+/* 7. Scroll-Reveal for Below-the-Fold Sections */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translate3d(0, 22px, 0);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
 }

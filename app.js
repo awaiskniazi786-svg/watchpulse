@@ -2781,6 +2781,8 @@ function setupEventListeners() {
     const backBtn = document.getElementById('heroQuizBackBtn');
     const continueBtn = els.heroQuizContinueBtn;
     const continueTextEl = document.getElementById('heroQuizContinueText');
+    const shareBtn = document.getElementById('heroQuizShareBtn');
+    const shareTextEl = document.getElementById('heroQuizShareText');
     const resetBtn = document.getElementById('heroQuizResetBtn');
     const quickPickBtn = els.compassQuickPickBtn;
     const quickPickTextEl = document.getElementById('compassQuickPickText');
@@ -2930,6 +2932,7 @@ function setupEventListeners() {
       }
 
       if (backBtn) backBtn.classList.toggle('hidden', s === 1);
+      if (shareBtn) shareBtn.classList.toggle('hidden', s !== 4);
       if (resetBtn) resetBtn.classList.toggle('hidden', s !== 4);
       if (quickPickBtn) quickPickBtn.classList.toggle('hidden', s === 4);
 
@@ -2988,6 +2991,29 @@ function setupEventListeners() {
 
     if (resetBtn) {
       resetBtn.addEventListener('click', () => setHeroStep(1));
+    }
+
+    if (shareBtn) {
+      shareBtn.addEventListener('click', async () => {
+        const list = heroFinderState.scored;
+        if (!list.length) return;
+        const start = heroFinderState.offset % Math.max(1, list.length);
+        const titles = [];
+        for (let i = 0; i < Math.min(3, list.length); i++) {
+          titles.push(list[(start + i) % list.length].title);
+        }
+        const shareMsg = `WatchPulse picked ${titles.join(', ')} for our ${companyLabels[heroFinderState.company]} (${moodLabels[heroFinderState.mood]}) movie night. Try the 30-second picker: https://watchpulse.online/`;
+        try {
+          if (navigator.share) {
+            await navigator.share({ title: 'My WatchPulse Movie Picks', text: shareMsg, url: 'https://watchpulse.online/' });
+          } else if (navigator.clipboard) {
+            await navigator.clipboard.writeText(shareMsg);
+            if (shareTextEl) shareTextEl.textContent = 'Copied to share!';
+            setTimeout(() => { if (shareTextEl) shareTextEl.textContent = 'Share my 3 picks'; }, 2200);
+          }
+          trackEvent('watchpulse_share_match', { company: heroFinderState.company, mood: heroFinderState.mood });
+        } catch (_) {}
+      });
     }
 
     if (progressBarEl) {

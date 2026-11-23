@@ -154,7 +154,7 @@
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5022914500809430"
     crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="/style.css?v=20261123l">
+  <link rel="stylesheet" href="/style.css?v=20261123m">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
@@ -824,70 +824,93 @@
     </section>
   </main>
 
-  <!-- Movie Details Modal -->
-  <div id="movieModal" class="modal-backdrop hidden">
+  <!-- Movie Details Modal (Upgraded Cinema Hero + 2-Column Specs & Synopsis Sheet) -->
+  <div id="movieModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <div class="modal-card">
       <button type="button" id="modalCloseBtn" class="modal-close" aria-label="Close details">&times;</button>
-      <div class="modal-backdrop-img" id="modalBackdrop"></div>
 
-      <div class="modal-body">
-        <div class="modal-poster-col">
-          <img id="modalPoster" src="" alt="Movie Poster" class="modal-poster-img">
-        </div>
-        <div class="modal-info-col">
+      <div class="modal-hero-header">
+        <div class="modal-backdrop-img" id="modalBackdrop"></div>
+        <div class="modal-hero-scrim"></div>
+        <div class="modal-hero-content">
           <h2 id="modalTitle" class="modal-title"></h2>
           <div class="modal-meta">
             <span id="modalRating" class="rating-pill"></span>
-            <span id="modalYear"></span>
-            <span id="modalRuntime"></span>
+            <span id="modalYear" class="modal-meta-dot"></span>
+            <span id="modalRuntime" class="modal-meta-dot"></span>
             <span id="modalGenres" class="genre-list"></span>
           </div>
 
-          <p id="modalOverview" class="modal-overview"></p>
-
-          <!-- Network / Distributor & Official Links -->
-          <div class="where-to-watch">
-            <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 6px; margin-bottom: 8px;">
-              <h4 style="margin: 0;">Network / Distributor &amp; Reference Links</h4>
-              <span id="modalRegionNote" style="font-size: 0.76rem; color: var(--muted);"></span>
-            </div>
-            <div id="watchProvidersList" class="providers-list"></div>
-            <div class="modal-availability-footer">
-              <span id="modalFreshnessNote">TV data via TVmaze (CC BY-SA) &bull; Film metadata via Wikipedia &amp; Wikidata</span>
-              <div class="modal-availability-links">
-                <a id="officialWatchLink" href="https://www.tvmaze.com" target="_blank" rel="noopener noreferrer">Official Reference Link &#8599;</a>
-                <a id="reportDataIssueLink" href="/contact?subject=bug">Report Incorrect Data</a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Top Cast Section -->
-          <div class="modal-cast-section">
-            <h4>Top Cast</h4>
-            <div id="modalCastList" class="cast-list"></div>
-          </div>
-
-          <!-- Similar / Recommended Titles Section -->
-          <div id="modalSimilarSection" class="modal-similar-section hidden">
-            <h4 style="font-size: 0.84rem; margin-bottom: 6px;">Similar Titles You Might Like</h4>
-            <div id="modalSimilarList" class="similar-grid"></div>
-          </div>
-
-          <!-- Sticky Modal Actions -->
+          <!-- Single-Row Primary Action Bar -->
           <div class="modal-actions">
-            <button type="button" id="modalTrailerBtn" class="btn primary-btn" style="height:46px;">
+            <button type="button" id="modalTrailerBtn" class="btn primary-btn">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
               <span>Play Official Trailer</span>
             </button>
-            <button type="button" id="modalWatchlistBtn" class="btn ghost-btn">
+            <button type="button" id="modalWatchlistBtn" class="btn modal-hero-btn">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
-              <span>Bookmark to Watchlist</span>
+              <span>Watchlist</span>
             </button>
-            <button type="button" id="modalShareBtn" class="btn secondary-btn" title="Share direct link to this title">
+            <button type="button" id="modalWatchedBtn" class="btn modal-hero-btn">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Watched</span>
+            </button>
+            <button type="button" id="modalShareBtn" class="btn modal-hero-btn modal-share-compact" title="Copy direct link to this title" aria-label="Share direct link">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
-              <span>Share Link</span>
+              <span>Share</span>
             </button>
           </div>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <div class="modal-content-grid">
+          <!-- Left Main Column: Overview, Editorial Take & Interactive Cast -->
+          <div class="modal-main-col">
+            <div class="modal-section-block">
+              <h4 class="modal-section-label">Synopsis</h4>
+              <p id="modalOverview" class="modal-overview"></p>
+              <div id="modalEditorialCallout" class="modal-editorial-callout hidden">
+                <span class="modal-editorial-kicker">WatchPulse Editorial Take</span>
+                <p id="modalEditorialText"></p>
+              </div>
+            </div>
+
+            <!-- Top Cast & Crew Section (Clickable to Search) -->
+            <div class="modal-cast-section">
+              <h4 class="modal-section-label">Cast &amp; Crew <span class="modal-label-hint">(click to search)</span></h4>
+              <div id="modalCastList" class="cast-list"></div>
+            </div>
+          </div>
+
+          <!-- Right Side Rail: At-a-Glance Quick Facts & Where to Watch -->
+          <div class="modal-side-col">
+            <div class="modal-facts-card">
+              <h4 class="modal-section-label">Quick Facts</h4>
+              <dl id="modalFactsList" class="modal-facts-list"></dl>
+            </div>
+
+            <div class="where-to-watch">
+              <div class="where-to-watch-head">
+                <h4>Where to Watch &amp; Links</h4>
+                <span id="modalRegionNote" class="modal-region-note"></span>
+              </div>
+              <div id="watchProvidersList" class="providers-list"></div>
+              <div class="modal-availability-footer">
+                <span id="modalFreshnessNote">TV data via TVmaze (CC BY-SA) &bull; Film metadata via Wikipedia &amp; Wikidata</span>
+                <div class="modal-availability-links">
+                  <a id="officialWatchLink" href="https://www.tvmaze.com" target="_blank" rel="noopener noreferrer">Official Reference &#8599;</a>
+                  <a id="reportDataIssueLink" href="/contact?subject=bug">Report Data</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Similar / Recommended Titles Strip -->
+        <div id="modalSimilarSection" class="modal-similar-section hidden">
+          <h4 class="modal-section-label">Similar Titles You Might Like</h4>
+          <div id="modalSimilarList" class="similar-grid"></div>
         </div>
       </div>
     </div>
@@ -1054,7 +1077,7 @@
   </nav>
 
   <script src="/consent-ui.js?v=20261123h" defer></script>
-  <script src="/app.js?v=20261123l"></script>
+  <script src="/app.js?v=20261123m"></script>
 </body>
 
 </html>

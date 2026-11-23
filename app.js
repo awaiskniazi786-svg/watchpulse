@@ -1894,9 +1894,10 @@ function populateMovieModalContent(detailed, isLoadingDetails = false) {
   }
   if (els.modalTitle) els.modalTitle.textContent = detailed.title;
   if (els.modalRating) {
-    els.modalRating.textContent = typeof detailed.rating === 'number'
-      ? `Rating ${detailed.rating}`
-      : (detailed.country ? `${detailed.country}` : 'Feature Film');
+    const rNum = Number(detailed.rating);
+    els.modalRating.innerHTML = (!Number.isNaN(rNum) && rNum > 0)
+      ? `&#9733; ${rNum.toFixed(1)}`
+      : (detailed.country ? escapeHtml(detailed.country) : 'Feature Film');
   }
   if (els.modalYear) els.modalYear.textContent = detailed.year || 'Film';
   if (els.modalRuntime) {
@@ -1905,13 +1906,48 @@ function populateMovieModalContent(detailed, isLoadingDetails = false) {
       : (detailed.languageLabel || 'Feature Film');
   }
   if (els.modalGenres) {
-    const gList = (detailed.genres || []).join(', ');
-    els.modalGenres.textContent = detailed.director ? `${gList} • Dir. ${detailed.director}` : gList;
+    els.modalGenres.textContent = (detailed.genres || []).slice(0, 3).join(' / ');
   }
+
+  // Smart deduplication: never repeat identical Wikipedia text inside both Overview and WatchPulse Note
+  const cleanOverview = (detailed.overview || 'Explore cast, runtime, and official trailer details on WatchPulse.').trim();
+  const rawNote = (detailed.editorial_note || '').trim();
+  const normOverview = normalizeForFuzzy(cleanOverview);
+  const normNote = normalizeForFuzzy(rawNote);
+  const isDuplicateNote = Boolean(
+    !rawNote ||
+    (normNote.length > 24 && normOverview.includes(normNote.slice(0, 32))) ||
+    (normOverview.length > 24 && normNote.includes(normOverview.slice(0, 32)))
+  );
+
   if (els.modalOverview) {
-    els.modalOverview.textContent = detailed.editorial_note
-      ? `${detailed.overview} — WatchPulse Note: ${detailed.editorial_note}`
-      : detailed.overview;
+    els.modalOverview.textContent = cleanOverview;
+  }
+
+  const editorialCallout = document.getElementById('modalEditorialCallout');
+  const editorialText = document.getElementById('modalEditorialText');
+  if (editorialCallout && editorialText) {
+    if (!isDuplicateNote && rawNote) {
+      editorialText.textContent = rawNote;
+      editorialCallout.classList.remove('hidden');
+    } else {
+      editorialCallout.classList.add('hidden');
+    }
+  }
+
+  // Populate Right-Side Quick Facts Table
+  const factsList = document.getElementById('modalFactsList');
+  if (factsList) {
+    const facts = [
+      ['Format', detailed.media_type === 'tv' ? 'TV Series' : 'Feature Film'],
+      ['Release', detailed.year || 'TBA'],
+      ['Runtime', detailed.runtime ? (detailed.media_type === 'tv' ? `~${detailed.runtime} min / ep` : `${detailed.runtime} min`) : 'TBA'],
+      ['Language', detailed.languageLabel || LANGUAGE_NAMES[detailed.language] || 'English'],
+      ['Director', detailed.director || (detailed.media_type === 'tv' ? ((detailed.platforms && detailed.platforms[0]) || 'Network Original') : 'See Credits')]
+    ];
+    factsList.innerHTML = facts.map(([k, v]) => `
+      <div class="modal-fact-row"><dt>${escapeHtml(k)}</dt><dd>${escapeHtml(v)}</dd></div>
+    `).join('');
   }
 
   if (els.modalRegionNote) {
@@ -1919,16 +1955,16 @@ function populateMovieModalContent(detailed, isLoadingDetails = false) {
       ? 'Original Network Tag (TVmaze — regional rights vary)'
       : detailed.source === 'Wikipedia & Wikidata'
         ? 'Distributors & Reference Links (Wikipedia & Wikidata)'
-        : 'WatchPulse Editorial Tag (check your local streaming app)';
+        : 'WatchPulse Editorial Tag (verify inside your streaming app)';
   }
 
   if (els.watchProvidersList) {
     const pills = (detailed.platforms || []).map(p => `<span class="provider-pill">${escapeHtml(p)}</span>`).join('');
     const imdbBtn = detailed.imdb_id
-      ? `<a href="https://www.imdb.com/title/${encodeURIComponent(detailed.imdb_id)}/" target="_blank" rel="noopener noreferrer" class="provider-pill imdb-pill" style="text-decoration: none;">IMDb Profile ↗</a>`
+      ? `<a href="https://www.imdb.com/title/${encodeURIComponent(detailed.imdb_id)}/" target="_blank" rel="noopener noreferrer" class="provider-pill imdb-pill" style="text-decoration: none;">IMDb Profile &#8599;</a>`
       : '';
     const guideBtn = detailed.guide_url
-      ? `<a href="${escapeHtml(detailed.guide_url.replace(/\.html$/i, ''))}" class="provider-pill" style="border-color: var(--accent-cyan); color: var(--accent-cyan); text-decoration: none;">Read: ${escapeHtml(detailed.guide_title)} →</a>`
+      ? `<a href="${escapeHtml(detailed.guide_url.replace(/\.html$/i, ''))}" class="provider-pill" style="border-color: var(--accent-2); color: var(--accent-2); text-decoration: none;">Read Guide &rarr;</a>`
       : '';
     els.watchProvidersList.innerHTML = `<div class="provider-tier-group"><div class="provider-tier-pills">${pills}${imdbBtn}${guideBtn}</div></div>`;
   }
@@ -1944,10 +1980,10 @@ function populateMovieModalContent(detailed, isLoadingDetails = false) {
   if (els.officialWatchLink) {
     els.officialWatchLink.href = (detailed.officialUrl || detailed.guide_url || '/guides').replace(/\.html$/i, '');
     els.officialWatchLink.textContent = detailed.source === 'TVmaze'
-      ? 'View Episode Guide on TVmaze ↗'
+      ? 'Episode Guide on TVmaze \u2197'
       : detailed.source === 'Wikipedia & Wikidata'
-        ? 'Read Full Film Article on Wikipedia ↗'
-        : 'Open Matching WatchPulse Guide →';
+        ? 'Wikipedia Film Article \u2197'
+        : 'Matching WatchPulse Guide \u2192';
   }
 
   if (els.reportDataIssueLink) {
@@ -1959,13 +1995,29 @@ function populateMovieModalContent(detailed, isLoadingDetails = false) {
       els.modalCastList.innerHTML = `<span class="cast-pill" style="opacity:0.75;">Loading full cast, director &amp; details...</span>`;
     } else {
       const chips = [];
-      if (detailed.director) chips.push(`<span class="cast-pill" style="border-color:var(--accent-cyan);color:var(--accent-cyan);">Dir. ${escapeHtml(detailed.director)}</span>`);
+      if (detailed.director) {
+        chips.push(`<button type="button" class="cast-pill cast-director-pill" data-cast-search="${escapeHtml(detailed.director)}">Dir. ${escapeHtml(detailed.director)}</button>`);
+      }
       if (detailed.cast && detailed.cast.length) {
-        detailed.cast.forEach(name => chips.push(`<span class="cast-pill">${escapeHtml(name)}</span>`));
+        detailed.cast.slice(0, 10).forEach(name => {
+          chips.push(`<button type="button" class="cast-pill" data-cast-search="${escapeHtml(name)}">${escapeHtml(name)}</button>`);
+        });
       }
       els.modalCastList.innerHTML = chips.length
         ? chips.join('')
-        : `<span class="cast-pill">See official reference link above</span>`;
+        : `<span class="cast-pill">See official reference link</span>`;
+
+      els.modalCastList.querySelectorAll('[data-cast-search]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const person = btn.dataset.castSearch;
+          closeMovieModal();
+          if (els.searchInput && person) {
+            els.searchInput.value = person;
+            if (els.clearSearchBtn) els.clearSearchBtn.classList.remove('hidden');
+            searchTitlesLive(person, true);
+          }
+        });
+      });
     }
   }
 
@@ -1976,11 +2028,16 @@ function populateMovieModalContent(detailed, isLoadingDetails = false) {
     if (!similar.length) similar = pool.filter(x => x.id !== detailed.id).slice(0, 4);
     if (similar.length) {
       els.modalSimilarSection.classList.remove('hidden');
-      els.modalSimilarList.innerHTML = similar.map(s => `
-        <button type="button" class="similar-chip" data-sim-id="${escapeHtml(s.id)}" style="padding:0.5rem 0.8rem;border-radius:8px;border:1px solid var(--border-color);background:var(--card-inset-bg);color:var(--text-main);cursor:pointer;font-size:0.8rem;text-align:left;">
-          <strong>${escapeHtml(s.title)}</strong> (${escapeHtml(s.year)})
-        </button>
-      `).join('');
+      els.modalSimilarList.innerHTML = similar.map(s => {
+        const sNum = Number(s.rating);
+        const rTxt = (!Number.isNaN(sNum) && sNum > 0) ? `<span class="similar-chip-rating">&#9733; ${sNum.toFixed(1)}</span>` : '';
+        return `
+          <button type="button" class="similar-chip" data-sim-id="${escapeHtml(s.id)}">
+            <span class="similar-chip-title">${escapeHtml(s.title)}</span>
+            <span class="similar-chip-meta">${rTxt}<span>${escapeHtml(s.year || '')}</span></span>
+          </button>
+        `;
+      }).join('');
       els.modalSimilarList.querySelectorAll('[data-sim-id]').forEach(btn => {
         btn.addEventListener('click', () => {
           const next = pool.find(x => x.id === btn.dataset.simId);
@@ -2052,11 +2109,24 @@ function closeMovieModal() {
 }
 
 function updateModalWatchlistBtn() {
-  if (!els.modalWatchlistBtn || !state.currentModalItem) return;
-  const inList = state.watchlist.some(w => w.id === state.currentModalItem.id);
-  const labelSpan = els.modalWatchlistBtn.querySelector('span');
-  if (labelSpan) labelSpan.textContent = inList ? 'Saved in Watchlist' : 'Bookmark to Watchlist';
-  else els.modalWatchlistBtn.textContent = inList ? 'Saved in Watchlist' : 'Bookmark to Watchlist';
+  if (!state.currentModalItem) return;
+  const savedObj = state.watchlist.find(w => w.id === state.currentModalItem.id);
+  const inList = Boolean(savedObj);
+  const isWatched = Boolean(savedObj && savedObj.watched);
+
+  if (els.modalWatchlistBtn) {
+    els.modalWatchlistBtn.classList.toggle('is-active', inList);
+    const labelSpan = els.modalWatchlistBtn.querySelector('span');
+    if (labelSpan) labelSpan.textContent = inList ? 'Saved' : 'Watchlist';
+    else els.modalWatchlistBtn.textContent = inList ? 'Saved' : 'Watchlist';
+  }
+
+  const watchedBtn = document.getElementById('modalWatchedBtn');
+  if (watchedBtn) {
+    watchedBtn.classList.toggle('is-active', isWatched);
+    const wSpan = watchedBtn.querySelector('span');
+    if (wSpan) wSpan.textContent = isWatched ? 'Watched' : 'Mark Watched';
+  }
 }
 
 function toggleWatchlist(item) {
@@ -2757,6 +2827,22 @@ function setupEventListeners() {
   if (els.movieModal) els.movieModal.addEventListener('click', (e) => { if (e.target === els.movieModal) closeMovieModal(); });
   if (els.modalTrailerBtn) els.modalTrailerBtn.addEventListener('click', () => openTrailerForItem(state.currentModalItem));
   if (els.modalWatchlistBtn) els.modalWatchlistBtn.addEventListener('click', () => { if (state.currentModalItem) toggleWatchlist(state.currentModalItem); });
+  const modalWatchedBtn = document.getElementById('modalWatchedBtn');
+  if (modalWatchedBtn) {
+    modalWatchedBtn.addEventListener('click', () => {
+      if (!state.currentModalItem) return;
+      const exists = state.watchlist.some(w => w.id === state.currentModalItem.id);
+      if (!exists) {
+        state.watchlist.unshift({ ...state.currentModalItem, watched: true });
+        saveWatchlist();
+        updateModalWatchlistBtn();
+        updateHeroWatchlistBtn();
+      } else {
+        toggleWatchedStatus(state.currentModalItem.id);
+        updateModalWatchlistBtn();
+      }
+    });
+  }
   if (els.modalShareBtn) {
     els.modalShareBtn.addEventListener('click', async () => {
       if (!state.currentModalItem) return;

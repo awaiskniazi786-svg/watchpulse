@@ -1040,9 +1040,11 @@
 
         const firstResultEl = resultsEl.querySelector('.mf-top3-card, .mf-result-card') || resultsEl;
         if (firstResultEl) {
-          requestAnimationFrame(function () {
-            firstResultEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          });
+          setTimeout(function () {
+            const rect = firstResultEl.getBoundingClientRect();
+            const targetY = Math.max(0, (window.scrollY || window.pageYOffset || 0) + rect.top - 90);
+            window.scrollTo({ top: targetY, behavior: 'smooth' });
+          }, 80);
         }
       }
 

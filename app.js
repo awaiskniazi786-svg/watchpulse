@@ -1895,6 +1895,15 @@ function renderAutocompleteSuggestions(query, items) {
   });
 }
 
+function smoothScrollToTarget(targetEl, topOffset = 84) {
+  if (!targetEl) return;
+  setTimeout(() => {
+    const rect = targetEl.getBoundingClientRect();
+    const targetY = Math.max(0, (window.scrollY || window.pageYOffset || 0) + rect.top - topOffset);
+    window.scrollTo({ top: targetY, behavior: 'smooth' });
+  }, 60);
+}
+
 async function searchTitlesLive(query, scrollToGrid = false) {
   state.searchQuery = query.trim();
   state.searchFilterTab = 'all';
@@ -1911,6 +1920,10 @@ async function searchTitlesLive(query, scrollToGrid = false) {
   showLoadingGrid();
   if (els.loadMoreBtn) els.loadMoreBtn.classList.add('hidden');
   if (els.infiniteLoadWrap) els.infiniteLoadWrap.classList.add('hidden');
+
+  if (scrollToGrid) {
+    smoothScrollToTarget(document.querySelector('.browse-section') || els.gridTitle, 84);
+  }
 
   const qLower = normalizeForFuzzy(state.searchQuery);
 
@@ -2022,8 +2035,8 @@ async function searchTitlesLive(query, scrollToGrid = false) {
   if (combined.length) renderHero(combined[0]);
   if (!scrollToGrid && document.activeElement === els.searchInput) {
     renderAutocompleteSuggestions(state.searchQuery, combined);
-  } else if (scrollToGrid && els.gridTitle) {
-    els.gridTitle.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } else if (scrollToGrid) {
+    smoothScrollToTarget(document.querySelector('.browse-section') || els.gridTitle, 84);
   }
   trackEvent('watchpulse_search', { query: state.searchQuery, results: combined.length });
 }
@@ -2841,6 +2854,7 @@ function setupEventListeners() {
         e.preventDefault();
         clearTimeout(searchTimer);
         if (els.searchDropdown) els.searchDropdown.classList.add('hidden');
+        els.searchInput.blur();
         searchTitlesLive(els.searchInput.value.trim(), true);
       }
     });
@@ -3117,10 +3131,7 @@ function setupEventListeners() {
         await computeHeroMatches();
         renderHeroInlineResults();
         const firstMatch = resultsWrap && resultsWrap.querySelector('.hero-match-card');
-        const scrollTarget = firstMatch || resultsWrap;
-        if (scrollTarget) {
-          requestAnimationFrame(() => scrollTarget.scrollIntoView({ behavior: 'smooth', block: 'center' }));
-        }
+        smoothScrollToTarget(firstMatch || resultsWrap, 90);
         trackEvent('watchpulse_inline_finder_complete', {
           company: heroFinderState.company,
           mood: heroFinderState.mood,
@@ -3157,6 +3168,8 @@ function setupEventListeners() {
         } else {
           heroFinderState.offset += 3;
           renderHeroInlineResults();
+          const firstMatch = resultsWrap && resultsWrap.querySelector('.hero-match-card');
+          smoothScrollToTarget(firstMatch || resultsWrap, 90);
         }
       });
     }

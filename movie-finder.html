@@ -765,6 +765,17 @@
               img.dataset.triedMq = '1';
               img.src = img.dataset.mqFallback;
               if (backdrop) backdrop.src = img.dataset.mqFallback;
+              return;
+            }
+            const cardWrap = img.closest('.curated-thumb-card');
+            if (cardWrap && cardWrap.parentNode) {
+              cardWrap.innerHTML =
+                '<div class="editorial-poster-art accent-violet" style="height:100%;">' +
+                  '<div class="ep-center">' +
+                    '<span class="ep-icon-ring" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line></svg></span>' +
+                    '<span class="ep-type-kicker">WATCHPULSE PICK</span>' +
+                  '</div>' +
+                '</div>';
             }
           });
           img.addEventListener('load', function () {
@@ -856,6 +867,38 @@
               pool = epicMv.length ? epicMv : mvPool;
             } else {
               pool = mvPool;
+            }
+            if (sel.lang !== 'all' && sel.lang !== 'global') {
+              const matchedLangCount = pool.filter(function (m) { return matchesLang(m, sel.lang); }).length;
+              if (matchedLangCount < 3) {
+                try {
+                  const discRes = await fetch('/api/catalog?action=movie-discover&genre=all&lang=' + encodeURIComponent(sel.lang) + '&platform=all&offset=0');
+                  if (discRes.ok) {
+                    const discData = await discRes.json();
+                    const seenTitles = new Set(pool.map(function (m) { return String(m.title || '').toLowerCase(); }));
+                    (discData && Array.isArray(discData.results) ? discData.results : []).forEach(function (w) {
+                      if (!w || !w.title || seenTitles.has(w.title.toLowerCase())) return;
+                      seenTitles.add(w.title.toLowerCase());
+                      pool.push({
+                        id: 'discover-' + (w.pageid || w.qid || w.title.toLowerCase().replace(/\s+/g, '-')),
+                        title: w.title,
+                        year: w.year || '2024',
+                        rating: 7.9,
+                        runtime: Number(w.runtime) || 112,
+                        genres: Array.isArray(w.genres) && w.genres.length ? w.genres : ['Drama'],
+                        genre_ids: Array.isArray(w.genre_ids) && w.genre_ids.length ? w.genre_ids : [18],
+                        language: sel.lang,
+                        media_type: 'movie',
+                        trailer_id: w.trailer_id || '',
+                        poster: w.poster || (w.trailer_id ? 'https://i.ytimg.com/vi/' + encodeURIComponent(w.trailer_id) + '/mqdefault.jpg' : ''),
+                        overview: w.overview || 'Curated international discovery on WatchPulse.',
+                        guide_url: '/guides',
+                        accent: 'violet'
+                      });
+                    });
+                  }
+                } catch (_) {}
+              }
             }
           } catch (_) {
             resultsEl.innerHTML = '<p style="color:#fca5a5;">Could not load the catalog right now. Please refresh and try again.</p>';

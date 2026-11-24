@@ -4796,7 +4796,8 @@ html[data-theme="light"] .guide-preview-card:hover {
 }
 
 .quiz-result-item img,
-.quiz-result-item img.is-trailer-thumb {
+.quiz-result-item img.is-trailer-thumb,
+.quiz-result-item .editorial-poster-art {
   width: 116px;
   height: 65px;
   object-fit: cover;
@@ -4804,6 +4805,20 @@ html[data-theme="light"] .guide-preview-card:hover {
   flex-shrink: 0;
   background: #0C0B12;
   border: 1px solid rgba(167, 139, 250, 0.22);
+}
+
+.quiz-result-item .editorial-poster-art .ep-center {
+  padding: 6px;
+  gap: 3px;
+}
+
+.quiz-result-item .editorial-poster-art .ep-icon-ring {
+  width: 22px;
+  height: 22px;
+}
+
+.quiz-result-item .editorial-poster-art .ep-type-kicker {
+  font-size: 0.52rem;
 }
 
 .mf-trailer-thumb-wrap {

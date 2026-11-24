@@ -2616,6 +2616,56 @@ async function runFinderQuiz() {
     pool = state.curatedMovies;
   }
 
+  if (langPref !== 'all' && langPref !== 'global' && format !== 'tv') {
+    const preLangCount = pool.filter(it => matchesQuizLanguage(it, langPref)).length;
+    if (preLangCount < 3) {
+      if (els.quizResultsContainer) {
+        els.quizResultsContainer.innerHTML = `<p style="font-size:0.84rem;color:var(--muted);padding:12px 0;">Finding ${escapeHtml(LANGUAGE_NAMES[langPref] || langPref)} matches...</p>`;
+      }
+      try {
+        const disc = await fetchCatalogApi('movie-discover', { genre: genreId || 'all', lang: langPref, platform: 'all', offset: 0 });
+        const raw = (disc && Array.isArray(disc.results)) ? disc.results : [];
+        const existingTitles = new Set(state.curatedMovies.map(m => normalizeForFuzzy(m.title)));
+        raw.forEach(w => {
+          const normT = normalizeForFuzzy(w && w.title);
+          if (!w || !w.title || !normT || existingTitles.has(normT)) return;
+          existingTitles.add(normT);
+          const tid = w.trailer_id || VERIFIED_TRAILER_IDS[w.title.toLowerCase()] || '';
+          const poster = w.poster || (tid ? getYtThumbUrl(tid, 'mqdefault') : '');
+          const added = {
+            id: `discover-${w.pageid || w.qid || normT.replace(/\s+/g, '-')}`,
+            qid: w.qid || '',
+            wikiTitle: w.wikiTitle || w.title,
+            media_type: 'movie',
+            source: 'WatchPulse Live Catalog',
+            title: w.title,
+            year: w.year || '2024',
+            rating: 7.9,
+            runtime: Number(w.runtime) || 112,
+            genres: Array.isArray(w.genres) && w.genres.length ? w.genres : [GENRE_MAP[genreId] || 'Drama'],
+            genre_ids: Array.isArray(w.genre_ids) && w.genre_ids.length ? w.genre_ids : [Number(genreId) || 18],
+            language: langPref,
+            languageLabel: LANGUAGE_NAMES[langPref] || langPref,
+            director: w.director || '',
+            cast: [],
+            platforms: Array.isArray(w.platforms) && w.platforms.length ? w.platforms : ['Netflix', 'Prime Video'],
+            overview: w.overview || 'Explore cast, runtime, and official trailer on WatchPulse.',
+            editorial_note: '',
+            guide_url: '/guides',
+            guide_title: 'WatchPulse Editorial Guides',
+            accent: 'violet',
+            trailer_id: tid,
+            poster,
+            backdrop: poster,
+            _detailsLoaded: false
+          };
+          state.curatedMovies.push(added);
+          pool.push(added);
+        });
+      } catch (_) {}
+    }
+  }
+
   const matchesRt = (item) => {
     if (runtimeMode === 'any') return true;
     const rt = Number(item.runtime) || 0;
@@ -2645,21 +2695,33 @@ async function runFinderQuiz() {
   const genreAndLang = scored.filter(s => s.gOk && s.lOk);
   const langOnly = langPref !== 'all' ? scored.filter(s => s.lOk) : [];
   const genreOnly = scored.filter(s => s.gOk);
-  const chosen = strict.length ? strict : (genreAndLang.length ? genreAndLang : (langOnly.length ? langOnly : (genreOnly.length ? genreOnly : scored)));
-  const top3 = chosen.slice(0, 3).map(s => s.item);
+
+  // Guarantee 3 distinct picks across every category & language combination
+  const top3 = [];
+  const seenQuizIds = new Set();
+  const pushQuizPick = (entry) => {
+    if (!entry || !entry.item || seenQuizIds.has(entry.item.id) || top3.length >= 3) return;
+    seenQuizIds.add(entry.item.id);
+    top3.push(entry.item);
+  };
+  strict.forEach(pushQuizPick);
+  if (top3.length < 3) genreAndLang.forEach(pushQuizPick);
+  if (top3.length < 3) langOnly.forEach(pushQuizPick);
+  if (top3.length < 3) genreOnly.forEach(pushQuizPick);
+  if (top3.length < 3) scored.forEach(pushQuizPick);
 
   const langFallbackNotice = (langPref !== 'all' && !langOnly.length)
-    ? `<p style="font-size:0.8rem;color:var(--eyebrow);margin:0 0 10px;">No titles in that exact language are in the current format pool—showing closest mood matches (try "Movies &amp; TV (Any)" or "Feature Movies").</p>`
+    ? `<p style="font-size:0.8rem;color:var(--eyebrow);margin:0 0 10px;">Showing closest mood matches alongside ${escapeHtml(LANGUAGE_NAMES[langPref] || langPref)} availability.</p>`
     : '';
 
-  els.quizResultsContainer.innerHTML = langFallbackNotice + top3.map(item => {
+  els.quizResultsContainer.innerHTML = langFallbackNotice + top3.map((item, qIdx) => {
     const thumb = getThumbUrlForItem(item);
     const tid = getTrailerIdForItem(item);
     const isYt = Boolean(thumb && thumb.includes('i.ytimg.com'));
     const mqFallback = isYt && tid ? getYtThumbUrl(tid, 'mqdefault') : '';
     const thumbHtml = thumb
-      ? `<img src="${escapeHtml(thumb)}" alt="${escapeHtml(item.title)}" class="${isYt ? 'is-trailer-thumb' : ''}" loading="lazy"${mqFallback ? ` data-mq-fallback="${escapeHtml(mqFallback)}"` : ''}>`
-      : '';
+      ? `<img src="${escapeHtml(thumb)}" alt="${escapeHtml(item.title)}" class="${isYt ? 'is-trailer-thumb' : ''}" loading="lazy" data-quiz-idx="${qIdx}"${mqFallback ? ` data-mq-fallback="${escapeHtml(mqFallback)}"` : ''}>`
+      : renderEditorialPosterFallbackHtml(item);
     const langTag = item.languageLabel || LANGUAGE_NAMES[item.language] || 'Global';
     const rtTag = item.runtime ? (item.media_type === 'tv' ? `~${item.runtime}m / ep` : `${item.runtime} min`) : '';
     const subMeta = [langTag, rtTag, item.media_type === 'tv' ? 'TV Series' : 'Film'].filter(Boolean).join(' \u00b7 ');
@@ -2678,14 +2740,30 @@ async function runFinderQuiz() {
     `;
   }).join('');
 
-  els.quizResultsContainer.querySelectorAll('img[data-mq-fallback]').forEach(img => {
+  els.quizResultsContainer.querySelectorAll('img[data-quiz-idx]').forEach(img => {
     img.addEventListener('error', () => {
       if (!img.dataset.triedMq && img.dataset.mqFallback) {
         img.dataset.triedMq = '1';
         img.src = img.dataset.mqFallback;
+        return;
+      }
+      const picked = top3[Number(img.dataset.quizIdx)];
+      if (picked && img.parentNode) {
+        const tmp = document.createElement('div');
+        tmp.innerHTML = renderEditorialPosterFallbackHtml(picked);
+        if (tmp.firstElementChild) img.replaceWith(tmp.firstElementChild);
       }
     });
   });
+
+  // Smoothly auto-scroll the modal down so all 3 results sit clearly in view
+  const quizCardEl = els.quizModal && els.quizModal.querySelector('.quiz-card');
+  if (quizCardEl && els.quizResultsContainer) {
+    setTimeout(() => {
+      const targetOffset = Math.max(0, els.quizResultsContainer.offsetTop - 20);
+      quizCardEl.scrollTo({ top: targetOffset, behavior: 'smooth' });
+    }, 70);
+  }
 
   els.quizResultsContainer.querySelectorAll('[data-quiz-id]').forEach(row => {
     row.addEventListener('click', () => {

@@ -9,7 +9,8 @@
 const CATALOG_PROXY_URL = '/api/catalog';
 const CURATED_CATALOG_URL = '/data/curated-catalog.json?v=20261122f';
 const TRENDING_MOVIE_COUNT = 8;
-const PAGE_SIZE = 32;
+const PAGE_SIZE = 24;
+const BASE_DOC_TITLE = 'WatchPulse: Ratings, Trailers & Where to Watch Movies & TV';
 
 const GENRE_MAP = {
   28: 'Action',
@@ -951,8 +952,134 @@ function getPaginationNumbers(currentPage, totalPages) {
   return pages;
 }
 
-function renderPaginationBar() {
-  hidePaginationBar();
+function parsePageParam(rawValue) {
+  if (rawValue === null || rawValue === undefined) return 1;
+  const trimmed = String(rawValue).trim();
+  if (!/^\d+$/.test(trimmed)) return 1;
+  const num = parseInt(trimmed, 10);
+  return num >= 1 ? num : 1;
+}
+
+function buildPageUrl(pageNum) {
+  const params = new URLSearchParams(window.location.search);
+  const safePage = parsePageParam(pageNum);
+  if (safePage <= 1) {
+    params.delete('page');
+  } else {
+    params.set('page', String(safePage));
+  }
+  const qs = params.toString();
+  return qs ? `/?${qs}` : '/';
+}
+
+function syncPaginationMetaAndUrl(pageNum, options = {}) {
+  const safePage = parsePageParam(pageNum);
+  const replace = Boolean(options.replace);
+  const targetUrl = buildPageUrl(safePage);
+  const currentUrl = `${window.location.pathname}${window.location.search}`;
+
+  if (currentUrl !== targetUrl) {
+    try {
+      if (replace) {
+        window.history.replaceState({ page: safePage }, '', targetUrl);
+      } else {
+        window.history.pushState({ page: safePage }, '', targetUrl);
+      }
+    } catch (_) {}
+  }
+
+  document.title = safePage > 1 ? `Page ${safePage} — ${BASE_DOC_TITLE}` : BASE_DOC_TITLE;
+
+  const robotsMeta = document.getElementById('dynamicRobotsMeta');
+  const params = new URLSearchParams(window.location.search);
+  const hasFilterParams = params.has('q') || params.has('genre') || params.has('lang') || params.has('region') || params.has('type');
+  const shouldNoindex = safePage > 1 || hasFilterParams;
+
+  if (robotsMeta) {
+    robotsMeta.content = shouldNoindex ? 'noindex, follow' : 'index, follow, max-image-preview:large';
+  }
+
+  let canonicalEl = document.getElementById('canonicalLink');
+  if (shouldNoindex) {
+    if (canonicalEl && canonicalEl.parentNode) {
+      canonicalEl.parentNode.removeChild(canonicalEl);
+    }
+  } else if (!canonicalEl) {
+    canonicalEl = document.createElement('link');
+    canonicalEl.id = 'canonicalLink';
+    canonicalEl.rel = 'canonical';
+    canonicalEl.href = 'https://watchpulse.online/';
+    document.head.appendChild(canonicalEl);
+  }
+}
+
+function focusCatalogGridHeader() {
+  const section = document.querySelector('.movies-grid-section');
+  const focusTarget = els.gridTitle || section;
+  if (section) {
+    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  if (focusTarget) {
+    if (!focusTarget.hasAttribute('tabindex')) {
+      focusTarget.setAttribute('tabindex', '-1');
+    }
+    try {
+      focusTarget.focus({ preventScroll: true });
+    } catch (_) {
+      focusTarget.focus();
+    }
+  }
+}
+
+function goToCatalogPage(pageNum, options = {}) {
+  const targetPage = parsePageParam(pageNum);
+  state.currentPage = targetPage;
+  syncPaginationMetaAndUrl(targetPage, { replace: Boolean(options.replace) });
+  applyLocalFiltersAndRender();
+  if (options.scrollAndFocus !== false) {
+    focusCatalogGridHeader();
+  }
+}
+
+function renderPaginationBar(currentPage, totalPages) {
+  if (!els.paginationBar) return;
+  if (!totalPages || totalPages <= 1) {
+    hidePaginationBar();
+    return;
+  }
+
+  const pageTokens = getPaginationNumbers(currentPage, totalPages);
+  const prevPage = Math.max(1, currentPage - 1);
+  const nextPage = Math.min(totalPages, currentPage + 1);
+
+  const prevHtml = currentPage > 1
+    ? `<a class="page-btn" href="${escapeHtml(buildPageUrl(prevPage))}" data-page="${prevPage}" aria-label="Previous page">&#8592; Prev</a>`
+    : `<span class="page-btn is-disabled" aria-disabled="true">&#8592; Prev</span>`;
+
+  const numbersHtml = pageTokens.map(token => {
+    if (token === '...') {
+      return '<span class="page-ellipsis" aria-hidden="true">&hellip;</span>';
+    }
+    const isActive = token === currentPage;
+    return `<a class="page-btn ${isActive ? 'active' : ''}" href="${escapeHtml(buildPageUrl(token))}" data-page="${token}"${isActive ? ' aria-current="page"' : ''} aria-label="Page ${token}">${token}</a>`;
+  }).join('');
+
+  const nextHtml = currentPage < totalPages
+    ? `<a class="page-btn" href="${escapeHtml(buildPageUrl(nextPage))}" data-page="${nextPage}" aria-label="Next page">Next &#8594;</a>`
+    : `<span class="page-btn is-disabled" aria-disabled="true">Next &#8594;</span>`;
+
+  els.paginationBar.innerHTML = `${prevHtml}${numbersHtml}${nextHtml}<span class="page-status-pill">Page ${currentPage} of ${totalPages}</span>`;
+  els.paginationBar.classList.remove('hidden');
+
+  els.paginationBar.querySelectorAll('a.page-btn[data-page]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+      e.preventDefault();
+      const target = parsePageParam(link.dataset.page);
+      if (target === state.currentPage) return;
+      goToCatalogPage(target, { scrollAndFocus: true });
+    });
+  });
 }
 
 function renderCardListIntoGrid(gridEl, items, options = {}) {
@@ -1421,9 +1548,10 @@ function getFilterSignature() {
   return `${state.mediaType}|${g}|${l}|${p}`;
 }
 
-function updateInfiniteLoadBarUI() {
+function updateInfiniteLoadBarUI(currentPage = state.currentPage, totalPages = 1) {
   if (!els.infiniteLoadWrap) return;
-  if (state.showingWatchlist || state.searchQuery) {
+  const isLastPage = currentPage >= totalPages;
+  if (state.showingWatchlist || state.searchQuery || !isLastPage) {
     els.infiniteLoadWrap.classList.add('hidden');
     return;
   }
@@ -1434,26 +1562,15 @@ function updateInfiniteLoadBarUI() {
   const lList = getActiveLanguagesList().map(l => LANGUAGE_NAMES[l]).filter(Boolean);
   const parts = [...lList.slice(0, 1), ...gList.slice(0, 1), ...pList.slice(0, 1)];
   const noun = state.mediaType === 'tv' ? 'TV Series' : 'Movies';
-  const label = parts.length ? `Load More ${parts.join(' ')} ${noun}` : `Load More ${noun}`;
+  const label = parts.length ? `Discover More ${parts.join(' ')} ${noun}` : `Discover More ${noun}`;
 
   if (els.infiniteLoadBtnText && !state.isLoadingMore) {
     els.infiniteLoadBtnText.textContent = label;
   }
 }
 
-async function loadMoreCategoryTitles(increaseVisibleLimit = true) {
+async function loadMoreCategoryTitles(userTriggered = true) {
   if (state.isLoadingMore) return;
-  if (increaseVisibleLimit) {
-    state.currentPage += 1;
-  }
-  const neededCount = state.currentPage * PAGE_SIZE;
-  const currentFiltered = filterAndSortCatalogPool();
-
-  // If we already have enough local titles buffered to show the next +30 batch, render immediately and only fetch API if running low
-  if (increaseVisibleLimit && currentFiltered.length >= neededCount) {
-    applyLocalFiltersAndRender();
-    return;
-  }
 
   state.isLoadingMore = true;
   if (els.infiniteLoadMoreBtn) els.infiniteLoadMoreBtn.disabled = true;
@@ -1605,16 +1722,12 @@ function applyLocalFiltersAndRender() {
 
   const filtered = filterAndSortCatalogPool();
   syncCompactFilterUI(filtered.length);
-  updateInfiniteLoadBarUI();
 
   const sig = getFilterSignature();
   if (filtered.length < 8 && !state.autoFilledKeys[sig] && !state.isLoadingMore && !state.searchQuery) {
     state.autoFilledKeys[sig] = true;
     loadMoreCategoryTitles(false);
   }
-
-  state.currentPage = Math.max(1, state.currentPage);
-  const visibleLimit = state.currentPage * PAGE_SIZE;
 
   const hasActiveFilters =
     getActiveGenresList().length > 0 ||
@@ -1629,9 +1742,25 @@ function applyLocalFiltersAndRender() {
     !hasActiveFilters &&
     filtered.length > TRENDING_MOVIE_COUNT;
 
+  let totalPages = 1;
   if (isTrendingMoviesSplit) {
+    const remainingAfterP1 = Math.max(0, filtered.length - (TRENDING_MOVIE_COUNT + PAGE_SIZE));
+    totalPages = 1 + Math.ceil(remainingAfterP1 / PAGE_SIZE);
+  } else {
+    totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  }
+
+  // Clamp invalid or out-of-range page numbers (e.g. ?page=9 -> redirect to last valid page)
+  state.currentPage = parsePageParam(state.currentPage);
+  if (state.currentPage > totalPages) {
+    state.currentPage = totalPages;
+  }
+  syncPaginationMetaAndUrl(state.currentPage, { replace: true });
+  updateInfiniteLoadBarUI(state.currentPage, totalPages);
+
+  if (isTrendingMoviesSplit && state.currentPage === 1) {
     const trendingItems = filtered.slice(0, TRENDING_MOVIE_COUNT);
-    const moreVisibleItems = filtered.slice(TRENDING_MOVIE_COUNT, visibleLimit);
+    const moreVisibleItems = filtered.slice(TRENDING_MOVIE_COUNT, TRENDING_MOVIE_COUNT + PAGE_SIZE);
     state.displayedItems = [...trendingItems, ...moreVisibleItems];
 
     if (els.gridTitle) els.gridTitle.textContent = 'Trending Movies';
@@ -1657,20 +1786,28 @@ function applyLocalFiltersAndRender() {
 
     syncSpotlightWithTrending(trendingItems);
     if (els.loadMoreBtn) els.loadMoreBtn.classList.add('hidden');
-    hidePaginationBar();
+    renderPaginationBar(state.currentPage, totalPages);
     return;
   }
 
-  const visibleItems = filtered.slice(0, visibleLimit);
+  let startIdx = (state.currentPage - 1) * PAGE_SIZE;
+  if (isTrendingMoviesSplit && state.currentPage >= 2) {
+    startIdx = TRENDING_MOVIE_COUNT + PAGE_SIZE + (state.currentPage - 2) * PAGE_SIZE;
+  }
+  const visibleItems = filtered.slice(startIdx, startIdx + PAGE_SIZE);
   renderMoviesGrid(visibleItems);
   if (els.moviesCount) {
+    const startNum = filtered.length ? startIdx + 1 : 0;
+    const endNum = startIdx + visibleItems.length;
     els.moviesCount.textContent = filtered.length
-      ? `Showing 1\u2013${visibleItems.length} of ${filtered.length} titles`
+      ? `Showing ${startNum}\u2013${endNum} of ${filtered.length} titles`
       : 'Showing 0 titles';
   }
-  if (!state.searchQuery && visibleItems.length) syncSpotlightWithTrending(visibleItems);
+  if (!state.searchQuery && visibleItems.length && state.currentPage === 1) {
+    syncSpotlightWithTrending(visibleItems);
+  }
   if (els.loadMoreBtn) els.loadMoreBtn.classList.add('hidden');
-  hidePaginationBar();
+  renderPaginationBar(state.currentPage, totalPages);
 }
 
 function renderAutocompleteSuggestions(query, items) {
@@ -3335,6 +3472,16 @@ async function initApp() {
   const urlGenre = params.get('genre');
   const urlLang = params.get('lang');
   const urlQuery = params.get('q');
+  state.currentPage = parsePageParam(params.get('page'));
+
+  window.addEventListener('popstate', () => {
+    const popParams = new URLSearchParams(window.location.search);
+    state.currentPage = parsePageParam(popParams.get('page'));
+    if (!state.showingWatchlist && !state.searchQuery) {
+      applyLocalFiltersAndRender();
+      focusCatalogGridHeader();
+    }
+  });
 
   if (urlType === 'movie' || urlType === 'tv') state.mediaType = urlType;
   else state.mediaType = 'movie';

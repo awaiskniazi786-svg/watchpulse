@@ -39,9 +39,15 @@
   <script>
     (function () {
       var p = new URLSearchParams(window.location.search);
-      if (p.has('q') || p.has('genre') || p.has('lang') || p.has('region') || p.has('type')) {
+      var rawPage = p.get('page');
+      var hasPageParam = rawPage !== null;
+      var parsedPage = (rawPage && /^\d+$/.test(rawPage)) ? parseInt(rawPage, 10) : 1;
+      var isPaginated = hasPageParam && (parsedPage !== 1 || !/^\d+$/.test(rawPage));
+      if (isPaginated || p.has('q') || p.has('genre') || p.has('lang') || p.has('region') || p.has('type')) {
         var m = document.getElementById('dynamicRobotsMeta');
         if (m) m.content = 'noindex, follow';
+        var c = document.getElementById('canonicalLink');
+        if (c) c.parentNode.removeChild(c);
       }
     })();
   </script>
@@ -161,7 +167,7 @@
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5022914500809430"
     crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="/style.css?v=20261123s">
+  <link rel="stylesheet" href="/style.css?v=20261124a">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
@@ -684,11 +690,13 @@
         </div>
       </div>
 
-      <div id="infiniteLoadWrap" class="infinite-load-wrap">
+      <nav id="paginationBar" class="pagination-bar hidden" aria-label="Pagination"></nav>
+
+      <div id="infiniteLoadWrap" class="infinite-load-wrap hidden">
         <button type="button" id="infiniteLoadMoreBtn" class="btn secondary-btn infinite-load-btn">
-          <span id="infiniteLoadBtnText">Load More Movies</span>
+          <span id="infiniteLoadBtnText">Discover More Titles</span>
         </button>
-        <span id="infiniteLoadHint" class="infinite-load-hint">Loads more verified titles &amp; trailers live for any selected category</span>
+        <span id="infiniteLoadHint" class="infinite-load-hint">Pulls another verified batch of live titles &amp; trailers into your catalog</span>
       </div>
     </section>
 
@@ -1160,7 +1168,7 @@
   </nav>
 
   <script src="/consent-ui.js?v=20261123h" defer></script>
-  <script src="/app.js?v=20261123r"></script>
+  <script src="/app.js?v=20261124a"></script>
 </body>
 
 </html>

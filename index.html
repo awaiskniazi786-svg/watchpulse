@@ -167,7 +167,7 @@
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5022914500809430"
     crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="/style.css?v=20261124c">
+  <link rel="stylesheet" href="/style.css?v=20261124d">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
@@ -182,13 +182,16 @@
         <span class="brand-name">WATCH<span class="highlight">PULSE</span></span>
       </div>
 
-      <button type="button" id="mobileHeaderWatchlistBtn" class="mobile-header-wl">Watchlist (<span id="mobileHeaderWatchlistCount">0</span>)</button>
+      <div class="mobile-header-actions">
+        <button type="button" id="mobileHeaderWatchlistBtn" class="mobile-header-wl">Watchlist (<span id="mobileHeaderWatchlistCount">0</span>)</button>
+        <button type="button" class="theme-toggle-btn mobile-header-theme-btn" aria-label="Toggle dark or light theme"></button>
+      </div>
 
       <div class="search-bar-wrap">
         <span class="search-icon" aria-hidden="true">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
         </span>
-        <input type="text" id="searchInput" aria-label="Search movies and TV series" placeholder="Search movies, shows, directors..." autocomplete="off">
+        <input type="text" id="searchInput" aria-label="Search movies and TV series" placeholder="Search movies, shows, cast..." autocomplete="off">
         <kbd class="search-kbd-hint" id="searchKbdHint" aria-hidden="true" title="Press / to search">/</kbd>
         <button type="button" id="clearSearchBtn" class="clear-btn hidden" aria-label="Clear search">&times;</button>
         <button type="button" id="voiceSearchBtn" class="voice-btn" title="Search with your voice" aria-label="Search with your voice">

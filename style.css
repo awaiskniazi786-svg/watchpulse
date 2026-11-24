@@ -266,8 +266,15 @@ html[data-theme="light"] .navbar.is-scrolled {
   color: var(--accent-2);
 }
 
-.mobile-header-wl {
+.mobile-header-actions {
   display: none;
+  align-items: center;
+  gap: 8px;
+}
+
+.mobile-header-wl {
+  display: inline-flex;
+  align-items: center;
   background: transparent;
   border: none;
   color: var(--muted);
@@ -2316,6 +2323,12 @@ html[data-theme="light"] .skeleton-card .card-poster-wrap {
   overflow: hidden;
   text-overflow: ellipsis;
   flex-shrink: 0;
+}
+
+html[data-theme="light"] .card-platform-tag {
+  color: #3F3B52;
+  background: #F3F1FC;
+  border-color: rgba(109, 40, 217, 0.16);
 }
 
 .card-genre-tag {
@@ -4389,12 +4402,12 @@ html[data-theme="light"] .guide-preview-card:hover {
   object-fit: cover;
   object-position: center;
   display: block;
-  transform: scale(1.06);
+  transform: scale(1.01);
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .guide-preview-card:hover .guide-card-img {
-  transform: scale(1.12);
+  transform: scale(1.05);
 }
 
 .guide-category-tag {
@@ -4431,9 +4444,16 @@ html[data-theme="light"] .guide-preview-card:hover {
   padding-top: 10px;
   border-top: 1px solid var(--border);
   display: flex;
+  align-items: center;
   justify-content: space-between;
+  gap: 10px;
   font-size: 0.78rem;
   color: var(--muted);
+}
+
+.guide-card-footer .highlight-link {
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .editorial-review-block {
@@ -4944,15 +4964,32 @@ html[data-theme="light"] .guide-preview-card:hover {
     flex-wrap: wrap;
   }
 
-  .mobile-header-wl {
+  .mobile-header-actions {
     display: inline-flex;
     align-items: center;
+    gap: 8px;
+  }
+
+  .mobile-header-theme-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
   }
 
   .search-bar-wrap {
     order: 3;
     max-width: 100%;
     flex-basis: 100%;
+  }
+
+  .search-bar-wrap input {
+    padding: 0 42px 0 38px;
+    font-size: 0.84rem;
+    height: 40px;
+  }
+
+  .search-icon {
+    left: 13px;
   }
 
   .main-content {
@@ -4980,15 +5017,24 @@ html[data-theme="light"] .guide-preview-card:hover {
   }
 
   .focus-quiz-card {
-    padding: 22px 18px;
-    border-radius: 22px;
-    gap: 18px;
+    padding: 16px 14px;
+    border-radius: 18px;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+
+  .focus-eyebrow-row {
+    margin-bottom: 4px;
+  }
+
+  .focus-catalog-pill {
+    display: none;
   }
 
   .focus-h1 {
-    font-size: clamp(1.85rem, 8.2vw, 2.45rem);
-    line-height: 1.08;
-    margin-bottom: 10px;
+    font-size: clamp(1.38rem, 6.2vw, 1.72rem);
+    line-height: 1.12;
+    margin-bottom: 8px;
   }
 
   .focus-step-meta {
@@ -4997,30 +5043,63 @@ html[data-theme="light"] .guide-preview-card:hover {
 
   .focus-progress-4 {
     display: grid;
+    gap: 6px;
+  }
+
+  .focus-opt-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .focus-opt-card {
+    padding: 10px 10px;
+    min-height: 44px;
+    border-radius: 10px;
+  }
+
+  .focus-opt-title {
+    font-size: 0.83rem;
   }
 
   .focus-opt-sub {
-    display: block;
+    display: none;
   }
 
   .focus-card-actions {
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
     align-items: stretch;
-    gap: 12px;
+    gap: 8px;
   }
 
   .focus-primary-btn,
   .focus-instant-btn {
-    width: 100%;
+    flex: 1 1 0;
+    min-width: 120px;
+    height: 40px;
+    padding: 0 12px;
+    font-size: 0.82rem;
+    white-space: nowrap;
   }
 
   .search-kbd-hint {
     display: none;
   }
 
-  .focus-opt-grid {
-    grid-template-columns: 1fr;
-    gap: 10px;
+  .section-header {
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-size: 1.02rem;
+  }
+
+  .count-tag {
+    font-size: 0.69rem;
+    padding: 3px 8px;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 
   .focus-text-link {
@@ -5430,13 +5509,13 @@ html[data-theme="light"] .guide-preview-card:hover {
     bottom: 0;
     left: 0;
     right: 0;
-    height: 68px;
+    height: calc(64px + env(safe-area-inset-bottom, 0px));
     background: var(--surface);
     border-top: 1px solid var(--border);
     z-index: 999;
     align-items: center;
     justify-content: space-around;
-    padding: 0 8px;
+    padding: 0 8px env(safe-area-inset-bottom, 0px);
   }
 
   .mobile-nav-item {
@@ -5479,6 +5558,11 @@ html[data-theme="light"] .guide-preview-card:hover {
   .legal-card,
   .mf-stage {
     padding: 22px 18px;
+  }
+
+  .quiz-card {
+    padding: 20px 16px;
+    border-radius: 20px;
   }
 
   .legal-card h1 {

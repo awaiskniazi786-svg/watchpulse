@@ -2596,6 +2596,58 @@ html[data-theme="light"] .skeleton-card .card-poster-wrap {
   font-variant-numeric: tabular-nums;
 }
 
+/* Bottom Instant Mood & Find Picks Strip */
+.bottom-mood-picks-strip {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 24px 28px;
+  margin-bottom: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.bottom-mood-picks-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.bottom-mood-picks-head h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 4px 0 0;
+}
+
+.bottom-find-picks-btn {
+  height: 40px;
+  padding: 0 18px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.bottom-mood-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+@media (max-width: 768px) {
+  .bottom-mood-picks-strip {
+    padding: 18px 16px;
+    gap: 14px;
+  }
+
+  .bottom-find-picks-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
 /* ==========================================================================
    Editorial Guides (3 Columns, Tapered Gradient Horizon Divider)
    ========================================================================== */

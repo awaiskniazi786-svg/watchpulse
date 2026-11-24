@@ -167,7 +167,7 @@
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5022914500809430"
     crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="/style.css?v=20261124a">
+  <link rel="stylesheet" href="/style.css?v=20261124b">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
@@ -439,40 +439,13 @@
         <div class="rfd-header">
           <div>
             <span class="rfd-eyebrow">EXPLORE &amp; REFINE CATALOG</span>
-            <h3 id="rightFilterDrawerTitle" class="rfd-title">Filters, Moods &amp; Sort</h3>
+            <h3 id="rightFilterDrawerTitle" class="rfd-title">Filters &amp; Sort</h3>
           </div>
           <button type="button" id="closeFilterDrawerBtn" class="rfd-close-btn" aria-label="Close filter drawer">&times;</button>
         </div>
 
         <div class="rfd-body">
-          <!-- 1. Instant Mood & Time Shortcuts -->
-          <div class="rfd-section">
-            <div class="rfd-section-head">
-              <span class="rfd-section-title">Instant Mood &amp; Time Picks</span>
-            </div>
-            <div class="rfd-moods-grid">
-              <a href="/movie-finder?time=short&amp;mood=edge-of-seat&amp;mode=one" class="focus-shortcut-chip">
-                <span>Under 100 min</span>
-              </a>
-              <a href="/movie-finder?mood=mind-bending&amp;mode=one" class="focus-shortcut-chip">
-                <span>Mind-bending</span>
-              </a>
-              <a href="/movie-finder?mood=feel-good&amp;time=short&amp;mode=one" class="focus-shortcut-chip">
-                <span>Exhausted, easy</span>
-              </a>
-              <a href="/movie-finder?company=date-night&amp;mode=one" class="focus-shortcut-chip">
-                <span>Date night</span>
-              </a>
-              <a href="/movie-finder?company=family&amp;mode=one" class="focus-shortcut-chip">
-                <span>Family-safe</span>
-              </a>
-              <a href="/movie-finder?lang=global&amp;mode=one" class="focus-shortcut-chip">
-                <span>Global &amp; South Asia</span>
-              </a>
-            </div>
-          </div>
-
-          <!-- 2. Sort Order -->
+          <!-- 1. Sort Order -->
           <div class="rfd-section" id="sortPopover">
             <div class="rfd-section-head">
               <span class="rfd-section-title">Sort Order (<strong id="sortBtnValue">Trending</strong>)</span>
@@ -853,6 +826,25 @@
             </div>
           </button>
         </div>
+      </div>
+    </section>
+
+    <!-- Bottom Instant Mood & Find Picks Section -->
+    <section class="bottom-mood-picks-strip" aria-label="Instant Mood and Find Picks">
+      <div class="bottom-mood-picks-head">
+        <div>
+          <span class="seo-eyebrow-kicker">INSTANT MOOD &amp; TIME PICKS</span>
+          <h2>Quick Shortcuts to Find Your Next Watch</h2>
+        </div>
+        <a href="/movie-finder" class="btn primary-btn bottom-find-picks-btn">Find Picks (30-Sec Quiz) &rarr;</a>
+      </div>
+      <div class="bottom-mood-chips">
+        <a href="/movie-finder?time=short&amp;mood=edge-of-seat&amp;mode=one" class="focus-shortcut-chip">Under 100 min</a>
+        <a href="/movie-finder?mood=mind-bending&amp;mode=one" class="focus-shortcut-chip">Mind-bending</a>
+        <a href="/movie-finder?mood=feel-good&amp;time=short&amp;mode=one" class="focus-shortcut-chip">Exhausted, easy</a>
+        <a href="/movie-finder?company=date-night&amp;mode=one" class="focus-shortcut-chip">Date night</a>
+        <a href="/movie-finder?company=family&amp;mode=one" class="focus-shortcut-chip">Family-safe</a>
+        <a href="/movie-finder?lang=global&amp;mode=one" class="focus-shortcut-chip">Global &amp; South Asia</a>
       </div>
     </section>
 

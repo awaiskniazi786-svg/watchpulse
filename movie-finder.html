@@ -885,9 +885,21 @@
         const goodMatches = scored.filter(function (s) { return s.mOk && s.cOk && s.lOk; });
         const moodMatches = scored.filter(function (s) { return s.mOk && s.lOk; });
         const langMatches = sel.lang !== 'all' ? scored.filter(function (s) { return s.lOk; }) : [];
-        const finalPool = strictMatches.length
-          ? strictMatches
-          : (goodMatches.length ? goodMatches : (moodMatches.length ? moodMatches : (langMatches.length ? langMatches : scored)));
+
+        // Guarantee at least 3 distinct matches in Top 3 mode by cascading cleanly through close fallbacks
+        const finalPool = [];
+        const seenIds = new Set();
+        const pushUniqueMatch = function (entry) {
+          if (!entry || !entry.item || seenIds.has(entry.item.id)) return;
+          seenIds.add(entry.item.id);
+          finalPool.push(entry);
+        };
+        const minTarget = sel.mode === 'one' ? 1 : 3;
+        strictMatches.forEach(pushUniqueMatch);
+        if (finalPool.length < minTarget) goodMatches.forEach(pushUniqueMatch);
+        if (finalPool.length < minTarget) moodMatches.forEach(pushUniqueMatch);
+        if (finalPool.length < minTarget) langMatches.forEach(pushUniqueMatch);
+        if (finalPool.length < minTarget) scored.forEach(pushUniqueMatch);
 
         if (!fallbackNote && sel.lang !== 'all' && langMatches.length === 0) {
           fallbackNote = 'No exact titles in ' + (LANG_LABELS[sel.lang] || sel.lang) + ' found in this format pool \u2014 showing closest mood matches instead (try "Movies & TV (Any)" or "Curated Movies").';

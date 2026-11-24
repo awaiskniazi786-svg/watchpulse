@@ -2977,8 +2977,8 @@ function setupEventListeners() {
         try { await loadTvCatalog(false); } catch (_) {}
       }
       const pool = heroFinderState.time === 'tv'
-        ? (state.tvShowsCache.length ? state.tvShowsCache : state.curatedMovies)
-        : (state.curatedMovies.length ? state.curatedMovies : state.displayedItems);
+        ? (state.tvShowsCache.length >= 3 ? state.tvShowsCache : [...state.tvShowsCache, ...state.curatedMovies])
+        : (state.curatedMovies.length >= 3 ? state.curatedMovies : [...state.curatedMovies, ...state.displayedItems]);
 
       const moodGenreMap = {
         'thriller': [53, 27, 80, 9648],

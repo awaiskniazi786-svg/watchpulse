@@ -1569,6 +1569,22 @@ function updateInfiniteLoadBarUI(currentPage = state.currentPage, totalPages = 1
   }
 }
 
+const TV_LANG_SEEDS = {
+  ko: ['Squid Game', 'Crash Landing on You', 'Kingdom', 'The Glory', 'All of Us Are Dead', 'Signal', 'Extraordinary Attorney Woo', 'Vincenzo'],
+  hi: ['Mirzapur', 'Sacred Games', 'Panchayat', 'The Family Man', 'Paatal Lok', 'Scam 1992', 'Delhi Crime', 'Farzi'],
+  ur: ['Humsafar', 'Zindagi Gulzar Hai', 'Parizaad', 'Mere Humsafar', 'Tere Bin', 'Suno Chanda', 'Yakeen Ka Safar', 'Alif'],
+  ja: ['Alice in Borderland', 'Shogun', 'Attack on Titan', 'Death Note', 'One Piece', 'Jujutsu Kaisen', 'Demon Slayer', 'Fullmetal Alchemist'],
+  es: ['Money Heist', 'Elite', 'Narcos', 'Vis a Vis', 'Cable Girls', '30 Coins'],
+  fr: ['Lupin', 'Call My Agent', 'The Returned', 'Marianne', 'Vortex'],
+  de: ['Dark', '1899', 'Babylon Berlin', 'Kleo', 'How to Sell Drugs Online'],
+  tr: ['Dirilis Ertugrul', 'Kurulus Osman', 'The Protector', 'Ethos', 'Fatma', 'The Gift'],
+  ar: ['Paranormal', 'AlRawabi School for Girls', 'Jinn', 'Dollar', 'Finding Ola'],
+  ta: ['Suzhal', 'Vadhandhi', 'The Village', 'Vilangu'],
+  ml: ['Kerala Crime Files', 'Masterpeace', 'Poacher'],
+  it: ['Gomorrah', 'Suburra', 'My Brilliant Friend', 'Lidia Poet'],
+  zh: ['Three-Body', 'The Untamed', 'Reset', 'The Bad Kids']
+};
+
 async function loadMoreCategoryTitles(userTriggered = true) {
   if (state.isLoadingMore) return;
 
@@ -1583,14 +1599,32 @@ async function loadMoreCategoryTitles(userTriggered = true) {
     const primaryGenre = gList[0] || 'all';
     const primaryLang = lList[0] || 'all';
     const primaryPlatform = pList[0] || 'all';
-    const sig = getFilterSignature();
 
     if (state.mediaType === 'tv') {
       const existingIds = new Set(state.tvShowsCache.map(x => x.id));
       let addedMatches = 0;
 
-      // Scan up to 3 TVmaze catalog pages or run a targeted TVmaze search for active filters
-      for (let step = 0; step < 3 && addedMatches < 10; step++) {
+      // If user chose a specific non-English language, fetch curated iconic TV shows for that language via TVmaze first
+      if (lList.length && primaryLang !== 'en') {
+        const seeds = TV_LANG_SEEDS[primaryLang] || [LANGUAGE_NAMES[primaryLang] || primaryLang];
+        const seedBatches = await Promise.allSettled(
+          seeds.slice(0, 6).map(term => fetchCatalogApi('tv-search', { q: term }))
+        );
+        seedBatches.forEach(res => {
+          if (res.status !== 'fulfilled' || !Array.isArray(res.value)) return;
+          const first = res.value.find(r => r && r.show && r.show.image);
+          const s = normalizeTvMazeShow(first && first.show);
+          if (!s || existingIds.has(s.id)) return;
+          s.language = primaryLang;
+          s.languageLabel = LANGUAGE_NAMES[primaryLang] || s.languageLabel;
+          existingIds.add(s.id);
+          state.tvShowsCache.push(s);
+          addedMatches += 1;
+        });
+      }
+
+      // Also scan popular TVmaze catalog pages for general / genre / platform discovery
+      for (let step = 0; step < 3 && addedMatches < 12; step++) {
         state.tvPage += 1;
         try {
           const rawShows = await fetchCatalogApi('tv-popular', { page: state.tvPage });
@@ -1616,22 +1650,15 @@ async function loadMoreCategoryTitles(userTriggered = true) {
       }
 
       if (addedMatches === 0 && (gList.length || pList.length || lList.length)) {
-        const qParts = [
-          lList[0] ? LANGUAGE_NAMES[lList[0]] : '',
-          pList[0] ? PROVIDER_NAMES[pList[0]] : '',
-          gList[0] ? GENRE_MAP[gList[0]] : ''
-        ].filter(Boolean);
-        if (qParts.length) {
+        const searchTerm = (lList[0] && LANGUAGE_NAMES[lList[0]]) || (gList[0] && GENRE_MAP[gList[0]]) || (pList[0] && PROVIDER_NAMES[pList[0]]) || '';
+        if (searchTerm) {
           try {
-            const searchRes = await fetchCatalogApi('tv-search', { q: qParts.join(' ') });
+            const searchRes = await fetchCatalogApi('tv-search', { q: searchTerm });
             if (Array.isArray(searchRes)) {
-              searchRes.map(r => normalizeTvMazeShow(r && r.show)).filter(Boolean).forEach(s => {
+              searchRes.map(r => normalizeTvMazeShow(r && r.show)).filter(Boolean).slice(0, 8).forEach(s => {
                 if (!existingIds.has(s.id)) {
                   if (gList.length && GENRE_MAP[primaryGenre] && !s.genres.includes(GENRE_MAP[primaryGenre])) {
                     s.genres = [GENRE_MAP[primaryGenre], ...s.genres];
-                  }
-                  if (pList.length && PROVIDER_NAMES[primaryPlatform]) {
-                    s.platforms = [PROVIDER_NAMES[primaryPlatform], ...(s.platforms || [])];
                   }
                   if (lList.length) {
                     s.language = primaryLang;
@@ -1646,6 +1673,7 @@ async function loadMoreCategoryTitles(userTriggered = true) {
         }
       }
     } else {
+      const sig = getFilterSignature();
       const currentOffset = state.discoverOffsets[sig] || 0;
       state.discoverOffsets[sig] = currentOffset + 1;
 
@@ -1671,7 +1699,6 @@ async function loadMoreCategoryTitles(userTriggered = true) {
 
         const tid = w.trailer_id || VERIFIED_TRAILER_IDS[(w.title || '').toLowerCase()] || '';
         const poster = w.poster || (tid ? getYtThumbUrl(tid, 'mqdefault') : '');
-        if (!poster && !tid) return;
 
         existingTitles.add(normTitle);
 
@@ -1795,13 +1822,20 @@ function applyLocalFiltersAndRender() {
     startIdx = TRENDING_MOVIE_COUNT + PAGE_SIZE + (state.currentPage - 2) * PAGE_SIZE;
   }
   const visibleItems = filtered.slice(startIdx, startIdx + PAGE_SIZE);
-  renderMoviesGrid(visibleItems);
+  if (state.isLoadingMore && visibleItems.length === 0) {
+    showLoadingGrid();
+  } else {
+    renderMoviesGrid(visibleItems);
+  }
   if (els.moviesCount) {
     const startNum = filtered.length ? startIdx + 1 : 0;
     const endNum = startIdx + visibleItems.length;
-    els.moviesCount.textContent = filtered.length
+    const baseText = filtered.length
       ? `Showing ${startNum}\u2013${endNum} of ${filtered.length} titles`
-      : 'Showing 0 titles';
+      : (state.isLoadingMore ? 'Loading matching titles...' : 'Showing 0 titles');
+    els.moviesCount.textContent = (state.isLoadingMore && filtered.length)
+      ? `${baseText} \u00b7 Finding more...`
+      : baseText;
   }
   if (!state.searchQuery && visibleItems.length && state.currentPage === 1) {
     syncSpotlightWithTrending(visibleItems);

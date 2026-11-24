@@ -187,18 +187,20 @@ const DISCOVER_GENRE_TERMS = {
 
 const DISCOVER_LANG_TERMS = {
   all: { term: '', label: 'English', code: 'en' },
-  en: { term: 'American British', label: 'English', code: 'en' },
-  ko: { term: 'South Korean', label: 'Korean', code: 'ko' },
-  hi: { term: 'Hindi Indian Bollywood', label: 'Hindi', code: 'hi' },
-  ur: { term: 'Pakistani Urdu', label: 'Urdu', code: 'ur' },
+  en: { term: '(American OR British)', label: 'English', code: 'en' },
+  ko: { term: '(Korean OR "South Korean")', label: 'Korean', code: 'ko' },
+  hi: { term: '(Hindi OR Bollywood)', label: 'Hindi', code: 'hi' },
+  ur: { term: '(Pakistani OR Urdu)', label: 'Urdu', code: 'ur' },
   ja: { term: 'Japanese', label: 'Japanese', code: 'ja' },
   tr: { term: 'Turkish', label: 'Turkish', code: 'tr' },
-  ta: { term: 'Tamil Indian', label: 'Tamil', code: 'ta' },
-  ml: { term: 'Malayalam Indian', label: 'Malayalam', code: 'ml' },
+  ta: { term: 'Tamil', label: 'Tamil', code: 'ta' },
+  ml: { term: 'Malayalam', label: 'Malayalam', code: 'ml' },
   de: { term: 'German', label: 'German', code: 'de' },
-  es: { term: 'Spanish', label: 'Spanish', code: 'es' },
+  es: { term: '(Spanish OR Mexican)', label: 'Spanish', code: 'es' },
   fr: { term: 'French', label: 'French', code: 'fr' },
-  ar: { term: 'Arabic', label: 'Arabic', code: 'ar' }
+  ar: { term: '(Arabic OR Egyptian OR Lebanese)', label: 'Arabic', code: 'ar' },
+  it: { term: 'Italian', label: 'Italian', code: 'it' },
+  zh: { term: '(Chinese OR Mandarin OR Cantonese)', label: 'Chinese', code: 'zh' }
 };
 
 const DISCOVER_PLATFORM_TERMS = {
@@ -273,18 +275,43 @@ async function handleMovieDiscover(genreKey, langKey, platformKey, offsetNum) {
   const lCfg = DISCOVER_LANG_TERMS[langKey] || DISCOVER_LANG_TERMS.all;
   const pCfg = DISCOVER_PLATFORM_TERMS[platformKey] || DISCOVER_PLATFORM_TERMS.all;
 
-  const queryParts = ['hastemplate:"Infobox film"', lCfg.term, pCfg.term, gCfg.term, 'film'].filter(Boolean);
-  const searchTerm = queryParts.join(' ');
-  const gsrOffset = Math.max(0, offsetNum * 14);
+  const fetchWikiFilmBatch = async (parts, limit = 18, offset = 0) => {
+    const searchTerm = parts.filter(Boolean).join(' ');
+    const wikiUrl = `https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=${encodeURIComponent(searchTerm)}&gsrlimit=${limit}&gsroffset=${offset}&prop=pageimages|extracts|pageprops&piprop=thumbnail&pithumbsize=500&pilicense=any&exintro=1&explaintext=1&exsentences=3&format=json&origin=*`;
+    const data = await fetchJson(wikiUrl);
+    const raw = (data && data.query && data.query.pages) ? Object.values(data.query.pages) : [];
+    return raw
+      .filter(p => p && p.title && !NON_FILM_TITLE_RE.test(p.title))
+      .sort((a, b) => (a.index || 99) - (b.index || 99));
+  };
 
-  const wikiUrl = `https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=${encodeURIComponent(searchTerm)}&gsrlimit=16&gsroffset=${gsrOffset}&prop=pageimages|extracts|pageprops&piprop=thumbnail&pithumbsize=500&pilicense=any&exintro=1&explaintext=1&exsentences=3&format=json&origin=*`;
-  const data = await fetchJson(wikiUrl);
-  let pages = (data && data.query && data.query.pages) ? Object.values(data.query.pages) : [];
+  const gsrOffset = Math.max(0, offsetNum * 16);
+  const genreTerm = genreKey === 'all' ? '' : gCfg.term;
+  // Platform terms like "Netflix" rarely appear in Wikipedia film infoboxes alongside regional languages; only include when no language/genre narrows it down
+  const includePlatformTerm = langKey === 'all' && genreKey === 'all' && platformKey !== 'all';
+  let pages = await fetchWikiFilmBatch(
+    ['hastemplate:"Infobox film"', lCfg.term, includePlatformTerm ? pCfg.term : '', genreTerm || gCfg.term, 'film'],
+    20,
+    gsrOffset
+  );
 
-  pages = pages
-    .filter(p => p && p.title && !NON_FILM_TITLE_RE.test(p.title))
-    .sort((a, b) => (a.index || 99) - (b.index || 99))
-    .slice(0, 12);
+  // Fallback: if combined language + genre query returns fewer than 6 films, broaden to language + film
+  if (pages.length < 6 && (lCfg.term || genreTerm)) {
+    const broader = await fetchWikiFilmBatch(
+      ['hastemplate:"Infobox film"', lCfg.term || genreTerm, 'film'],
+      20,
+      gsrOffset
+    );
+    const seenIds = new Set(pages.map(p => p.pageid));
+    broader.forEach(p => {
+      if (!seenIds.has(p.pageid)) {
+        seenIds.add(p.pageid);
+        pages.push(p);
+      }
+    });
+  }
+
+  pages = pages.slice(0, 14);
 
   const qids = pages.map(p => p.pageprops && p.pageprops.wikibase_item).filter(Boolean);
   let entities = {};
@@ -344,8 +371,8 @@ async function handleMovieDiscover(genreKey, langKey, platformKey, offsetNum) {
     });
   }
 
-  // Verify or resolve official 16:9 YouTube trailer thumbnails (> 2500 bytes, never gray 120x90 placeholder) for all items
-  await Promise.all(rawItems.map(async (item) => {
+  // Verify official 16:9 YouTube trailer thumbnails for top candidates; keep verified YouTube OR Wikipedia artwork so niche languages never collapse to 0-1 results
+  await Promise.all(rawItems.slice(0, 12).map(async (item, idx) => {
     if (item.trailer_id) {
       const checkedUrl = await verifyYoutubeThumbUrl(item.trailer_id);
       if (checkedUrl) {
@@ -354,20 +381,21 @@ async function handleMovieDiscover(genreKey, langKey, platformKey, offsetNum) {
       }
       item.trailer_id = '';
     }
-    const resolved = await resolveQuickTrailer(`${item.title} ${item.languageLabel !== 'English' ? item.languageLabel : ''}`.trim(), item.year);
-    if (resolved) {
-      item.trailer_id = resolved.id;
-      item.thumbUrl = resolved.thumbUrl;
+    if (idx < 8 || !item.wikiThumb) {
+      const resolved = await resolveQuickTrailer(`${item.title} ${item.languageLabel !== 'English' ? item.languageLabel : ''}`.trim(), item.year);
+      if (resolved) {
+        item.trailer_id = resolved.id;
+        item.thumbUrl = resolved.thumbUrl;
+      }
     }
   }));
 
-  // Only return items with a verified non-placeholder 16:9 trailer thumbnail so cards never show gray 3-dot boxes or mismatched heights
   const results = rawItems
-    .filter(item => Boolean(item.trailer_id && item.thumbUrl))
+    .filter(item => Boolean(item.thumbUrl || item.wikiThumb || item.overview))
     .map(item => ({
       ...item,
-      poster: item.thumbUrl,
-      backdrop: item.thumbUrl
+      poster: item.thumbUrl || item.wikiThumb || '',
+      backdrop: item.thumbUrl || item.wikiThumb || ''
     }));
 
   return jsonResponse(200, {

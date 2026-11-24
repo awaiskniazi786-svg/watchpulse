@@ -3116,6 +3116,11 @@ function setupEventListeners() {
       if (s === 4) {
         await computeHeroMatches();
         renderHeroInlineResults();
+        const firstMatch = resultsWrap && resultsWrap.querySelector('.hero-match-card');
+        const scrollTarget = firstMatch || resultsWrap;
+        if (scrollTarget) {
+          requestAnimationFrame(() => scrollTarget.scrollIntoView({ behavior: 'smooth', block: 'center' }));
+        }
         trackEvent('watchpulse_inline_finder_complete', {
           company: heroFinderState.company,
           mood: heroFinderState.mood,

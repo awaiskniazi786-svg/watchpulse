@@ -1037,6 +1037,13 @@
         if (pushAnalytics) {
           trackEvent('watchpulse_finder_quiz', { company: sel.company, mood: sel.mood, time: sel.time, format: sel.format, lang: sel.lang, mode: sel.mode });
         }
+
+        const firstResultEl = resultsEl.querySelector('.mf-top3-card, .mf-result-card') || resultsEl;
+        if (firstResultEl) {
+          requestAnimationFrame(function () {
+            firstResultEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          });
+        }
       }
 
       bindGroup(companyBox);

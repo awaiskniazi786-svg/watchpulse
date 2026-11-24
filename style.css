@@ -173,7 +173,8 @@ html[data-theme="light"] .navbar.is-scrolled {
 }
 
 /* Razor-thin Royal Purple Scroll Progress Hairline (GPU compositor scaleX) */
-.navbar::after {
+.navbar::after,
+.app-header::after {
   content: '';
   position: absolute;
   left: 0;
@@ -188,7 +189,8 @@ html[data-theme="light"] .navbar.is-scrolled {
 }
 
 @supports (animation-timeline: scroll()) {
-  .navbar::after {
+  .navbar::after,
+  .app-header::after {
     transform: scaleX(0);
     animation: wpScrollProgress linear both;
     animation-timeline: scroll(root block);
@@ -5672,9 +5674,49 @@ html[data-theme="light"] .quiz-card {
   transform: scaleX(1);
 }
 
+/* Restraint-First Editorial Subpage & Step Micro-Motion */
+.hero-step-panel:not(.hidden) {
+  animation: wpStepSettle 0.18s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes wpStepSettle {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 6px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.page-btn:active:not(.is-disabled),
+.focus-shortcut-chip:active,
+.guide-preview-card:active {
+  transform: scale(0.98);
+}
+
+.guide-preview-card.reveal-on-scroll,
+.editorial-review-block.reveal-on-scroll {
+  opacity: 0;
+  transform: translate3d(0, 12px, 0);
+  transition: opacity 0.36s cubic-bezier(0.22, 1, 0.36, 1), transform 0.36s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(var(--stagger-idx, 0) * 50ms);
+}
+
+.guide-preview-card.reveal-on-scroll.is-visible,
+.editorial-review-block.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .navbar::after {
+  .navbar::after,
+  .app-header::after {
     animation-timeline: none !important;
+  }
+  .hero-step-panel:not(.hidden) {
+    animation: none !important;
   }
   .reveal-on-scroll,
   .movie-card.card-wave-ready {

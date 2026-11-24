@@ -3596,7 +3596,7 @@ function initScrollRevealAnimations() {
   if (seoFaqEl) seoFaqEl.style.setProperty('--stagger-idx', '1');
 
   const targets = document.querySelectorAll(
-    '.focus-guides-section, .focus-guide-card, .watchlist-strip, .hero-section, .hero-preview-col, .seo-content-section, .seo-intro-col, .seo-faq, .seo-keyword-box, .app-footer'
+    '.focus-guides-section, .focus-guide-card, .watchlist-strip, .hero-section, .hero-preview-col, .bottom-mood-picks-strip, .seo-content-section, .seo-intro-col, .seo-faq, .seo-keyword-box, .app-footer'
   );
 
   const observer = new IntersectionObserver((entries, obs) => {

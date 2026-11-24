@@ -133,8 +133,62 @@
     banner.classList.remove('hidden');
   };
 
+  function initSubpageMotion() {
+    if (document.querySelector('.navbar')) return; // Homepage owns its own scroll choreography via app.js
+    var headerEl = document.querySelector('.app-header');
+    var supportsScrollTimeline = typeof CSS !== 'undefined' && CSS.supports && CSS.supports('animation-timeline', 'scroll()');
+    if (headerEl) {
+      var ticking = false;
+      var updateHeaderProgress = function () {
+        ticking = false;
+        var y = window.scrollY || window.pageYOffset || 0;
+        headerEl.classList.toggle('is-scrolled', y > 24);
+        if (!supportsScrollTimeline) {
+          var docH = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+          headerEl.style.setProperty('--wp-scroll-progress', String(Math.min(1, Math.max(0, y / docH))));
+        }
+      };
+      window.addEventListener('scroll', function () {
+        if (!ticking) {
+          ticking = true;
+          window.requestAnimationFrame(updateHeaderProgress);
+        }
+      }, { passive: true });
+      updateHeaderProgress();
+    }
+
+    var prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced || typeof IntersectionObserver === 'undefined') return;
+
+    document.querySelectorAll('.guide-preview-card').forEach(function (card, i) {
+      card.style.setProperty('--stagger-idx', String(i % 4));
+    });
+
+    var targets = document.querySelectorAll('.guide-preview-card, .editorial-review-block, .app-footer');
+    if (!targets.length) return;
+
+    var observer = new IntersectionObserver(function (entries, obs) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.06, rootMargin: '0px 0px -20px 0px' });
+
+    var vh = window.innerHeight || 900;
+    targets.forEach(function (el) {
+      var rect = el.getBoundingClientRect();
+      if (rect.top > vh * 0.94) {
+        el.classList.add('reveal-on-scroll');
+        observer.observe(el);
+      }
+    });
+  }
+
   function initSharedConsent() {
     ensureThemeToggleButton();
+    initSubpageMotion();
     var banner = ensureBannerElement();
     bindBannerButtons(banner);
 

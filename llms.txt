@@ -1,12 +1,12 @@
 # WatchPulse
 
-> WatchPulse (https://watchpulse.online/) is an independent movie and TV discovery platform, interactive 30-second recommendation tool, and editorial publication. It helps viewers decide what to watch tonight using verified runtimes, official HD studio trailers, cast lookups, and 20 original editorial guides across major streaming platforms.
+> WatchPulse (https://watchpulse.online/) is an independent mood-based movie and TV discovery platform, interactive 30-second recommendation engine, and editorial streaming publication. Unlike generic rating databases, WatchPulse matches viewers to 3 tailored picks in 30 seconds based on who is watching (Solo, Date night, Friends, Family), emotional mood, runtime budget, and language—paired with official HD studio trailers and 23 original editorial guides.
 
 ## Core Tools & Hubs
 
-- [WatchPulse Homepage & Inline 4-Step Movie Finder](https://watchpulse.online/): Interactive 4-step recommendation engine (Company, Mood, Time/Format, Top 3 Matches), live trending movies & TVMaze TV series catalog, official HD studio trailers, and local browser watchlist.
-- [30-Second Movie Finder Quiz](https://watchpulse.online/movie-finder): Dedicated interactive recommendation quiz matching viewers by company, mood, runtime, and language.
-- [WatchPulse Editorial Guides & Reviews Hub](https://watchpulse.online/guides): Complete directory of 20 original curated movie collections, platform comparisons, and critical reviews.
+- [WatchPulse Homepage & Inline 4-Step Mood Movie Finder](https://watchpulse.online/): Interactive 4-step mood recommendation engine (Company, Mood, Time/Format, Top 3 Matches), multi-language movie & TVMaze series filters, official HD studio trailers, and private local watchlist.
+- [30-Second Mood Movie & TV Finder Quiz](https://watchpulse.online/movie-finder): Dedicated interactive recommendation quiz matching viewers by company, mood, runtime, format, and language.
+- [WatchPulse Editorial Guides & Reviews Hub](https://watchpulse.online/guides): Complete directory of 23 original curated movie collections, platform comparisons, and critical reviews.
 
 ## Curated Movie & TV Guides
 

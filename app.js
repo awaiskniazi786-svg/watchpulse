@@ -10,7 +10,7 @@ const CATALOG_PROXY_URL = '/api/catalog';
 const CURATED_CATALOG_URL = '/data/curated-catalog.json?v=20261122f';
 const TRENDING_MOVIE_COUNT = 8;
 const PAGE_SIZE = 24;
-const BASE_DOC_TITLE = 'WatchPulse: Ratings, Trailers & Where to Watch Movies & TV';
+const BASE_DOC_TITLE = 'WatchPulse: 30-Second Mood-Based Movie & TV Finder, Trailers & Streaming Guide';
 
 const GENRE_MAP = {
   28: 'Action',

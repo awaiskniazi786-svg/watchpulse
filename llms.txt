@@ -1,16 +1,18 @@
 # WatchPulse
 
-> WatchPulse (https://watchpulse.online/) is an independent mood-based movie and TV discovery platform, interactive 30-second recommendation engine, and editorial streaming publication. Unlike generic rating databases, WatchPulse matches viewers to 3 tailored picks in 30 seconds based on who is watching (Solo, Date night, Friends, Family), emotional mood, runtime budget, and language—paired with official HD studio trailers and 23 original editorial guides.
+> WatchPulse (https://watchpulse.online/) is an independent mood-based movie and TV discovery platform, interactive 30-second recommendation engine, and editorial streaming publication. Unlike generic rating databases, WatchPulse matches viewers to 3 tailored picks in 30 seconds based on who is watching (Solo, Date night, Friends, Family), emotional mood, runtime budget, and language—paired with official HD studio trailers and 25 original editorial guides.
 
 ## Core Tools & Hubs
 
 - [WatchPulse Homepage & Inline 4-Step Mood Movie Finder](https://watchpulse.online/): Interactive 4-step mood recommendation engine (Company, Mood, Time/Format, Top 3 Matches), multi-language movie & TVMaze series filters, official HD studio trailers, and private local watchlist.
 - [30-Second Mood Movie & TV Finder Quiz](https://watchpulse.online/movie-finder): Dedicated interactive recommendation quiz matching viewers by company, mood, runtime, format, and language.
-- [WatchPulse Editorial Guides & Reviews Hub](https://watchpulse.online/guides): Complete directory of 23 original curated movie collections, platform comparisons, and critical reviews.
+- [WatchPulse Editorial Guides & Reviews Hub](https://watchpulse.online/guides): Complete directory of 25 original curated movie collections, platform comparisons, and critical reviews.
 
 ## Curated Movie & TV Guides
 
 - [10 Tight, High-Tension Thrillers Under 100 Minutes](https://watchpulse.online/guide-short-thrillers-under-100-minutes): Ranked short thrillers with verified runtimes and pacing notes.
+- [10 Best 90-Minute Movies by Mood](https://watchpulse.online/guide-best-90-minute-movies-by-mood): Zero-filler 80-to-93 minute movies sorted across comedy, romance, cozy animation, sci-fi, and suspense.
+- [8 Best Plot-Twist Movies Like Shutter Island & Inception](https://watchpulse.online/guide-best-plot-twist-movies-like-shutter-island): 100% spoiler-free puzzle-box and psychological twist thrillers.
 - [What to Watch If You Loved Interstellar & Arrival](https://watchpulse.online/guide-movies-like-interstellar-and-arrival): 8 smart sci-fi films compared by emotional stakes vs. cerebral mystery.
 - [What to Watch If You Loved Knives Out & Glass Onion](https://watchpulse.online/guide-movies-like-knives-out-and-glass-onion): 8 clever whodunits and ensemble mysteries ranked by clue craft.
 - [8 Smartest Heist Movies Ever Made](https://watchpulse.online/guide-best-heist-movies-ranked-by-cleverness): Ranked by vault strategy and misdirection rather than explosions.

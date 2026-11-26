@@ -34,3 +34,12 @@
 
 /google30de6ee3c3e21c8c.html
   X-Robots-Tag: noindex, nofollow
+
+/movie/*
+  X-Robots-Tag: noindex, follow
+
+/tv/*
+  X-Robots-Tag: noindex, follow
+
+/api/*
+  X-Robots-Tag: noindex, nofollow

@@ -43,7 +43,8 @@
       var hasPageParam = rawPage !== null;
       var parsedPage = (rawPage && /^\d+$/.test(rawPage)) ? parseInt(rawPage, 10) : 1;
       var isPaginated = hasPageParam && (parsedPage !== 1 || !/^\d+$/.test(rawPage));
-      if (isPaginated || p.has('q') || p.has('genre') || p.has('lang') || p.has('region') || p.has('type')) {
+      var isSpaItem = /^\/(movie|tv)(\/|$)/i.test(window.location.pathname);
+      if (isSpaItem || isPaginated || p.has('q') || p.has('genre') || p.has('lang') || p.has('region') || p.has('type') || p.has('watchlist')) {
         var m = document.getElementById('dynamicRobotsMeta');
         if (m) m.content = 'noindex, follow';
         var c = document.getElementById('canonicalLink');

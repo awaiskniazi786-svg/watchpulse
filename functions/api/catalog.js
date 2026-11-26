@@ -7,7 +7,7 @@
  * - Enforces explicit action allowlist + Cloudflare Edge caching
  */
 
-const USER_AGENT = 'WatchPulse/2.1 (https://watchpulse.online; awaiskniazi786@gmail.com)';
+const USER_AGENT = 'WatchPulse/2.1 (https://watchpulse.online; contact@watchpulse.online)';
 
 const FILM_INSTANCE_IDS = new Set([
   'Q11424',    // film

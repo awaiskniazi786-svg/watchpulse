@@ -1,7 +1,7 @@
 {
-  "name": "WatchPulse — Ratings, Trailers & Where to Watch Movies & TV",
+  "name": "WatchPulse — 30-Second Mood Movie & TV Finder, Trailers & Guides",
   "short_name": "WatchPulse",
-  "description": "WatchPulse is the premier movie and TV discovery platform. Watch official HD trailers, compare ratings and runtimes, take the 30-second Movie Finder Quiz, and explore 20+ original streaming guides.",
+  "description": "WatchPulse is a free 30-second mood-based movie and TV discovery platform. Match your mood, watch official HD trailers, compare runtimes, and explore 27 original streaming guides.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0C0B12",

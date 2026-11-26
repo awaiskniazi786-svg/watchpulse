@@ -3,5 +3,6 @@ Allow: /
 
 User-agent: *
 Allow: /
+Disallow: /api/
 
 Sitemap: https://watchpulse.online/sitemap.xml

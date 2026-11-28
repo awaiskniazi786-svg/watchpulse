@@ -4373,13 +4373,14 @@ html[data-theme="light"] .similar-chip-rating {
   top: 0;
   z-index: 100;
   background: var(--glass-bg);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--border);
   padding: 0 clamp(20px, 2.2vw, 40px);
   min-height: 68px;
   display: flex;
   align-items: center;
+  transform: translateZ(0);
 }
 
 .header-container {
@@ -4778,8 +4779,9 @@ html[data-theme="light"] .guide-preview-card:hover {
 }
 
 .guide-hero-figure {
-  margin: 18px 0 24px;
-  border-radius: 16px;
+  margin: 16px 0 22px;
+  max-width: 680px;
+  border-radius: 14px;
   overflow: hidden;
   border: 1px solid var(--border);
   background: var(--bg);
@@ -4788,12 +4790,22 @@ html[data-theme="light"] .guide-preview-card:hover {
 .guide-hero-img {
   display: block;
   width: 100%;
-  aspect-ratio: 16 / 9;
+  height: 300px;
   object-fit: cover;
-  height: auto;
+  object-position: center;
+  transform: scale(1.16);
+}
+
+@media (max-width: 640px) {
+  .guide-hero-img {
+    height: 200px;
+  }
 }
 
 .guide-hero-caption {
+  position: relative;
+  z-index: 1;
+  background: var(--surface);
   padding: 10px 14px;
   font-size: 0.78rem;
   color: var(--muted);

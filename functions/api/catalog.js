@@ -606,7 +606,8 @@ async function handleLiveTrendingTv() {
   rawEntries.forEach(entry => {
     const show = (entry && entry._embedded && entry._embedded.show) || (entry && entry.show) || null;
     if (!show || !show.id || !show.name || !show.image) return;
-    if (/^(News|Sports|Talk Show|Game Show|Variety|Award Show)$/i.test(show.type || '')) return;
+    if (!/^(Scripted|Animation)$/i.test(show.type || '')) return;
+    if ((show.weight || 0) < 70) return;
     const prev = byId.get(show.id);
     if (!prev || (show.weight || 0) > (prev.weight || 0)) {
       byId.set(show.id, show);

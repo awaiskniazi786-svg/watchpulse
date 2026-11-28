@@ -5868,13 +5868,29 @@ html[data-theme="light"] .quiz-card {
 .modal-backdrop:not(.hidden) .modal-card,
 .modal-backdrop:not(.hidden) .quiz-card,
 .trailer-modal-backdrop:not(.hidden) .trailer-container {
-  animation: modalSpringIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: modalSpringIn 0.38s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.modal-backdrop:not(.hidden) .modal-backdrop-img {
+  animation: wpBackdropZoomSettle 0.56s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.modal-backdrop:not(.hidden) .modal-hero-content {
+  animation: wpModalSectionIn 0.38s cubic-bezier(0.16, 1, 0.3, 1) 0.06s both;
+}
+
+.modal-backdrop:not(.hidden) .modal-body {
+  animation: wpModalSectionIn 0.42s cubic-bezier(0.16, 1, 0.3, 1) 0.12s both;
+}
+
+.modal-backdrop:not(.hidden) .modal-similar-section {
+  animation: wpModalSectionIn 0.42s cubic-bezier(0.16, 1, 0.3, 1) 0.18s both;
 }
 
 @keyframes modalSpringIn {
   0% {
     opacity: 0;
-    transform: translate3d(0, 14px, 0) scale(0.97);
+    transform: translate3d(0, 26px, 0) scale(0.955);
   }
   100% {
     opacity: 1;
@@ -5882,20 +5898,105 @@ html[data-theme="light"] .quiz-card {
   }
 }
 
-/* Editorial Crossfade when Switching Top-5 Trending Spotlight Tabs */
-.hero-content.is-switching,
-.hero-preview-frame.is-switching {
-  animation: wpSpotlightSwap 0.26s cubic-bezier(0.16, 1, 0.3, 1) both;
+@keyframes wpBackdropZoomSettle {
+  0% {
+    transform: scale(1.07);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
-@keyframes wpSpotlightSwap {
+@keyframes wpModalSectionIn {
   0% {
-    opacity: 0.25;
-    transform: translate3d(0, 6px, 0);
+    opacity: 0;
+    transform: translate3d(0, 12px, 0);
   }
   100% {
     opacity: 1;
     transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Search Dropdown, Filter Drawer & Bookmark Spring Motion */
+.search-dropdown:not(.hidden) {
+  animation: wpDropdownIn 0.26s cubic-bezier(0.16, 1, 0.3, 1) both;
+  transform-origin: top center;
+}
+
+@keyframes wpDropdownIn {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -8px, 0) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+.rfd-backdrop:not(.hidden) .rfd-panel {
+  animation: wpDrawerSlideIn 0.34s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes wpDrawerSlideIn {
+  0% {
+    opacity: 0.6;
+    transform: translate3d(100%, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.card-bookmark-btn.active {
+  animation: wpBookmarkPop 0.34s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes wpBookmarkPop {
+  0% { transform: scale(0.78); }
+  55% { transform: scale(1.16); }
+  100% { transform: scale(1); }
+}
+
+/* Unified Tactile Press Feedback Across All Home Interactive Surfaces */
+.movie-card:active,
+.focus-guide-card:active,
+.hero-match-card:active,
+.similar-card:active {
+  transform: scale(0.972) !important;
+  transition-duration: 0.1s;
+}
+
+.btn:active,
+.media-type-btn:active,
+.hero-spot-tab:active,
+.nav-btn:active,
+.mobile-nav-item:active,
+.focus-instant-btn:active,
+.card-trailer-pill:active,
+.card-bookmark-btn:active {
+  transform: scale(0.955);
+  transition-duration: 0.1s;
+}
+
+/* Editorial Crossfade when Switching Top-5 Trending Spotlight Tabs */
+.hero-content.is-switching,
+.hero-preview-frame.is-switching {
+  animation: wpSpotlightSwap 0.34s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes wpSpotlightSwap {
+  0% {
+    opacity: 0.15;
+    transform: translate3d(0, 10px, 0) scale(0.988);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
   }
 }
 
@@ -6127,7 +6228,19 @@ html[data-theme="light"] .quiz-card {
   .focus-opt-card.just-selected,
   #heroQuizContinueBtn.cta-nudge,
   #heroQuizContinueBtn.cta-nudge .hero-chevron-next,
-  .hero-meta-swap {
+  .hero-meta-swap,
+  .modal-backdrop:not(.hidden) .modal-card,
+  .modal-backdrop:not(.hidden) .quiz-card,
+  .trailer-modal-backdrop:not(.hidden) .trailer-container,
+  .modal-backdrop:not(.hidden) .modal-backdrop-img,
+  .modal-backdrop:not(.hidden) .modal-hero-content,
+  .modal-backdrop:not(.hidden) .modal-body,
+  .modal-backdrop:not(.hidden) .modal-similar-section,
+  .search-dropdown:not(.hidden),
+  .rfd-backdrop:not(.hidden) .rfd-panel,
+  .hero-content.is-switching,
+  .hero-preview-frame.is-switching,
+  .card-bookmark-btn.active {
     animation: none !important;
   }
   .reveal-on-scroll,

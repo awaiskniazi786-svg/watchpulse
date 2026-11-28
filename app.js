@@ -3170,18 +3170,43 @@ function setupEventListeners() {
       });
     };
 
+    let heroStepTransitionToken = 0;
+
     const setHeroStep = async (nextStep) => {
       const prevStep = heroFinderState.step;
-      heroFinderState.step = Math.max(1, Math.min(4, nextStep));
+      const targetStep = Math.max(1, Math.min(4, nextStep));
+      const isBack = targetStep < prevStep;
+      const token = ++heroStepTransitionToken;
+      const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const outgoingPanel = prevStep !== targetStep ? stepPanels[prevStep] : null;
+
+      heroFinderState.step = targetStep;
       const s = heroFinderState.step;
-      const isBack = s < prevStep;
+
+      if (progressBarEl) {
+        progressBarEl.querySelectorAll('.focus-progress-item').forEach(btn => {
+          const bStep = Number(btn.dataset.gotoStep) || 1;
+          btn.classList.toggle('active', bStep <= s);
+          const seg = btn.querySelector('.focus-progress-seg');
+          if (seg) seg.classList.toggle('active', bStep <= s);
+        });
+      }
+
+      if (outgoingPanel && !outgoingPanel.classList.contains('hidden') && !prefersReduced) {
+        outgoingPanel.classList.remove('step-dir-back', 'step-dir-forward', 'is-exiting-forward', 'is-exiting-back');
+        void outgoingPanel.offsetWidth;
+        outgoingPanel.classList.add(isBack ? 'is-exiting-back' : 'is-exiting-forward');
+        await new Promise(resolve => setTimeout(resolve, 145));
+        if (token !== heroStepTransitionToken) return;
+      }
 
       stepPanels.forEach((panel, idx) => {
         if (!panel) return;
-        panel.classList.remove('step-dir-back', 'step-dir-forward');
+        panel.classList.remove('step-dir-back', 'step-dir-forward', 'is-exiting-forward', 'is-exiting-back');
         const isTarget = idx === s;
         panel.classList.toggle('hidden', !isTarget);
         if (isTarget) {
+          panel.querySelectorAll('.focus-opt-card.just-selected').forEach(c => c.classList.remove('just-selected'));
           void panel.offsetWidth;
           panel.classList.add(isBack ? 'step-dir-back' : 'step-dir-forward');
         }
@@ -3200,15 +3225,6 @@ function setupEventListeners() {
         stepMetaEl.classList.remove('hero-meta-swap');
         void stepMetaEl.offsetWidth;
         stepMetaEl.classList.add('hero-meta-swap');
-      }
-
-      if (progressBarEl) {
-        progressBarEl.querySelectorAll('.focus-progress-item').forEach(btn => {
-          const bStep = Number(btn.dataset.gotoStep) || 1;
-          btn.classList.toggle('active', bStep <= s);
-          const seg = btn.querySelector('.focus-progress-seg');
-          if (seg) seg.classList.toggle('active', bStep <= s);
-        });
       }
 
       if (backBtn) backBtn.classList.toggle('hidden', s === 1);

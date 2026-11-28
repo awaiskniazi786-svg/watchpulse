@@ -658,15 +658,27 @@ html[data-theme="light"] .navbar.is-scrolled {
 }
 
 .focus-progress-seg {
+  position: relative;
+  overflow: hidden;
   height: 3px;
   width: 100%;
   border-radius: 999px;
   background: var(--border);
-  transition: background 0.25s ease;
 }
 
-.focus-progress-seg.active {
+.focus-progress-seg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
   background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.focus-progress-seg.active::after {
+  transform: scaleX(1);
 }
 
 /* Inline 4-Step Hero Panel Transition & Top-3 Match Cards */
@@ -823,6 +835,7 @@ html[data-theme="light"] .navbar.is-scrolled {
 
 .focus-opt-card {
   position: relative;
+  overflow: hidden;
   background: var(--card-inset-bg);
   border: 1px solid var(--border);
   border-radius: 12px;
@@ -834,12 +847,22 @@ html[data-theme="light"] .navbar.is-scrolled {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  transition: var(--transition);
+  transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.22s ease, background-color 0.22s ease, box-shadow 0.24s ease;
+}
+
+.focus-opt-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 20%, rgba(167, 139, 250, 0.16) 50%, transparent 80%);
+  transform: translate3d(-120%, 0, 0);
+  pointer-events: none;
 }
 
 .focus-opt-card:hover {
   border-color: var(--border-strong);
   background: var(--surface-elevated);
+  transform: translate3d(0, -1.5px, 0);
 }
 
 .focus-opt-card.selected {
@@ -5810,82 +5833,125 @@ html[data-theme="light"] .quiz-card {
 }
 
 .focus-opt-card.just-selected {
-  animation: wpOptionSelectPop 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  animation: wpOptionSelectPop 0.34s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.focus-opt-card.just-selected::after {
+  animation: wpCardSweep 0.48s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.focus-opt-card.just-selected .focus-opt-check svg polyline {
+  stroke-dasharray: 26;
+  stroke-dashoffset: 26;
+  animation: wpCheckDraw 0.32s cubic-bezier(0.22, 1, 0.36, 1) 0.05s forwards;
+}
+
+@keyframes wpCardSweep {
+  0% { transform: translate3d(-120%, 0, 0); }
+  100% { transform: translate3d(120%, 0, 0); }
+}
+
+@keyframes wpCheckDraw {
+  0% { stroke-dashoffset: 26; }
+  100% { stroke-dashoffset: 0; }
 }
 
 @keyframes wpOptionSelectPop {
-  0% { transform: scale(0.975); }
-  55% { transform: scale(1.018); }
+  0% { transform: scale(0.97); }
+  55% { transform: scale(1.02); }
   100% { transform: scale(1); }
 }
 
+/* Two-Stage Choreographed Exit -> Staggered Enter for Hero Mood Finder */
+.hero-step-panel.is-exiting-forward {
+  animation: wpStepExitForward 0.15s cubic-bezier(0.4, 0, 1, 1) forwards !important;
+  pointer-events: none;
+}
+
+.hero-step-panel.is-exiting-back {
+  animation: wpStepExitBack 0.15s cubic-bezier(0.4, 0, 1, 1) forwards !important;
+  pointer-events: none;
+}
+
 .hero-step-panel:not(.hidden) {
-  animation: wpStepSlideForward 0.24s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: none;
 }
 
-.hero-step-panel.step-dir-back:not(.hidden) {
-  animation: wpStepSlideBack 0.24s cubic-bezier(0.22, 1, 0.36, 1) both;
+.hero-step-panel.step-dir-forward:not(.hidden) .focus-opt-card {
+  animation: wpOptionEnterForward 0.42s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.hero-step-panel:not(.hidden) .focus-opt-card {
-  animation: wpOptionCardIn 0.26s cubic-bezier(0.22, 1, 0.36, 1) both;
+.hero-step-panel.step-dir-back:not(.hidden) .focus-opt-card {
+  animation: wpOptionEnterBack 0.42s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.hero-step-panel:not(.hidden) .focus-opt-card:nth-child(2) { animation-delay: 35ms; }
-.hero-step-panel:not(.hidden) .focus-opt-card:nth-child(3) { animation-delay: 70ms; }
-.hero-step-panel:not(.hidden) .focus-opt-card:nth-child(4) { animation-delay: 105ms; }
+.hero-step-panel:not(.hidden) .focus-opt-card:nth-child(1) { animation-delay: 0ms; }
+.hero-step-panel:not(.hidden) .focus-opt-card:nth-child(2) { animation-delay: 65ms; }
+.hero-step-panel:not(.hidden) .focus-opt-card:nth-child(3) { animation-delay: 130ms; }
+.hero-step-panel:not(.hidden) .focus-opt-card:nth-child(4) { animation-delay: 195ms; }
 
 .hero-step-panel:not(.hidden) .focus-opt-card.just-selected {
-  animation: wpOptionSelectPop 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  animation: wpOptionSelectPop 0.34s cubic-bezier(0.22, 1, 0.36, 1);
   animation-delay: 0ms;
 }
 
 .hero-step-panel:not(.hidden) .hero-match-card {
-  animation: wpOptionCardIn 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: wpOptionEnterForward 0.44s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.hero-step-panel:not(.hidden) .hero-match-card:nth-child(2) { animation-delay: 55ms; }
-.hero-step-panel:not(.hidden) .hero-match-card:nth-child(3) { animation-delay: 110ms; }
+.hero-step-panel:not(.hidden) .hero-match-card:nth-child(2) { animation-delay: 85ms; }
+.hero-step-panel:not(.hidden) .hero-match-card:nth-child(3) { animation-delay: 170ms; }
 
-@keyframes wpStepSlideForward {
+@keyframes wpStepExitForward {
   0% {
-    opacity: 0;
-    transform: translate3d(18px, 0, 0);
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
   }
   100% {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-@keyframes wpStepSlideBack {
-  0% {
     opacity: 0;
-    transform: translate3d(-18px, 0, 0);
-  }
-  100% {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
+    transform: translate3d(-22px, 0, 0) scale(0.985);
   }
 }
 
-@keyframes wpOptionCardIn {
+@keyframes wpStepExitBack {
+  0% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(22px, 0, 0) scale(0.985);
+  }
+}
+
+@keyframes wpOptionEnterForward {
   0% {
     opacity: 0;
-    transform: translate3d(0, 8px, 0);
+    transform: translate3d(28px, 10px, 0) scale(0.96);
   }
   100% {
     opacity: 1;
-    transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes wpOptionEnterBack {
+  0% {
+    opacity: 0;
+    transform: translate3d(-28px, 10px, 0) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
   }
 }
 
 .hero-meta-swap {
-  animation: wpMetaFade 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+  animation: wpMetaFade 0.32s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @keyframes wpMetaFade {
-  0% { opacity: 0.25; transform: translate3d(0, 4px, 0); }
+  0% { opacity: 0; transform: translate3d(0, 6px, 0); }
   100% { opacity: 1; transform: translate3d(0, 0, 0); }
 }
 

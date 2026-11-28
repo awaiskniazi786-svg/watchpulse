@@ -114,6 +114,12 @@ textarea {
   outline-offset: 2px;
 }
 
+@media (hover: none) {
+  .search-kbd-hint {
+    display: none !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -5307,9 +5313,9 @@ html[data-theme="light"] .guide-preview-card:hover {
   }
 
   .mobile-header-theme-btn {
-    width: 32px;
-    height: 32px;
-    border-radius: 8px;
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
   }
 
   .search-bar-wrap {
@@ -5318,10 +5324,16 @@ html[data-theme="light"] .guide-preview-card:hover {
     flex-basis: 100%;
   }
 
+  input,
+  select,
+  textarea,
+  .search-bar-wrap input {
+    font-size: 16px !important;
+  }
+
   .search-bar-wrap input {
     padding: 0 42px 0 38px;
-    font-size: 0.84rem;
-    height: 40px;
+    height: 42px;
   }
 
   .search-icon {
@@ -5329,27 +5341,69 @@ html[data-theme="light"] .guide-preview-card:hover {
   }
 
   .main-content {
-    padding: 14px 12px 96px;
+    padding: 14px 12px calc(96px + env(safe-area-inset-bottom, 0px));
   }
 
   .app-header {
-    min-height: auto;
-    padding: 14px 20px;
+    min-height: 56px;
+    padding: 8px 14px;
   }
 
   .app-header .header-container {
-    flex-wrap: wrap;
-    gap: 10px;
+    flex-wrap: nowrap;
+    gap: 8px;
+  }
+
+  .app-header .logo {
+    font-size: 0.86rem;
+    gap: 7px;
+    flex-shrink: 0;
+  }
+
+  .app-header .nav-actions {
+    flex-wrap: nowrap;
+    gap: 6px;
+    min-width: 0;
   }
 
   .app-header .nav-actions .btn {
-    height: 36px;
-    padding: 0 12px;
-    font-size: 0.78rem;
+    height: 34px;
+    padding: 0 10px;
+    font-size: 0.74rem;
+    white-space: nowrap;
+    max-width: 126px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .app-header .theme-toggle-btn {
+    width: 38px;
+    height: 38px;
+    flex: 0 0 38px;
   }
 
   .app-footer {
-    padding: 24px 20px 92px;
+    padding: 24px 18px calc(92px + env(safe-area-inset-bottom, 0px));
+  }
+
+  body:not(:has(.mobile-bottom-nav)) .app-footer {
+    padding: 28px 18px calc(32px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .footer-links {
+    gap: 10px 14px;
+  }
+
+  .footer-link {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    padding: 4px 0;
+  }
+
+  .footer-brand p,
+  .footer-attribution p {
+    font-size: 0.84rem;
+    line-height: 1.55;
   }
 
   .focus-quiz-card {
@@ -5389,7 +5443,7 @@ html[data-theme="light"] .guide-preview-card:hover {
 
   .focus-opt-card {
     padding: 10px 10px;
-    min-height: 44px;
+    min-height: 46px;
     border-radius: 10px;
   }
 
@@ -5408,12 +5462,26 @@ html[data-theme="light"] .guide-preview-card:hover {
     gap: 8px;
   }
 
-  .focus-primary-btn,
+  .focus-back-btn {
+    flex: 0 0 auto;
+    height: 42px;
+    padding: 0 16px;
+    font-size: 0.84rem;
+  }
+
+  .focus-primary-btn {
+    flex: 1 1 140px;
+    min-width: 130px;
+    height: 42px;
+    padding: 0 14px;
+    font-size: 0.84rem;
+    white-space: nowrap;
+  }
+
   .focus-instant-btn {
-    flex: 1 1 0;
-    min-width: 120px;
+    flex: 1 0 100%;
     height: 40px;
-    padding: 0 12px;
+    padding: 0 14px;
     font-size: 0.82rem;
     white-space: nowrap;
   }
@@ -5515,12 +5583,19 @@ html[data-theme="light"] .guide-preview-card:hover {
     width: 100%;
     max-width: 100%;
     border-radius: 24px 24px 0 0;
-    padding: 12px 18px 26px;
+    padding: 12px 18px calc(22px + env(safe-area-inset-bottom, 0px));
     z-index: 1100;
     box-shadow: 0 -18px 48px rgba(0, 0, 0, 0.85);
-    max-height: 82vh;
+    max-height: 82dvh;
     display: flex;
     flex-direction: column;
+  }
+
+  .right-filter-drawer {
+    width: 100%;
+    max-width: 100%;
+    height: 100dvh;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
   }
 
   .sheet-drag-handle {
@@ -5648,16 +5723,27 @@ html[data-theme="light"] .guide-preview-card:hover {
   }
 
   .card-poster-wrap .card-bookmark-btn {
-    width: 26px;
-    height: 26px;
+    width: 34px;
+    height: 34px;
     top: 6px;
     left: 6px;
-    border-radius: 6px;
+    border-radius: 8px;
+  }
+
+  .card-poster-wrap .card-bookmark-btn::after {
+    content: '';
+    position: absolute;
+    inset: -5px;
   }
 
   .card-poster-wrap .card-bookmark-btn svg {
-    width: 12px;
-    height: 12px;
+    width: 14px;
+    height: 14px;
+  }
+
+  .pagination-chevron-btn {
+    width: 40px;
+    height: 40px;
   }
 
   .card-poster-wrap .trending-rank-badge,
@@ -5779,6 +5865,18 @@ html[data-theme="light"] .guide-preview-card:hover {
     gap: 18px;
   }
 
+  .hero-preview-col {
+    order: -1;
+  }
+
+  .hero-desc,
+  .hero-synopsis {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
   .seo-intro-col,
   .seo-faq {
     padding: 20px 18px;
@@ -5791,7 +5889,26 @@ html[data-theme="light"] .guide-preview-card:hover {
 
   .modal-card {
     border-radius: 24px 24px 0 0;
-    max-height: 90vh;
+    max-height: 90dvh;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  .modal-close,
+  .trailer-close {
+    width: 44px;
+    height: 44px;
+    top: 10px;
+    right: 10px;
+  }
+
+  .trailer-modal-backdrop {
+    padding: 12px;
+  }
+
+  .trailer-container {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 14px;
   }
 
   .modal-hero-header {
@@ -5800,7 +5917,7 @@ html[data-theme="light"] .guide-preview-card:hover {
   }
 
   .modal-body {
-    padding: 18px 18px 24px;
+    padding: 18px 18px calc(24px + env(safe-area-inset-bottom, 0px));
     gap: 18px;
   }
 
@@ -5842,9 +5959,36 @@ html[data-theme="light"] .guide-preview-card:hover {
     border-radius: 14px;
   }
 
+  body:not(:has(.mobile-bottom-nav)) .cookie-banner {
+    bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+  }
+
   .cookie-banner-actions {
     width: 100%;
     justify-content: flex-end;
+  }
+
+  .table-responsive,
+  .comparison-table-wrap {
+    -webkit-overflow-scrolling: touch;
+    position: relative;
+    border-radius: 10px;
+    mask-image: linear-gradient(to right, #000 0%, #000 92%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, #000 0%, #000 92%, transparent 100%);
+  }
+
+  .editorial-table,
+  .comparison-table {
+    min-width: 540px;
+  }
+
+  .editorial-table th:first-child,
+  .editorial-table td:first-child,
+  .comparison-table th:first-child,
+  .comparison-table td:first-child {
+    white-space: nowrap;
+    font-weight: 600;
+    color: var(--text);
   }
 
   .mobile-bottom-nav {
@@ -6380,6 +6524,12 @@ html[data-theme="light"] .quiz-card {
 .editorial-review-block.reveal-on-scroll.is-visible {
   opacity: 1;
   transform: translate3d(0, 0, 0);
+}
+
+@media (hover: none) {
+  .search-kbd-hint {
+    display: none !important;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

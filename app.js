@@ -828,16 +828,8 @@ function renderHero(item, rankNum = 1) {
   }
   if (els.heroOverview) els.heroOverview.textContent = resolved.editorial_note || resolved.overview;
 
-  const heroContentEl = document.querySelector('#heroSection .hero-content');
-  const heroPreviewCardBtn = document.getElementById('heroPreviewCardBtn');
-  [heroContentEl, heroPreviewCardBtn].forEach(el => {
-    if (!el) return;
-    el.classList.remove('is-switching');
-    void el.offsetWidth;
-    el.classList.add('is-switching');
-  });
-
   const heroPreviewImg = document.getElementById('heroPreviewImg');
+  const heroPreviewCardBtn = document.getElementById('heroPreviewCardBtn');
   if (heroPreviewImg) {
     heroPreviewImg.dataset.triedMq = '';
     heroPreviewImg.onerror = () => {

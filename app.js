@@ -1060,19 +1060,19 @@ function renderPaginationBar(currentPage, totalPages) {
     ? `<a class="page-btn page-nav" href="${escapeHtml(buildPageUrl(prevPage))}" data-page="${prevPage}" aria-label="Previous page">${prevChev}<span>Prev</span></a>`
     : `<span class="page-btn page-nav is-disabled" aria-disabled="true">${prevChev}<span>Prev</span></span>`;
 
-  const numbersHtml = pageTokens.map(token => {
-    if (token === '...') {
-      return '<span class="page-ellipsis" aria-hidden="true">&hellip;</span>';
-    }
-    const isActive = token === currentPage;
-    return `<a class="page-btn page-num ${isActive ? 'active' : ''}" href="${escapeHtml(buildPageUrl(token))}" data-page="${token}"${isActive ? ' aria-current="page"' : ''} aria-label="Page ${token}">${token}</a>`;
-  }).join('');
+  const totalBtnHtml = currentPage < totalPages
+    ? `<a class="page-btn page-num page-total-link" href="${escapeHtml(buildPageUrl(totalPages))}" data-page="${totalPages}" aria-label="Jump to last page (${totalPages})">${totalPages}</a>`
+    : `<span class="page-btn page-num active" aria-current="page">${totalPages}</span>`;
+
+  const centerHtml = currentPage < totalPages
+    ? `<span class="page-btn page-num active" aria-current="page">${currentPage}</span><span class="page-of-sep" aria-hidden="true">/</span>${totalBtnHtml}`
+    : `<a class="page-btn page-num page-total-link" href="${escapeHtml(buildPageUrl(1))}" data-page="1" aria-label="Jump to first page">1</a><span class="page-of-sep" aria-hidden="true">/</span>${totalBtnHtml}`;
 
   const nextHtml = currentPage < totalPages
     ? `<a class="page-btn page-nav" href="${escapeHtml(buildPageUrl(nextPage))}" data-page="${nextPage}" aria-label="Next page"><span>Next</span>${nextChev}</a>`
     : `<span class="page-btn page-nav is-disabled" aria-disabled="true"><span>Next</span>${nextChev}</span>`;
 
-  els.paginationBar.innerHTML = `<div class="pagination-track">${prevHtml}<span class="page-divider" aria-hidden="true"></span><div class="pagination-nums">${numbersHtml}</div><span class="page-divider" aria-hidden="true"></span>${nextHtml}</div><span class="page-status-pill">Page ${currentPage} of ${totalPages}</span>`;
+  els.paginationBar.innerHTML = `<div class="pagination-track">${prevHtml}<span class="page-divider" aria-hidden="true"></span><div class="pagination-nums">${centerHtml}</div><span class="page-divider" aria-hidden="true"></span>${nextHtml}</div>`;
   els.paginationBar.classList.remove('hidden');
 
   els.paginationBar.querySelectorAll('a.page-btn[data-page]').forEach(link => {

@@ -2682,10 +2682,12 @@ html[data-theme="light"] .pagination-track {
   pointer-events: none;
 }
 
-.page-ellipsis {
+.page-ellipsis,
+.page-of-sep {
   color: var(--muted-subtle);
   font-size: 0.85rem;
-  width: 26px;
+  font-weight: 500;
+  width: 18px;
   text-align: center;
   user-select: none;
 }

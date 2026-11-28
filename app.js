@@ -1065,12 +1065,12 @@ function renderPaginationBar(currentPage, totalPages) {
   const pageTokens = getPaginationNumbers(currentPage, totalPages);
   const prevPage = Math.max(1, currentPage - 1);
   const nextPage = Math.min(totalPages, currentPage + 1);
-  const prevChev = '<svg class="page-chev page-chev-prev" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg>';
-  const nextChev = '<svg class="page-chev page-chev-next" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>';
+  const prevChev = '<svg class="page-chev page-chev-prev" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg>';
+  const nextChev = '<svg class="page-chev page-chev-next" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>';
 
   const prevHtml = currentPage > 1
-    ? `<a class="page-btn page-nav" href="${escapeHtml(buildPageUrl(prevPage))}" data-page="${prevPage}" aria-label="Previous page">${prevChev}<span>Prev</span></a>`
-    : `<span class="page-btn page-nav is-disabled" aria-disabled="true">${prevChev}<span>Prev</span></span>`;
+    ? `<a class="page-btn page-nav" href="${escapeHtml(buildPageUrl(prevPage))}" data-page="${prevPage}" title="Previous page" aria-label="Previous page">${prevChev}</a>`
+    : `<span class="page-btn page-nav is-disabled" aria-disabled="true" aria-label="Previous page">${prevChev}</span>`;
 
   const totalBtnHtml = currentPage < totalPages
     ? `<a class="page-btn page-num page-total-link" href="${escapeHtml(buildPageUrl(totalPages))}" data-page="${totalPages}" aria-label="Jump to last page (${totalPages})">${totalPages}</a>`
@@ -1081,8 +1081,8 @@ function renderPaginationBar(currentPage, totalPages) {
     : `<a class="page-btn page-num page-total-link" href="${escapeHtml(buildPageUrl(1))}" data-page="1" aria-label="Jump to first page">1</a><span class="page-of-sep" aria-hidden="true">/</span>${totalBtnHtml}`;
 
   const nextHtml = currentPage < totalPages
-    ? `<a class="page-btn page-nav" href="${escapeHtml(buildPageUrl(nextPage))}" data-page="${nextPage}" aria-label="Next page"><span>Next</span>${nextChev}</a>`
-    : `<span class="page-btn page-nav is-disabled" aria-disabled="true"><span>Next</span>${nextChev}</span>`;
+    ? `<a class="page-btn page-nav" href="${escapeHtml(buildPageUrl(nextPage))}" data-page="${nextPage}" title="Next page" aria-label="Next page">${nextChev}</a>`
+    : `<span class="page-btn page-nav is-disabled" aria-disabled="true" aria-label="Next page">${nextChev}</span>`;
 
   els.paginationBar.innerHTML = `<div class="pagination-track">${prevHtml}<span class="page-divider" aria-hidden="true"></span><div class="pagination-nums">${centerHtml}</div><span class="page-divider" aria-hidden="true"></span>${nextHtml}</div>`;
   els.paginationBar.classList.remove('hidden');

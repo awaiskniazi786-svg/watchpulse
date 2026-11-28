@@ -2648,7 +2648,8 @@ html[data-theme="light"] .pagination-track {
 }
 
 .page-btn.page-nav {
-  padding: 0 13px;
+  width: 36px;
+  padding: 0;
   color: var(--text);
 }
 

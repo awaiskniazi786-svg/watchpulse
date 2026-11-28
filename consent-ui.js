@@ -97,8 +97,8 @@
         '<p>WatchPulse uses local storage, analytics, and Google AdSense cookies to remember your watchlist, measure traffic, and keep our editorial guide free. Read our <a href="/privacy">Privacy Policy</a>.</p>' +
       '</div>' +
       '<div class="cookie-banner-actions">' +
-        '<button id="cookieAcceptBtn" type="button" class="btn primary-btn" style="padding: 0.45rem 1.1rem; font-size: 0.85rem;">Accept All</button>' +
-        '<button id="cookieDeclineBtn" type="button" class="btn secondary-btn" style="padding: 0.45rem 0.9rem; font-size: 0.85rem;">Necessary Only</button>' +
+        '<button id="cookieAcceptBtn" type="button" class="btn primary-btn">Accept All</button>' +
+        '<button id="cookieDeclineBtn" type="button" class="btn secondary-btn">Necessary Only</button>' +
       '</div>';
     document.body.appendChild(aside);
     return aside;

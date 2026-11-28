@@ -1449,8 +1449,12 @@ html[data-theme="light"] .rfd-footer {
 
 html[data-theme="light"] .search-dropdown,
 html[data-theme="light"] .cookie-banner {
-  background: rgba(255, 255, 255, 0.98);
-  box-shadow: 0 20px 44px rgba(19, 17, 28, 0.14);
+  background: rgba(255, 255, 255, 0.96);
+  border-color: rgba(124, 58, 237, 0.18);
+  box-shadow:
+    0 20px 44px rgba(19, 17, 28, 0.14),
+    0 4px 12px rgba(19, 17, 28, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
 html[data-theme="light"] .guide-preview-card {
@@ -4365,6 +4369,84 @@ html[data-theme="light"] .similar-chip-rating {
   line-height: 1.6;
 }
 
+@keyframes wpCookieRise {
+  0% {
+    opacity: 0;
+    transform: translate3d(-50%, 18px, 0) scale(0.985);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(-50%, 0, 0) scale(1);
+  }
+}
+
+.cookie-banner {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translate3d(-50%, 0, 0);
+  z-index: 950;
+  width: min(860px, calc(100% - 32px));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 16px 20px;
+  border-radius: 16px;
+  background: rgba(18, 16, 30, 0.92);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid rgba(167, 139, 250, 0.24);
+  box-shadow:
+    0 24px 56px rgba(0, 0, 0, 0.62),
+    0 4px 14px rgba(0, 0, 0, 0.32),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  animation: wpCookieRise 0.36s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.cookie-banner.hidden {
+  display: none !important;
+}
+
+.cookie-banner-content {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.cookie-banner-content p {
+  margin: 0;
+  font-size: 0.84rem;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.cookie-banner-content a {
+  color: var(--accent-3);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.cookie-banner-content a:hover {
+  color: var(--text);
+}
+
+.cookie-banner-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.cookie-banner-actions .btn {
+  height: 36px;
+  padding: 0 16px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  border-radius: 10px;
+  white-space: nowrap;
+}
+
 /* ==========================================================================
    Subpages Compatibility (Guides, Reviews, Legal, About, Contact)
    ========================================================================== */
@@ -5740,11 +5822,13 @@ html[data-theme="light"] .guide-preview-card:hover {
   }
 
   .cookie-banner {
-    bottom: 78px;
+    bottom: calc(76px + env(safe-area-inset-bottom, 0px));
     flex-direction: column;
     align-items: flex-start;
-    padding: 14px 16px;
+    gap: 14px;
+    padding: 16px;
     width: calc(100% - 24px);
+    border-radius: 14px;
   }
 
   .cookie-banner-actions {

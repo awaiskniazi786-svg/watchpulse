@@ -1,3 +1,4 @@
 # Clean Movie/TV SPA Rewrites (Cloudflare Pages automatically routes /api/catalog to functions/api/catalog.js)
+/guide    /guides     301
 /movie/*  /index.html  200
 /tv/*     /index.html  200

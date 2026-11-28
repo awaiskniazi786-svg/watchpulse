@@ -2300,16 +2300,19 @@ function updateModalWatchlistBtn() {
 
   if (els.modalWatchlistBtn) {
     els.modalWatchlistBtn.classList.toggle('is-active', inList);
-    const labelSpan = els.modalWatchlistBtn.querySelector('span');
-    if (labelSpan) labelSpan.textContent = inList ? 'Saved' : 'Watchlist';
-    else els.modalWatchlistBtn.textContent = inList ? 'Saved' : 'Watchlist';
+    els.modalWatchlistBtn.setAttribute('aria-pressed', inList ? 'true' : 'false');
+    const wlLabel = inList ? 'Saved in Watchlist' : 'Add to Watchlist';
+    els.modalWatchlistBtn.setAttribute('aria-label', wlLabel);
+    els.modalWatchlistBtn.setAttribute('data-tooltip', wlLabel);
   }
 
   const watchedBtn = document.getElementById('modalWatchedBtn');
   if (watchedBtn) {
     watchedBtn.classList.toggle('is-active', isWatched);
-    const wSpan = watchedBtn.querySelector('span');
-    if (wSpan) wSpan.textContent = isWatched ? 'Watched' : 'Mark Watched';
+    watchedBtn.setAttribute('aria-pressed', isWatched ? 'true' : 'false');
+    const wLabel = isWatched ? 'Watched' : 'Mark as Watched';
+    watchedBtn.setAttribute('aria-label', wLabel);
+    watchedBtn.setAttribute('data-tooltip', wLabel);
   }
 }
 
@@ -3422,10 +3425,11 @@ function setupEventListeners() {
       const shareUrl = `${window.location.origin}/?type=${state.currentModalItem.media_type}&q=${encodeURIComponent(state.currentModalItem.title)}`;
       try {
         await navigator.clipboard.writeText(shareUrl);
-        const shareSpan = els.modalShareBtn.querySelector('span');
-        if (shareSpan) shareSpan.textContent = 'Link Copied!'; else els.modalShareBtn.textContent = 'Link Copied!';
+        els.modalShareBtn.classList.add('is-copied');
+        els.modalShareBtn.setAttribute('data-tooltip', 'Link Copied!');
         setTimeout(() => {
-          if (shareSpan) shareSpan.textContent = 'Share Link'; else els.modalShareBtn.textContent = 'Share Link';
+          els.modalShareBtn.classList.remove('is-copied');
+          els.modalShareBtn.setAttribute('data-tooltip', 'Share link');
         }, 1800);
       } catch (_) {}
     });

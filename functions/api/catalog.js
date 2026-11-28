@@ -591,6 +591,45 @@ async function handleLiveTrendingMovies() {
   });
 }
 
+async function handleLiveTrendingTv() {
+  const [webRes, usRes] = await Promise.allSettled([
+    fetchJson('https://api.tvmaze.com/schedule/web'),
+    fetchJson('https://api.tvmaze.com/schedule?country=US')
+  ]);
+
+  const rawEntries = [
+    ...((webRes.status === 'fulfilled' && Array.isArray(webRes.value)) ? webRes.value : []),
+    ...((usRes.status === 'fulfilled' && Array.isArray(usRes.value)) ? usRes.value : [])
+  ];
+
+  const byId = new Map();
+  rawEntries.forEach(entry => {
+    const show = (entry && entry._embedded && entry._embedded.show) || (entry && entry.show) || null;
+    if (!show || !show.id || !show.name || !show.image) return;
+    if (/^(News|Sports|Talk Show|Game Show|Variety|Award Show)$/i.test(show.type || '')) return;
+    const prev = byId.get(show.id);
+    if (!prev || (show.weight || 0) > (prev.weight || 0)) {
+      byId.set(show.id, show);
+    }
+  });
+
+  const ranked = Array.from(byId.values())
+    .sort((a, b) => {
+      const aScore = (a.weight || 0) * 1.4 + ((a.rating && a.rating.average) ? a.rating.average * 6 : 36);
+      const bScore = (b.weight || 0) * 1.4 + ((b.rating && b.rating.average) ? b.rating.average * 6 : 36);
+      return bScore - aScore;
+    })
+    .slice(0, 12);
+
+  return jsonResponse(200, {
+    updatedAt: new Date().toISOString(),
+    results: ranked
+  }, {
+    'Cache-Control': 'public, max-age=1800, s-maxage=3600, stale-while-revalidate=21600',
+    'X-WatchPulse-Edge': 'Cloudflare-Pages-Live-TV-Trending'
+  });
+}
+
 async function handleWikiDetails(qid, wikiTitle) {
   const wdUrl = `https://www.wikidata.org/w/api.php?action=wbgetentities&ids=${encodeURIComponent(qid)}&props=claims|labels|descriptions&languages=en&format=json`;
   const [wdData, wikiData] = await Promise.all([
@@ -748,6 +787,10 @@ export async function onRequestGet(context) {
 
     if (action === 'movie-trending-live') {
       return await handleLiveTrendingMovies();
+    }
+
+    if (action === 'tv-trending-live') {
+      return await handleLiveTrendingTv();
     }
 
     if (action === 'movie-discover') {

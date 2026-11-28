@@ -359,6 +359,18 @@ async function fetchCatalogApi(action, params = {}) {
     }
   } catch (_) {}
 
+  if (action === 'tv-trending-live') {
+    const res = await fetch('https://api.tvmaze.com/schedule/web');
+    if (!res.ok) return { results: [] };
+    const entries = await res.json();
+    const seen = new Map();
+    (Array.isArray(entries) ? entries : []).forEach(e => {
+      const s = (e && e._embedded && e._embedded.show) || (e && e.show);
+      if (s && s.id && s.image && !seen.has(s.id)) seen.set(s.id, s);
+    });
+    const results = Array.from(seen.values()).sort((a, b) => (b.weight || 0) - (a.weight || 0)).slice(0, 12);
+    return { results };
+  }
   if (action === 'tv-popular') {
     const page = params.page || 0;
     const res = await fetch(`https://api.tvmaze.com/shows?page=${page}`);
@@ -882,7 +894,7 @@ function getActiveLanguagesList() {
 function buildCatalogHeading() {
   if (state.showingWatchlist) return 'Your Private Watchlist';
   if (state.searchQuery) return `Search Results for "${state.searchQuery}"`;
-  const typeLabel = state.mediaType === 'tv' ? 'Popular TV Series (Live via TVmaze)' : 'Curated Editorial Movies';
+  const typeLabel = state.mediaType === 'tv' ? 'Trending TV Series' : 'Curated Editorial Movies';
   const parts = [];
   const gList = getActiveGenresList().map(g => GENRE_MAP[g]).filter(Boolean);
   const pList = getActiveProvidersList().map(p => PROVIDER_NAMES[p]).filter(Boolean);
@@ -1321,8 +1333,13 @@ async function loadCuratedMovies() {
 async function loadTvCatalog(append = false) {
   if (!append && state.mediaType === 'tv') showLoadingGrid();
   try {
-    const rawShows = await fetchCatalogApi('tv-popular', { page: state.tvPage });
-    const normalized = rawShows
+    const [popularRes, liveTrendRes] = await Promise.allSettled([
+      fetchCatalogApi('tv-popular', { page: state.tvPage }),
+      !append ? fetchCatalogApi('tv-trending-live') : Promise.resolve(null)
+    ]);
+
+    const rawShows = (popularRes.status === 'fulfilled' && Array.isArray(popularRes.value)) ? popularRes.value : [];
+    const normalizedPopular = rawShows
       .filter(s => s && s.image && s.rating && s.rating.average)
       .sort((a, b) => (b.weight || 0) - (a.weight || 0))
       .map(normalizeTvMazeShow)
@@ -1330,9 +1347,28 @@ async function loadTvCatalog(append = false) {
 
     if (append) {
       const existingIds = new Set(state.tvShowsCache.map(x => x.id));
-      normalized.forEach(s => { if (!existingIds.has(s.id)) state.tvShowsCache.push(s); });
+      normalizedPopular.forEach(s => { if (!existingIds.has(s.id)) state.tvShowsCache.push(s); });
     } else {
-      state.tvShowsCache = normalized;
+      const liveRaw = (liveTrendRes.status === 'fulfilled' && liveTrendRes.value && Array.isArray(liveTrendRes.value.results))
+        ? liveTrendRes.value.results
+        : [];
+      const normalizedLive = liveRaw.map(normalizeTvMazeShow).filter(Boolean);
+      const seenIds = new Set();
+      const merged = [];
+      normalizedLive.forEach(s => {
+        if (!seenIds.has(s.id)) {
+          seenIds.add(s.id);
+          merged.push(s);
+        }
+      });
+      normalizedPopular.forEach(s => {
+        if (!seenIds.has(s.id)) {
+          seenIds.add(s.id);
+          merged.push(s);
+        }
+      });
+      state.liveTvTrendingSynced = normalizedLive.length > 0;
+      state.tvShowsCache = merged;
     }
 
     if (!state.searchQuery && !state.showingWatchlist && state.mediaType === 'tv') applyLocalFiltersAndRender();
@@ -1766,15 +1802,15 @@ function applyLocalFiltersAndRender() {
     getActiveLanguagesList().length > 0 ||
     state.sortBy !== 'trending';
 
-  const isTrendingMoviesSplit =
-    state.mediaType === 'movie' &&
+  const isTrendingSplit =
+    (state.mediaType === 'movie' || state.mediaType === 'tv') &&
     !state.searchQuery &&
     !state.showingWatchlist &&
     !hasActiveFilters &&
     filtered.length > TRENDING_MOVIE_COUNT;
 
   let totalPages = 1;
-  if (isTrendingMoviesSplit) {
+  if (isTrendingSplit) {
     const remainingAfterP1 = Math.max(0, filtered.length - (TRENDING_MOVIE_COUNT + PAGE_SIZE));
     totalPages = 1 + Math.ceil(remainingAfterP1 / PAGE_SIZE);
   } else {
@@ -1789,14 +1825,16 @@ function applyLocalFiltersAndRender() {
   syncPaginationMetaAndUrl(state.currentPage, { replace: true });
   updateInfiniteLoadBarUI(state.currentPage, totalPages);
 
-  if (isTrendingMoviesSplit && state.currentPage === 1) {
+  if (isTrendingSplit && state.currentPage === 1) {
+    const isTv = state.mediaType === 'tv';
     const trendingItems = filtered.slice(0, TRENDING_MOVIE_COUNT);
     const moreVisibleItems = filtered.slice(TRENDING_MOVIE_COUNT, TRENDING_MOVIE_COUNT + PAGE_SIZE);
     state.displayedItems = [...trendingItems, ...moreVisibleItems];
 
-    if (els.gridTitle) els.gridTitle.textContent = 'Trending Movies';
+    if (els.gridTitle) els.gridTitle.textContent = isTv ? 'Trending TV Series' : 'Trending Movies';
     if (els.moviesCount) {
-      els.moviesCount.textContent = state.liveTrendingSynced
+      const isLiveSynced = isTv ? Boolean(state.liveTvTrendingSynced) : Boolean(state.liveTrendingSynced);
+      els.moviesCount.textContent = isLiveSynced
         ? `Top ${trendingItems.length} \u00b7 Live Today`
         : `Top ${trendingItems.length}`;
     }
@@ -1804,7 +1842,7 @@ function applyLocalFiltersAndRender() {
     renderCardListIntoGrid(els.moviesGrid, trendingItems, { showTrendingRank: true });
 
     if (els.moreMoviesSection) els.moreMoviesSection.classList.remove('hidden');
-    if (els.moreGridTitle) els.moreGridTitle.textContent = 'More Curated Movies';
+    if (els.moreGridTitle) els.moreGridTitle.textContent = isTv ? 'More Live TV Series' : 'More Curated Movies';
     if (els.moreMoviesCount) {
       const startNum = TRENDING_MOVIE_COUNT + 1;
       const endNum = TRENDING_MOVIE_COUNT + moreVisibleItems.length;
@@ -1822,7 +1860,7 @@ function applyLocalFiltersAndRender() {
   }
 
   let startIdx = (state.currentPage - 1) * PAGE_SIZE;
-  if (isTrendingMoviesSplit && state.currentPage >= 2) {
+  if (isTrendingSplit && state.currentPage >= 2) {
     startIdx = TRENDING_MOVIE_COUNT + PAGE_SIZE + (state.currentPage - 2) * PAGE_SIZE;
   }
   const visibleItems = filtered.slice(startIdx, startIdx + PAGE_SIZE);

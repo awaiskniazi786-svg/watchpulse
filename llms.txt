@@ -1,12 +1,12 @@
 # WatchPulse
 
-> WatchPulse (https://watchpulse.online/) is an independent mood-based movie and TV discovery platform, interactive 30-second recommendation engine, and editorial streaming publication. Unlike generic rating databases, WatchPulse matches viewers to 3 tailored picks in 30 seconds based on who is watching (Solo, Date night, Friends, Family), emotional mood, runtime budget, and language—paired with official HD studio trailers and 27 original editorial guides.
+> WatchPulse (https://watchpulse.online/) is an independent mood-based movie and TV discovery platform, interactive 30-second recommendation engine, and editorial streaming publication. Unlike generic rating databases, WatchPulse matches viewers to 3 tailored picks in 30 seconds based on who is watching (Solo, Date night, Friends, Family), emotional mood, runtime budget, and language—paired with official HD studio trailers and 28 original editorial guides.
 
 ## Core Tools & Hubs
 
 - [WatchPulse Homepage & Inline 4-Step Mood Movie Finder](https://watchpulse.online/): Interactive 4-step mood recommendation engine (Company, Mood, Time/Format, Top 3 Matches), multi-language movie & TVMaze series filters, official HD studio trailers, and private local watchlist.
 - [30-Second Mood Movie & TV Finder Quiz](https://watchpulse.online/movie-finder): Dedicated interactive recommendation quiz matching viewers by company, mood, runtime, format, and language.
-- [WatchPulse Editorial Guides & Reviews Hub](https://watchpulse.online/guides): Complete directory of 27 original curated movie collections, platform comparisons, and critical reviews.
+- [WatchPulse Editorial Guides & Reviews Hub](https://watchpulse.online/guides): Complete directory of 28 original curated movie collections, platform comparisons, and critical reviews.
 
 ## Curated Movie & TV Guides
 
@@ -26,9 +26,10 @@
 - [Family & Animated Movies Everyone Actually Enjoys](https://watchpulse.online/guide-family-and-animated-movies-everyone-enjoys): All-ages animated and family films with real craft.
 - [Beginner's Guide to Anime Movies Beyond Studio Ghibli](https://watchpulse.online/guide-beginner-guide-to-anime-movies-beyond-ghibli): Essential anime feature films for newcomers.
 - [Best Mini-Series to Binge in One Weekend](https://watchpulse.online/guide-best-mini-series-to-binge-in-one-weekend): Complete 5-to-8 episode limited series with real endings.
-- [8 Best Pakistani & Urdu Dramas to Watch Legally on YouTube (2026)](https://watchpulse.online/guide-best-pakistani-urdu-dramas-legal-youtube-2026): Complete Urdu television dramas streaming free on verified network YouTube channels.
+- [10 Best Pakistani & Urdu Dramas to Watch Legally on YouTube With English Subtitles (2026)](https://watchpulse.online/guide-best-pakistani-urdu-dramas-legal-youtube-2026): 10 complete Urdu television dramas streaming free on verified network YouTube channels.
 - [10 Best Turkish Series on Netflix & Streaming With English Subtitles (2026)](https://watchpulse.online/guide-best-turkish-series-on-netflix-and-streaming): 10 compact Turkish mysteries, thrillers (Ethos, Persona, Fatma), historical docudramas (Rise of Empires: Ottoman), and epics ranked by episode count and subtitle craft.
 - [10 Best Korean Crime & Thriller Series on Netflix (Beyond Squid Game, 2026)](https://watchpulse.online/guide-best-korean-thrillers-and-crime-dramas-netflix-2026): Self-contained 7-to-16 episode Korean detective procedurals, action noir, and psychological revenge series ranked by binge commitment.
+- [10 Best True Crime Documentaries & Limited Docuseries on Netflix & Streaming (2026)](https://watchpulse.online/guide-best-true-crime-documentaries-and-docuseries-netflix-2026): Zero-filler investigative docuseries and standalone true-crime documentaries ranked by binge time and zero-gore options.
 - [Best Sci-Fi TV Shows Streaming Right Now](https://watchpulse.online/guide-best-sci-fi-tv-shows-streaming-right-now): Top modern sci-fi television series.
 - [8 Mind-Bending Shows & Movies Like Dark](https://watchpulse.online/guide-best-shows-and-movies-like-dark-netflix): Time-loop and puzzle-box mysteries ranked by timeline craft and payoff.
 

@@ -64,6 +64,7 @@ html[data-theme="light"] {
 
 html {
   overflow-x: clip;
+  overscroll-behavior-x: none;
   max-width: 100%;
 }
 
@@ -71,14 +72,12 @@ body {
   background-color: var(--bg);
   background-image: radial-gradient(960px 520px at 88% 0%, rgba(124, 58, 237, 0.18), transparent 65%);
   background-repeat: no-repeat;
-  background-attachment: fixed;
   color: var(--text);
   font-family: var(--font-family);
   font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   line-height: 1.55;
   min-height: 100vh;
   max-width: 100%;
-  overflow-x: clip;
   display: flex;
   flex-direction: column;
   -webkit-font-smoothing: antialiased;
@@ -153,13 +152,14 @@ textarea {
   top: 0;
   z-index: 100;
   background: var(--glass-bg);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--border);
   min-height: 68px;
   display: flex;
   align-items: center;
   padding: 0 clamp(20px, 2.2vw, 40px);
+  transform: translateZ(0);
   transition: box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
 }
 

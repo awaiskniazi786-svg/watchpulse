@@ -3631,7 +3631,8 @@ async function syncLiveTrendingMovies() {
       const rest = state.curatedMovies.filter(m => !seenKeys.has(normalizeForFuzzy(m.title)));
       state.curatedMovies = [...promotedTop, ...rest];
       state.liveTrendingSynced = true;
-      if (!state.showingWatchlist && !state.searchQuery && state.mediaType === 'movie') {
+      const nearTop = (window.scrollY || window.pageYOffset || 0) < 120;
+      if (nearTop && state.currentPage === 1 && !state.showingWatchlist && !state.searchQuery && state.mediaType === 'movie') {
         applyLocalFiltersAndRender();
       }
     }

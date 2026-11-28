@@ -5774,19 +5774,119 @@ html[data-theme="light"] .quiz-card {
 }
 
 /* Restraint-First Editorial Subpage & Step Micro-Motion */
-.hero-step-panel:not(.hidden) {
-  animation: wpStepSettle 0.18s cubic-bezier(0.22, 1, 0.36, 1) both;
+.hero-chevron {
+  flex-shrink: 0;
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-@keyframes wpStepSettle {
+#heroQuizBackBtn:hover .hero-chevron-back,
+#heroQuizBackBtn:focus-visible .hero-chevron-back {
+  transform: translate3d(-3px, 0, 0);
+}
+
+#heroQuizContinueBtn:hover .hero-chevron-next,
+#heroQuizContinueBtn:focus-visible .hero-chevron-next {
+  transform: translate3d(3px, 0, 0);
+}
+
+#heroQuizContinueBtn.cta-nudge {
+  animation: wpContinueNudge 0.44s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+#heroQuizContinueBtn.cta-nudge .hero-chevron-next {
+  animation: wpChevronGlide 0.44s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes wpContinueNudge {
+  0% { transform: scale(1); }
+  35% { transform: scale(1.035); }
+  100% { transform: scale(1); }
+}
+
+@keyframes wpChevronGlide {
+  0% { transform: translate3d(0, 0, 0); }
+  45% { transform: translate3d(5px, 0, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+
+.focus-opt-card.just-selected {
+  animation: wpOptionSelectPop 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes wpOptionSelectPop {
+  0% { transform: scale(0.975); }
+  55% { transform: scale(1.018); }
+  100% { transform: scale(1); }
+}
+
+.hero-step-panel:not(.hidden) {
+  animation: wpStepSlideForward 0.24s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero-step-panel.step-dir-back:not(.hidden) {
+  animation: wpStepSlideBack 0.24s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero-step-panel:not(.hidden) .focus-opt-card {
+  animation: wpOptionCardIn 0.26s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero-step-panel:not(.hidden) .focus-opt-card:nth-child(2) { animation-delay: 35ms; }
+.hero-step-panel:not(.hidden) .focus-opt-card:nth-child(3) { animation-delay: 70ms; }
+.hero-step-panel:not(.hidden) .focus-opt-card:nth-child(4) { animation-delay: 105ms; }
+
+.hero-step-panel:not(.hidden) .focus-opt-card.just-selected {
+  animation: wpOptionSelectPop 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  animation-delay: 0ms;
+}
+
+.hero-step-panel:not(.hidden) .hero-match-card {
+  animation: wpOptionCardIn 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero-step-panel:not(.hidden) .hero-match-card:nth-child(2) { animation-delay: 55ms; }
+.hero-step-panel:not(.hidden) .hero-match-card:nth-child(3) { animation-delay: 110ms; }
+
+@keyframes wpStepSlideForward {
   0% {
     opacity: 0;
-    transform: translate3d(0, 6px, 0);
+    transform: translate3d(18px, 0, 0);
   }
   100% {
     opacity: 1;
     transform: translate3d(0, 0, 0);
   }
+}
+
+@keyframes wpStepSlideBack {
+  0% {
+    opacity: 0;
+    transform: translate3d(-18px, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes wpOptionCardIn {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 8px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.hero-meta-swap {
+  animation: wpMetaFade 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes wpMetaFade {
+  0% { opacity: 0.25; transform: translate3d(0, 4px, 0); }
+  100% { opacity: 1; transform: translate3d(0, 0, 0); }
 }
 
 .page-btn:active:not(.is-disabled),
@@ -5814,7 +5914,13 @@ html[data-theme="light"] .quiz-card {
   .app-header::after {
     animation-timeline: none !important;
   }
-  .hero-step-panel:not(.hidden) {
+  .hero-step-panel:not(.hidden),
+  .hero-step-panel:not(.hidden) .focus-opt-card,
+  .hero-step-panel:not(.hidden) .hero-match-card,
+  .focus-opt-card.just-selected,
+  #heroQuizContinueBtn.cta-nudge,
+  #heroQuizContinueBtn.cta-nudge .hero-chevron-next,
+  .hero-meta-swap {
     animation: none !important;
   }
   .reveal-on-scroll,

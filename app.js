@@ -3171,18 +3171,35 @@ function setupEventListeners() {
     };
 
     const setHeroStep = async (nextStep) => {
+      const prevStep = heroFinderState.step;
       heroFinderState.step = Math.max(1, Math.min(4, nextStep));
       const s = heroFinderState.step;
+      const isBack = s < prevStep;
 
       stepPanels.forEach((panel, idx) => {
-        if (panel) panel.classList.toggle('hidden', idx !== s);
+        if (!panel) return;
+        panel.classList.remove('step-dir-back', 'step-dir-forward');
+        const isTarget = idx === s;
+        panel.classList.toggle('hidden', !isTarget);
+        if (isTarget) {
+          void panel.offsetWidth;
+          panel.classList.add(isBack ? 'step-dir-back' : 'step-dir-forward');
+        }
       });
 
-      if (eyebrowEl) eyebrowEl.textContent = stepEyebrows[s];
+      if (eyebrowEl) {
+        eyebrowEl.textContent = stepEyebrows[s];
+        eyebrowEl.classList.remove('hero-meta-swap');
+        void eyebrowEl.offsetWidth;
+        eyebrowEl.classList.add('hero-meta-swap');
+      }
       if (stepMetaEl) {
         stepMetaEl.textContent = s === 4
           ? `${companyLabels[heroFinderState.company]} \u00b7 ${moodLabels[heroFinderState.mood]} \u00b7 ${timeLabels[heroFinderState.time]}`
           : stepMetaCopy[s];
+        stepMetaEl.classList.remove('hero-meta-swap');
+        void stepMetaEl.offsetWidth;
+        stepMetaEl.classList.add('hero-meta-swap');
       }
 
       if (progressBarEl) {
@@ -3223,9 +3240,15 @@ function setupEventListeners() {
       if (!container) return;
       container.querySelectorAll('.focus-opt-card').forEach(card => {
         card.addEventListener('click', () => {
-          container.querySelectorAll('.focus-opt-card').forEach(c => c.classList.remove('selected'));
-          card.classList.add('selected');
+          container.querySelectorAll('.focus-opt-card').forEach(c => c.classList.remove('selected', 'just-selected'));
+          void card.offsetWidth;
+          card.classList.add('selected', 'just-selected');
           heroFinderState[stateKey] = card.dataset[dataAttr] || heroFinderState[stateKey];
+          if (continueBtn) {
+            continueBtn.classList.remove('cta-nudge');
+            void continueBtn.offsetWidth;
+            continueBtn.classList.add('cta-nudge');
+          }
           if (onChange) onChange(heroFinderState[stateKey]);
         });
       });

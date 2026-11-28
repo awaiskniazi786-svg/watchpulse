@@ -4542,6 +4542,17 @@ html[data-theme="light"] .similar-chip-rating {
   padding: 0 clamp(20px, 2.2vw, 40px);
 }
 
+/* Centered Editorial Reading Column on Guide, Review & Legal Pages
+   (preserves full 1840px widescreen for /guides 4-col grid and /movie-finder wizard) */
+.page-container:not(:has(.editorial-guides-grid)):not(:has(.mf-wizard-layout)) {
+  max-width: 920px;
+}
+
+.page-container:not(:has(.editorial-guides-grid)):not(:has(.mf-wizard-layout)) .legal-section p,
+.page-container:not(:has(.editorial-guides-grid)):not(:has(.mf-wizard-layout)) .legal-section li {
+  max-width: 100%;
+}
+
 .breadcrumb-nav {
   font-size: 0.8rem;
   font-weight: 500;
@@ -4861,8 +4872,8 @@ html[data-theme="light"] .guide-preview-card:hover {
 }
 
 .guide-hero-figure {
-  margin: 18px 0 24px;
-  max-width: 760px;
+  margin: 18px 0 26px;
+  max-width: 100%;
   border-radius: 14px;
   overflow: hidden;
   border: 1px solid var(--border);

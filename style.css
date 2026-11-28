@@ -2584,46 +2584,100 @@ html[data-theme="light"] .card-platform-tag {
 
 .pagination-bar {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 26px;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.pagination-track {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 6px;
+  border-radius: 999px;
+  background: rgba(20, 19, 29, 0.78);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+}
+
+html[data-theme="light"] .pagination-track {
+  background: #FFFFFF;
+  border-color: rgba(109, 40, 217, 0.16);
+  box-shadow: 0 6px 20px rgba(19, 17, 28, 0.06);
+}
+
+.pagination-nums {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.page-divider {
+  width: 1px;
+  height: 18px;
+  background: var(--border);
+  margin: 0 4px;
 }
 
 .page-btn {
-  min-width: 40px;
-  height: 40px;
-  padding: 0 14px;
+  min-width: 36px;
+  height: 36px;
+  padding: 0 12px;
   border-radius: 999px;
-  background: var(--surface);
-  border: 1px solid var(--border);
+  background: transparent;
+  border: none;
   color: var(--muted);
   font-size: 0.84rem;
   font-weight: 600;
   text-decoration: none;
   cursor: pointer;
-  transition: var(--transition);
+  transition: color 0.18s ease, background-color 0.2s ease, transform 0.18s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.22s ease;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 5px;
   font-variant-numeric: tabular-nums;
+}
+
+.page-btn.page-num {
+  width: 36px;
+  padding: 0;
+}
+
+.page-btn.page-nav {
+  padding: 0 13px;
+  color: var(--text);
+}
+
+.page-chev {
+  flex-shrink: 0;
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.page-btn.page-nav:hover:not(.is-disabled) .page-chev-prev {
+  transform: translate3d(-2.5px, 0, 0);
+}
+
+.page-btn.page-nav:hover:not(.is-disabled) .page-chev-next {
+  transform: translate3d(2.5px, 0, 0);
 }
 
 .page-btn:hover:not(.is-disabled):not(.active) {
   color: var(--text);
-  border-color: var(--accent-2);
-  background: var(--selected-bg);
+  background: rgba(167, 139, 250, 0.12);
 }
 
 .page-btn.active {
   background: var(--accent);
-  border-color: var(--accent);
-  color: #fff;
+  color: #FFFFFF;
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.42);
 }
 
 .page-btn.is-disabled {
-  opacity: 0.4;
+  opacity: 0.32;
   cursor: not-allowed;
   pointer-events: none;
 }
@@ -2631,14 +2685,15 @@ html[data-theme="light"] .card-platform-tag {
 .page-ellipsis {
   color: var(--muted-subtle);
   font-size: 0.85rem;
-  padding: 0 4px;
+  width: 26px;
+  text-align: center;
   user-select: none;
 }
 
 .page-status-pill {
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   color: var(--muted-subtle);
-  padding: 0 8px;
+  letter-spacing: 0.01em;
   font-variant-numeric: tabular-nums;
 }
 

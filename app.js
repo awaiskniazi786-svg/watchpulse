@@ -1014,9 +1014,11 @@ function syncPaginationMetaAndUrl(pageNum, options = {}) {
 }
 
 function focusCatalogGridHeader() {
-  const section = document.querySelector('.movies-grid-section');
+  const section = document.querySelector('.browse-section') || document.querySelector('.movies-grid-section');
   const focusTarget = els.gridTitle || section;
-  if (section) {
+  if (typeof smoothScrollToTarget === 'function' && (section || els.gridTitle)) {
+    smoothScrollToTarget(section || els.gridTitle, 84);
+  } else if (section) {
     section.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
   if (focusTarget) {
@@ -1051,24 +1053,26 @@ function renderPaginationBar(currentPage, totalPages) {
   const pageTokens = getPaginationNumbers(currentPage, totalPages);
   const prevPage = Math.max(1, currentPage - 1);
   const nextPage = Math.min(totalPages, currentPage + 1);
+  const prevChev = '<svg class="page-chev page-chev-prev" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg>';
+  const nextChev = '<svg class="page-chev page-chev-next" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>';
 
   const prevHtml = currentPage > 1
-    ? `<a class="page-btn" href="${escapeHtml(buildPageUrl(prevPage))}" data-page="${prevPage}" aria-label="Previous page">&#8592; Prev</a>`
-    : `<span class="page-btn is-disabled" aria-disabled="true">&#8592; Prev</span>`;
+    ? `<a class="page-btn page-nav" href="${escapeHtml(buildPageUrl(prevPage))}" data-page="${prevPage}" aria-label="Previous page">${prevChev}<span>Prev</span></a>`
+    : `<span class="page-btn page-nav is-disabled" aria-disabled="true">${prevChev}<span>Prev</span></span>`;
 
   const numbersHtml = pageTokens.map(token => {
     if (token === '...') {
       return '<span class="page-ellipsis" aria-hidden="true">&hellip;</span>';
     }
     const isActive = token === currentPage;
-    return `<a class="page-btn ${isActive ? 'active' : ''}" href="${escapeHtml(buildPageUrl(token))}" data-page="${token}"${isActive ? ' aria-current="page"' : ''} aria-label="Page ${token}">${token}</a>`;
+    return `<a class="page-btn page-num ${isActive ? 'active' : ''}" href="${escapeHtml(buildPageUrl(token))}" data-page="${token}"${isActive ? ' aria-current="page"' : ''} aria-label="Page ${token}">${token}</a>`;
   }).join('');
 
   const nextHtml = currentPage < totalPages
-    ? `<a class="page-btn" href="${escapeHtml(buildPageUrl(nextPage))}" data-page="${nextPage}" aria-label="Next page">Next &#8594;</a>`
-    : `<span class="page-btn is-disabled" aria-disabled="true">Next &#8594;</span>`;
+    ? `<a class="page-btn page-nav" href="${escapeHtml(buildPageUrl(nextPage))}" data-page="${nextPage}" aria-label="Next page"><span>Next</span>${nextChev}</a>`
+    : `<span class="page-btn page-nav is-disabled" aria-disabled="true"><span>Next</span>${nextChev}</span>`;
 
-  els.paginationBar.innerHTML = `${prevHtml}${numbersHtml}${nextHtml}<span class="page-status-pill">Page ${currentPage} of ${totalPages}</span>`;
+  els.paginationBar.innerHTML = `<div class="pagination-track">${prevHtml}<span class="page-divider" aria-hidden="true"></span><div class="pagination-nums">${numbersHtml}</div><span class="page-divider" aria-hidden="true"></span>${nextHtml}</div><span class="page-status-pill">Page ${currentPage} of ${totalPages}</span>`;
   els.paginationBar.classList.remove('hidden');
 
   els.paginationBar.querySelectorAll('a.page-btn[data-page]').forEach(link => {

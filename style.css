@@ -3379,7 +3379,7 @@ html[data-theme="light"] .hero-preview-frame {
   display: grid;
   grid-template-columns: 1.15fr 1fr;
   gap: 28px;
-  align-items: start;
+  align-items: stretch;
   margin-bottom: 28px;
 }
 
@@ -3389,6 +3389,8 @@ html[data-theme="light"] .hero-preview-frame {
   border-radius: 16px;
   padding: 28px 30px;
   box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
 }
 
 .seo-container h2 {
@@ -3408,10 +3410,14 @@ html[data-theme="light"] .hero-preview-frame {
 
 .seo-intro-col .legal-compliance-card {
   margin-top: 20px;
-  padding: 18px 20px;
+  padding: 20px 22px;
   border-radius: 12px;
   background: var(--card-inset-bg);
   border: 1px solid var(--border);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .seo-intro-col .legal-compliance-card h3 {
